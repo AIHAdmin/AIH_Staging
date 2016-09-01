@@ -1,0 +1,2595 @@
+﻿@using Microsoft.AspNet.Identity
+@model AgingInHome.Models.ProviderListingModel
+@{
+    ViewBag.Title = "ProviderListing";
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+ //   var i = 1;
+
+}
+@*<span hidden="hidden" id="avgrating">@Model.AvgRating</span>*@
+@Html.Hidden("avgrating", Model.AvgRating)
+@Html.Hidden("UserId", User.Identity.GetUserId())
+<style>
+    .imageBox {
+        position: relative;
+        min-height: 250px;
+        min-width: 250px;
+        border: 1px solid #aaa;
+        background: #fff;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        cursor: move;
+    }
+
+        .imageBox .thumbBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            box-sizing: border-box;
+            border: 1px solid rgb(102, 102, 102);
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            background: none repeat scroll 0% 0% transparent;
+        }
+
+        .imageBox .spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+        }
+
+    .crop-model.modal-dialog {
+        left: auto;
+    }
+</style>
+<!-- Main Container -->
+<div class="main-container inner-container">
+    <div class="container" >
+        <h1 class="main-title">MY <span>LISTING1</span></h1>
+
+        <!-- My Listing Section -->
+        <!-- MyListing Sidebar -->
+        @if (Model.ProviderListingId != 0)
+        {
+            <div class="ListingNav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("EditProviderListing", "ProviderListing")" class="lightBlueBg"><i class="fa fa-edit"></i> <span class="hidden-sm hidden-xs">Edit Listing</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="redBg"><i class="fa fa-trash-o"></i> <span class="hidden-sm hidden-xs">Delete Listing</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ViewListing", "ProviderListing", new { CompanyName = Model.CompanyName.Replace(' ','-') })" class="orangeBg dbicon"><i class="fa fa-file-text-o"></i><i aria-hidden="true" class="fa fa-search"></i> <span class="hidden-sm hidden-xs">Preview Listing</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("PromoteYourListing", "ProviderListing", new { ProviderlistingId = Model.ProviderListingId })" class="lightGreenBg"><i class="fa fa-bullhorn"></i> <span class="hidden-sm hidden-xs">Promote Listing</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="blueBg"><i class="fa fa-thumbs-o-up"></i> <span class="hidden-sm hidden-xs">Favorite Detail</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Rating Detail</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Google Analytics</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("PromotionalBudget", "Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Promotional Budget</span></a>
+                    </li>
+                </ul>
+
+
+            </div>
+        }
+        <!-- //MyListing Sidebar -->
+        <!-- MyListing MainContent -->
+        <div class="MyListingContent" style="margin-bottom:100px;">
+            @Html.HiddenFor(m => m.ProviderListingId)
+            @Html.Hidden("CompanyName", Model.CompanyName.Replace(' ', '-'))
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#aboutus" aria-controls="aboutus" role="tab" data-toggle="tab">About Us</a></li>
+                <li role="presentation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
+                <li role="presentation"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">News</a></li>
+                <li role="presentation"><a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a></li>
+                <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
+                <li role="presentation"><a href="#ourteam" aria-controls="ourteam" role="tab" data-toggle="tab">Our Team</a></li>
+                <span class="arrow-icon">
+                    <i aria-hidden="true" class="fa fa-angle-down"></i>
+                    <i aria-hidden="true" class="fa fa-angle-up"></i>
+                </span>
+            </ul>
+            <!-- //Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- About us -->
+                <div role="tabpanel" class="tab-pane active clearfix" id="aboutus">
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isAboutUsLable">@Html.CheckBoxFor(m => m.IsAboutUsShow, new { @class = "TabsStatus" })<span class="lbl">Show About Us Tab to public</span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary" id="_editAboutUsDes">Save</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="aboutContent" id="_aboutDescription">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group _submitContDivWhoweAre">
+                                    <label>Who We Are</label>
+                                    <div class="_submitWhoweAre">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group _submitContDivWhyWeDo">
+                                    <label>Why Choose Us</label>
+                                    <div class="_submitWhyWeDo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group _submitContDivWhatWeDo">
+                                    <label>Our Mission</label>
+                                    <div class="_submitWhatWeDo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="_WhatWeDo" class="hidden">@Model.WhatWeDo</div>
+                        <div id="_WhyWeDo" class="hidden">@Model.WhyWeDo</div>
+                        <div id="_WhoWeAre" class="hidden">@Model.WhoWeAre</div>
+                    </div>
+                    <!-- //Content -->
+                    <!-- About Modal -->
+                    <div class="modal fade customModal" id="aboutModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">EdIt About DescrIPTION</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="txtEditor">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnSaveAboutUs" class="btn btn-block btn-primary">Save DetaIls</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //About Modal -->
+                </div>
+                <!-- //About us -->
+                <!-- Blog -->
+                <div role="tabpanel" class="tab-pane  clearfix" id="blog">
+
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isBlogLable">@Html.CheckBoxFor(m => m.IsBlogShow, new { @class = "TabsStatus" }) <span class="lbl">Show Blog Tab to public  </span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary btnAdEdPost" data-blogId="0" data-listingId="@Model.ProviderListingId" data-toggle="modal" data-target="#blogModal"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add Post</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="blogContent">
+                        <!-- Blog Item -->
+                        <div class="Blogitem _BlogitemDiv">
+                            @foreach (var blog in Model.ListingBlogs)
+                            {
+                            <!-- message Row -->
+                                <div class="Blogrow" id="Row_@blog.ListingBlogId">
+                                    <div class="image col">
+                                        <!-- Custom Checkbbox -->
+                                        <div class="customCheckbox">
+                                            <label>
+                                                <input type="checkbox" name="checkbox">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </div>
+                                        <div class="img">
+                                            <img src="~/Images/BlogImages/@blog.BlogImage" />
+                                        </div>
+                                    </div>
+                                    <!-- Message Image -->
+                                    <div class="blogInfo col">
+                                        <div class="title">
+                                            <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = blog.ListingBlogId, IsBlog = true })" target="_blank"> @Html.Label("article.ArticleTitle", blog.BlogTitle)
+
+                                        </div>
+                                        <div class="desc">
+                                            <span><i aria-hidden="true" class="fa fa-calendar"></i> @blog.CreatedDate.ToString("dd MMM yyyy")</span>
+                                            <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = blog.ListingBlogId, IsBlog = true })" target="_blank"><span><i aria-hidden="true" class="fa fa-comment-o"></i> Add Comment</span></a>
+                                        </div>
+                                    </div>
+                                    <!-- Message Deatil -->
+                                    <div class="blogDetail col">
+                                        <p>@blog.BlogDescription</p>
+
+                                    </div>
+                                    <!-- Blog Icon -->
+                                    <div class="blogIcons col">
+                                        <ul>
+                                            <li><a href="#" class="btnAdEdPost" data-blogId="@blog.ListingBlogId" data-listingId="@Model.ProviderListingId" data-toggle="modal" data-target="#blogModal"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                            <li><a href="#" class="btnDelPost trash" data-ListingBlogId="@blog.ListingBlogId"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <!-- //Blog Row -->
+                            }
+
+                        </div>
+                        <div id="page-selection" class="text-center"></div>
+                        <!-- //Blog Item -->
+                    </div>
+                    <!-- //Content -->
+                    <!-- Blog Modal -->
+                    <div class="modal fade customModal blogModal" id="blogModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="btnCloseBlog" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Add New Blog Post</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formAddEditBlog">
+                                        <input type="hidden" id="hdnBlogId" value="" />
+                                        <div class="default-form">
+                                            <div class="form-group">
+                                                <input class="form-control" id="BlogTitle" name="BlogTitle" placeholder="Enter the Post Title" maxlength="100" type="text" />
+                                                <span id="spanBlogTitle" class="validError"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="BlogDescription" name="BlogDescription" maxlength="300" placeholder="Enter the Post Description"></textarea>
+                                                <span id="spanBlogDescription" class="validError"></span>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6 text-center">
+                                                    <div class="uploadImage">
+                                                        <img src="/assets/images/no-image-box.png" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" name="logoimage" class="img-responsive" />
+                                                    </div>
+
+                                                    <div class="upload-detail">
+                                                        <div class="desc text-center">Please upload image 200 x 150 and should be png/jpg format.</div>
+                                                        <div class="CustomuploadBtn">
+                                                            <input type="file" accept="image/*" name="imageUrl" id="imageUrl" />
+                                                            <span class="btn">Upload Logo or Photo</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <ul class="customCheckbox ">
+                                                        <li><label><input type="checkbox" id="IsActive" name="IsActive" /> <span class="lbl">IsActive</span></label></li>
+                                                        <li><label><input type="checkbox" id="IsPublished" name="IsPublished" /> <span class="lbl">IsPublished</span></label></li>
+                                                        <li><label><input type="checkbox" id="IsCommentOn" name="IsCommentOn" /> <span class="lbl">IsCommentOn</span></label></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-primary btnSubBlog" data-listingid="@Model.ProviderListingId">Add Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //Blog Modal -->
+                </div>
+                <!-- //Blog -->
+                <!-- News -->
+                <div role="tabpanel" class="tab-pane  clearfix" id="news">
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isNewsLable">@Html.CheckBoxFor(m => m.IsNewsShow, new { @class = "TabsStatus" })<span class="lbl">Show News Tab to public  </span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary btnAdEdNews" data-NewsId="0" data-listingId="@Model.ProviderListingId" data-toggle="modal" data-target="#newsModal"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add News</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="blogContent">
+                        <!-- News Item -->
+                        <div class="Blogitem _NewsitemDiv">
+                            <!-- News Row -->
+                            <div class="Blogrow">
+                                <div class="image col">
+                                    <!-- Custom Checkbbox -->
+                                    <div class="customCheckbox">
+                                        <label>
+                                            <input type="checkbox" name="checkbox">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </div>
+                                    <div class="img">
+                                        <img src="assets/images/sm-default-img.png" class="default" />
+                                    </div>
+                                </div>
+                                <!-- Message Image -->
+                                <div class="blogInfo col">
+                                    <div class="title">
+                                        Contrary to popular belief
+                                    </div>
+                                    <div class="desc">
+                                        <span><i aria-hidden="true" class="fa fa-calendar"></i> 6July, 2016</span>
+                                        <span><i aria-hidden="true" class="fa fa-comment-o"></i> Add Comment</span>
+                                    </div>
+                                </div>
+                                <!-- Message Deatil -->
+                                <div class="blogDetail col">
+                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+                                </div>
+                                <!-- News Icon -->
+                                <div class="blogIcons col">
+                                    <ul>
+                                        <li><a href="#"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                        <li><a href="#" class="trash"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- //News Row -->
+
+                        </div>
+                        <!-- //News Item -->
+                        <div id="NewsPager" class="text-center"></div>
+                    </div>
+                    <!-- //Content -->
+                    <!-- News Modal -->
+                    <div class="modal fade customModal blogModal" id="newsModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="btnCloseArticle" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Add News</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" id="hdnArticleId" value="" />
+                                    <div class="default-form">
+                                        <div class="form-group">
+                                            <input class="form-control" id="ArticleTitle" name="ArticleTitle" maxlength="100" placeholder="Enter the News Title" type="text" />
+                                            <span id="spanArticleTitle" class="validError"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="ArticleDescription" name="ArticleDescription" maxlength="500" placeholder="Enter the News Description"></textarea>
+                                            <span id="spanArticleDescription" class="validError"></span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <div class="uploadImage">
+                                                    <img src="/assets/images/no-image-box.png" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" name="Articlelogoimage" class="img-responsive" />
+                                                </div>
+                                                <div class="upload-detail">
+                                                    <div class="desc text-center">Please upload image 200 x 150 and should be png/jpg format.</div>
+                                                    <div class="CustomuploadBtn">
+                                                        <input type="file" name="ArticleimageUrl" accept="image/*" id="ArticleimageUrl" />
+                                                        <span class="btn">Upload Logo or Photo</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <ul class="customCheckbox ">
+                                                    <li><label><input type="checkbox" id="ArticleIsActive" name="ArticleIsActive" /> <span class="lbl">IsActive</span></label></li>
+                                                    <li><label><input type="checkbox" id="ArticleIsPublished" name="ArticleIsPublished" /> <span class="lbl">IsPublished</span></label></li>
+                                                    <li><label><input type="checkbox" id="ArticleIsCommentOn" name="ArticleIsCommentOn" /> <span class="lbl">IsCommentOn</span></label></li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-primary btnSubArticle" data-listingid="@Model.ProviderListingId">Add News</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //News Modal -->
+                </div>
+                <!-- //News -->
+                <!-- Images -->
+                <div role="tabpanel" class="tab-pane  clearfix" id="photos">
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isPhotoLable">@Html.CheckBoxFor(m => m.IsPhotosShow, new { @class = "TabsStatus" }) <span class="lbl">Show Photos Tab to public  </span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary btnAdEdPhotos" data-listingId="@Model.ProviderListingId" data-toggle="modal" data-target="#photoModal"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add Photo</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="PhotoContent">
+                        <div class="row _PhotositemDiv">
+                            <div class="col-sm-3">
+                                <div class="photoItem">
+                                    <!-- Checkbox -->
+                                    <div class="customCheckbox">
+                                        <label><input type="checkbox" /> <span class="lbl"></span></label>
+                                    </div>
+                                    <!-- //Checkbox -->
+                                    <img src="assets/images/gallery-img3.jpg" />
+
+                                    <!-- icons -->
+                                    <ul class="icons">
+                                        <li><a href="#"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                        <li><a href="#" class="trash"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                    </ul>
+                                    <!-- //icons -->
+                                </div>
+                            </div>
+                        </div>
+                        <div id="PhotoPager" class="text-center"></div>
+                    </div>
+                    <!-- //Content -->
+                    <!-- Photo Modal -->
+                    <div class="modal fade customModal photoModal " id="photoModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" id="btnClosePhoto" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Add Photos</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" id="hdnPhotoId" value="" />
+                                    <div class="photdesc">Please upload image 500 x 650 and should be png/jpg format.</div>
+                                    <div class="row">
+                                        <div class="uploadImageItem ">
+                                            <div class="image">
+                                                <img src="/assets/images/default-img.png" accept="image/*" id="photologoimage" name="photologoimage" class="img-responsive" />
+                                            </div>
+                                            <div class="CustomuploadBtn">
+                                                <input type="file" id="PhotoimageUrl" accept="image/*" name="PhotoimageUrl" />
+                                                <span class="btn">Upload Logo or Photo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="addButton text-center">
+                                            <a class="btn btn-secondary"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add another area</a>
+                                        </div>*@
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-primary " id="btnSavePhoto">Save IMAGE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //Photo Modal -->
+                </div>
+                <!-- //Images -->
+                <!-- Videos -->
+                <div role="tabpanel" class="tab-pane  clearfix" id="videos">
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isVideoLable">@Html.CheckBoxFor(m => m.IsVideoShow, new { @class = "TabsStatus" })<span class="lbl">Show Videos Tab to public  </span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary btnAdEdVideos" data-toggle="modal" data-target="#videoModal"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add Video</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="PhotoContent">
+                        <div class="row _VideositemDiv">
+                            <div class="col-sm-3">
+                                <div class="photoItem">
+                                    <span class="playIcon"><i class="fa fa-play-circle"></i></span>
+                                    <!-- Checkbox -->
+                                    <div class="customCheckbox">
+                                        <label><input type="checkbox" /> <span class="lbl"></span></label>
+                                    </div>
+                                    <!-- //Checkbox -->
+
+                                    <img src="assets/images/gallery-img3.jpg" />
+
+                                    <!-- icons -->
+                                    <ul class="icons">
+                                        <li><a href="#"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                        <li><a href="#" class="trash"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                    </ul>
+                                    <!-- //icons -->
+                                </div>
+                            </div>
+                        </div>
+                        <div id="VideoPager" class="text-center"></div>
+                    </div>
+                    <!-- //Content -->
+                    <!-- Video Modal -->
+                    <div class="modal fade customModal videoModal" id="videoModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="btnCloseVideosPop" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Add VIdeo Link</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="default-form">
+                                        <div class="form-group">
+                                            <input class="form-control" id="txtVideoLink" type="text" placeholder="Video Link" />
+                                        </div>
+
+                                        <div class="videoContainer">
+
+                                            <span class="playIcon"><i class="fa fa-play-circle"></i></span>
+                                            <iframe width="200"
+                                                    id="VideoContainer"
+                                                    height="300"
+                                                    src=""
+                                                    frameborder="0"
+                                                    allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnSaveVideo" data-listingid="@Model.ProviderListingId" class="btn btn-block btn-primary">Save Video</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //Video Modal -->
+                </div>
+                <!-- //Videos -->
+                <!-- Team -->
+                <div role="tabpanel" class="tab-pane  clearfix" id="ourteam">
+                    <!-- TOp Checkbox and Button -->
+                    <div class="topActionBlock">
+                        <div class="customCheckbox">
+                            <label id="isTeamLable">@Html.CheckBoxFor(m => m.IsTeamShow, new { @class = "TabsStatus" }) <span class="lbl">Show Our Team Tab to public </span></label>
+                        </div>
+                        <div class="ActionBtn">
+                            <a class="btn btn-primary btnAdEdTeam" data-teamid="0" data-toggle="modal" data-listingId="@Model.ProviderListingId" data-target="#teamModal"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add Team Member</a>
+                        </div>
+                    </div>
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+                    <div class="blogContent">
+                        <!-- Blog Item -->
+                        <div class="Blogitem _TeamitemDiv">
+                        </div>
+                        <div id="page-selectionTeam" class="text-center"></div>
+                        <!-- //Blog Item -->
+                    </div>
+                    <!-- //Content -->
+                    <!-- Team Modal -->
+                    <!-- //TOp Checkbox and Button -->
+                    <!-- Content -->
+
+
+
+                    <div class="modal fade customModal teamModal" id="teamModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <input type="hidden" id="hdnTeamId" value="" />
+                            <input type="hidden" id="hdnImageBites" value="" />
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="btnCloseTeam" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                    <h4 class="modal-title" id="myModalLabel">Add team member</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="default-form">
+                                        <div class="form-group selectInput">
+                                            <select class="selectpicker" id="SelectType">
+                                                <option value="Mr.">Mr.</option>
+                                                <option value="Dr.">Dr.</option>
+                                                <option value="Ms.">Ms.</option>
+                                            </select>
+                                            <div class="inputSel-group">
+                                                <input class="form-control" id="TeamFirstName" placeholder="Enter the Firstname" type="text" />
+                                                <span id="spanTeamFirstName" class="validError"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="TeamMiddleName" placeholder="Enter the Middle name" type="text" />
+                                                    <span id="spanTeamMiddleName" class="validError"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="TeamLastName" placeholder="Enter the Last name" type="text" />
+                                                    <span id="spanTeamLastName" class="validError"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input class="form-control" id="TeamPosition" placeholder="Enter the Position" type="text" />
+                                            <span id="spanTeamPosition" class="validError"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 text-center">
+                                                    <div class="uploadImage">
+
+                                                        <img src="/assets/images/no-image-box.png" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" name="teamimage" class="img-responsive" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="upload-detail">
+                                                        <div class="desc">Please upload image 200 x 150 and should be png/jpg format.</div>
+                                                        <div class="CustomuploadBtn">
+                                                            <input type="file" name="teamimageUrl" id="teamimageUrl" />
+                                                            <span class="btn">Upload Logo or Photo</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <textarea class="form-control" maxlength="50" id="TeamBiography" placeholder="Enter the Biography"></textarea>
+                                            <span id="spanTeamBiography" class="validError"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-primary btnSubTeam" data-listingid="@Model.ProviderListingId">Save Member DetaIl</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //News Modal -->
+                </div>
+                <!-- //Team -->
+            </div>
+            <!-- //Tab panes -->
+        </div>
+        <!-- //MyListing MainContent -->
+        <!-- //My Listing Section -->
+
+    </div>
+</div>
+<!-- //Main Container -->
+<!---START Crop Image PopUp-->
+<div class="modal fade" style="display: none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog crop-model" role="document">
+        <div class="modal-content">
+            <div class="modal-example-header" style="padding:3% 3%;background: #f15925;color: white;">
+                <button type="button" style="color:#fff;opacity:1;" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color:#fff;">Crop Image</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="imageBox">
+                        <div class="thumbBox"></div>
+                        <div class="spinner" style="display: none">Loading...</div>
+                    </div>
+                </center>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCrop" class="btn btn-success">Crop</button>
+                <button type="button" id="btnZoomIn" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button type="button" id="btnZoomOut" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!---END Crop Image PopUp-->
+<link href="~/Content/jquery.rateyo.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.rateyo.min.js"></script>
+<link href="~/Content/Custom/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/dist/js/lightbox.min.js"></script>
+<link href="~/dist/css/lightbox.min.css" rel="stylesheet" />
+<script src="~/assets/js/jquery.bootpag.min.js"></script>
+<script src="~/Scripts/cropbox-min.js"></script>
+<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+<script>
+
+    $(function () {
+
+        if ($('#IsAboutUsShow').is(':checked'))
+            $('#isAboutUsLable').addClass("checked");
+        else
+            $('#isAboutUsLable').removeClass("checked");
+
+
+        if ($('#IsBlogShow').is(':checked'))
+            $('#isBlogLable').addClass("checked");
+        else
+            $('#isBlogLable').removeClass("checked");
+
+
+
+        if ($('#IsNewsShow').is(':checked'))
+            $('#isNewsLable').addClass("checked");
+        else
+            $('#isNewsLable').removeClass("checked");
+
+
+        if ($('#IsPhotosShow').is(':checked'))
+            $('#isPhotoLable').addClass("checked");
+        else
+            $('#isPhotoLable').removeClass("checked");
+
+        if ($('#IsVideoShow').is(':checked'))
+            $('#isVideoLable').addClass("checked");
+        else
+            $('#isVideoLable').removeClass("checked");
+
+        if ($('#IsTeamShow').is(':checked'))
+            $('#isTeamLable').addClass("checked");
+        else
+            $('#isTeamLable').removeClass("checked");
+
+
+        var UrlSaveAboutUs = "@Url.Action("SaveAboutUsDetails", "ProviderListing")";
+        function ChangeUrl(page, url) {
+            if (typeof (history.pushState) != "undefined") {
+                var obj = { Page: page, Url: url };
+                history.pushState(obj, obj.Page, obj.Url);
+            } else {
+                alert("Browser does not support HTML5.");
+            }
+        }
+        ChangeUrl('Page1', "MyListing")
+        ChangeUrl('Page1', $("[name='CompanyName']").val())
+        lightbox.option({
+            alwaysShowNavOnTouchDevices: true,
+            wrapAround: true
+        })
+        $(".imgdelcontrol").click(function () {
+
+            var _imgid = $(this).attr("id");
+            var confrm = confirm("Do you want to delete this Video Link");
+            if (confrm) {
+                $(this).parent().remove();
+
+                $.ajax({
+                    url: '@Url.Action("DeleteImage", "ProviderListing")',
+                    data: { imgid: _imgid },
+                    success: function (result) {
+                        alert("Successfully Deleted");
+                    }
+                });
+            }
+
+        });
+        $(".videoDelControl").click(function () {
+
+            var _Videoid = $(this).attr("id");
+            var confrm = confirm("Do you want to delete this image");
+            if (confrm) {
+                $(this).parent().remove();
+                $.ajax({
+                    url: '@Url.Action("DeleteVideo", "ProviderListing")',
+                    data: { Videoid: _Videoid },
+                    success: function (result) {
+                        alert("Successfully Deleted");
+                    }
+                });
+            }
+        });
+        $("#saveimg").click(function (e) {
+
+            if ($("[type='file']").val() == "") {
+                e.preventDefault();
+                $("[type='file']").css("color", "red")
+            }
+        });
+        $("#savevideo").click(function (e) {
+
+            if ($("#videoUrl").val() == "") {
+                e.preventDefault();
+                $("#videoUrl").css("border-color", "red")
+            }
+        });
+
+        $("#addvideo").click(function (e) {
+
+            e.preventDefault();
+            $("#VideoDialog").dialog({
+                width: 600,
+                height: 180,
+                resizable: false,
+                draggable: false,
+                modal: true,
+            });
+        });
+        $("#addImage").click(function (e) {
+
+            e.preventDefault();
+            $("#ImageDialog").dialog({
+                width: 600,
+                height: 180,
+                resizable: false,
+                draggable: false,
+                modal: true,
+            });
+        });
+        var ratingvale = parseFloat($("#avgrating").val());
+        //var $rateYo = $("#rateYo").rateYo();
+        $("#tabs").tabs({
+            heightStyle: "content"
+        });
+        $("#rateYo").rateYo({
+            rating: ratingvale,
+            fullStar: true,
+            readOnly: true
+
+        });
+        $("#speedrating,#Qualityrating,#Reliabilityrating").rateYo({
+            rating: 0,
+            fullStar: true,
+            starWidth: "20px"
+
+        });
+        /////Change the status of Tabs/////
+        $(".TabsStatus").click(function () {
+
+            var Permission = confirm("Do you want to change Status")
+            if (Permission) {
+                var _status = $(this).prop('checked');
+                var _feildName = $(this).attr("id");
+                var _providerListingId = $("#ProviderListingId").val();
+                $.ajax({
+                    url: '@Url.Action("ChangeStatusOfTabs", "ProviderListing")',
+                    data: { status: _status, feildName: _feildName, providerListingId: _providerListingId },
+                    success: function (result) {
+                        if( _feildName=="IsAboutUsShow")
+                        {
+                            if (_status)
+                                $('#isAboutUsLable').addClass("checked");
+                            else
+                                $('#isAboutUsLable').removeClass("checked");
+                        }
+
+                        if( _feildName=="IsBlogShow")
+                        {
+                            if (_status)
+                                $('#isBlogLable').addClass("checked");
+                            else
+                                $('#isBlogLable').removeClass("checked");
+                        }
+
+                        if( _feildName=="IsNewsShow")
+                        {
+                            if (_status)
+                                $('#isNewsLable').addClass("checked");
+                            else
+                                $('#isNewsLable').removeClass("checked");
+                        }
+
+                        if( _feildName=="IsPhotosShow")
+                        {
+                            if (_status)
+                                $('#isPhotoLable').addClass("checked");
+                            else
+                                $('#isPhotoLable').removeClass("checked");
+                        }
+
+                        if( _feildName=="IsVideoShow")
+                        {
+                            if (_status)
+                                $('#isVideoLable').addClass("checked");
+                            else
+                                $('#isVideoLable').removeClass("checked");
+                        }
+                        if( _feildName=="IsTeamShow")
+                        {
+                            if (_status)
+                                $('#isTeamLable').addClass("checked");
+                            else
+                                $('#isTeamLable').removeClass("checked");
+                        }
+                        alert("Your Status Successfully Changed");
+                    }
+                });
+
+            }
+            else {
+                $(this).prop("checked", !$(this).prop('checked'))
+
+            }
+
+
+
+        });
+
+        /////End status of Tabs/////
+
+        setTimeout(function () {
+            $('._submitContDivWhoweAre').find('.Editor-editor').append($('#_WhoWeAre').text());
+            $('._submitContDivWhyWeDo').find('.Editor-editor').append($('#_WhyWeDo').text());
+            $('._submitContDivWhatWeDo').find('.Editor-editor').append($('#_WhatWeDo').text());
+        }, 1000);
+        $('#_editAboutUsDes').click(function () {
+            var ProviderListingId = $('#ProviderListingId').val();
+            var whatWeDo = $('._submitContDivWhatWeDo').find('.Editor-editor').html();
+            var whyWeDo = $('._submitContDivWhyWeDo').find('.Editor-editor').html();
+            var whoWeAre = $('._submitContDivWhoweAre').find('.Editor-editor').html();
+            var params = { whatWeDo: encodeURIComponent(whatWeDo), whyWeDo: encodeURIComponent(whyWeDo), whoWeAre: encodeURIComponent(whoWeAre), ProviderListingId: ProviderListingId };
+            $.ajax({
+                type: 'POST',
+                url: UrlSaveAboutUs,
+                data: params,
+                success: function (result) {
+                    alert("Successfully Updated");
+                }
+            });
+        });
+    });
+
+
+    //Add Blog Script
+    $(function () {
+
+        function ConvertDate(date) {
+            date = date.substring(0, date.length - 1);
+            date = new Date(parseInt(date.slice(6).replace(')', '')))
+            var d = date.getDate();
+            var m = date.getMonth();
+            m += 1;  // JavaScript months are 0-11
+            var mont = "";
+            if (m == 1)
+                mont = "Jan";
+            else if (m == 2)
+                mont = "Feb";
+            else if (m == 3)
+                mont = "Mar";
+            else if (m == 4)
+                mont = "Apr";
+            else if (m == 5)
+                mont = "May";
+            else if (m == 6)
+                mont = "Jun";
+            else if (m == 7)
+                mont = "Jul";
+            else if (m == 8)
+                mont = "Aug";
+            else if (m == 9)
+                mont = "Sep";
+            else if (m == 10)
+                mont = "Oct";
+            else if (m == 11)
+                mont = "Nov";
+            else if (m == 12)
+                mont = "Dec";
+
+            var y = date.getFullYear();
+            return d + " " + mont + " " + y;
+        }
+        function LoadProviderBlogHtml(result) {
+            $('._BlogitemDiv').empty();
+            for (i = 0; i < result.length; i++) {
+
+                var _html = "<div class='Blogrow' id='Row_" + result[i].ListingBlogId + "'>" +
+                                         "<div class='image col'>" +
+                                              "<div class='customCheckbox'>" +
+                                                 "<label>" ;
+                if(result[i].IsActive==true)
+                {
+                    _html=_html+  "<input type='checkbox' checked='checked' name='checkbox' class='IsActiveBlog' data-blogId='" + result[i].ListingBlogId + "'>"
+                }
+                else{
+                    _html=_html+   "<input type='checkbox' name='checkbox' class='IsActiveBlog' data-blogId='" + result[i].ListingBlogId + "'>"
+                }
+
+                _html=_html+   "<span class='lbl'></span>" +
+"</label>" +
+"</div>" +
+"<div class='img'>" ;
+
+                if(result[i].BlogImage !=  null)
+                    _html=_html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingBlogId+"&IsBlog=true' target='_blank'><img src='/Images/BlogImages/"+result[i].BlogImage+"'/></a>"
+                else
+                    _html=_html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingBlogId+"&IsBlog=true' target='_blank'><img src='/assets/images/sm-default-img.png'/></a>"
+
+                _html=_html+"</div>" +
+"</div>" +
+"<div class='blogInfo col'>" +
+"<div class='title'>" +
+"<label for='article_ArticleTitle'><a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingBlogId+"&IsBlog=true' target='_blank'> " + result[i].BlogTitle + " </a></label>" +
+"</div>" +
+"<div class='desc'>" +
+"<span><i aria-hidden='true' class='fa fa-calendar'></i>" + ConvertDate(result[i].CreatedDate) + "</span>" +
+"<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingBlogId+"&IsBlog=true' target='_blank'><span><i aria-hidden='true' class='fa fa-comment-o'></i> Add Comment</span></a>" +
+"</div>" +
+"</div>" +
+"<div class='blogDetail col'>" +
+"<span>" + result[i].BlogDescription + "</span>" +
+"</div>" +
+"<div class='blogIcons col'>" +
+"<ul>" +
+"<li><a href='#' data-blogId='" + result[i].ListingBlogId + "' data-listingId='" + result[i].ListingId + "' class='btnAdEdPost' data-toggle='modal' data-target='#blogModal'><i aria-hidden='true' class='fa fa-pencil-square-o'></i></a></li>" +
+"<li><a href='#' class='btnDelPost trash' data-ListingBlogId='" + result[i].ListingBlogId + "'><i aria-hidden='true' class='fa fa-trash-o'></i></a></li>" +
+"</ul>" +
+"</div>" +
+"</div>";
+
+
+                $('._BlogitemDiv').append(_html);
+            }
+        }
+
+        function LoadProviderBlogs() {
+            $.ajax({
+                url: '@Url.Action("GetProvideBlogPageData", "ArticleAndBlogs")',
+                data: { pagenumber: 1, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderBlogHtml(result);
+                }
+            });
+            var count =@Model.ListingBlogs.Count;
+            var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+            $('#page-selection').bootpag({
+                total: totalPages,
+                page: 1,
+                maxVisible: 5,
+                leaps: true,
+                firstLastUse: true,
+                first: '←',
+                last: '→',
+                wrapClass: 'pagination',
+                activeClass: 'active',
+                disabledClass: 'disabled',
+                nextClass: 'next',
+                prevClass: 'prev',
+                lastClass: 'last',
+                firstClass: 'first'
+            })
+        }
+        LoadProviderBlogs();
+
+        var count =@Model.ListingBlogs.Count;
+        var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+        $('#page-selection').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+
+            $.ajax({
+                url: '@Url.Action("GetProvideBlogPageData", "ArticleAndBlogs")',
+                data: { pagenumber: num, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderBlogHtml(result);
+                }
+            });
+            $("#content").html("Insert content"); // some ajax content loading...
+        });
+
+
+        $("[name='imageUrl']").change(function (event) {
+            var file = $("[name='imageUrl']").get(0).files[0];
+            var r = new FileReader();
+            r.onload = function () {
+                var binimage = r.result;
+                $("[name='logoimage']").attr("src", binimage);
+                $("[name='logoimage']").attr("hidden", false);
+            };
+            r.readAsDataURL(file);
+        });
+
+        // $('.btnAdEdPost').click(function () {
+        $('body').on('click', '.btnAdEdPost', function () {
+            $('#hdnBlogId').val("")
+            $('#BlogTitle').val("");
+            $('#BlogDescription').val("");
+            $("[name='imageUrl']").val("");
+            $("[name='logoimage']").attr("src", "/assets/images/no-image-box.png");
+            $("#IsActive").prop('checked', false);
+            $("#IsPublished").prop('checked', false);
+            $("#IsCommentOn").prop('checked', false);
+
+
+            var blogid = $(this).data('blogid');
+            var listingid = $(this).data('listingid');
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("AddBlog", "ArticleAndBlogs")",
+                data: { listingId: listingid, blogId: blogid },
+                success: function (success) {
+                    if (success.result != undefined) {
+
+                        $('#hdnBlogId').val(success.result.ListingBlogId);
+                        $('#BlogTitle').val(success.result.BlogTitle);
+                        $('#BlogDescription').val(success.result.BlogDescription);
+                        if(success.result.BlogImage!= null)
+                            $("[name='logoimage']").attr("src", "/Images/BlogImages/" + success.result.BlogImage);
+                        else
+                            $("[name='logoimage']").attr("src", "/assets/images/no-image-box.png");
+                        $("#IsActive").prop('checked', success.result.IsActive);
+                        $("#IsPublished").prop('checked', success.result.IsPublished);
+                        $("#IsCommentOn").prop('checked', success.result.IsCommentOn);
+                    }
+                }
+            });
+        });
+
+        $('.btnSubBlog').click(function (e) {
+            e.preventBubble = false;
+            var listingBlogId = $('#hdnBlogId').val();
+            var listingId = $(this).data('listingid');
+            var title = $('#BlogTitle').val()
+            var description = $('#BlogDescription').val();
+
+            var flag=true;
+            if (title == '') {
+                $('#spanBlogTitle').html('Blog title is required.');
+                flag = false;
+            }
+            else {
+                $('#spanBlogTitle').html('');
+            }
+            if (description == '') {
+                $('#spanBlogDescription').html('Blog description is required.');
+                flag = false;
+            }
+            else {
+                $('#spanBlogDescription').html('');
+            }
+            if(!flag)
+                return false;
+
+            var imageUrl = $("[name='imageUrl']").get(0).files[0];
+            var IsActive = $("#IsActive").is(":checked") ? true : false;
+            var IsPublished = $("#IsPublished").is(":checked") ? true : false;
+            var IsCommentOn = $("#IsCommentOn").is(":checked") ? true : false;
+            var formdata;
+            if (imageUrl != null && imageUrl != undefined) {
+
+                if (FormData) {
+                    formdata = new FormData();
+                    formdata.append("image", imageUrl);
+                }
+            }
+            else { formdata = new FormData(); }
+
+            formdata.append("ListingBlogId", listingBlogId);
+            formdata.append("BlogTitle", title);
+            formdata.append("BlogDescription", description);
+            formdata.append("IsActive", IsActive);
+            formdata.append("IsPublished", IsPublished);
+            formdata.append("IsCommentOn", IsCommentOn);
+            formdata.append("ListingId", listingId);
+            if (listingBlogId != undefined)
+                $('._BlogitemDiv').find('#Row_' + listingBlogId).empty();
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("AddEditBlog", "ArticleAndBlogs")",
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function (result) {
+
+                    if (listingBlogId != undefined && listingBlogId != "") {
+                        var _html = "<div class='image col'>" +
+                                     "<div class='customCheckbox'>" +
+                                        "<label>";
+
+
+                        if(IsActive==true)
+                        {
+                            _html=_html+  "<input type='checkbox' checked='checked' name='checkbox' class='IsActiveBlog' data-blogId='" + result.ListingBlogId + "'>"
+                        }
+                        else{
+                            _html=_html+   "<input type='checkbox' name='checkbox' class='IsActiveBlog' data-blogId='" +result.ListingBlogId + "'>"
+                        }
+
+                        _html=_html+   "<span class='lbl'></span>" +
+
+                                                 "<span class='lbl'></span>" +
+                                             "</label>" +
+                                         "</div>" +
+                                         "<div class='img'>" ;
+                        if(result.imageurl !=  null)
+                            _html=_html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingBlogId+"&IsBlog=true' target='_blank'><img src='/Images/BlogImages/"+result.imageurl+"'/></a>"
+                        else
+                            _html=_html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingBlogId+"&IsBlog=true' target='_blank'><img src='/assets/images/sm-default-img.png'/></a>"
+
+                        _html=_html+ "</div>" +
+                                     "</div>" +
+                                     "<div class='blogInfo col'>" +
+                                         "<div class='title'>" +
+                                             "<label for='article_ArticleTitle'><a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingBlogId+"&IsBlog=true' target='_blank'>" + title + "</a></label>" +
+                                         "</div>" +
+                                        "<div class='desc'>" +
+                                             "<span><i aria-hidden='true' class='fa fa-calendar'></i>" + ConvertDate(result.CreatedDate) + "</span>" +
+                                             "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingBlogId+"&IsBlog=true' target='_blank'><span><i aria-hidden='true' class='fa fa-comment-o'></i> Add Comment</span></a>" +
+                                         "</div>" +
+                                     "</div>" +
+                                     "<div class='blogDetail col'>" +
+                                         "<span>" + description + "</span>" +
+                                     "</div>" +
+                                     "<div class='blogIcons col'>" +
+                                         "<ul>" +
+                                             "<li><a href='#' data-blogId='" + result.ListingBlogId + "' data-listingId='" + listingId + "' class='btnAdEdPost' data-toggle='modal' data-target='#blogModal'><i aria-hidden='true' class='fa fa-pencil-square-o'></i></a></li>" +
+                                             "<li><a href='#' class='btnDelPost trash' data-ListingBlogId='"+result.ListingBlogId+"'><i aria-hidden='true' class='fa fa-trash-o'></i></a></li>" +
+                                        "</ul>" +
+                                     "</div>";
+
+                        $('#Row_' + listingBlogId).append(_html);
+                    }
+                    else {
+                        LoadProviderBlogs();
+                    }
+                    $('#btnCloseBlog').trigger('click');
+                    alert(result.Message);
+                }
+            });
+        });
+
+        //$('.btnDelPost').click(function (e) {
+        $('body').on('click', '.btnDelPost', function (e) {
+            e.preventDefault();
+            if(confirm("Do you want to delete this blog"))
+            {
+                var blogid = $(this).data('listingblogid');
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("DeleteBlog", "ArticleAndBlogs")",
+                    data: { blogId: blogid },
+                    success: function (result) {
+                        $('#Row_' + blogid).remove();
+                        alert("Blog deleted successfully.");
+                    }
+                });
+            }
+        });
+
+        $('body').on('click', '.IsActiveBlog', function () {
+
+            var blogid = $(this).data('blogid');
+            var IsActive= $(this).is(":checked") ? true :false;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("BlogIsPublic", "ArticleAndBlogs")",
+                data: { blogId: blogid,IsActive:IsActive },
+                success: function (result) {
+                    alert("Blog status has been updated.");
+                }
+            });
+        });
+
+
+        //End Add Blog Script
+
+
+        //News Script
+
+        function LoadProviderNewsHtml(result) {
+            $('._NewsitemDiv').empty();
+            for (i = 0; i < result.length; i++) {
+
+                var html="<div class='Blogrow' id='NewsRow_" + result[i].ListingArticleId + "'>"+
+                                     "<div class='image col'>"+
+                                         "<div class='customCheckbox'>"+
+                                             "<label>";
+                if(result[i].IsActive==true)
+                {
+                    html=html+"<input type='checkbox' checked='checked' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" + result[i].ListingArticleId  + "'>"
+                }
+                else{
+                    html=html+"<input type='checkbox' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" +result[i].ListingArticleId  + "'>"
+                }
+                html=html+ "<span class='lbl'></span>"+
+           "</label>"+
+       "</div>"+
+       "<div class='img'>";
+                if(result[i].ArticleImage !=  null)
+                    html=html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingArticleId+"&IsBlog=false' target='_blank'><img src='../Images/ArticleImages/"+result[i].ArticleImage+"'/></a>"
+                else
+                    html=html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingArticleId+"&IsBlog=false' target='_blank'><img src='/assets/images/sm-default-img.png'/></a>"
+
+                html=html+  "</div>"+
+   "</div>"+
+   "<div class='blogInfo col'>"+
+       "<div class='title'>"+
+          "<label for='article_ArticleTitle'> <a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingArticleId+"&IsBlog=false' target='_blank'>" + result[i].ArticleTitle + "</a></label>" +
+       "</div>"+
+       "<div class='desc'>"+
+           "<span><i aria-hidden='true' class='fa fa-calendar'></i>"+ ConvertDate(result[i].CreatedDate) +"</span>"+
+           "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result[i].ListingArticleId+"&IsBlog=false' target='_blank'><span><i aria-hidden='true' class='fa fa-comment-o'></i> Add Comment</span></a>"+
+       "</div>"+
+   "</div>"+
+   "<div class='blogDetail col'>"+
+       "<span>"+result[i].ArticleDescription+ "</span>" +
+   "</div>"+
+   "<div class='blogIcons col'>"+
+       "<ul>"+
+           "<li><a href='#' data-NewsId='" + result[i].ListingArticleId + "' data-listingId='" + result[i].ListingId + "' class='btnAdEdNews' data-toggle='modal' data-target='#newsModal'><i aria-hidden='true' class='fa fa-pencil-square-o'></i></a></li>"+
+           "<li><a href='#' class='btnDelArticle trash' data-ListingArticleId='" +  result[i].ListingArticleId + "'><i aria-hidden='true' class='fa fa-trash-o'></i></a></li>"+
+      "</ul>"+
+    "</div>"+
+"</div>";
+
+                $('._NewsitemDiv').append(html);
+            }
+        }
+
+        function LoadAddProviderNewsHtml(result) {
+
+            var html="<div class='Blogrow' id='NewsRow_" + result.ListingArticleId + "'>"+
+                                     "<div class='image col'>"+
+                                         "<div class='customCheckbox'>"+
+                                             "<label>";
+            if(result.IsActive==true)
+            {
+                html=html+"<input type='checkbox' checked='checked' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" + result.ListingArticleId  + "'>"
+            }
+            else{
+                html=html+"<input type='checkbox' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" +result.ListingArticleId  + "'>"
+            }
+            html=html+"<span class='lbl'></span>"+
+                                             "</label>"+
+                                         "</div>"+
+                                         "<div class='img'>"+
+                                             "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'><img src='../Images/ArticleImages/"+result.ArticleImage+"' /></a>"+
+                                         "</div>"+
+                                     "</div>"+
+                                     "<div class='blogInfo col'>"+
+                                         "<div class='title'>"+
+                                            "<label for='article_ArticleTitle'><a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'>" + result.ArticleTitle + "</a></label>" +
+                                         "</div>"+
+                                         "<div class='desc'>"+
+                                             "<span><i aria-hidden='true' class='fa fa-calendar'></i>"+ ConvertDate(result.CreatedDate) +"</span>"+
+                                             "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'><span><i aria-hidden='true' class='fa fa-comment-o'></i> Add Comment</span></a>"+
+                                         "</div>"+
+                                     "</div>"+
+                                     "<div class='blogDetail col'>"+
+                                         "<span>"+result.ArticleDescription+ "</span>" +
+                                     "</div>"+
+                                     "<div class='blogIcons col'>"+
+                                         "<ul>"+
+                                             "<li><a href='#' data-NewsId='" + result.ListingArticleId + "' data-listingId='" + result.ListingId + "' class='btnAdEdNews' data-toggle='modal' data-target='#newsModal'><i aria-hidden='true' class='fa fa-pencil-square-o'></i></a></li>"+
+                                            "<li><a href='#' class='btnDelArticle trash' data-ListingArticleId='" +  result.ListingArticleId + "'><i aria-hidden='true' class='fa fa-trash-o'></i></a></li>"+
+                                        "</ul>"+
+                                      "</div>"+
+                                 "</div>";
+
+            $('._NewsitemDiv').prepend(html);
+        }
+
+        function LoadEditProviderNewsHtml(result) {
+
+            var html="<div class='image col'>"+
+                                         "<div class='customCheckbox'>"+
+                                             "<label>";
+            if(result.IsActive==true)
+            {
+                html=html+"<input type='checkbox' checked='checked' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" + result.ListingArticleId  + "'>"
+            }
+            else{
+                html=html+"<input type='checkbox' name='checkbox' class='IsActiveArticle' data-ListingArticleId='" +result.ListingArticleId  + "'>"
+            }
+            html=html+ "<span class='lbl'></span>"+
+         "</label>"+
+     "</div>"+
+     "<div class='img'>";
+            if(result.ArticleImage !=  null)
+                html=html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'><img src='../Images/ArticleImages/"+result.ArticleImage+"'/></a>"
+            else
+                html=html+  "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'><img src='/assets/images/sm-default-img.png'/></a>"
+
+            html=html+ "</div>"+
+ "</div>"+
+ "<div class='blogInfo col'>"+
+     "<div class='title'>"+
+        "<label for='article_ArticleTitle'><a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'>" + result.ArticleTitle + "</a></label>" +
+     "</div>"+
+     "<div class='desc'>"+
+         "<span><i aria-hidden='true' class='fa fa-calendar'></i>"+ ConvertDate(result.CreatedDate) +"</span>"+
+         "<a href='/ProviderListing/BlogNewsDetails?BlogNewsId="+result.ListingArticleId+"&IsBlog=false' target='_blank'><span><i aria-hidden='true' class='fa fa-comment-o'></i> Add Comment</span></a>"+
+     "</div>"+
+ "</div>"+
+ "<div class='blogDetail col'>"+
+     "<span>"+result.ArticleDescription+ "</span>" +
+ "</div>"+
+ "<div class='blogIcons col'>"+
+     "<ul>"+
+         "<li><a href='#' data-NewsId='" + result.ListingArticleId + "' data-listingId='" + result.ListingId + "' class='btnAdEdNews' data-toggle='modal' data-target='#newsModal'><i aria-hidden='true' class='fa fa-pencil-square-o'></i></a></li>"+
+         "<li><a href='#' class='btnDelArticle trash' data-ListingArticleId='" +  result.ListingArticleId + "'><i aria-hidden='true' class='fa fa-trash-o'></i></a></li>"+
+    "</ul>"+
+  "</div>";
+
+
+            $('#NewsRow_' + result.ListingArticleId).append(html);
+        }
+
+
+        function LoadProviderNews() {
+            $.ajax({
+                url: '@Url.Action("GetProvideNewsPageData", "ArticleAndBlogs")',
+                data: { pagenumber: 1, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderNewsHtml(result);
+                }
+            });
+            var count =@Model.ListingArticles.Count;
+            var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+            $('#NewsPager').bootpag({
+                total: totalPages,
+                page: 1,
+                maxVisible: 5,
+                leaps: true,
+                firstLastUse: true,
+                first: '←',
+                last: '→',
+                wrapClass: 'pagination',
+                activeClass: 'active',
+                disabledClass: 'disabled',
+                nextClass: 'next',
+                prevClass: 'prev',
+                lastClass: 'last',
+                firstClass: 'first'
+            })
+        }
+
+        var count =@Model.ListingArticles.Count;
+        var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+
+        if(totalPages > 1)
+        {
+            $('#NewsPager').css('display','block');
+            $('#NewsPager').bootpag({
+                total: totalPages,
+                page: 1,
+                maxVisible: 5,
+                leaps: true,
+                firstLastUse: true,
+                first: '←',
+                last: '→',
+                wrapClass: 'pagination',
+                activeClass: 'active',
+                disabledClass: 'disabled',
+                nextClass: 'next',
+                prevClass: 'prev',
+                lastClass: 'last',
+                firstClass: 'first'
+            }).on("page", function (event, /* page number here */ num) {
+
+                $.ajax({
+                    url: '@Url.Action("GetProvideNewsPageData", "ArticleAndBlogs")',
+                    data: { pagenumber: num, pageSize: 10 },
+                    success: function (result) {
+                        LoadProviderNewsHtml(result);
+                    }
+                });
+
+            });
+        }
+        else{
+            $('#NewsPager').css('display','none');
+        }
+        //show news logo image preview
+        $("[name='ArticleimageUrl']").change(function (event) {
+            var file = $("[name='ArticleimageUrl']").get(0).files[0];
+            var r = new FileReader();
+            r.onload = function () {
+                var binimage = r.result;
+                $("[name='Articlelogoimage']").attr("src", binimage);
+                $("[name='Articlelogoimage']").attr("hidden", false);
+            };
+            r.readAsDataURL(file);
+        });
+        //end show news logo image preview
+
+        //show news popup
+        $('body').on('click', '.btnAdEdNews', function () {
+
+            $('#hdnArticleId').val("")
+            $('#ArticleTitle').val("");
+            $('#ArticleDescription').val("");
+            $("[name='ArticleimageUrl']").val("");
+            $("[name='Articlelogoimage']").attr("src", "/assets/images/no-image-box.png");
+            $("#ArticleIsActive").prop('checked', false);
+            $("#ArticleIsPublished").prop('checked', false);
+            $("#ArticleIsCommentOn").prop('checked', false);
+
+            var Articleid = $(this).data('newsid');
+            var listingid = $(this).data('listingid');
+
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("AddArticle", "ArticleAndBlogs")",
+                data: { listingId: listingid, NewsId: Articleid },
+                success: function (success) {
+                    if (success.result != undefined) {
+                        $('#hdnArticleId').val(success.result.ListingArticleId);
+                        $('#ArticleTitle').val(success.result.ArticleTitle);
+                        $('#ArticleDescription').val(success.result.ArticleDescription);
+                        if(success.result.ArticleImage== null)
+                            $("[name='Articlelogoimage']").attr("src", "/assets/images/no-image-box.png");
+                        else
+                            $("[name='Articlelogoimage']").attr("src", "/Images/ArticleImages/" + success.result.ArticleImage);
+                        $("#ArticleIsActive").prop('checked', success.result.IsActive);
+                        $("#ArticleIsPublished").prop('checked', success.result.IsPublished);
+                        $("#ArticleIsCommentOn").prop('checked', success.result.IsCommentOn);
+                    }
+
+                }
+            });
+        });
+        //end show news popup
+
+        //Save/Update Article
+        $('.btnSubArticle').click(function () {
+
+            var listingArticleId = $('#hdnArticleId').val();
+            var listingId = $(this).data('listingid');
+
+            var title = $('#ArticleTitle').val()
+            var description = $('#ArticleDescription').val();
+
+            var flag=true;
+            if (title == '') {
+                $('#spanArticleTitle').html('Article title is required.');
+                flag = false;
+            }
+            else {
+                $('#spanArticleTitle').html('');
+            }
+            if (description == '') {
+                $('#spanArticleDescription').html('Article description is required.');
+                flag = false;
+            }
+            else {
+                $('#spanArticleDescription').html('');
+            }
+            if(!flag)
+                return false;
+
+            $(this).attr('disabled','disabled');
+
+            var imageUrl = $("[name='ArticleimageUrl']").get(0).files[0];
+            var IsActive = $("#ArticleIsActive").is(":checked") ? true : false;
+            var IsPublished = $("#ArticleIsPublished").is(":checked") ? true : false;
+            var IsCommentOn = $("#ArticleIsCommentOn").is(":checked") ? true : false;
+            var formdata;
+            if (imageUrl != null && imageUrl != undefined && imageUrl != "") {
+
+                if (FormData) {
+                    formdata = new FormData();
+                    formdata.append("image", imageUrl);
+                }
+            }
+            else { formdata = new FormData(); }
+
+            formdata.append("ListingArticleId", listingArticleId);
+            formdata.append("ArticleTitle", title);
+            formdata.append("ArticleDescription", description);
+            formdata.append("IsActive", IsActive);
+            formdata.append("IsPublished", IsPublished);
+            formdata.append("IsCommentOn", IsCommentOn);
+            formdata.append("ListingId", listingId);
+
+            if (listingArticleId != undefined)
+                $('._NewsitemDiv').find('#NewsRow_' + listingArticleId).empty();
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("AddEditArticle", "ArticleAndBlogs")",
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function (success) {
+                    if (listingArticleId != undefined && listingArticleId != "") {
+                        LoadEditProviderNewsHtml(success.result);
+                    }
+                    else{
+                        LoadProviderNews();
+                    }
+                    $('.btnSubArticle').removeAttr('disabled');
+                    $('#btnCloseArticle').trigger('click');
+                    alert(success.Message);
+                }
+            });
+        });
+
+        // EndSave/Update Article
+
+        //Start Delete Article
+        $('body').on('click', '.btnDelArticle', function (e) {
+            e.preventDefault();
+            if(confirm("Do you want to delete this article"))
+            {
+                var articleid = $(this).data('listingarticleid');
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("DeleteNews", "ArticleAndBlogs")",
+                    data: { NewsId: articleid },
+                    success: function (result) {
+                        $('#NewsRow_' + articleid).remove();
+                        alert("Article deleted successfully.");
+                    }
+                });
+            }
+        });
+        //End Delete Article
+
+        //Start IsActive Article to show public
+        $('body').on('click', '.IsActiveArticle', function () {
+
+            var listingarticleid = $(this).data('listingarticleid');
+            var IsActive= $(this).is(":checked") ? true :false;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ArticleIsPublic", "ArticleAndBlogs")",
+                data: { ArticleId: listingarticleid,IsActive:IsActive },
+                success: function (result) {
+                    alert("Article status has been updated.");
+                }
+            });
+        });
+        //End IsActive Article to show public
+
+
+        LoadProviderNews();
+        //End News Script
+
+
+        //Start Photo Script
+
+        //show photo image preview
+        $("[name='PhotoimageUrl']").change(function (event) {
+            var file = $("[name='PhotoimageUrl']").get(0).files[0];
+            var r = new FileReader();
+            r.onload = function () {
+                var binimage = r.result;
+                $("[name='photologoimage']").attr("src", binimage);
+                $("[name='photologoimage']").attr("hidden", false);
+            };
+            r.readAsDataURL(file);
+        });
+        //end show photo image preview
+
+        function LoadProviderPhotosHtml(result)
+        {
+            $('._PhotositemDiv').empty();
+            for (i = 0; i < result.length; i++)
+            {
+                var html='<div class="col-xs-6 col-sm-3" id="RowPhoto_'+result[i].Id +'">'+
+                                             '<div class="photoItem" style="background-image: url(/Images/ProviderGalaryImages/'+result[i].ImagePath+');">'+
+                                                 '<div class="customCheckbox" >';
+                if(result[i].IsActive==true)
+                    html=html+'<label><input type="checkbox" checked="checked" class="IsActivePhoto"  data-photoid="'+result[i].Id+'"/> <span class="lbl"></span></label>'
+                else
+                    html=html+'<label><input type="checkbox" class="IsActivePhoto"  data-photoid="'+result[i].Id+'"/> <span class="lbl"></span></label>'
+                html=html+'</div>'+
+                    '<img src="/Images/ProviderGalaryImages/'+result[i].ImagePath+'" />'+
+                 '<ul class="icons">'+
+                     '<li><a href="#" data-photoid="'+result[i].Id+'" class="trash btnDelPhoto"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>'+
+                 '</ul>'+
+             '</div>'+
+         '</div>';
+
+                $('._PhotositemDiv').append(html);
+            }
+        }
+
+        function LoadProviderPhotos() {
+            $.ajax({
+                url: '@Url.Action("GetProvidePhotosPageData", "ArticleAndBlogs")',
+                data: { pagenumber: 1, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderPhotosHtml(result);
+                    if(result!=undefined && result!= "")
+                    {
+                        var count = result[0].TotalRecords;
+                        var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+                        $('#PhotoPager').bootpag({
+                            total: totalPages,
+                            page: 1,
+                            maxVisible: 5,
+                            leaps: true,
+                            firstLastUse: true,
+                            first: '←',
+                            last: '→',
+                            wrapClass: 'pagination',
+                            activeClass: 'active',
+                            disabledClass: 'disabled',
+                            nextClass: 'next',
+                            prevClass: 'prev',
+                            lastClass: 'last',
+                            firstClass: 'first'
+                        });
+                    }
+                }
+            });
+        }
+
+
+        $('body').on('click', '.btnAdEdPhotos', function () {
+            $('#hdnPhotoId').val($(this).data('listingid'));
+            $("[name='PhotoimageUrl']").val("");
+            $("[name='photologoimage']").attr("src", "/assets/images/no-image-box.png");
+        });
+
+        $('#btnSavePhoto').click(function(){
+            var listingId=$('#hdnPhotoId').val();
+            var imageUrl = $("[name='PhotoimageUrl']").get(0).files[0];
+            var formdata;
+            if (imageUrl != null && imageUrl != undefined && imageUrl != "") {
+                size = parseFloat(imageUrl.size / 1024).toFixed(2);
+                if (size < 100) {
+                    if (FormData) {
+                        formdata = new FormData();
+                        formdata.append("image", imageUrl);
+                        formdata.append("ImagePath", "");
+                        formdata.append("ProviderListingId", listingId);
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action("AddImage", "ProviderListing")",
+                        contentType: false,
+                        processData: false,
+                        data: formdata,
+                        success: function (success) {
+                            if(success.Id!= "" && success.Id != undefined)
+                            {
+                                LoadProviderPhotos();
+                                $('#btnClosePhoto').trigger('click');
+                                alert("Photo uploaded successfully");
+                            }
+                            else{
+                                alert("Error occured");
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    alert("your current image size is " + size + " KB.your image should be less than 100 KB")
+                }
+            }
+            else{
+                alert("Please select image.");
+            }
+        });
+
+
+        var count =@Model.ProviderImageGalaries.Count;
+        var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+
+        if(totalPages > 1)
+        {
+            $('#PhotoPager').css('display','block');
+            $('#PhotoPager').bootpag({
+                total: totalPages,
+                page: 1,
+                maxVisible: 5,
+                leaps: true,
+                firstLastUse: true,
+                first: '←',
+                last: '→',
+                wrapClass: 'pagination',
+                activeClass: 'active',
+                disabledClass: 'disabled',
+                nextClass: 'next',
+                prevClass: 'prev',
+                lastClass: 'last',
+                firstClass: 'first'
+            }).on("page", function (event, /* page number here */ num) {
+
+                $.ajax({
+                    url: '@Url.Action("GetProvidePhotosPageData", "ArticleAndBlogs")',
+                    data: { pagenumber: num, pageSize: 10 },
+                    success: function (result) {
+                        LoadProviderPhotosHtml(result);
+                    }
+                });
+
+            });
+        }
+        else{
+            $('#PhotoPager').css('display','none');
+        }
+
+
+        LoadProviderPhotos();
+
+        //Start Delete photo
+        $('body').on('click', '.btnDelPhoto', function (e) {
+            e.preventDefault();
+            if(confirm("Do you want to delete this photo."))
+            {
+                var photoid = $(this).data('photoid');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteImage","ProviderListing")',
+                    data: { imgid: photoid },
+                    success: function (result) {
+                        // $('#RowPhoto_' + photoid).remove();
+                        LoadProviderPhotos();
+                        alert("Photo deleted successfully.");
+                    }
+                });
+            }
+        });
+        //End Delete photo
+
+        //Start IsActive photo to show public
+        $('body').on('click', '.IsActivePhoto', function () {
+            var photoId =  $(this).data('photoid');
+            var IsActive= $(this).is(":checked") ? true :false;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("PhotoIsPublic", "ArticleAndBlogs")",
+                data: { PhotoId: photoId,IsActive:IsActive },
+                success: function (result) {
+                    alert("Photo status has been updated.");
+                }
+            });
+        });
+        //End IsActive photo to show public
+        //End Photo Script
+
+
+
+        //Start Video Script
+
+        var getVidId = function(url)
+        {
+            var vidId;
+            if(url.indexOf("youtube.com/watch?v=") !== -1)//https://m.youtube.com/watch?v=e3S9KINoH2M
+            {
+                vidId = url.substr(url.indexOf("youtube.com/watch?v=") + 20);
+            }
+            else if(url.indexOf("youtube.com/watch/?v=") !== -1)//https://m.youtube.com/watch/?v=e3S9KINoH2M
+            {
+                vidId = url.substr(url.indexOf("youtube.com/watch/?v=") + 21);
+            }
+            else if(url.indexOf("youtu.be") !== -1)
+            {
+                vidId = url.substr(url.indexOf("youtu.be") + 9);
+            }
+            else if(url.indexOf("www.youtube.com/embed/") !== -1)
+            {
+                vidId = url.substr(url.indexOf("www.youtube.com/embed/") + 22);
+            }
+            else if(url.indexOf("?v=") !== -1)// http://m.youtube.com/?v=tbBTNCfe1Bc
+            {
+                vidId = url.substr(url.indexOf("?v=")+3, 11);
+            }
+            else
+            {
+                console.warn("YouTubeUrlNormalize getVidId not a youTube Video: "+url);
+                vidId = null;
+            }
+
+            if(vidId.indexOf("&") !== -1)
+            {
+                vidId = vidId.substr(0, vidId.indexOf("&") );
+            }
+            return vidId;
+        };
+
+        function LoadProviderVideosHtml(result)
+        {
+
+
+            $('._VideositemDiv').empty();
+            for (i = 0; i < result.length; i++)
+            {
+
+                var _html= '<div class="col-xs-6 col-sm-3" id="RowVideo_'+result[i].Id +'">'+
+                                  '<div class="photoItem" style="background-image: url(https://i1.ytimg.com/vi/'+getVidId(result[i].VideoUrl)+'/hqdefault.jpg)">'+
+                                      '<span class="playIcon"><i class="fa fa-play-circle"></i></span>'+
+                                      '<div class="customCheckbox">';
+                if(result[i].IsActive==true)
+                    _html=_html+'<label><input type="checkbox" checked="checked" class="IsActiveVideo"  data-videoid="'+result[i].Id+'"/> <span class="lbl"></span></label>'
+                else
+                    _html=_html+'<label><input type="checkbox" class="IsActiveVideo"  data-videoid="'+result[i].Id+'"/> <span class="lbl"></span></label>'
+                _html=_html+ '</div>'+
+               //      ' <iframe width="200" height="300"'+
+               //' src="'+result[i].VideoUrl +'"'+
+               // 'frameborder="0"'+
+               // 'allowfullscreen></iframe>'+
+                     '<a href="'+result[i].VideoUrl+'" rel="prettyPhoto">'+
+                             '<span class="playIcon"><i class="fa fa-play-circle"></i></span>'+
+                               '<img alt="" src="https://i1.ytimg.com/vi/'+getVidId(result[i].VideoUrl)+'/hqdefault.jpg"  />'+
+                        '</a>'+
+                        '<ul class="icons">'+
+                       '<li><a href="#" data-videoid="'+result[i].Id+'" class="trash btnDelVideo"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>'+
+                   '</ul>'+
+                   '</div>'+
+               '</div>';
+
+                $('._VideositemDiv').append(_html);
+            }
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        }
+
+        function LoadProviderVideos() {
+            $.ajax({
+                url: '@Url.Action("GetProvideVideosPageData", "ArticleAndBlogs")',
+                data: { pagenumber: 1, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderVideosHtml(result);
+                    if(result!=undefined && result!= "")
+                    {
+                        var count = result[0].TotalRecords;
+                        var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+                        $('#VideoPager').bootpag({
+                            total: totalPages,
+                            page: 1,
+                            maxVisible: 5,
+                            leaps: true,
+                            firstLastUse: true,
+                            first: '←',
+                            last: '→',
+                            wrapClass: 'pagination',
+                            activeClass: 'active',
+                            disabledClass: 'disabled',
+                            nextClass: 'next',
+                            prevClass: 'prev',
+                            lastClass: 'last',
+                            firstClass: 'first'
+                        });
+                    }
+                }
+            });
+        }
+
+
+
+
+        $('.btnAdEdVideos').click(function(){
+            $('#txtVideoLink').val("");
+            $('#VideoContainer').attr('src',"");
+        });
+
+        $('#btnCloseVideosPop').click(function(){
+            $('#txtVideoLink').val("");
+            $('#VideoContainer').attr('src',"");
+        });
+
+
+        $('#txtVideoLink').bind('input propertychange', function(e) {
+            var rtn = $(this).val();
+            if(rtn != "" && $(this).val().indexOf('youtube') >= 0)
+            {
+                var vidId = getVidId($(this).val());
+                if(vidId)
+                {
+                    rtn = "https://www.youtube.com/embed/"+vidId;
+                }
+                else
+                {
+                    rtn = $(this).val();
+                }
+            }
+            $('#VideoContainer').attr('src',rtn);
+        });
+
+        $('#btnSaveVideo').click(function(){
+            var listingId=$(this).data('listingid');
+            var VideoUrl =$('#txtVideoLink').val(); //$('#VideoContainer').attr('src');
+            var formdata;
+            if (VideoUrl != null && VideoUrl != undefined && VideoUrl != "") {
+
+                if (FormData) {
+                    formdata = new FormData();
+                    formdata.append("VideoUrl", VideoUrl);
+                    formdata.append("ProviderListingId", listingId);
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("AddVideo", "ProviderListing")",
+                    contentType: false,
+                    processData: false,
+                    data: formdata,
+                    success: function (success) {
+                        if(success.Id!= "" && success.Id != undefined)
+                        {
+                            LoadProviderVideos();
+                            $('#btnCloseVideosPop').trigger('click');
+                            alert("Video uploaded successfully");
+                        }
+                        else{
+                            alert("Error occured");
+                        }
+                    }
+                });
+
+            }
+            else{
+                alert("Please select image.");
+            }
+        });
+
+
+        //Start Delete Video
+        $('body').on('click', '.btnDelVideo', function (e) {
+            e.preventDefault();
+            if(confirm("Do you want to delete this Video."))
+            {
+                var videoid = $(this).data('videoid');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteVideo", "ProviderListing")',
+                    data: { Videoid: videoid },
+                    success: function (result) {
+                        LoadProviderVideos();
+                        alert("Video deleted successfully.");
+                    }
+                });
+            }
+        });
+        //End Delete photo
+
+        //Start IsActive photo to show public
+        $('body').on('click', '.IsActiveVideo', function () {
+            var videoid =  $(this).data('videoid');
+            var IsActive= $(this).is(":checked") ? true :false;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("VideoIsPublic", "ArticleAndBlogs")",
+                data: { Videoid: videoid,IsActive:IsActive },
+                success: function (result) {
+                    alert("Video status has been updated.");
+                }
+            });
+        });
+        //End IsActive photo to show public
+
+        LoadProviderVideos();
+
+        //Start Video End Script
+
+
+
+        //Start Team Member
+
+        $('body').on('click', '.btnAdEdTeam', function ()
+        {
+            $('#hdnImageBites').val("");
+            $("[name='teamimageUrl']").val("");
+            $("[name='teamimage']").attr("src", "/assets/images/no-image-box.png");
+            $('#SelectType').val("Mr.");
+            $('#TeamFirstName').val('');
+            $('#TeamMiddleName').val('');
+            $('#TeamLastName').val('');
+            $('#TeamPosition').val('');
+            $('#TeamBiography').val('');
+            $('#hdnTeamId').val('');
+            $("select").selectpicker('refresh');
+            var teamId = $(this).data('teamid');
+            var listingid = $(this).data('listingid');
+
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("AddTeam", "Team")",
+                data: { listingId: listingid, teamId: teamId },
+                success: function (success) {
+                    if (success.result != undefined) {
+                        $('#hdnTeamId').val(success.result.ListingTeamId);
+                        $('#TeamFirstName').val(success.result.TeamFirstName);
+                        $('#TeamMiddleName').val(success.result.TeamMiddleName);
+                        $('#TeamLastName').val(success.result.TeamLastName);
+                        $('#TeamPosition').val(success.result.TeamPosition);
+                        $('#TeamBiography').val(success.result.TeamBiography);
+                        $('#SelectType').val(success.result.Teamtitle);
+
+                        if(success.result.imageUrl!= null)
+                            $("[name='teamimage']").attr("src", "/Images/TeamImages/" + success.result.imageUrl);
+                        else
+                            $("[name='teamimage']").attr("src", "/assets/images/no-image-box.png");
+
+                        $("select").selectpicker('refresh');
+                    }
+                }
+            });
+
+        });
+
+        $("[name='teamimageUrl']").change(function (event) {
+
+            var file = $("[name='teamimageUrl']").get(0).files[0];
+
+            var r = new FileReader();
+            r.onload = function () {
+                var binimage = r.result;
+                $("[name='teamimage']").attr("src", binimage);
+                $("[name='teamimage']").attr("hidden", false);
+            };
+            r.readAsDataURL(file);
+        });
+
+        function LoadEditProviderTeamHtml(result) {
+            var html='<div class="image col">'+
+                                             '<div class="customCheckbox">'+
+                                                 '<label>';
+            if(result.IsActive==true)
+            {
+                html=html+"<input type='checkbox' checked='checked' name='checkbox' class='IsActiveTeam' data-teamid='" + result.ListingTeamId + "'>"
+            }
+            else{
+                html=html+ "<input type='checkbox' name='checkbox' class='IsActiveTeam' data-teamid='" + result.ListingTeamId + "'>"
+            }
+            html=html+'<span class="lbl"></span>'+
+         '</label>'+
+    '</div>'+
+    '<div class="img">'+
+        '<img src="/Images/TeamImages/' + result.imageUrl + '"  />'+
+    '</div>'+
+ '</div>'+
+'<div class="blogInfo col">'+
+     '<div class="title">'+
+         result.Teamtitle +
+    '</div>'+
+   '<div class="position">'+
+         result.TeamPosition +
+   '</div>'+
+'</div>'+
+'<div class="blogDetail col">'+
+    result.TeamBiography +
+'</div>'+
+'<div class="blogIcons col">'+
+    '<ul>'+
+        '<li><a href="#" data-teamid="' + result.ListingTeamId + '" data-listingId="' + result.ListingId + '" class="btnAdEdTeam" data-toggle="modal" data-target="#teamModal"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>'+
+        '<li><a href="#" class="btnDelTeam trash" data-ListingTeamId="' + result.ListingTeamId + '"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>'+
+    '</ul>'+
+'</div>';
+
+            $('#RowTeam_' + result.ListingTeamId).append(html);
+        }
+
+        function LoadProviderTeamHtml(result) {
+            $('._TeamitemDiv').empty();
+            for (i = 0; i < result.length; i++) {
+
+
+                var html='<div class="Blogrow" id="RowTeam_' + result[i].ListingTeamId + '">'+
+                                          '<div class="image col">'+
+                                              '<div class="customCheckbox">'+
+                                                  '<label>';
+                if(result[i].IsActive==true)
+                {
+                    html=html+"<input type='checkbox' checked='checked' name='checkbox' class='IsActiveTeam' data-teamid='" + result[i].ListingTeamId + "'>"
+                }
+                else{
+                    html=html+ "<input type='checkbox' name='checkbox' class='IsActiveTeam' data-teamid='" + result[i].ListingTeamId + "'>"
+                }
+                html=html+'<span class="lbl"></span>'+
+             '</label>'+
+        '</div>'+
+        '<div class="img">'+
+            '<img src="/Images/TeamImages/' + result[i].imageUrl + '"  />'+
+        '</div>'+
+     '</div>'+
+    '<div class="blogInfo col">'+
+         '<div class="title">'+
+             result[i].Teamtitle +
+        '</div>'+
+       '<div class="position">'+
+             result[i].TeamPosition +
+       '</div>'+
+    '</div>'+
+    '<div class="blogDetail col">'+
+        result[i].TeamBiography +
+    '</div>'+
+    '<div class="blogIcons col">'+
+        '<ul>'+
+            '<li><a href="#" data-teamid="' + result[i].ListingTeamId + '" data-listingId="' + result[i].ListingId + '" class="btnAdEdTeam" data-toggle="modal" data-target="#teamModal"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>'+
+            '<li><a href="#" class="btnDelTeam trash" data-ListingTeamId="' + result[i].ListingTeamId + '"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>'+
+        '</ul>'+
+    '</div>'+
+ '</div>';
+
+
+                $('._TeamitemDiv').append(html);
+            }
+
+
+        }
+
+        function LoadProviderTeams() {
+            $.ajax({
+                url: '@Url.Action("GetProvideTeamPageData", "Team")',
+                data: { pagenumber: 1, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderTeamHtml(result);
+                    var count=result[0].TotalRecords;
+                    var totalPages= (count%10) > 0 ? ((count/10) +1) : (count/10);
+                    $('#page-selectionTeam').bootpag({
+                        total: totalPages,
+                        page: 1,
+                        maxVisible: 5,
+                        leaps: true,
+                        firstLastUse: true,
+                        first: '←',
+                        last: '→',
+                        wrapClass: 'pagination',
+                        activeClass: 'active',
+                        disabledClass: 'disabled',
+                        nextClass: 'next',
+                        prevClass: 'prev',
+                        lastClass: 'last',
+                        firstClass: 'first'
+                    })
+                }
+            });
+        }
+
+
+        $('#page-selectionTeam').bootpag({
+            total: 1,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetProvideTeamPageData", "Team")',
+                data: { pagenumber: num, pageSize: 10 },
+                success: function (result) {
+                    LoadProviderTeamHtml(result);
+                }
+            });
+        });
+
+
+        $('.btnSubTeam').click(function (e)
+        {
+            e.preventBubble = false;
+            var teamtitle = $('#SelectType option:selected').text()=="" ? "Mr." : $('#SelectType option:selected').text() ;
+            var TeamFirstName = $('#TeamFirstName').val();
+            var TeamMiddleName = $('#TeamMiddleName').val();
+            var TeamLastName = $('#TeamLastName').val();
+            var TeamPosition = $('#TeamPosition').val();
+            var TeamBiography = $('#TeamBiography').val();
+            var listingTeamId = $('#hdnTeamId').val();
+            var listingId = $(this).data('listingid');
+
+            var flag=true;
+            if (TeamFirstName == '') {
+                $('#spanTeamFirstName').html('First Name  is required.');
+                flag = false;
+            }
+            else {
+                $('#spanTeamFirstName').html('');
+            }
+
+            if (TeamMiddleName == '') {
+                $('#spanTeamMiddleName').html('Middle Name  is required.');
+                flag = false;
+            }
+            else {
+                $('#spanTeamMiddleName').html('');
+            }
+
+            if (TeamLastName == '') {
+                $('#spanTeamLastName').html('Last Name  is required.');
+                flag = false;
+            }
+            else {
+                $('#spanTeamLastName').html('');
+            }
+            if (TeamPosition == '') {
+                $('#spanTeamPosition').html('Position is required.');
+                flag = false;
+            }
+            else {
+                $('#spanTeamPosition').html('');
+            }
+
+            if (TeamBiography == '') {
+                $('#spanTeamBiography').html('BioGraphy  is required.');
+                flag = false;
+            }
+            else {
+                $('#spanTeamBiography').html('');
+            }
+            if(!flag)
+                return false;
+
+            var imageUrl = $("[name='teamimageUrl']").get(0).files[0];
+            var formdata;
+            if (imageUrl != null && imageUrl != undefined) {
+
+                if (FormData) {
+                    formdata = new FormData();
+                    formdata.append("imageUrl", imageUrl);
+                }
+            }
+            else { formdata = new FormData(); }
+
+            formdata.append("Teamtitle", teamtitle);
+            formdata.append("TeamFirstName", TeamFirstName);
+            formdata.append("TeamMiddleName", TeamMiddleName);
+            formdata.append("TeamLastName", TeamLastName);
+            formdata.append("TeamPosition", TeamPosition);
+            formdata.append("TeamBiography", TeamBiography);
+            formdata.append("ListingId", listingId);
+            formdata.append("ListingTeamId", listingTeamId);
+            formdata.append("Imagebytes", $('#hdnImageBites').val());
+
+            if (listingTeamId != undefined && listingTeamId != "")
+                $('._TeamitemDiv').find('#RowTeam_' + listingTeamId).empty();
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("AddEditTeam", "Team")",
+                contentType: false,
+                processData: false,
+                data: formdata,
+                success: function (result)
+                {
+                    if (listingTeamId != undefined && listingTeamId != "") {
+                        LoadEditProviderTeamHtml(result.result);
+                    }
+                    else{
+                        LoadProviderTeams();
+                    }
+                    $('#btnCloseTeam').trigger('click');
+                    alert(result.Message);
+                }
+            });
+
+        });
+
+        //Start Delete team member
+        $('body').on('click', '.btnDelTeam', function (e) {
+            e.preventDefault();
+            if(confirm("Do you want to delete this team member."))
+            {
+                var teamid = $(this).data('listingteamid');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteTeam", "ProviderListing")',
+                    data: { TeamId: teamid },
+                    success: function (result) {
+                        // $('#RowPhoto_' + photoid).remove();
+                        LoadProviderTeams();
+                        alert("Team member deleted successfully.");
+                    }
+                });
+            }
+        });
+        //End Delete team member
+
+        //Start IsActive photo to show public
+        $('body').on('click', '.IsActiveTeam', function () {
+            var teamid =  $(this).data('teamid');
+            var IsActive= $(this).is(":checked") ? true :false;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("TeamIsPublic", "ArticleAndBlogs")",
+                data: { TeamId: teamid,IsActive:IsActive },
+                success: function (result) {
+                    alert("Team member status has been updated.");
+                }
+            });
+        });
+        //End IsActive photo to show public
+
+
+        LoadProviderTeams();
+
+        //End Team Member
+
+        ///*****User for Image croping*****///
+
+        YUI().use('node', 'crop-box', function (Y) {
+            var options =
+            {
+                imageBox: '.imageBox',
+                thumbBox: '.thumbBox',
+                spinner: '.spinner',
+                imgSrc: ''
+            }
+            var cropper;
+            Y.one('#teamimageUrl').on('change', function () {
+
+                var reader = new FileReader();
+                var size=3000;
+                if (size < 4000) {
+                    reader.onloadend = function (e) {
+                        options.imgSrc = e.target.result;
+
+                        cropper = new Y.CropBox(options);
+                    }
+                    reader.readAsDataURL(this.get('files')._nodes[0]);
+
+                    this.get('files')._nodes = [];
+                    $("#myModal").modal({ backdrop: false, keyboard: false });
+
+                    $("#myModal").modal('show');
+                }
+                else {
+                    alert("your current image size is " + size + " KB.your image should be less than 4000 KB")
+                }
+            })
+            Y.one('#btnCrop').on('click', function (e) {
+                var img = cropper.getAvatar();
+                $("#hdnImageBites").val(img);
+                $("[name='teamimage']").attr("src", img);
+                $("#myModal").modal('hide');
+                //Y.one('.cropped').append('<img src="' + img + '">');
+            })
+            Y.one('#btnZoomIn').on('click', function () {
+                cropper.zoomIn();
+            })
+            Y.one('#btnZoomOut').on('click', function () {
+                cropper.zoomOut();
+            })
+        })
+
+
+        YUI.add('crop-box', function (Y) {
+            Y.CropBox = Y.Base.create('crop-box', Y.Base, [],
+                {
+                    initializer: function (options) {
+                        this.options = options;
+                        this.state = {};
+                        this.render();
+                    },
+                    render: function () {
+                        var self = this;
+                        this.imageBox = Y.one(this.options.imageBox);
+                        this.thumbBox = this.imageBox.one(this.options.thumbBox);
+                        this.spinner = this.imageBox.one(this.options.spinner);
+
+                        this.initObject();
+                        return this;
+                    },
+                    initObject: function () {
+                        var self = this;
+                        this.spinner.show();
+
+                        this.image = new Image();
+                        this.image.onload = function () {
+                            self.spinner.hide();
+                            self.setBackground();
+
+                            //event handler
+                            self.imageBox.on('mousedown', self.imgMouseDown, self);
+                            self.imageBox.on('mousemove', self.imgMouseMove, self);
+                            self.mouseup = Y.one('body').on('mouseup', self.imgMouseUp, self);
+
+                            Y.UA.gecko > 0 ?
+                                self.imageBox.on('DOMMouseScroll', self.zoomImage, self) :
+                                self.imageBox.on('mousewheel', self.zoomImage, self);
+                        };
+                        this.image.src = this.options.imgSrc;
+                    },
+                    setBackground: function () {
+                        if (!this.ratio) this.ratio = 1;
+
+                        var w = parseInt(this.image.width) * this.ratio;
+                        var h = parseInt(this.image.height) * this.ratio;
+
+                        var pw = (this.imageBox.get('clientWidth') - w) / 2;
+                        var ph = (this.imageBox.get('clientHeight') - h) / 2;
+
+                        this.imageBox.setAttribute('style',
+                            'background-image: url(' + this.image.src + '); ' +
+                            'background-size: ' + w + 'px ' + h + 'px; ' +
+                            'background-position: ' + pw + 'px ' + ph + 'px; ' +
+                            'background-repeat: no-repeat');
+                    },
+                    imgMouseDown: function (e) {
+                        e.stopImmediatePropagation();
+                        this.state.dragable = true;
+                        this.state.mouseX = e.clientX;
+                        this.state.mouseY = e.clientY;
+                    },
+                    imgMouseMove: function (e) {
+                        e.stopImmediatePropagation();
+                        if (this.state.dragable) {
+                            var x = e.clientX - this.state.mouseX;
+                            var y = e.clientY - this.state.mouseY;
+
+                            var bg = this.imageBox.getStyle('backgroundPosition').split(' ');
+
+                            var bgX = x + parseInt(bg[0]);
+                            var bgY = y + parseInt(bg[1]);
+
+                            this.imageBox.setStyle('backgroundPosition', bgX + 'px ' + bgY + 'px');
+
+                            this.state.mouseX = e.clientX;
+                            this.state.mouseY = e.clientY;
+                        }
+                    },
+                    imgMouseUp: function (e) {
+                        e.stopImmediatePropagation();
+                        this.state.dragable = false;
+                    },
+                    zoomImage: function (e) {
+                        e.wheelDelta > 0 ? this.ratio *= 1.1 : this.ratio *= 0.9;
+                        this.setBackground();
+                    },
+                    getAvatar: function () {
+                        var self = this,
+                            width = this.thumbBox.get('clientWidth'),
+                            height = this.thumbBox.get('clientHeight'),
+                            canvas = document.createElement("canvas"),
+                            dim = this.imageBox.getStyle('backgroundPosition').split(' '),
+                            size = this.imageBox.getStyle('backgroundSize').split(' '),
+                            dx = parseInt(dim[0]) - this.imageBox.get('clientWidth') / 2 + width / 2,
+                            dy = parseInt(dim[1]) - this.imageBox.get('clientHeight') / 2 + height / 2,
+                            dw = parseInt(size[0]);
+                        dh = parseInt(size[1]);
+                        sh = parseInt(this.image.height);
+                        sw = parseInt(this.image.width);
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        var context = canvas.getContext("2d");
+                        context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
+                        var imageData = canvas.toDataURL('image/jpeg');
+
+                        return imageData;
+                    },
+                    zoomIn: function () {
+                        this.ratio *= 1.1;
+                        this.setBackground();
+                    },
+                    zoomOut: function () {
+                        this.ratio *= 0.9;
+                        this.setBackground();
+                    },
+                    destructor: function () {
+                        if (this.mouseup) this.mouseup.detach()
+                    }
+                });
+        }, '1.0',
+        {
+            requires: ['node', 'base']
+        });
+
+        ///***** END User for Image croping*****///
+    });
+</script>

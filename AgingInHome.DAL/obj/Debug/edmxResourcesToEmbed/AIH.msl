@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AgingInHomeModelStoreContainer" CdmEntityContainer="AgingInHomeContext">
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="ContactUsid" ColumnName="ContactUsid" />
+          <ScalarProperty Name="IsRatingDisable" ColumnName="IsRatingDisable" />
+          <ScalarProperty Name="AppointmentSendBy" ColumnName="AppointmentSendBy" />
+          <ScalarProperty Name="IsConsumerAccept" ColumnName="IsConsumerAccept" />
+          <ScalarProperty Name="IsProviderAccept" ColumnName="IsProviderAccept" />
+          <ScalarProperty Name="IsProviderCancel" ColumnName="IsProviderCancel" />
+          <ScalarProperty Name="ServiceRequestDetailsId" ColumnName="ServiceRequestDetailsId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsAlterOffer" ColumnName="IsAlterOffer" />
+          <ScalarProperty Name="IsAlterTime" ColumnName="IsAlterTime" />
+          <ScalarProperty Name="IsCancel" ColumnName="IsCancel" />
+          <ScalarProperty Name="BestTime" ColumnName="BestTime" />
+          <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+          <ScalarProperty Name="ConsumerId" ColumnName="ConsumerId" />
+          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attachments">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Attachment">
+        <MappingFragment StoreEntitySet="Attachments">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ResourcePath" ColumnName="ResourcePath" />
+          <ScalarProperty Name="InboxMessageId" ColumnName="InboxMessageId" />
+          <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoryServices">
+      <EntityTypeMapping TypeName="AgingInHomeModel.CategoryService">
+        <MappingFragment StoreEntitySet="CategoryServices">
+          <ScalarProperty Name="ProviderCategoryId" ColumnName="ProviderCategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CategoryServiceId" ColumnName="CategoryServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactUs">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ContactU">
+        <MappingFragment StoreEntitySet="ContactUs">
+          <ScalarProperty Name="AppointmentTime" ColumnName="AppointmentTime" />
+          <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+          <ScalarProperty Name="CustomeMessageBody" ColumnName="CustomeMessageBody" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="CustomeMsg" ColumnName="CustomeMsg" />
+          <ScalarProperty Name="AppointmentSchedule" ColumnName="AppointmentSchedule" />
+          <ScalarProperty Name="IsEmail" ColumnName="IsEmail" />
+          <ScalarProperty Name="IsCall" ColumnName="IsCall" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Country">
+        <MappingFragment StoreEntitySet="Countries">
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FavoriteDetails">
+      <EntityTypeMapping TypeName="AgingInHomeModel.FavoriteDetail">
+        <MappingFragment StoreEntitySet="FavoriteDetail">
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HourOfOperations">
+      <EntityTypeMapping TypeName="AgingInHomeModel.HourOfOperation">
+        <MappingFragment StoreEntitySet="HourOfOperation">
+          <ScalarProperty Name="SunEnd" ColumnName="SunEnd" />
+          <ScalarProperty Name="SunStart" ColumnName="SunStart" />
+          <ScalarProperty Name="SatEnd" ColumnName="SatEnd" />
+          <ScalarProperty Name="SatStart" ColumnName="SatStart" />
+          <ScalarProperty Name="FriEnd" ColumnName="FriEnd" />
+          <ScalarProperty Name="FriStart" ColumnName="FriStart" />
+          <ScalarProperty Name="ThuEnd" ColumnName="ThuEnd" />
+          <ScalarProperty Name="ThuStart" ColumnName="ThuStart" />
+          <ScalarProperty Name="WedEnd" ColumnName="WedEnd" />
+          <ScalarProperty Name="WedStart" ColumnName="WedStart" />
+          <ScalarProperty Name="TueEnd" ColumnName="TueEnd" />
+          <ScalarProperty Name="TueStart" ColumnName="TueStart" />
+          <ScalarProperty Name="MonEnd" ColumnName="MonEnd" />
+          <ScalarProperty Name="MonStart" ColumnName="MonStart" />
+          <ScalarProperty Name="HourOfOperationId" ColumnName="HourOfOperationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inboxes">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Inbox">
+        <MappingFragment StoreEntitySet="Inbox">
+          <ScalarProperty Name="isAdminArchive" ColumnName="isAdminArchive" />
+          <ScalarProperty Name="ContactUsId" ColumnName="ContactUsId" />
+          <ScalarProperty Name="ConversationId" ColumnName="ConversationId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsProviderArchive" ColumnName="IsProviderArchive" />
+          <ScalarProperty Name="IsStarred" ColumnName="IsStarred" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
+          <ScalarProperty Name="ServiceRequestDetailsId" ColumnName="ServiceRequestDetailsId" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListingAboutUs">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ListingAboutU">
+        <MappingFragment StoreEntitySet="ListingAboutUs">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AboutUsDescription" ColumnName="AboutUsDescription" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ListingAboutUsId" ColumnName="ListingAboutUsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListingArticles">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ListingArticle">
+        <MappingFragment StoreEntitySet="ListingArticle">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsCommentOn" ColumnName="IsCommentOn" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ArticleImage" ColumnName="ArticleImage" />
+          <ScalarProperty Name="ArticleDescription" ColumnName="ArticleDescription" />
+          <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ListingArticleId" ColumnName="ListingArticleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListingBlogs">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ListingBlog">
+        <MappingFragment StoreEntitySet="ListingBlog">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsCommentOn" ColumnName="IsCommentOn" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BlogImage" ColumnName="BlogImage" />
+          <ScalarProperty Name="BlogDescription" ColumnName="BlogDescription" />
+          <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ListingBlogId" ColumnName="ListingBlogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProviderCategories">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ProviderCategory">
+        <MappingFragment StoreEntitySet="ProviderCategory">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RatingTables">
+      <EntityTypeMapping TypeName="AgingInHomeModel.RatingTable">
+        <MappingFragment StoreEntitySet="RatingTable">
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ReliabilityPoint" ColumnName="ReliabilityPoint" />
+          <ScalarProperty Name="QualityPoint" ColumnName="QualityPoint" />
+          <ScalarProperty Name="Speedpoint" ColumnName="Speedpoint" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequiedListings">
+      <EntityTypeMapping TypeName="AgingInHomeModel.RequiedListing">
+        <MappingFragment StoreEntitySet="RequiedListing">
+          <ScalarProperty Name="AssignProviderName" ColumnName="AssignProviderName" />
+          <ScalarProperty Name="IsQueue" ColumnName="IsQueue" />
+          <ScalarProperty Name="ServiceRequestCatId" ColumnName="ServiceRequestCatId" />
+          <ScalarProperty Name="Is7daysWait" ColumnName="Is7daysWait" />
+          <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceAreas">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServiceArea">
+        <MappingFragment StoreEntitySet="ServiceArea">
+          <ScalarProperty Name="ServiceRadius" ColumnName="ServiceRadius" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceDetails">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServiceDetail">
+        <MappingFragment StoreEntitySet="ServiceDetails">
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+          <ScalarProperty Name="CustomeService" ColumnName="CustomeService" />
+          <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="CategoryServiceId" ColumnName="CategoryServiceId" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicePriceTypes">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServicePriceType">
+        <MappingFragment StoreEntitySet="ServicePriceType">
+          <ScalarProperty Name="ServicePriceTypeName" ColumnName="ServicePriceTypeName" />
+          <ScalarProperty Name="ServicePriceTypeId" ColumnName="ServicePriceTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceRequests">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServiceRequest">
+        <MappingFragment StoreEntitySet="ServiceRequest">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LastUpdation" ColumnName="LastUpdation" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+          <ScalarProperty Name="BestTime" ColumnName="BestTime" />
+          <ScalarProperty Name="TypeOfMedicalInsurence" ColumnName="TypeOfMedicalInsurence" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="ResultUrl" ColumnName="ResultUrl" />
+          <ScalarProperty Name="IsDirectContact" ColumnName="IsDirectContact" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+          <ScalarProperty Name="AlternatePhone" ColumnName="AlternatePhone" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceRequestCategories">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServiceRequestCategory">
+        <MappingFragment StoreEntitySet="ServiceRequestCategories">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BestTime" ColumnName="BestTime" />
+          <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+          <ScalarProperty Name="LastUpdation" ColumnName="LastUpdation" />
+          <ScalarProperty Name="Iswait7days" ColumnName="Iswait7days" />
+          <ScalarProperty Name="ServiceRequestId" ColumnName="ServiceRequestId" />
+          <ScalarProperty Name="ProviderCategoryId" ColumnName="ProviderCategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceRequestDetails">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ServiceRequestDetail">
+        <MappingFragment StoreEntitySet="ServiceRequestDetails">
+          <ScalarProperty Name="LastUpdation" ColumnName="LastUpdation" />
+          <ScalarProperty Name="ServiceRequestCatId" ColumnName="ServiceRequestCatId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsWaitMore7Days" ColumnName="IsWaitMore7Days" />
+          <ScalarProperty Name="Mailrespose" ColumnName="Mailrespose" />
+          <ScalarProperty Name="EmailDateTime" ColumnName="EmailDateTime" />
+          <ScalarProperty Name="IsConsumerAcceptInvite" ColumnName="IsConsumerAcceptInvite" />
+          <ScalarProperty Name="IsProviderInvite" ColumnName="IsProviderInvite" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Service">
+        <MappingFragment StoreEntitySet="Services">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedbBy" ColumnName="CreatedbBy" />
+          <ScalarProperty Name="RecPrice" ColumnName="RecPrice" />
+          <ScalarProperty Name="OnetimePrice" ColumnName="OnetimePrice" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsStates">
+      <EntityTypeMapping TypeName="AgingInHomeModel.UsState">
+        <MappingFragment StoreEntitySet="UsStates">
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="AgingInHomeModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="AgingInHomeModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterProviderCategoryServices">
+      <EntityTypeMapping TypeName="AgingInHomeModel.MasterProviderCategoryService">
+        <MappingFragment StoreEntitySet="MasterProviderCategoryServices">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CategoryServiceName" ColumnName="CategoryServiceName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryServiceId" ColumnName="CategoryServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="AgingInHomeModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderBlogData" FunctionName="AgingInHomeModel.Store.ssp_GetProviderBlogData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderBlogData_Result">
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="ListingBlogId" ColumnName="ListingBlogId" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
+          <ScalarProperty Name="BlogDescription" ColumnName="BlogDescription" />
+          <ScalarProperty Name="BlogImage" ColumnName="BlogImage" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="IsCommentOn" ColumnName="IsCommentOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderNewsData" FunctionName="AgingInHomeModel.Store.ssp_GetProviderNewsData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderNewsData_Result">
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="ListingArticleId" ColumnName="ListingArticleId" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
+          <ScalarProperty Name="ArticleDescription" ColumnName="ArticleDescription" />
+          <ScalarProperty Name="ArticleImage" ColumnName="ArticleImage" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="IsCommentOn" ColumnName="IsCommentOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ProviderImageGalaries">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ProviderImageGalary">
+        <MappingFragment StoreEntitySet="ProviderImageGalary">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderPhotosData" FunctionName="AgingInHomeModel.Store.ssp_GetProviderPhotosData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderPhotosData_Result">
+          <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ProviderTeams">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ProviderTeam">
+        <MappingFragment StoreEntitySet="ProviderTeam">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+          <ScalarProperty Name="TeamBiography" ColumnName="TeamBiography" />
+          <ScalarProperty Name="TeamPosition" ColumnName="TeamPosition" />
+          <ScalarProperty Name="TeamLastName" ColumnName="TeamLastName" />
+          <ScalarProperty Name="TeamMiddleName" ColumnName="TeamMiddleName" />
+          <ScalarProperty Name="TeamFirstName" ColumnName="TeamFirstName" />
+          <ScalarProperty Name="Teamtitle" ColumnName="Teamtitle" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ListingTeamId" ColumnName="ListingTeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderVideosData" FunctionName="AgingInHomeModel.Store.ssp_GetProviderVideosData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderVideosData_Result">
+          <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ProviderVideos">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ProviderVideo">
+        <MappingFragment StoreEntitySet="ProviderVideos">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+          <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProviderListings">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ProviderListing">
+        <MappingFragment StoreEntitySet="ProviderListing">
+          <ScalarProperty Name="IsTeamShow" ColumnName="IsTeamShow" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="IsVideoShow" ColumnName="IsVideoShow" />
+          <ScalarProperty Name="IsPhotosShow" ColumnName="IsPhotosShow" />
+          <ScalarProperty Name="IsAboutUsShow" ColumnName="IsAboutUsShow" />
+          <ScalarProperty Name="IsNewsShow" ColumnName="IsNewsShow" />
+          <ScalarProperty Name="IsBlogShow" ColumnName="IsBlogShow" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ProviderAddress" ColumnName="ProviderAddress" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="WhenWeDo" ColumnName="WhenWeDo" />
+          <ScalarProperty Name="WhatWeDo" ColumnName="WhatWeDo" />
+          <ScalarProperty Name="WhyWeDo" ColumnName="WhyWeDo" />
+          <ScalarProperty Name="WhoWeAre" ColumnName="WhoWeAre" />
+          <ScalarProperty Name="ServicePriceType" ColumnName="ServicePriceType" />
+          <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+          <ScalarProperty Name="ListingDate" ColumnName="ListingDate" />
+          <ScalarProperty Name="PinterestURL" ColumnName="PinterestURL" />
+          <ScalarProperty Name="WebsiteURL" ColumnName="WebsiteURL" />
+          <ScalarProperty Name="TwitterURL" ColumnName="TwitterURL" />
+          <ScalarProperty Name="FacebookURL" ColumnName="FacebookURL" />
+          <ScalarProperty Name="GoogleURL" ColumnName="GoogleURL" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CommunicationEmail" ColumnName="CommunicationEmail" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
+          <ScalarProperty Name="HourOfOperationId" ColumnName="HourOfOperationId" />
+          <ScalarProperty Name="ProviderContactNumber" ColumnName="ProviderContactNumber" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="ServicesAreaId" ColumnName="ServicesAreaId" />
+          <ScalarProperty Name="CategoryServiceId" ColumnName="CategoryServiceId" />
+          <ScalarProperty Name="ProviderCategory" ColumnName="ProviderCategory" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderTeamData" FunctionName="AgingInHomeModel.Store.ssp_GetProviderTeamData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderTeamData_Result">
+          <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="ListingTeamId" ColumnName="ListingTeamId" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="Teamtitle" ColumnName="Teamtitle" />
+          <ScalarProperty Name="TeamFirstName" ColumnName="TeamFirstName" />
+          <ScalarProperty Name="TeamMiddleName" ColumnName="TeamMiddleName" />
+          <ScalarProperty Name="TeamLastName" ColumnName="TeamLastName" />
+          <ScalarProperty Name="TeamPosition" ColumnName="TeamPosition" />
+          <ScalarProperty Name="TeamBiography" ColumnName="TeamBiography" />
+          <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Analytics">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Analytic">
+        <MappingFragment StoreEntitySet="Analytics">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ViewID" ColumnName="ViewID" />
+          <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoogleUsers">
+      <EntityTypeMapping TypeName="AgingInHomeModel.GoogleUser">
+        <MappingFragment StoreEntitySet="GoogleUser">
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="RefreshToken" ColumnName="RefreshToken" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdwordBugets">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AdwordBuget">
+        <MappingFragment StoreEntitySet="AdwordBugets">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="RemainingPromotionalBudget" ColumnName="RemainingPromotionalBudget" />
+          <ScalarProperty Name="MonthlyPromotionalBudget" ColumnName="MonthlyPromotionalBudget" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnalyticsStats">
+      <EntityTypeMapping TypeName="AgingInHomeModel.AnalyticsStat">
+        <MappingFragment StoreEntitySet="AnalyticsStats">
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="MarkupId" ColumnName="MarkupId" />
+          <ScalarProperty Name="Pageviews" ColumnName="Pageviews" />
+          <ScalarProperty Name="Impressions" ColumnName="Impressions" />
+          <ScalarProperty Name="AdClicks" ColumnName="AdClicks" />
+          <ScalarProperty Name="CPC" ColumnName="CPC" />
+          <ScalarProperty Name="CostPerTransaction" ColumnName="CostPerTransaction" />
+          <ScalarProperty Name="CTR" ColumnName="CTR" />
+          <ScalarProperty Name="Sessions" ColumnName="Sessions" />
+          <ScalarProperty Name="Users" ColumnName="Users" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Markups">
+      <EntityTypeMapping TypeName="AgingInHomeModel.Markup">
+        <MappingFragment StoreEntitySet="Markup">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Markup1" ColumnName="Markup" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetProviderListAnalytic" FunctionName="AgingInHomeModel.Store.ssp_GetProviderListAnalytic">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetProviderListAnalytic_Result">
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ssp_GetBlogNewsDetails" FunctionName="AgingInHomeModel.Store.ssp_GetBlogNewsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.ssp_GetBlogNewsDetails_Result">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
+          <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+          <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ListingBlogComments">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ListingBlogComment">
+        <MappingFragment StoreEntitySet="ListingBlogComment">
+          <ScalarProperty Name="IsBlog" ColumnName="IsBlog" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BlogCommentDescription" ColumnName="BlogCommentDescription" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ListingBlogId" ColumnName="ListingBlogId" />
+          <ScalarProperty Name="ListingBlogCommentId" ColumnName="ListingBlogCommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConsumerProfiles">
+      <EntityTypeMapping TypeName="AgingInHomeModel.ConsumerProfile">
+        <MappingFragment StoreEntitySet="ConsumerProfile">
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="AlterPhone" ColumnName="AlterPhone" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="TypeOfMedicalInsurance" ColumnName="TypeOfMedicalInsurance" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetAnalyticsListing" FunctionName="AgingInHomeModel.Store.usp_GetAnalyticsListing">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.usp_GetAnalyticsListing_Result">
+          <ScalarProperty Name="row_num" ColumnName="row_num" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+          <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetMarkups" FunctionName="AgingInHomeModel.Store.usp_GetMarkups">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.usp_GetMarkups_Result">
+          <ScalarProperty Name="row_num" ColumnName="row_num" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Markup" ColumnName="Markup" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetProviderListingRequest" FunctionName="AgingInHomeModel.Store.usp_GetProviderListingRequest">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AgingInHomeModel.usp_GetProviderListingRequest_Result">
+          <ScalarProperty Name="rowNum" ColumnName="rowNum" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ProviderListingId" ColumnName="ProviderListingId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

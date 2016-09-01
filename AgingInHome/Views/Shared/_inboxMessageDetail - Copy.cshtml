@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.Models
+@using AgingInHome.DAL
+@model List<AgingInHome.Models.ServiceRequestModel>
+@{
+    var listing = 0;
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+    var companyname = "";
+    var combinedInboxMessages = new List<combinedInboxMessagesModel>();
+}
+@foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+{
+    foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.IsRead == false).ToList())
+    {
+        var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+        listing = listing + countUnread;
+        if (Allmessages.AllMessages.Any(s => s.IsArchive == false))
+        {
+            <span>
+                @{
+                    var inboxmessage = new combinedInboxMessagesModel();
+                    inboxmessage.ConversationMessage = true; inboxmessage.CreatedDate = Convert.ToDateTime(item3.SentDate);
+                    inboxmessage.UnreadMsg = countUnread;
+                    inboxmessage.Subject = item3.Subject;
+                    inboxmessage.ConversationId = item3.ConversationId;
+
+                    var finduser = AllListing.Where(s => s.UserId == item3.RecipientId || s.UserId == item3.SenderId).FirstOrDefault();
+                    if (finduser != null)
+                    {
+                        companyname = finduser.CompanyName;
+                        inboxmessage.Name = companyname;
+                    }
+                    else
+                    {
+                        //companyname = alluserlist.Where(s => s.Id == item3.RecipientId || s.Id == item3.SenderId).FirstOrDefault().Email.Split('@')[0];
+                        inboxmessage.Name = "Admin";
+
+                    }
+                    combinedInboxMessages.Add(inboxmessage);
+
+                }
+            </span>
+                            }
+                            break;
+
+                        }
+                    }
+@foreach (var item in Model.OrderByDescending(s => s.LastUpdation).ToList())
+{
+    var ddd = item.ServiceRequestCategories.OrderByDescending(r => r.LastUpdation).ToList();
+    foreach (var item1 in ddd)
+    {
+
+        foreach (var item2 in item1.ServiceRequestDetails.OrderByDescending(d => d.LastUpdation).ToList())
+        {
+            if (item2.Inboxes.Where(d => d.IsArchive == false).Count() > 0)
+            {
+                foreach (var item3 in item2.Inboxes)
+                {
+                    var countUnread = item2.Inboxes.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+                    listing = listing + countUnread;
+                    <span>
+                        @{
+                            var inboxmessage = new combinedInboxMessagesModel();
+                            inboxmessage.ConversationMessage = false; inboxmessage.CreatedDate = Convert.ToDateTime(item3.SentDate);
+                            inboxmessage.UnreadMsg = countUnread;
+                            inboxmessage.Subject = item3.Subject;
+                            inboxmessage.Name = item2.ProviderListing.CompanyName;
+                            inboxmessage.ServiceRequestDetailsId = Convert.ToInt16(item3.ServiceRequestDetailsId);
+                            combinedInboxMessages.Add(inboxmessage);
+                        }
+                    </span>
+
+                                                break;
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+@foreach (var eachmessage in combinedInboxMessages.OrderByDescending(s => s.UnreadMsg).ToList())
+{
+    if (eachmessage.ConversationMessage == true)
+    {
+        <tr class="openConversationMsg" data-detailId="@eachmessage.ConversationId">
+            @if (eachmessage.UnreadMsg > 0)
+            {
+           
+                <td><b>@eachmessage.Name <span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span></b></td>
+                <td><b>@eachmessage.Subject</b></td>
+                <td style="width:25%"><i class="fa fa-paperclip fa-2x"></i> &nbsp;<b>@eachmessage.CreatedDate</b> </td>
+            }
+            else
+            {
+                <td>
+                    @eachmessage.Name
+                </td>
+                <td>@eachmessage.Subject</td>
+                <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@eachmessage.CreatedDate</td>
+            }
+        </tr>
+    }
+    else
+    {
+        <tr class="openmsg" data-detailId="@eachmessage.ServiceRequestDetailsId">
+            @*<td style="width:3%">@Html.CheckBox("checkbox")</td>*@
+            @if (eachmessage.UnreadMsg > 0)
+            {
+                <td><b>@eachmessage.Name <span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span></b></td>
+                <td><b>@eachmessage.Subject</b></td>
+                <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;<b>@eachmessage.CreatedDate</b> </td>
+
+
+            }
+            else
+            {
+                <td>@eachmessage.Name</td>
+                <td>@eachmessage.Subject</td>
+                <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@eachmessage.CreatedDate</td>
+            }
+
+
+        </tr>
+
+    }
+}
+
+@Html.Hidden("inboxcountfeild", listing)

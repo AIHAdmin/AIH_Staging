@@ -1,0 +1,99 @@
+﻿@model AgingInHome.Models.AdwordModel
+@{
+    ViewBag.Title = "PromotionalBudget";
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".jqueryui-marker-datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date()
+        });
+        $(".jqueryui-marker-datepicker").datepicker().datepicker('setDate', new Date());
+    });
+</script>
+<link href="~/assets/css/component/developer.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/content/jquery-ui.css">
+<div class="main-container inner-container">
+    <div class="container">
+        <h1 class="main-title">MY <span>LISTING</span></h1>
+
+        <!-- My Listing Section -->
+        <!-- MyListing Sidebar -->
+        <div class="ListingNav">
+            <ul>
+                <li>
+                    <a href="#" class="lightBlueBg"><i class="fa fa-edit"></i> <span class="hidden-sm hidden-xs">Edit Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="redBg"><i class="fa fa-trash-o"></i> <span class="hidden-sm hidden-xs">Delete Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="orangeBg dbicon"><i class="fa fa-file-text-o"></i><i aria-hidden="true" class="fa fa-search"></i> <span class="hidden-sm hidden-xs">Preview Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="lightGreenBg"><i class="fa fa-bullhorn"></i> <span class="hidden-sm hidden-xs">Promote Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="blueBg"><i class="fa fa-thumbs-o-up"></i> <span class="hidden-sm hidden-xs">Favorite Detail</span></a>
+                </li>
+                <li>
+                    <a href="#" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Rating Detail</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Google Analytics</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("PromotionalBudget", "Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Promotional Budget</span></a>
+                </li>
+            </ul>
+
+
+        </div>
+        <!-- //MyListing Sidebar -->
+        <!-- Step 1: Create the containing elements. -->
+        <div class="MyListingContent MygoogleAnalytics">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#PromotionalBudget" aria-controls="aboutus" role="tab" data-toggle="tab">Promotional Budget</a></li>
+            </ul>
+@using (@Html.BeginForm("PromotionalBudget", "Analytics", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+     @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.IsActive)
+    @Html.HiddenFor(m => m.ProviderListingId)
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="PromotionalBudget">
+                            <div class="form-group">
+                                <label>Monthly Promotional Budget</label>
+                                @Html.TextBoxFor(m => m.MonthlyPromotionalBudget, new { @class = "form-control", @maxlength = "10", @type = "number"  })                             
+                                @Html.ValidationMessageFor(m => m.MonthlyPromotionalBudget)
+                            </div>
+                            <div class="form-group">
+                                <label>Remaining Promotional Budget</label>
+                                @Html.TextBoxFor(m => m.RemainingPromotionalBudget, new { @class = "form-control", @maxlength = "10", @type = "number"  })
+                                @Html.ValidationMessageFor(m => m.RemainingPromotionalBudget)
+                            </div>
+                            <div class="form-group">
+                                <label>Promotional Start Date</label>
+                                @Html.TextBoxFor(m => m.StartDate,"{0:MM/dd/yyyy}", new { @class = "form-control jqueryui-marker-datepicker" })
+                                @Html.ValidationMessageFor(m => m.StartDate)
+                            </div>
+                            <div class="form-group">
+                                <label>Promotional End Date</label>
+                                @Html.TextBoxFor(m => m.EndDate, "{0:MM/dd/yyyy}", new { @class = "form-control jqueryui-marker-datepicker" })
+                                @Html.ValidationMessageFor(m => m.EndDate)
+                            </div>
+                    <!-- Form Button -->
+                    <div class="form-group form-button text-center">
+                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-next">Submit</button>
+                    </div>
+                    <!-- //Form Button -->
+                </div>
+            </div>
+}
+        </div>
+    </div>
+</div>
+

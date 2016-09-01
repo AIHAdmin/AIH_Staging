@@ -1,0 +1,819 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using System.Linq;
+@using AgingInHome.Models;
+@model IPagedList<AgingInHome.Models.ProviderListingModel>
+@{
+    ViewBag.Title = "SearchListing";
+    var TotalListing = (List<ProviderListingModel>)@ViewBag.AllListing;
+    var companyname = "";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutNew1.cshtml";
+}
+<script>
+    function OnImgError(id) {
+        $('#noimage_' + id).addClass('noImage');
+    }
+</script>
+
+<style type="text/css">
+    /*.morecontent span {
+        display: none;
+    }*/
+    #profile-description {
+        position: relative;
+    }
+
+        #profile-description .text {
+            width: 50px;
+            margin-bottom: 5px;
+            color: #777;
+            padding: 0px;
+            position: relative;
+            font-family: Arial;
+            font-size: 14px;
+            display: block;
+        }
+
+        #profile-description .show-more {
+            color: #f15925;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            height: auto;
+            padding: 0 8px;
+            position: relative;
+            text-align: center;
+            text-decoration: underline;
+            width: auto;
+        }
+
+            #profile-description .show-more:hover {
+                color: #f26b3d;
+            }
+
+        #profile-description .show-more-height {
+            height: 25px;
+            overflow: hidden;
+        }
+</style>
+<!-- Main Container -->
+<div class="main-container">
+
+    <!-- Mobile View Search Code -->
+    <div class="container mobileSidebar">
+        <div class="mobileSidebarSection">
+
+            @using (Html.BeginForm("SearchListing", "ProviderListing", FormMethod.Get))
+            {
+                <div class="filterBlock">
+                    <label class="dropdown-toggle" id="btnfilterMb" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </label>
+                    <div class="dropdown-menu block-category mbCheckPopUp">
+                        <div class="contentScroll mCustomScrollbar" style="height: 302px;">
+
+                            <div class="customCheckbox">
+                                <ul>
+                                    @foreach (var category in (List<ProviderCategoryModel>)ViewBag.CategoryList)
+                                    {
+                                        if ((List<int>)ViewBag.selectedCat != null)
+                                        {
+                                            var status = false;
+                                            foreach (var value in (List<int>)ViewBag.selectedCat)
+                                            {
+                                                if (value == category.Id)
+                                                {
+                                                    status = true;
+                                                }
+                                            }
+
+                                            if (!status)
+                                            {
+                                                if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                {
+
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class="_mbSideMenu" name="selectedCategory" value="@category.Id" id="@category.Id">
+                                            <span class="lbl">@category.CategoryName </span>
+                                            @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                            {
+                                                            <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                            }
+                                        </label>
+
+                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                                if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                {
+
+
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class="_mbSideMenu" name="selectedCategory" value="@category.Id" id="@category.Id" checked="checked">
+                                            <span class="lbl">@category.CategoryName </span>
+                                            @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                            {
+                                                            <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                            }
+                                        </label>
+
+                                    </li>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (@TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                            {
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" class="_mbSideMenu" name="selectedCategory" value="@category.Id" id="@category.Id">
+                                            <span class="lbl">@category.CategoryName </span>
+                                            @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                        {
+                                                        <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                        }
+                                        </label>
+
+                                    </li>
+                                            }
+
+                                        }
+                                    }
+                                </ul>
+
+                            </div>
+                            <div class="button" style="display:none;">
+                                <input type="submit" value="Search" id="mdSubmitMenu" class="btn btn-block btn-lg btn-secondary" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="SearchLocation">
+                    <label>Search Location</label>
+                    <div class="input-group">
+                        @Html.TextBox("Location", "", new { @class = "form-control numriconly", @placeholder = "Enter Zip Code", @maxlength = "5" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- //Mobile View Search Code -->
+
+    <div class="container">
+        <div class="row" style="margin-bottom: 100px;">
+            <!-- Sidebar -->
+            @using (@Html.BeginForm("SearchListing", "ProviderListing", FormMethod.Get))
+            {
+                <div class="col-sm-4 SidebarSection">
+                    <div class="search-sidebar">
+                        <div class="block">
+                            <h3>Search Location</h3>
+
+                            <div class="input-group">
+                                @Html.TextBox("Location", "", new { @class = "form-control numriconly", @placeholder = "Enter Zip Code", @maxlength = "5" })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+
+                        <div class="block block-category">
+                            <h3>Select multiple services </h3>
+                            <div class="contentScroll mCustomScrollbar" style="height: auto">
+                                <div class="customCheckbox">
+                                    <ul>
+                                        @foreach (var category in (List<ProviderCategoryModel>)ViewBag.CategoryList)
+                                        {
+                                            if ((List<int>)ViewBag.selectedCat != null)
+                                            {
+                                                var status = false;
+                                                foreach (var value in (List<int>)ViewBag.selectedCat)
+                                                {
+                                                    if (value == category.Id)
+                                                    {
+                                                        status = true;
+                                                    }
+                                                }
+
+                                                if (!status)
+                                                {
+                                                    if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                    {
+
+                                                        <li>
+                                                            <label>
+                                                                <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id">
+                                                                <span class="lbl">@category.CategoryName </span>
+                                                                @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                                {
+                                                                    <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                                }
+                                                            </label>
+
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+
+                                                    if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                    {
+
+
+                                                        <li>
+                                                            <label>
+                                                                <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id" checked="checked">
+                                                                <span class="lbl">@category.CategoryName </span>
+                                                                @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                                {
+                                                                    <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                                }
+                                                            </label>
+
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (@TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                {
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id">
+                                                            <span class="lbl">@category.CategoryName </span>
+                                                            @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                                            {
+                                                                <span class="counter">@(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+
+                                                            }
+                                                        </label>
+
+                                                    </li>
+                                                }
+
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="button">
+                                <input type="submit" value="Search" class="btn btn-block btn-lg btn-secondary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- //Sidebar -->
+            <!-- Search Listing -->
+            <div class="col-sm-8 search-listing">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+
+                        var checkspace = item.CompanyName.Trim().Split(' ');
+                        if (checkspace.Count() > 1)
+                        {
+                            companyname = item.CompanyName.Replace(' ', '-');
+                        }
+                        else
+                        {
+                            companyname = item.CompanyName;
+                        }
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="search-listing-item" id="noimage_@item.ProviderListingId">
+                                    <!-- Image -->
+                                    <div class="image">
+                                        <div class="ribbon">
+                                            <span>@item.Experience exp.</span>
+                                        </div>
+                                        <div class="img">
+                                            <img src="../Images/ProviderListingImages/@item.Logo" height="230" width="230" onError="OnImgError(@item.ProviderListingId);" />
+                                        </div>
+                                    </div>
+                                    <!-- //Image -->
+                                    <!-- Detail -->
+                                    <div class="detail">
+                                        <h2>@item.ProviderCategory1.CategoryName: <span><a href="/ProviderListing/viewlisting?CompanyName=@companyname">@companyname</a></span></h2>
+                                        <div class="rating">
+                                            @{ int ki = 0;}
+                                            @for (int i = 0; i < item.AvgRating; i++)
+                                            {
+                                                ki = ki + 1;
+
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            }
+                                            @for (int j = 4; j >= ki; j--)
+                                            {
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            }
+                                        </div>
+                                        <div class="detailRow location">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            @if (item.ServiceAreas != null && @item.ServiceAreas.Count > 0)
+                                            {
+                                                @item.ProviderAddress<text> &nbsp; </text> @item.ServiceAreas[0].City<text> &nbsp; </text> @item.ServiceAreas[0].UsState.State<text>,</text> @item.ServiceAreas[0].ZipCode
+                                            }
+                                        </div>
+                                        <div class="detailRow call">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                            @if (item.ServiceAreas != null && @item.ServiceAreas.Count > 0)
+                                            {
+                                                @item.ProviderContactNumber
+                                            }
+                                        </div>
+                                        <div class="detailRow weekDay">
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Monday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.MonStart != null)
+                                                    {
+                                                        <span>
+                                                            Mon:
+                                                        </span>
+                                                        @item.hourOfOperation.MonStart<span>&#8208;</span> @item.hourOfOperation.MonEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Mon:
+                                                    </span>
+                                                    <text>Closed</text>
+                                                    }
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Tuesday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.TueStart != null)
+                                                    {
+                                                        <span>
+                                                            Tue:
+                                                        </span>
+                                                        @item.hourOfOperation.TueStart<span>&#8208;</span> @item.hourOfOperation.TueEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Tue:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Wednesday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.WedStart != null)
+                                                    {
+                                                        <span>
+                                                            Wed:
+                                                        </span>
+                                                        @item.hourOfOperation.WedStart<span>&#8208;</span> @item.hourOfOperation.WedEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Wed:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Thursday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.ThuStart != null)
+                                                    {
+                                                        <span>
+                                                            Thr:
+                                                        </span>
+                                                        @item.hourOfOperation.ThuStart<span>&#8208;</span> @item.hourOfOperation.ThuEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Thr:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Friday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.FriStart != null)
+                                                    {
+                                                        <span>
+                                                            Fri:
+                                                        </span>
+                                                        @item.hourOfOperation.FriStart<span>&#8208;</span> @item.hourOfOperation.FriEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Fri:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Saturday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.SatStart != null)
+                                                    {
+                                                        <span>
+                                                            Sat:
+                                                        </span>
+                                                        @item.hourOfOperation.SatStart<span>&#8208;</span> @item.hourOfOperation.SatEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Sat:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+                                            @if (DateTime.Now.DayOfWeek.ToString() == "Sunday")
+                                            {
+                                                <label class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    @if (item.hourOfOperation.SunStart != null)
+                                                    {
+                                                        <span>
+                                                            Sun:
+                                                        </span>
+                                                        @item.hourOfOperation.SunStart<span>&#8208;</span> @item.hourOfOperation.SunEnd
+
+                                                    }
+                                                    else
+                                                    { <span>
+                                                        Sun:
+                                                    </span><text>Closed</text>}
+
+                                                    <span class="dropdown-arrow">
+                                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                            }
+
+
+                                            <ul class="dropdown-menu">
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Monday")
+                                                {
+                                                    if (item.hourOfOperation.MonStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Mon:
+                                                            </span>
+                                                            @item.hourOfOperation.MonStart -@item.hourOfOperation.MonEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Mon:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Tuesday")
+                                                {
+                                                    if (item.hourOfOperation.TueStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Tue:
+                                                            </span>
+                                                            @item.hourOfOperation.TueStart -@item.hourOfOperation.TueEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Tue:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Wednesday")
+                                                {
+                                                    if (item.hourOfOperation.WedStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Wed:
+                                                            </span>
+                                                            @item.hourOfOperation.WedStart -@item.hourOfOperation.WedEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Wed:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Thursday")
+                                                {
+                                                    if (item.hourOfOperation.ThuStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Thr:
+                                                            </span>
+                                                            @item.hourOfOperation.ThuStart -@item.hourOfOperation.ThuEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Thr:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Friday")
+                                                {
+                                                    if (item.hourOfOperation.FriStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Fri:
+                                                            </span>
+                                                            @item.hourOfOperation.FriStart -@item.hourOfOperation.FriEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Fri:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Saturday")
+                                                {
+                                                    if (item.hourOfOperation.SatStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Sat:
+                                                            </span>
+                                                            @item.hourOfOperation.SatStart -@item.hourOfOperation.SatEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Sat:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (DateTime.Now.DayOfWeek.ToString() != "Sunday")
+                                                {
+                                                    if (item.hourOfOperation.SunStart != null)
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Sun:
+                                                            </span>
+                                                            @item.hourOfOperation.SunStart -@item.hourOfOperation.SunEnd
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li>
+                                                            <span>
+                                                                Sun:
+                                                            </span>
+                                                            Closed
+                                                        </li>
+                                                    }
+                                                }
+
+                                            </ul>
+                                        </div>                                     
+
+
+                                        <div class="detailRow text _whatWeDo wtwedo">
+                                            <input type="hidden" class="WhatWeDo" value="@HttpUtility.UrlDecode(item.WhatWeDo, System.Text.Encoding.Default)" />
+                                            @*<span class="label">what we do:</span>*@
+                                            <div id="profile-description">
+                                                <div class="_showhide">
+                                                    <span class="text show-more-height" style="width:100%">
+                                                    </span>
+                                                </div>
+
+                                            </div><!-- [End] #profile-description -->
+                                        </div>
+
+                                        <div class="detailRow text xs-show _whatWeDo xtrasmlldev">
+                                            <input type="hidden" class="WhatWeDo" value="@HttpUtility.UrlDecode(item.WhatWeDo, System.Text.Encoding.Default)" />
+                                            @*<span class="label">what we do:</span>*@
+                                            <div id="profile-description">
+                                                <div class="_showhide">
+                                                    <span class="text show-more-height" style="width:100%">
+                                                    </span>
+                                                </div>
+
+                                            </div><!-- [End] #profile-description -->
+                                        </div>
+
+                                        <div class="viewBtn">
+                                            <a href="#" class="btn btn-secondary" onclick="location.href='@Url.Action("ViewListing", "ProviderListing",  new { CompanyName = @companyname })'">View More</a>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- //Detail -->
+                                </div>
+                            </div>
+                        </div>
+                                                    }
+                                                }
+                <!-- Pagination -->
+
+
+                <div class="pagination text-center">
+                    @*@if (ViewBag.selectedCategory != null)
+                        {
+                            List<int> categories = new List<int>();
+                            categories = (List<int>)ViewBag.selectedCategory;
+
+                            var parameters = new RouteValueDictionary();
+
+                            for (int i = 0; i < categories.Count; ++i)
+                            {
+                                parameters.Add("selectedCategory[" + i + "]", categories[i]);
+                            }
+                            //parameters.Add("page", (ViewBag.page== null ? 1 : (int)ViewBag.page));
+                           parameters.Add("Location", (string)ViewBag.Location);
+                            @Html.PagedListPager(Model, page => Url.Action("SearchListing", "ProviderListing", parameters ))
+
+                        }
+                        else
+                        {*@
+                    @Html.PagedListPager(Model, page => Url.Action("SearchListing", "ProviderListing", new { page = page, Location = (string)ViewBag.Location }))
+
+                </div>
+
+                <!-- //Pagination -->
+
+            </div>
+            <!-- //Search Listing -->
+
+
+
+        </div>
+    </div>
+</div>
+<!-- //Main Container -->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var showChar = 100;
+        $('._whatWeDo').each(function () {
+            var whatwedo = $(this).find('.WhatWeDo').val();
+            $(this).find('.show-more-height').prepend("<span class='label'>what we do:</span>").append(whatwedo);
+            $(this).find('._showhide').append('<span class="show-more">...more</span>');
+            var _text = $(this).find('.show-more-height').text();
+            if ($(window).width() <= 767)
+                showChar = 50;
+            if (_text.trim().length < showChar)
+                $(this).find(".show-more").hide();
+            else
+                $(this).find(".show-more").show();
+
+        });
+
+        $(".show-more").click(function () {
+
+            if ($(this).parent().find(".text").hasClass("show-more-height")) {
+                $(this).text("less");
+            } else {
+                $(this).text("...more");
+            }
+
+            $(this).parent().find(".text").toggleClass("show-more-height");
+        });
+
+        $(".numriconly").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        if ($(window).width() > 767) {
+            $('._mobileView').hide();
+            $('._desktopView').show();
+        }
+        else {
+            $('._mobileView').show();
+            $('._desktopView').hide();
+        }
+
+        $("._mbSideMenu").click(function () {
+            $('.mbCheckPopUp').css('display', 'block');
+        });
+
+
+        $("#btnfilterMb").click(function () {
+            $('.mbCheckPopUp').toggle();
+        });
+
+    });
+
+</script>

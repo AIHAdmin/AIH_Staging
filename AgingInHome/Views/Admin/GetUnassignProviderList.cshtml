@@ -1,0 +1,35 @@
+﻿@using AgingInHome.Models
+@model List<AgingInHome.Models.QueueListingModel>
+               
+    <div class="tableRow tableHead">
+        <div class="tableCol categoryCol">Category Name</div>
+        <div class="tableCol userCol">User Name</div>
+        <div class="tableCol zipCol">Zip Code</div>
+        <div class="tableCol requestdateCol">Request Date</div>
+        <div class="tableCol servicedateCol">Service Date</div>
+        <div class="tableCol providerbtnCol">Select Provider</div>
+    </div>
+    @foreach (var Queuelisting in Model)
+    {
+        <div class="tableRow">
+            <div class="tableCol categoryCol"><span class="lg-hidden">Category Name:</span>@Queuelisting.ProviderCategory.CategoryName</div>
+            <div class="tableCol userCol"><span class="lg-hidden">User Name:</span>@Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().FirstName @Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().LastName</div>
+            <div class="tableCol zipCol"><span class="lg-hidden">Zip Code:</span>@Queuelisting.Zipcode</div>
+            <div class="tableCol requestdateCol"><span class="lg-hidden">Request Date:</span>@Queuelisting.RequestDate</div>
+            <div class="tableCol servicedateCol"><span class="lg-hidden">Service Date:</span>@Queuelisting.ServiceDate</div>
+            <div class="tableCol providerbtnCol">
+                <a data-toggle="modal" data-target="#selectProvider" class="btn btn-green btnassign" name="@Queuelisting.Id" id="@Queuelisting.ProviderCategory.Id">Select Provider</a>
+            </div>
+            <div>
+                <form id="@Queuelisting.Id">
+                    @Html.Hidden("ProviderListingId", "")
+                    @Html.Hidden("ServiceRequestCatId", Queuelisting.ServiceRequestCatId)
+                    @Html.Hidden("Id", Queuelisting.Id)
+                    @Html.Hidden("UserId", Queuelisting.UserId)
+                    @Html.Hidden("Zipcode", Queuelisting.Zipcode)
+                    @Html.Hidden("RequestDate", Queuelisting.RequestDate)
+                    @Html.Hidden("ServiceDate", Queuelisting.ServiceDate)
+                </form>
+            </div>
+        </div>
+    }

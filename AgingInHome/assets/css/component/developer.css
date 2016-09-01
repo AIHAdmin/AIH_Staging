@@ -1,0 +1,189 @@
+﻿.pagination {
+    margin: 0px;
+}
+.validError {
+color:red;
+font-size:14px;
+}
+.submitListing-section .tab-content .form-button .btn-prev { margin-right: 15px;
+}
+.disabledlink {
+pointer-events:none;
+}
+.submitListing-section .CustomRowList .CustomRowListItem.categorylistitem {
+    margin-right: 0;
+}
+
+.ui-widget-content {
+    z-index: 9999 !important;
+}
+
+/***/
+.date-range .DateRangeSelector-item {
+    float: left;
+    margin-bottom: 26px;
+    margin-right: 20px;
+}
+.MygoogleAnalytics .tab-content .active {
+    display: inline-block;
+}
+
+.GATable table{
+    border: solid 1px #808080;
+    
+}
+.GATable th{
+    border: solid 1px #808080;
+    padding: 2px 2px 2px 2px;
+    background-color:#c5e7f3;
+}
+.GATable td{
+    border: solid 1px #808080;
+    padding: 2px 2px 2px 2px;
+}
+
+
+.MyListingContent .photoModal .uploadImageItem {
+    float: none;
+    margin: auto auto 30px;
+    max-width: 280px;
+    text-align: center;
+    width: 100%;
+}
+
+    .MyListingContent .photoModal .uploadImageItem .image {
+        margin-bottom: 15px;
+    }
+
+.MyListingContent .photoItem {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .MyListingContent .photoItem img {
+        opacity: 0;
+    }
+
+.customCheckbox label, label.labelCheckbox {
+    z-index: 1;
+}
+
+
+.MyListingContent .videoModal .videoContainer {
+    position: relative;
+    padding-bottom: 45.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+
+    .MyListingContent .videoModal .videoContainer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.MyListingContent .photoItem iframe {
+    width: 100% !important;
+}
+
+.viewListingContent .media-gallery .image a {
+    max-height: 203px;
+    min-height: 203px;
+}
+
+.viewListingContent .team-gallery .image {
+    height: 203px;
+}
+
+.viewListingContent .TeamMember {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.blogDetail {
+    word-break: break-all;
+}
+
+/*.modal-body .imageBox {
+    height: 160px;
+    width: 160px;
+}*/
+.viewListingContent .media-gallery .owl-controls .owl-nav > div {
+    top: 67px;
+}
+
+#withloginForm .form-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#withloginForm .btn-next {
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 101px;
+    padding: 7px 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.BlogContent .desc span#noComment {
+    margin: 0;
+    top: 0;
+}
+
+.BlogContent .BlogDetail .imageSection {
+    max-width: 450px;
+}
+
+.BlogContent .BlogDetail {
+    word-wrap: break-word;
+}
+
+.BlogContent .blogCommentSection .commentForm {
+    max-width: 800px;
+}
+
+.loader {
+  background-color: #fff;
+    height: 100%;
+    line-height: 27px;
+    padding-top: 8%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+.Mb0 {
+    margin-bottom: 0px !important;
+}
+
+.step-content .form-button .prevBtn {
+    background-color: #003e79;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 122px;
+    width: 100%;
+}
+
+.customloader {
+    background-color: rgba(255, 255, 255, 0.8);
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    z-index: 99;
+}
+
+    .customloader i.fa {
+        position: relative;
+        top: 40%;
+        vertical-align: middle;
+    }

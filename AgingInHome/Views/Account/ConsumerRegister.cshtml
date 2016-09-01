@@ -1,0 +1,232 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@{
+
+    Layout = "~/Views/Shared/_LayoutNew1.cshtml";
+}
+
+
+<div class="main-container inner-container">
+    <div class="container">
+        <h1 class="main-title">Create a <span>new account</span></h1>
+        <!-- Register Section -->
+        <div class="registerContainer">
+            <!-- Form Step Section -->
+            <div class="stepwizard">
+                <div class="stepwizardSection">
+                    <div class="stepwizardRow">
+                        <div class="stepwizard-step">
+                            <a href="#step-1" type="button" class="btn active btn-circle">1</a>
+                        </div>
+                        <div class="stepwizard-step">
+                            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                        </div>
+                        <div class="stepwizard-step">
+                            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //Form Step Section -->
+            <!-- Form ContentBox Section -->
+            <div class="contentBox clearfix">
+                <form role="form" id="frmconsumerregistration" class="default-form" method="post" action="@Url.Action("ConsumerRegister", "Account")">
+
+                    <!-- Form Step 1 -->
+                    <div class="row step-content" id="step-1">
+                        <div class="col-xs-12">
+                            <h3>Personal Detail</h3>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First Name" name="FirstName" id="FirstName" errorkey="First name" />
+                                <span id="spanFirstName" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last Name" name="LastName" id="LastName" errorkey="Last name" />
+                                <span id="spanLastName" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Type of Medical Insurance" name="TypeOfMedicalInsurance" id="TypeOfMedicalInsurance" errorkey="Type of medical insurance" />
+                                <span id="spanTypeOfMedicalInsurance" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="selectpicker" name="Gender" id="Gender" errorkey="Gender" style="margin-bottom:10px;">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <span id="spanGender" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group ">
+                                <input type="text" placeholder="Age" data-val="true" class="form-control" name="Age" id="Age" errorkey="Age">
+                                <span id="spanAge" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="selectpicker" name="Relation" id="Relation" errorkey="Relation" style="margin-bottom:10px;">
+                                    <option value="">Select relation</option>
+                                    <option value="Spouse/Partner">Spouse/Partner</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Other Relative">Other Relative</option>
+                                    <option value="Friend">Friend</option>
+                                    <option value="Client">Client</option>
+                                    <option value="Myself">Myself</option>
+                                </select>
+                                <span id="spanRelation" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 form-button text-center">
+                            <button class="btn btn-primary nextBtn" type="button" id="btnStep1Next">Next</button>
+                        </div>
+                    </div>
+                    <!-- //Form Step 1 -->
+                    <!-- Form Step 2 -->
+                    <div class="row step-content" id="step-2">
+                        <div class="col-xs-12">
+                            <h3>Login Detail</h3>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email Address" name="Email" id="Email" errorkey="Email" />
+                                <span id="spanEmail" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" name="Password" id="Password" errorkey="Password" />
+                                <span id="spanPassword" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Confirm password" id="ConfirmPassword" name="ConfirmPassword" errorkey="Confirm password" />
+                                <span id="spanConfirmPassword" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 form-button text-center">
+                            <button class="btn btn-primary nextBtn" type="button">Next</button>
+                        </div>
+
+                    </div>
+                    <!-- //Form Step 2 -->
+                    <!-- Form Step 3 -->
+                    <div class="row step-content" id="step-3">
+                        <div class="col-xs-12">
+                            <h3>Personal Detail</h3>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4" style="padding-left:30px !important;">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Address" name="Address" id="Address" errorkey="Address" />
+                                    <span id="spanAddress" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="City" name="City" id="City" errorkey="City" />
+                                    <span id="spanCity" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" style="padding-right:30px !important;">
+                                <div class="form-group">
+                                    <select class=" selectpicker" name="StateId" id="State" errorkey="State">
+                                        <option value="">Select State</option>
+                                        @foreach (SelectListItem SelectList in (System.Web.Mvc.SelectList)ViewBag.State)
+                                        {
+                                            <option value="@SelectList.Value">@SelectList.Text</option>
+                                        }
+                                        @*<option value="">Select State</option>
+                                            <option value="1">Alaska</option>
+                                            <option value="2">Arizona</option>
+                                            <option value="3">Arkansas</option>
+                                            <option value="4">California</option>
+                                            <option value="5">Colorado</option>
+                                            <option value="6">Connecticut</option>
+                                            <option value="7">Delaware</option>*@
+                                    </select>
+                                    <span id="spanStateId" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-4" style="padding-left:30px !important;">
+                                <div class="form-group">
+                                    <input type="text" placeholder="ZipCode" data-val="true" class="form-control" name="Zipcode" id="Zipcode" errorkey="Zipcode">
+                                    <span id="spanZipcode" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Primary Phone" class="form-control" name="PrimaryPhone" id="PrimaryPhone" maxlength="14" errorkey="Primary phone">
+                                    <span id="spanPrimaryPhone" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" style="padding-right:30px !important;">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Alter Phone" class="form-control" name="AlterPhone" id="AlterPhone" maxlength="14" errorkey="Alter phone">
+                                    <span id="spanAlterPhone" class="text-danger field-validation-error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 form-button text-center">
+                            <button class="btn btn-primary nextBtn" type="submit" id="btnSubmit">Register</button>
+                            <div style="margin-top: -21px; display: none" class="col-xs-10 loader spanloaderInbox"><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>Registring.....</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- //Form ContentBox Section -->
+        </div>
+        <!-- //Register Section -->
+    </div>
+</div>
+
+
+
+
+<script>
+        var isFormValid = true;
+        var isEmailAvailable = false;
+        $_UrlConsumerDashboard = "@Url.Action("Dashboard","Consumer")";
+        $_UrlConsumerRegistration = "@Url.Action("ConsumerRegister", "Account")";
+        $_UrlCheckEmailAvailablity =  "@Url.Action("CheckEmailAvailability", "Account")";
+</script>
+<script src="~/Scripts/consumerRegistration.js"></script>
+
+<script>
+        $(function () {
+            $("#PrimaryPhone").mask("(000) 000-0000");
+            $("#AlterPhone").mask("(000) 000-0000");
+            $("#Zipcode").mask("00000")
+        })
+
+</script>

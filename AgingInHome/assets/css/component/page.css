@@ -1,0 +1,1817 @@
+/* Banner CSS
+   ========================================================================== */
+#banner{ background-image: url(../../images/banner.jpg); background-repeat: no-repeat; height: 595px; background-size: cover; background-position: center top; position: relative;}
+#banner .overlay{ background-color: rgba(255,255,255,0.1); position: absolute; top:0; left: 0; width: 100%; height: 100%;}
+#banner .bannerContent{ position: absolute; z-index: 1; background-color: rgba(255,255,255,0.6); width: 739px; margin: auto; bottom: 72px; text-align: center; padding: 24px 15px 30px; left: 0; right: 0;}
+#banner .bannerContent h2{ color:#003e79; font-size: 37px; font-weight: 600; text-transform: uppercase; text-shadow: 0 2px 0px rgba(0,0,0,0.19); margin-bottom: 40px;}
+#banner .bannerContent h2 span{ color:#f15925;}
+#banner .bannerContent h3{color:#003e79; font-size: 28px; font-weight: 600; text-shadow: 0 2px 0px rgba(0,0,0,0.19); margin-bottom: 20px;}
+#banner .bannerContent .bannerForm{}
+
+#banner .bannerContent .bannerForm .form-group{}
+#banner .bannerContent .bannerForm .form-group input{ background-color: #fff; border-radius: 3px; color: #000; font-size: 15px; max-width: 463px; height: 50px; width: 100%; border: 0; padding: 15px; } 
+#banner .bannerContent .bannerForm .form-button{}
+#banner .bannerContent .bannerForm .form-button .btn{
+	background-image: url(../../images/icons/prosSearchIcon.svg);
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 21px auto;
+    height: 38px; border-radius: 3px;
+    color: #003e79;
+    font-size: 16px;
+    background-color: transparent;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 0px;
+	padding: 7px 12px 6px 43px;
+    border: 2px solid #003e79;
+    line-height: 1;
+}
+#banner .bannerContent .bannerForm .form-button .btn.btn-secondary{
+	background-image: url(../../images/icons/letprosSearchIcon.svg);}
+
+
+#banner .bannerContent .bannerForm .form-button .btn:hover{background-image: url(../../images/icons/prosSearchIcon-hover.svg); background-color: #003e79; color: #fff;}
+#banner .bannerContent .bannerForm .form-button .btn.btn-secondary:hover{background-image: url(../../images/icons/letprosSearchIcon-hover.svg);
+}
+
+#banner .bannerContent .bannerForm .form-button .btn img{ vertical-align: middle; margin-right: 4px; width:16px;}
+#banner .bannerContent .bannerForm .form-button .btn:hover img{
+    transform: rotate(360deg);
+    transition: all 0.5s ease 0s;
+}
+
+#banner .ProviderBtn{ position: relative; float: right; padding-top: 3px; z-index: 1;}
+#banner .ProviderBtn a{ background-image: url(../../images/icons/providerBtnIcon.png); background-color: #f05824;
+    color: #fff;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 12px 9px 43px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-position: 10px 6px;
+}
+#banner .ProviderBtn a i.fa{     font-size: 26px;
+    margin-left: 9px;
+    position: relative;
+    vertical-align: top;
+    margin-top: -6px;}
+#banner .ProviderBtn a:hover{background-color: #003e79;}
+
+
+#banner .bannerContent .bannerForm .form-button .text-right .desc{ letter-spacing: -0.006em; }
+#banner .bannerContent .bannerForm .form-button .desc{ color: #535353; font-size: 13px; margin-top: 6px; }
+
+.homeContent{ color: #000000; font-size: 15px; line-height: 28px; text-align:center; padding: 4em 0 3em;}
+.homeContent span{ color: #003e79; font-weight: 600;}
+
+
+/* WhyChooseSection CSS
+   ========================================================================== */
+.whychooseSection{padding: 30px 0 30px;}
+.whychooseSection h1.title{ color: #003e79; font-size: 30px; font-weight: 600; margin-bottom: 20px; text-align: center; position: relative;}
+.whychooseSection h1.title:after{ content: ""; background-color: #cfcfcf; height: 1px; width: 100%; position: absolute; left: 0; top: 50%;}
+	.whychooseSection h1.title span.bg{    background-color: #fff;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;}   
+
+.whychooseSection .whychooseItem{ text-align:center; margin: 20px 0;  }
+.whychooseSection .whychooseItem .image{ 
+    margin-bottom: 46px;
+    text-align: center; color: #003e79;
+    font-size: 70px;
+    margin: auto;
+}
+.whychooseSection .whychooseItem.orangeColor .image{color: #f05824; }
+
+.whychooseSection .whychooseItem .image img{ margin: 15px 0px; width: 70px;
+}
+.whychooseSection .whychooseItem .image i.fa{ margin: 15px 0px;
+}
+
+.whychooseSection .whychooseItem .image:hover img, .whychooseSection .whychooseItem .image:hover i.fa{
+    transform: rotate(360deg);
+    transition: all 0.5s ease 0s;
+}
+
+
+.whychooseSection .whychooseItem .detail{  color: #000;
+    font-size: 14px;
+    line-height: 24px;
+}
+.whychooseSection .whychooseItem .detail h4{ color: #003e79; font-size: 17px; font-weight: 600;     margin-bottom: 9px;}
+.whychooseSection .whychooseItem .detail span{color: #003e79;  font-weight: 600; font-size: 17px;}
+.whychooseSection .whychooseItem.orangeColor .detail h4, .whychooseSection .whychooseItem.orangeColor .detail span{color: #f05824; }
+
+.bottomFooter{     background-color: #f15925;
+    padding: 20px 0;}
+.bottomFooter .text{
+    color: #fff;  
+    float: left;
+}
+.bottomFooter .text h2{    font-size: 28px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-shadow: 0 1px 0px rgba(0,0,0,0.35);
+    margin-bottom: 15px; line-height: 31px;}
+.bottomFooter h3{ font-size: 20px; line-height: 20px; font-weight: 400;}
+
+
+.bottomFooter .button{ float: left;
+    padding: 27px 0 27px 20%;  position: relative;
+    margin-top: -20px;
+    margin-bottom: -20px;}
+.bottomFooter .button:before{    background-image: url(../../images/bottom-devider.png);
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-repeat: no-repeat;
+    width: 2px;
+    background-position: center left;}
+.bottomFooter .button .btn{    background-color: #003e79;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    height: 50px;
+    padding: 11px 20px;
+    border: 0;}
+
+
+
+/* Sidebar CSS
+   ========================================================================== */
+ .SidebarSection{ width: 30%;}
+ .search-sidebar{
+	background-color: #fbfbfb;
+	border: 1px solid #dfdfdf;
+	border-radius: 5px;
+	padding: 10px 10px 20px;
+	max-width: 300px;
+	margin-bottom: 20px;
+	}
+ .search-sidebar .block{ margin-bottom: 24px;}
+ .search-sidebar h3 { 
+	color: #003e79;
+    font-size: 16px; 
+	font-weight: 600;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 9px;
+    position: relative;
+ }
+.search-sidebar h3:after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+}
+
+.search-sidebar .input-group .form-control, .mobileSidebarSection .input-group .form-control{
+	background-color: #ffffff;
+    box-shadow: none;
+    border-radius: 2px;
+    border: 1px solid #dddddd;
+    font-size: 14px;
+    height: 43px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+.search-sidebar .input-group .input-group-btn .btn,  .mobileSidebarSection .input-group .input-group-btn .btn{
+	background-color: #ffffff;
+    height: 43px;
+    border-left: 0;
+    border-color: #dddddd;
+    border-radius: 0px 2px 2px 0;
+}
+.search-sidebar .input-group .input-group-btn .btn:hover, 
+.search-sidebar .input-group .input-group-btn .btn:focus,
+.search-sidebar .input-group .input-group-btn .btn:active,
+.search-sidebar .input-group .input-group-btn .btn:hover, 
+.mobileSidebarSection .input-group .input-group-btn .btn:focus,
+.mobileSidebarSection .input-group .input-group-btn .btn:active{ background-color: #ffffff; box-shadow: none; border-left: 0;}
+.mobileSidebarSection .input-group .input-group-btn .btn i, .mobileSidebarSection .input-group .input-group-btn .btn i{
+    color: #b1b1b1;
+    font-size: 20px;
+}
+
+.search-sidebar .block-category{ margin-bottom: 0px;}
+.search-sidebar .block-category h3{ font-weight: 400; color: #000; font-size: 16px;}
+.search-sidebar .block-category ul {}
+.search-sidebar .block-category ul li, .mobileSidebarSection .block-category ul li{    margin: 7px 0; display: inline-block; width: 100%;}
+.search-sidebar .block-category ul li label , .mobileSidebarSection .block-category ul li label{display: block; color: #000000; font-size: 14px; width: 100%; padding-right: 24px; }
+
+.search-sidebar .block-category .customCheckbox ul li label::before{ width: 17px; height: 17px; border-color: #000;}
+
+.search-sidebar .block-category .customCheckbox input[type=checkbox]:checked+.lbl::before, .search-sidebar .block-category .customCheckbox label:hover .lbl::before,.search-sidebar .block-category .customCheckbox label.checked .lbl::before{    background-image: url(../../images/check-lg-black.png);  left: 4px; top: 5px;}
+
+.search-sidebar .block-category ul li label span.counter, .mobileSidebarSection .block-category ul li label span.counter{ position: absolute; right: 0; top: 0;}
+
+.search-sidebar .block-category .button{ margin-top: 20px;}
+.search-sidebar .block-category .button .btn{ color: #fff; text-transform: uppercase;  font-size: 18px; border-radius: 4px;}
+
+
+/* Search Listing CSS
+   ========================================================================== */
+.search-listing{ width: 70%;}
+.search-listing .search-listing-item{border-bottom: 1px solid #e5e5e5; padding: 0px 0 30px; margin: 0 0 30px;}
+.search-listing .search-listing-item:after { content: ""; display: block; height: 0; clear: both; }
+.search-listing .search-listing-item .image{ height: 201px; border: 3px solid #ffffff; box-shadow: 0 0px 1px rgba(0,0,0,0.26); float: left; max-width: 224px; margin-right: 20px; position: relative;}
+.search-listing .search-listing-item .image img{    vertical-align: middle;}
+
+.search-listing .search-listing-item .image .img{  height: 100%;
+    overflow: hidden;}
+
+.search-listing .search-listing-item .detail{margin-left: 247px;     position: relative;}
+
+.search-listing .search-listing-item .detail h2{color: #000000; font-size: 16px; font-weight: 600;     padding-right: 110px; margin-bottom: 8px; }
+.search-listing .search-listing-item .detail h2 span{color: #f15925; text-transform: uppercase;}
+
+
+.search-listing .search-listing-item .rating{}
+.search-listing .search-listing-item .rating i.fa{color: #003e79; font-size: 16px; margin-right: 1px; margin-bottom: 5px;}
+
+.search-listing .search-listing-item .detail .detailRow{ color:#000; font-size: 14px; line-height: 24px; position: relative;
+    padding: 5px 0 5px 23px;}
+.search-listing .search-listing-item .detailRow i.fa{     color: #003e79;    position: absolute;
+    font-size: 19px;
+    left: 0;    top: 9px;}
+ 
+.search-listing .search-listing-item .detailRow.call{color: #f15925; font-weight: 600;} 
+.search-listing .search-listing-item .detailRow.call i.fa{ color: #f15925;}
+
+.search-listing .search-listing-item .weekDay{   width: 100%;
+    display: inline-block; max-width: 320px;
+    position: relative;}
+.search-listing .search-listing-item .weekDay label.dropdown-toggle { cursor: pointer;}
+.search-listing .search-listing-item .weekDay label.dropdown-toggle span, .search-listing .search-listing-item .weekDay .dropdown-menu li span{ color:#003e79; font-size: 14px;}
+.search-listing .search-listing-item .weekDay label.dropdown-toggle span.dropdown-arrow{
+	margin-left: 6px;
+}
+.search-listing .search-listing-item .weekDay label.dropdown-toggle span.dropdown-arrow i.fa {
+    position: static;
+}
+.search-listing .search-listing-item .weekDay.open label.dropdown-toggle span.dropdown-arrow i.fa.fa-angle-down,.search-listing .search-listing-item .weekDay label.dropdown-toggle span.dropdown-arrow i.fa.fa-angle-up{ display: none;}
+.search-listing .search-listing-item .weekDay.open label.dropdown-toggle span.dropdown-arrow i.fa.fa-angle-up{ display: inline-block;}
+
+.search-listing .search-listing-item .weekDay.open{ 
+    padding: 5px 5px 5px 26px;
+    margin: 0 0 0 -3px;
+}
+.search-listing .search-listing-item .weekDay.open i.fa-clock-o{
+	left: 3px;
+}
+.search-listing .search-listing-item .weekDay.open .dropdown-menu{
+  background-color: transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: -3px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.search-listing .search-listing-item .weekDay.open .dropdown-menu li{ float: left; padding: 2px 5px 2px 0; width: 50%;}
+.search-listing .search-listing-item .weekDay.open .dropdown-menu li span{}
+.search-listing .search-listing-item .detailRow.text{padding: 5px 0;}
+.search-listing .search-listing-item .detailRow.text.xs-show{ display:none;}
+.search-listing .search-listing-item .detailRow.text span.label{ color: #003e79; font-weight: 600; text-transform: uppercase; font-size: 14px; padding:0;}
+.search-listing .search-listing-item .detailRow.text .collapse.in{ display: inline;}
+.search-listing .search-listing-item .detailRow.text .moreLink {  }
+.search-listing .search-listing-item .detailRow.text .moreLink span.more, .search-listing .search-listing-item .detailRow.text .moreLink.collapsed span.less{ display: none;}
+.search-listing .search-listing-item .detailRow.text .moreLink span.less{ display: inline; text-decoration: underline;}
+.search-listing .search-listing-item .detailRow.text .moreLink.collapsed span.more{ display: inline;}
+
+.search-listing .search-listing-item .viewBtn{
+	    position: absolute;
+    top: 0;
+    right: 0;
+}
+.search-listing .search-listing-item .viewBtn a.btn{
+color: #fff;
+    padding: 3px 7px;
+}
+
+
+/*==============================================
+Pagination Css
+**/
+
+.pagination{    width: 100%;}
+.pagination li{ margin:0 15px; display: inline-block;}
+.pagination li a{     border: 0 none;
+    border-radius: 0 !important;
+    color: #003e79;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0 !important;}
+.pagination li.active a{ color: #f15925;  background-color: transparent;}
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+    background-color: transparent;
+    border-color: transparent;
+
+}
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: transparent;
+        border-color: transparent;
+        color: #f15925;
+    }
+
+.pagination li.PagedList-skipToPrevious a{
+}
+
+
+.mobileSidebarSection{
+background-color: #003e79;
+border-radius: 5px;
+display:none;
+    height: 65px;
+	    position: relative;
+    padding: 10px;
+	margin-bottom: 30px;
+}
+
+.mobileSidebarSection .SearchLocation{ margin-right: 60px;}
+.mobileSidebarSection .SearchLocation label{float: left;
+    color: #fff;
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: 500;
+ line-height: 41px;}
+
+.mobileSidebarSection .filterBlock{ float:right;}
+.mobileSidebarSection .filterBlock i.fa{ color: #fff; font-size: 33px; }
+.mobileSidebarSection .filterBlock label.dropdown-toggle{width: 38px;
+    cursor: pointer;
+    text-align: center;
+    height: 37px;
+    padding: 5px 0;}
+.mobileSidebarSection .block-category ul li{padding: 0 10px;}
+
+
+
+/* Submit Listing Page CSS
+   ========================================================================== */
+.submitListing-section{ }
+
+.submitListing-section .tab-content .rowForm{ margin-bottom: 35px;}
+.submitListing-section .tab-content .rowForm:last-child{ margin-bottom: 0px;}
+.submitListing-section .tab-content h2{
+    border-bottom: 1px solid #e5e5e5;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 14px;
+    margin-bottom: 30px;
+}
+.submitListing-section .tab-content h2 .form-button{    margin-top: -9px; float: right;}
+
+.submitListing-section .tab-content .form-button{ margin-bottom: 15px;}
+.submitListing-section .tab-content .form-button .btn{
+	min-width: 122px;
+    height: 37px;
+    font-size: 16px;
+    text-transform: uppercase;
+	color:#fff;
+}
+
+.submitListing-section .tab-content h2 .form-button .btn{min-width: 100px;
+    height: 33px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;}
+
+
+.submitListing-section .tab-content .form-button .btn i.fa{ font-size: 22px; margin-right:5px; position: relative; top: 1px;}
+
+.submitListing-section .serviceSubList{
+	border-top: 1px solid #c8c8c8;
+    padding-top: 30px;
+}
+.submitListing-section .CustomRowList .CustomRowListItem{ margin-right: 54px;}
+.submitListing-section .CustomRowList .remove-icon{ color: #ff0000;
+    font-size: 28px;
+    float: right;
+    padding: 4px 15px 4px 0;
+    width: 54px;
+    text-align: center;}
+.submitListing-section .CustomRowList .remove-icon a{ color: #ff0000;}
+.submitListing-section .CustomRowList .remove-icon a:hover{ color: #ff4747; }
+.submitListing-section .CustomRowList .remove-icon a:hover  i, .submitListing-section .tab-content .form-button .btn:hover i {
+    transform: rotate(360deg);
+    transition: all 0.5s ease 0s;
+}
+
+.submitListing-section .servicesAreas .CustomRowList{ position: relative;}
+.submitListing-section .servicesAreas .CustomRowList:after {
+    content: "";
+    background-color: #e5e5e5;
+    height: 1px;
+    position: absolute;
+    left: 15px;
+    right: 15px;
+       bottom: 14px;
+    display: block;
+}
+.submitListing-section .servicesAreas .CustomRowList.last:after{ display: none;}
+
+
+.submitListing-section .accountSection h3{     
+	color: #f15925;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+}
+
+.submitListing-section .accountSection{
+
+}
+
+.submitListing-section .accountSection .uploadImage{ 
+	background-color: #f9f9f9;
+    max-width: 229px;
+    border-radius: 3px;
+    border: 1px solid #e3e2e2;
+    text-align: center;
+	    line-height: 188px;
+    height: 188px;
+	overflow: hidden;
+	position:relative;
+}
+.submitListing-section .accountSection .uploadImage img{ vertical-align: middle;}
+.submitListing-section .accountSection .uploadImage .cameraIcon{
+    background-color: #ffffff;
+    border: 2px solid #003e79;
+	 cursor: pointer;
+    display: block;
+    width: 33px;
+    height: 33px;
+    border-radius: 100%;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    line-height: 1;
+    font-size: 16px;
+    color: #003e79;
+    right: 0;
+    margin: auto;}
+
+.submitListing-section .accountSection .uploadImage .cameraIcon a{color: #003e79; display: block; padding: 7px 0;}
+.submitListing-section .uploadBtn {
+    position: relative;
+    display: inline-block;
+    width: auto;	cursor: pointer;
+}
+.submitListing-section .uploadBtn input {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+	cursor: pointer;
+}
+.submitListing-section .uploadBtn span.btn{    background-color: #f15925;
+    color: #fff;
+    height: 42px;
+    font-size: 14px;
+    line-height: 29px;
+    padding: 6px 15px;
+    margin-top: 12px;
+    cursor: pointer;}
+
+.submitListing-section .accountSection .upload-detail{height: 188px; position: relative;}
+.submitListing-section .accountSection .upload-detail .desc{ color: #000; font-size: 13px; line-height: 20px;}
+.submitListing-section .accountSection .gdDivider{
+	background-image: url(../../images/gradient-divider.png);
+    height: 233px;
+    background-repeat: no-repeat;
+    width: 1px;
+    margin: 24% auto 0;
+}
+
+.submitListing-section .hourSection label.day{    color: #0d0d0d;
+    font-size: 16px;
+    padding: 10px 0 10px 15px;
+    float: left;
+    text-transform: uppercase;}
+.submitListing-section .hourSection .hoursList {
+    margin-left: 150px;
+}
+
+.submitListing-section .input-group .input-group-addon{     background-color: #003e79;
+    padding: 0px 18px;
+    color: #fff;
+    font-size: 25px;
+    border: 0;}
+
+/* NavTabs CSS
+   ========================================================================== */
+ul.nav-tabs{
+	background-color: #f9f8f8;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+	height: 48px;
+	display: table;
+	width: 100%;
+}
+ul.nav-tabs li{padding: 0 0px; text-align: center; position: relative; float: none; display: table-cell;}
+ul.nav-tabs li a{
+	text-transform: uppercase;
+    border: 0px;
+    font-size: 15px;
+    color: #003e79;
+    font-weight: 600;
+    margin: 0;
+    vertical-align: middle;
+    padding: 12px 0;
+    height: 46px;
+    width: 100%;
+}
+ul.nav-tabs li a img{ vertical-align: middle; margin-right: 8px;    margin-top: -4px; }
+
+ul.nav-tabs li.active:after{ content: "";
+    width: 100%;
+    display: block;
+    height: 2px;
+    background-color: #f15925;
+    position: absolute;
+    left: 0;
+    bottom: -1px;}
+ul.nav-tabs li.active:before{
+	content: "";
+    width: 0px;
+    height: 0px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #f15925;
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover, .nav-tabs>li>a:hover {
+    color: #003e79;
+    background-color: transparent;
+    border: 0px;
+}
+
+.tab-content{    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 15px;
+    border-radius: 3px;
+    margin-top: 32px;}
+  
+  
+/* ViewListingContent CSS
+   ========================================================================== */  
+.viewListingContent{ background-color: #fefefe; border: 1px solid #c9c9c9; border-radius: 3px; padding: 15px 15px 30px;     position: relative;}
+.viewListingContent h1.title{ color: #000; font-size: 18px; font-weight: 600; margin-bottom: 20px;     margin-top: 0;     line-height: 1.2;}
+.viewListingContent h1.title span{ text-transform: uppercase; color: #f15925;}
+
+.viewListingContent.noImage h1.title{    margin-bottom: 12px;}
+
+.search-listing .search-listing-item.noImage .detail { margin-left: 0;}
+.search-listing .search-listing-item.noImage .image { display:none;}
+
+.search-listing .search-listing-item .expbadge, .viewListingContent .expbadge, .viewListingContent.noImage .DetailImgSection .col-sm-4, .viewListingContent.noImage .DetailImgSection .detailSection h3{ display:none;}
+.viewListingContent.noImage .DetailImgSection .col-sm-8 { width: 100%;}
+
+.viewListingContent.noImage .expbadge, .search-listing-item.noImage .expbadge{
+    background: url(../../images/badge-blue-icon.png) no-repeat 0 -1px;
+    padding: 0 0 0 26px;
+	display:block;
+    color: #003e79;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    min-height: 19px;
+    margin-bottom: 14px;
+}
+
+.viewListingContent .callTopSection{    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+.viewListingContent .callTopSection a.btn{ background-color: #003e79; color:#fff; font-size: 18px;}
+.viewListingContent ul.socialLink{ margin-top: 5px; position:relative; z-index: 1;}
+.viewListingContent ul.socialLink li{  float: right;}
+.viewListingContent ul.socialLink li a{     color: #fff;
+    font-size: 16px;
+      display: block;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;}
+.viewListingContent ul.socialLink li a.facebook{ background-color: #3a5799;}
+.viewListingContent ul.socialLink li a.twitter{ background-color: #00abf0;}
+.viewListingContent ul.socialLink li a.googleplus{ background-color: #f15925;}
+
+.viewListingContent .imageSection{ height: 201px; border: 3px solid #ffffff; box-shadow: 0 0px 1px rgba(0,0,0,0.26); float: left; width: 100%; position: relative;}
+.viewListingContent .imageSection img{ opacity: 0;   vertical-align: middle;}
+
+.viewListingContent .imageSection .img{  height: 100%;     background-size: cover;
+    background-position: center center; overflow: hidden;}
+
+.viewListingContent .imageSection .ribbon { background-image:url(../../images/image-ribbon-blue.png);}
+
+.viewListingContent .whatwedoText{ color: #666666; font-size: 16px; line-height: 29px;}
+.viewListingContent .whatwedoText h3{ color:#003e79; font-size: 16px;  font-weight: 600; text-transform: uppercase; line-height: 1; margin-bottom: 10px;}
+    .viewListingContent .whatwedoText h2.SectionTitle { margin-bottom: 15px;
+    }
+
+.viewListingContent .rowSection{ margin-bottom: 30px;}
+.viewListingContent .rowSection:last-child {
+    margin-bottom: 0px;
+}
+
+h2.SectionTitle{ font-weight: 600; font-size: 16px; color: #003e79; text-transform: uppercase;
+    position: relative; margin-bottom: 26px;}
+
+h2.SectionTitle:after {
+    content: "";
+    background-color: #c9c9c9;
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    right: 0;
+}
+h2.SectionTitle:before {
+    content: "";
+    background-color: #c9c9c9;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 45%;
+}
+h2.SectionTitle span{    background-color: #fff;
+    padding-right: 20px;
+    position: relative;
+    z-index: 1;}
+
+.detailSection .detailItem{display: table; margin-bottom: 20px;}
+.viewListingContent .detailItem h3 { margin-bottom: 20px;
+}
+.detailSection .detailItem label{ color:#010101; font-size: 16px; font-weight: 600; display: table-cell; vertical-align: top;  width: 28px;/*width: 108px;*/}
+.detailSection .detailItem label i.fa{ color:#003e79; font-size: 18px; margin-right: 12px;}
+.detailSection .detailItem label span{}
+
+.detailSection .detailItem .txt{ display: table-cell; color: #000; font-size: 14px; line-height: 20px; vertical-align: middle;}
+.detailSection .detailItem .txt i.fa{ color:#003e79; font-size: 16px;}
+.detailSection .detailItem .txt a{ color:#003e79; font-weight: 600;}
+
+
+/**** Hours Table Css **/
+.hoursTable{border: 1px solid #c9c9c9; border-radius: 3px;
+    padding: 1px 0; width: 100%;
+    float: left;}
+.hoursTable .hoursTableItem{float: left;
+    width: 14.28%;
+    border-right: 1px solid #c9c9c9;
+    text-align: center;}
+.hoursTable .hoursTableItem:nth-child(7n){    border-right: 0;}
+.hoursTable .hoursTableItem .hoursTitle{    background-color: #f4f4f4; color:#000; font-weight: 600;
+    height: 46px;
+    border-bottom: 1px solid #c9c9c9;
+    padding: 12px 0;}
+
+.hoursTable .hoursTableItem .hoursTime{ color: #666666;    height: 46px;
+    line-height: 43px; text-transform: uppercase;}
+	
+/*** About Section Css **/
+.viewListingContent .aboutItem{  border-bottom: 1px solid #e4e4e4; padding-bottom: 18px; margin-bottom: 18px; line-height: 27px;}
+.viewListingContent .aboutItem:last-child{ border-bottom: 0px; padding-bottom: 0px; margin-bottom: 0;}
+.viewListingContent .aboutItem h3{ color:#000; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;}
+.viewListingContent .aboutItem p{color: #000;  line-height: 27px;}
+
+
+/*** Our Service Section Css **/
+.viewListingContent .serviceSection{}
+.viewListingContent .serviceItem{ text-align:center;}
+.viewListingContent .serviceSection .icon{ background-color: #003e79; width: 73px; height: 73px; border-radius: 100%; margin:auto;}
+.viewListingContent .serviceSection .icon .fa { color: #fff;  font-size: 32px;  line-height: 72px;}
+.viewListingContent .serviceSection .desc{ margin-top: 0px;}
+.viewListingContent .serviceSection .desc h4{ color:#000; font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;}
+.viewListingContent .serviceSection .desc .price{ color:#000;}
+
+.viewListingContent .service-gallery .owl-nav{ }
+.viewListingContent .service-gallery  .owl-controls .owl-nav > div.owl-prev{ top: -20px; left: -15px;}
+.viewListingContent .media-gallery.service-gallery  .owl-controls .owl-nav > div.owl-next{ top: -20px; right: -15px;}
+
+.viewListingContent .service-gallery .owl-dots  { display: none!important; text-align: center; margin: 15px 0 0;}
+.viewListingContent .service-gallery .owl-dots .owl-dot { display: inline-block; zoom: 1;}
+.viewListingContent .service-gallery .owl-dots .owl-dot span { width: 10px; height: 10px; margin: 5px 7px; background: #d6d6d6; display: block; border-radius: 30px; }
+.viewListingContent .service-gallery .owl-dots .owl-dot.active span{ background: #003e79;}
+
+
+/*** Team Member Section Css **/
+.viewListingContent .TeamMember{ text-align:center;}
+.viewListingContent .TeamMember .image{ overflow:hidden; }
+.viewListingContent .TeamMember .detail{ margin-top: 8px; padding-bottom: 3px;}
+.viewListingContent .TeamMember .detail h4{ color:#000; font-size: 15px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;}
+.viewListingContent .TeamMember .detail .position{ color:#000; font-size: 13px;}
+
+/*** Image Video Gallery Section Css **/
+.viewListingContent .media-gallery{}
+
+.viewListingContent .media-gallery .owl-controls .owl-nav > div{ background-repeat: no-repeat; width: 32px; height: 63px; left: 0; position: absolute;
+    top: 35%;
+    line-height: 86px;
+    overflow: hidden;
+    text-indent: -1000px;
+}
+.viewListingContent .media-gallery .owl-controls .owl-nav > div.owl-prev{background-image:url(../../images/gallery-prev.png);} 
+.viewListingContent .media-gallery .owl-controls .owl-nav > div.owl-next{ background-image:url(../../images/gallery-next.png);    left: auto;
+    right: 0;
+}
+.viewListingContent .media-gallery.blog-gallery .owl-controls .owl-nav > div, .viewListingContent .media-gallery.news-gallery .owl-controls .owl-nav > div {
+    top: 15%;
+}
+
+.viewListingContent .media-gallery .item{padding: 0 15px;}
+.viewListingContent .media-gallery .image {padding: 1px;    max-height: 203px; position: relative;}
+.viewListingContent .media-gallery .image a{
+    border: 3px solid #ffffff;
+    box-shadow: 0 0px 1px rgba(0,0,0,0.26);
+	border-radius: 0;
+    position: relative;
+	display: block;
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+	}
+.viewListingContent .media-gallery .image .playIcon{     background-color: rgba(0,0,0,0.3);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    vertical-align: middle;
+    text-align: center;    padding: 29% 0;}
+.viewListingContent .media-gallery .image .playIcon i.fa{ color: #ffffff; font-size: 60px;}
+
+
+.viewListingContent .media-gallery .image .responsive-video {
+  border: 3px solid #ffffff;
+    box-shadow: 0 0px 1px rgba(0,0,0,0.26);
+	display: none;
+     width: 100%;
+}
+
+
+/*** Post Section Css **/
+.posItem{ float: left; width: 100%;}
+.posItem .image{ background-color: #eaeaea; height: 147px; overflow: hidden;
+    position: relative; margin-bottom: 6px;
+    width: 100%;}
+.posItem .image img{ vertical-align: middle; width: 100%;     margin: auto;}
+.posItem .image img.defaultImg{ height: 100%; width: auto;}
+.posItem .image .tag{ position: absolute; left: 0; right: 0; background-color: #003e79; color: #fff; text-transform: uppercase; width: 47px; font-size: 13px; height: 19px; bottom: 0; text-align: center; padding: 4px 0;}
+.posItem .image .tag.orangeBg{   background-color: #f15925;}
+.posItem .detail{}
+.posItem .detail h4{ color: #000; font-size: 13px; font-weight: 600;  margin-bottom: 8px; text-transform: uppercase;}
+.posItem .detail .desc{ color: #666; font-size: 12px;}
+.posItem .detail .desc span{ border-right: 1px solid #e4e4e4; padding: 0 10px 0 0; margin-right: 9px;}
+.posItem .detail .desc span:last-child{ border-right: 0px; padding: 0; margin:0;}
+.posItem .detail .desc span i.fa{ margin-right: 5px;}
+.posItem .detail .desc .calendar{}
+
+.posItem .detail .text{ color:#000000; font-size: 14px; line-height: 24px; margin-top: 7px;}
+.posItem .detail .text a{  text-decoration: underline;}
+
+/*** Provider Section Css **/
+.ProviderSection{ margin-top: 30px;}
+
+.ProviderSection h2.SectionTitle{ border-bottom: 1px solid #c9c9c9; padding-bottom: 12px;}
+.ProviderSection h2.SectionTitle:after, .ProviderSection h2.SectionTitle:before{ display: none;}
+.ProviderSection h2.SectionTitle span{ color: #f15925; padding:0;}
+.ProviderSection h2.SectionTitle span:before{ background-color: #f15925; content: ""; padding: 0; position: absolute; bottom: -13px; height: 3px; width: 100%; left: 0; }
+
+.ProviderSection .provider-gallery .owl-item{ padding: 15px;}
+
+
+.providerItem{ background-color: #ffffff; border-radius: 3px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); padding: 3px; position: relative; text-align: left;}
+.providerItem .image{overflow: hidden; max-height: 144px;}
+.providerItem .image img{ max-width: 100%; }
+.providerItem .detail{ padding: 10px 5px 15px 10px;   text-align: center; position: relative;}
+.providerItem .detail:before { content: ""; background-color: #c9c9c9; width: 94%; height: 1px; position: absolute;  margin: auto; left: 0;
+right: 0;top: -1px;}
+
+.providerItem .detail h4{ color: #000; font-size: 15px; font-weight: 600;    margin-bottom: 10px;}
+.providerItem .detail h4 span{ color: #f15925;}
+.providerItem .detail ul li{ color: #000; font-size: 14px; padding: 0 0 0 21px;  text-align: left; position: relative; line-height: 20px; margin-bottom: 4px;}
+.providerItem .detail ul li i.fa{ color: #003e79;font-size: 20px; position: absolute; top: 0;left: 0;}
+.providerItem .detail ul li a{ color: #003e79; }
+.providerItem .detail  a.btn{ background-color: #f15925; color: #fff; margin:10px auto auto; padding: 4px 10px;}
+.providerItem .detail  a.btn:hover{ background-color: #003e79; }
+
+
+.ProviderSection .provider-gallery .owl-controls{}
+.ProviderSection .provider-gallery .owl-controls .owl-nav{}
+.ProviderSection .provider-gallery .owl-controls .owl-nav > div{ background-color: #f5f5f5; box-shadow: 0px 0px 2px rgba(0,0,0,0.3); width: 40px; height: 40px; text-align: center;
+    left: 0;
+    position: absolute;
+    top: 20%;
+    overflow: hidden;
+    text-indent: -1000px;
+}
+.ProviderSection .provider-gallery .owl-controls .owl-nav .owl-prev{}
+.ProviderSection .provider-gallery .owl-controls .owl-nav .owl-next{ right: 0;  left: auto;}
+
+
+.ProviderSection .provider-gallery .owl-controls .owl-nav .owl-prev::before, .ProviderSection .provider-gallery .owl-controls .owl-nav .owl-next:before {content: ""; font-family: FontAwesome; position: absolute; left: 0; color: #003e79; top: -1px; font-size: 40px; text-indent: 0; text-align: center; width: 100%; height: 100%; vertical-align: middle;}
+.ProviderSection .provider-gallery .owl-controls .owl-nav .owl-next:before{  content: "";}
+
+/** Contact Form css **/
+.contactForm{ border: 2px solid #c9c9c9; border-radius: 3px; padding: 0px 10px;}
+
+.contactForm h2{ background-color: #f15925; border-radius: 5px 5px 0 0; color: #ffffff; font-size: 16px; font-weight: 600; margin: -2px -12px 20px; padding: 10px; text-transform: uppercase;}
+.contactForm h2 i.fa{ font-size: 18px; margin-right: 10px;}
+.contactForm .form-group{ margin-bottom: 20px;}
+.contactForm .form-group h4{ color: #003e79; font-size: 14px; font-weight: 600; margin-bottom: 12px;}
+.contactForm .form-group .customCheckbox{}
+.contactForm .form-group .customCheckbox li{}
+.contactForm .form-group .customCheckbox label::before{ border-color: #000000; height: 17px; width: 17px;}
+.contactForm .form-group .customCheckbox label{color: #000; font-size: 12px;  margin-bottom: 13px; padding: 0 0 0 22px; line-height: 16px;}
+.contactForm .form-group .customCheckbox input[type=checkbox]:checked+.lbl::before, .contactForm .form-group .customCheckbox label:hover .lbl::before{
+	background-image: url(../../images/check-lg-black.png);	
+	left: 4px; top: 5px; }
+
+.contactForm .form-group .input-group{ margin-bottom: 0;}
+.contactForm .form-group .input-group .input-group-addon{    background-color: #003e79;
+    width: 40px;}
+.contactForm .form-group .input-group .input-group-addon i.fa{ color: #ffffff; font-size: 16px;}
+.contactForm .form-group .input-group .input-group-addon i.fa-clock-o{font-size: 21px;}
+.contactForm .form-group .instructionTxt{     color: #000; font-size: 13px;  line-height: 18px;}
+.contactForm .form-group .instructionTxt a{text-decoration: underline;}
+.contactForm .form-group .btn{ color: #fff; font-size: 18px; text-transform: uppercase; margin-top: 19px;}
+.contactForm .default-form .input-group .form-control{ border-top-right-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: 3px; border-bottom-left-radius: 3px;}
+
+
+.sidebar .map{border: 1px solid #c9c9c9;
+    
+    padding: 1px;
+    margin-top: 10px;} 
+.sidebar .map .img{ width: 100%; overflow: hidden; }
+.sidebar .map img{ vertical-align:middle;}
+
+
+/*** View Listing Contact Button and Modal Css **/
+.viewListingcontactBtn{ margin-bottom: 30px;}
+.viewListingcontactBtn a.btn{    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    height: 46px;
+    line-height: 30px;
+    text-transform: uppercase;}
+.viewListingcontactBtn a.btn i.fa{    color: #fff; font-size: 25px; margin-right: 15px;}
+
+.viewListingcontactBtn .contact-modal{}
+.viewListingcontactBtn .contact-modal .modal-header{    background-color: #f15925;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 4px;}
+.viewListingcontactBtn .contact-modal .modal-body.contactForm{    border: 0;
+    border-radius: 0;
+    padding: 20px;}
+.viewListingcontactBtn .contact-modal .modal-header .close {
+    margin-top: -2px;
+    opacity: 1;
+    color: #fff;
+    font-size: 31px;
+}
+.viewListingcontactBtn .contact-modal .contactForm .form-group .customCheckbox li {
+    width: 50%;
+    float: left;
+    margin-bottom: 3px;
+}
+.viewListingcontactBtn .contact-modal .contactForm .form-group .input-group{ width: 100%;}
+
+
+/* My Listing page ListingNav CSS
+   ========================================================================== */
+/*  *************** ListingNav CSS *************** */   
+.ListingNav{ 
+    background-color: #f9f8f8;
+    border: 1px solid #e5e5e5;
+    padding: 15px;
+	float: left;
+    max-width: 208px;
+    border-radius: 3px;
+}
+.ListingNav ul li{ margin-bottom: 15px;}
+.ListingNav ul li:last-child{ margin-bottom: 0px;s}
+.ListingNav ul li a{ 
+    border-radius: 5px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+    text-transform: uppercase;
+    padding: 8px 10px; text-decoration: none; position: relative; text-shadow: 0 0 1px rgba(0,0,0,0.1);}
+.ListingNav ul li a i.fa{ margin-right: 5px;}
+.ListingNav ul li a.dbicon i.fa-search{position: absolute;
+    left: 14px;
+    bottom: 5px;
+	margin-right: 0px;
+    font-size: 13px;
+}
+
+/*  *************** MyListingContent CSS *************** */  
+.MyListingContent{ background-color: #ffffff;border: 1px solid #e5e5e5; border-radius: 3px;     position: relative; margin-left: 238px;}
+
+.MyListingContent ul.nav-tabs {
+      background-color: transparent;
+    border-color: #003e79 #e5e5e5 #e5e5e5;
+    border-width: 3px 0 1px 0;
+	border-radius: 0px;
+    height: 48px;
+    display: block;
+    border-style: solid;
+    width: 100%;
+}
+.MyListingContent ul.nav-tabs li{
+	padding: 0 20px;
+    display: inline-block;
+	min-width: 96px;
+}
+.MyListingContent ul.nav-tabs li.active:before{  
+    background-color: #f15925;
+    border: 0;
+    bottom: auto;
+    width: 100%;
+    height: 3px;
+    top: -3px;
+}
+.MyListingContent ul.nav-tabs li.active:after {
+    background-color: #fff;
+    bottom: 1px;
+   height: 1px;
+ }
+.MyListingContent ul.nav-tabs li a{ text-transform: inherit; font-size: 13px;    }
+
+.MyListingContent .tab-content {
+    background-color: #fff;
+    border: 0;
+    padding: 15px;
+    border-radius: 0;
+    margin-top: 5px;
+}
+.MyListingContent .tab-content .topActionBlock{border-bottom: 1px solid #e6e6e6; height:46px; padding-bottom: 11px; margin-bottom: 20px;}
+.MyListingContent .tab-content .topActionBlock .customCheckbox{ float: left;     margin-top: 8px;}
+.MyListingContent .tab-content .topActionBlock .ActionBtn{ float: right;}
+.MyListingContent .tab-content .topActionBlock .ActionBtn .btn{padding: 5px 10px; font-size: 13px;}
+.MyListingContent .tab-content .topActionBlock .ActionBtn .btn .fa{ margin-right: 5px;}
+
+
+.MyListingContent .aboutContent{ color: #666666; line-height: 30px;}
+.MyListingContent .aboutContent p{ margin-bottom: 15px;}
+
+.MyListingContent .blogContent .Blogitem{ }
+.MyListingContent .blogContent .Blogitem .Blogrow{ display: table; border-bottom: 1px solid #e5e5e5; padding-bottom: 15px; margin-bottom: 15px; padding-right: 80px;
+    position: relative;
+    width: 100%; }
+.MyListingContent .blogContent .Blogitem .Blogrow:last-child{ border-bottom: 0px; padding-bottom: 0; margin-bottom: 0;}
+.MyListingContent .blogContent .Blogitem .col{display: table-cell; vertical-align: middle; }
+.MyListingContent .blogContent .Blogitem .image{ width: 103px;}
+.MyListingContent .blogContent .Blogitem .image .customCheckbox{ float: left; width: 20px; padding: 20px 0;}
+.MyListingContent .blogContent .Blogitem .image .img{    margin-left: 40px;
+    width: 62px;background-color: #dddcda;
+    height: 62px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 2px solid #003e79;
+    text-align: center; }
+.MyListingContent .blogContent .Blogitem .image .img img{height: 62px;}
+.MyListingContent .blogContent .Blogitem .image .img img.default{height: auto; vertical-align: middle;margin-top: 9px;
+}
+.MyListingContent .blogContent .Blogitem .blogInfo {    padding-left: 20px; width: 33%;}
+.MyListingContent .blogContent .Blogitem .blogInfo .title{color: #000;  font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 7px;}
+.MyListingContent .blogContent .Blogitem .blogInfo .desc{ color: #666; font-size: 12px;}
+.MyListingContent .blogContent .Blogitem .blogInfo .desc span{    border-right: 1px solid #e4e4e4;
+    padding: 0 10px 0 0;
+    margin-right: 9px;}
+.MyListingContent .blogContent .Blogitem .blogInfo .desc span:last-child{ border-right: 0px; padding: 0; margin:0;}
+.MyListingContent .blogContent .Blogitem .blogInfo .desc span i.fa{ margin-right: 5px;}
+.MyListingContent .blogContent .Blogitem .blogInfo .desc .calendar{}
+
+.MyListingContent .blogContent .Blogitem .blogDetail {     color: #666; font-size: 13px;line-height: 24px;}
+
+.MyListingContent .blogContent .Blogitem .blogIcons{  float: right;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 18px;
+    width: 80px;
+}
+.MyListingContent .blogContent .Blogitem .blogIcons ul li{    display: inline-block;
+    padding: 0 6px;}
+.MyListingContent .blogContent .Blogitem .blogIcons ul li a{ font-size: 22px; color: #003e79;}
+.MyListingContent .blogContent .Blogitem .blogIcons ul li a.trash{color: #c70000;}
+
+
+.MyListingContent .blogModal .uploadImage {
+    background-color: #f9f9f9;
+    border-radius: 3px;
+    border: 1px solid #e3e2e2;
+    text-align: center;
+    line-height: 150px;
+    height: 150px;
+	padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+}
+.MyListingContent .blogModal .uploadImage  img {
+    vertical-align: middle;height: 100%; margin:auto;
+}
+.MyListingContent .blogModal  .upload-detail{ padding-top: 5px;}
+.MyListingContent .blogModal  .upload-detail .desc {
+    color: #666666;
+    font-size: 13px;
+    line-height: 22px;
+	padding:0 13px;
+}
+.MyListingContent .blogModal .modal-footer{ margin-top: 10px;}
+.MyListingContent .blogModal ul.customCheckbox{padding: 30px 0 0 20px;}
+.MyListingContent .blogModal ul.customCheckbox li{ margin-bottom: 14px;}
+
+
+.MyListingContent .photoItem{  overflow: hidden;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.3);
+    border: 2px solid #fff;
+	margin-bottom: 30px;
+	height: 150px;
+    position: relative;
+}
+.MyListingContent .photoItem .customCheckbox{position: absolute;
+    background-color: #fff;
+    height: 23px;
+    width: 23px;}
+.MyListingContent .photoItem ul.icons{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+}
+
+.MyListingContent .photoItem ul.icons li { float: left; border-right: 1px solid #e5e5e5;  padding: 4px 7px 2px;}
+.MyListingContent .photoItem ul.icons li a{ font-size: 23px; color: #003e79;}
+.MyListingContent .photoItem ul.icons li a.trash{color: #c70000;}
+
+.MyListingContent .photoItem  .playIcon {
+    background-color: rgba(0,0,0,0.3);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    padding: 29% 0;
+}
+.MyListingContent .photoItem  .playIcon i.fa {
+    color: #ffffff;
+    font-size: 60px;
+}
+
+.MyListingContent .photoModal {}
+.MyListingContent .photoModal .photdesc{ font-size: 16px; color: #003e79; margin-bottom: 24px;}
+.MyListingContent .photoModal .uploadImageItem{float: left;
+    width: 33.33%;
+    padding: 0 15px; margin-bottom: 30px;}
+.MyListingContent .photoModal .uploadImageItem .image{background-color: #f9f9f9;
+    border: 1px solid #e3e2e2;
+    border-radius: 3px;
+    padding: 10px;
+    height: 133px;
+    overflow: hidden;}
+.MyListingContent .photoModal .uploadImageItem .image img{ height: 100%; margin: auto;}
+.MyListingContent .photoModal .uploadImageItem  .CustomuploadBtn span.btn {
+    height: 38px;
+    font-size: 14px;
+    padding: 2px 13px;
+    margin-top: 6px;
+}
+
+.MyListingContent .photoModal .addButton a.btn{ font-size: 16px; }
+
+.MyListingContent .videoModal .videoContainer{ background-color: #f9f9f9;
+    border: 1px solid #e3e2e2;
+    border-radius: 3px;
+    font-size: 60px;
+    height: 223px;
+    line-height: 223px;
+    text-align: center;
+}
+
+
+
+.MyListingContent .teamModal  .default-form .form-group .bootstrap-select{
+    width: 72px!important;float: left;
+}
+.MyListingContent .teamModal  .default-form .form-group .inputSel-group{margin-left: 102px;}
+.MyListingContent .teamModal  .default-form .form-group{ margin-bottom: 20px;}
+
+
+.MyListingContent .teamModal .uploadImage{    background-color: #f9f9f9;
+    border: 1px solid #e3e2e2; padding:10px 0; height:152px;
+    text-align: center;}
+.MyListingContent .teamModal .uploadImage img{ margin: auto; height: 100%;}
+
+.MyListingContent .teamModal .upload-detail{    padding: 14px 0 0;}
+.MyListingContent .teamModal .upload-detail .desc{ font-size: 13px; line-height: 22px;}
+
+
+
+/* ServiceRequest Page CSS
+   ========================================================================== */
+.contentBox{ background-color: #ffffff; border: 1px solid #c9c9c9; border-radius: 3px; padding: 15px;}
+.contentBox h2.title{ color: #003e79; font-weight: 600; border-bottom: 1px solid #c9c9c9; padding: 0 0 15px 0px; margin-bottom: 20px; font-size: 16px;}
+
+
+.stepwizard {
+	width: 100%;
+    margin-bottom: 40px;
+    position: relative;
+}
+.stepwizard .stepwizardSection{
+    display: table;
+    max-width: 460px;
+    width: 100%;
+    margin: auto;
+}
+.stepwizard .stepwizardRow{ display: table-row;}
+
+.stepwizard .stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+}
+
+.stepwizard .stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.stepwizard .stepwizard-step .btn{
+	background-color: #fff;
+	border: 1px solid #c9c9c9;
+	border-radius: 15px;
+	color: #003d79;
+	font-size: 15px;
+    line-height: 28px;
+    padding: 0;
+	width: 30px;
+    height: 30px;
+	pointer-events: none;
+}
+.stepwizard .stepwizard-step .btn[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+	    pointer-events: none;
+}
+.stepwizard .stepwizard-step .btn.complete{     background-color: #27c46b; border-color: #27c46b; color: #fff;}
+.stepwizard .stepwizard-step .btn.active{     background-color: #003d79; border-color: #003d79; color: #fff;}
+.step-content h3{ color: #003e79;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #c9c9c9;
+    padding-bottom: 15px;}
+.step-content .form-button{ margin-bottom: 15px;}
+.step-content .form-button .nextBtn{ background-color: #003e79;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    max-width: 122px;
+    width: 100%;}
+
+.serviceRequestList{}
+.serviceRequestList .serviceRequestItem{border-bottom: 1px solid #c9c9c9; padding: 0 0 15px 0px; margin-bottom: 15px;}
+.serviceRequestList .serviceRequestItem label.labelCheckbox{ font-weight: 500;}
+.serviceRequestList .serviceRequestItem label.labelCheckbox::before{ width: 17px; height: 17px;}
+.serviceRequestList .serviceRequestItem .labelCheckbox input[type=checkbox]:checked+.lbl::before, 
+.serviceRequestList .serviceRequestItem label.labelCheckbox:hover .lbl::before, 
+.serviceRequestList .serviceRequestItem label.labelCheckbox.checked .lbl::before{ top: 5px; left: 4px;}
+
+
+.serviceRequestList .serviceRequestField{ display: none; padding: 15px 0 0px 0px;}
+.serviceRequestList .serviceRequestItem.open .serviceRequestField{ display: block;}
+.serviceRequestList .serviceRequestField .form-group, .serviceRequestList .serviceRequestField .input-group {
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.serviceRequestList .serviceRequestField .form-group label {
+    color: #5b5b5b;
+    font-size: 15px;
+    margin-bottom: 7px;
+    font-weight: 500;
+}
+.serviceRequestList .serviceRequestField .input-group .form-control { border-radius: 3px;}
+.serviceRequestList .serviceRequestField .input-group .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.serviceRequestList .serviceRequestField .input-group .form-control{ border-right-color: #fff; }
+.serviceRequestList .serviceRequestField .input-group span.input-group-addon {
+    background-color: transparent;
+    border-left: 0px;
+	
+}
+
+
+/* Blog Single Page CSS
+   ========================================================================== */
+.BlogContent{ background-color: #fefefe; border: 1px solid #c9c9c9; border-radius: 3px; padding: 15px 15px 20px; position: relative;}
+.BlogContent h1.title{color: #010101; font-size: 17px; margin: 0; font-weight: 600; text-transform: uppercase; line-height: 30px;}
+ .BlogContent .desc{ color: #666; font-size: 12px;}
+.BlogContent .desc span{    position: relative;
+    margin: 0 5px;
+    top: -3px;}
+ 
+ 
+ .BlogContent .socialLink{    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+ .BlogContent .socialLink li{  float: right;}
+ .BlogContent .socialLink li a{     color: #fff;
+    font-size: 16px;
+      display: block;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;}
+ .BlogContent .socialLink li a.facebook{ background-color: #3a5799;}
+.BlogContent .socialLink li a.twitter{ background-color: #00abf0;}
+ .BlogContent .socialLink li a.googleplus{ background-color: #f15925;} 
+  
+
+.BlogContent .BlogDetail { color: #000; font-size: 14px; line-height: 26px; margin-top: 13px;}
+.BlogContent .BlogDetail p{ margin-bottom: 20px;}
+.BlogContent .BlogDetail .imageSection{  width: 373px; float: left; margin-right: 25px; margin-top: 7px; overflow: hidden; border: 2px solid #fff; box-shadow: 0px 0px 1px rgba(0,0,0,0.4);}
+
+.BlogContent .blogReplySection{ border-top: 1px solid #e6e6e6; padding-top: 25px; margin-top: 40px;}
+.BlogContent .blogReplySection h3{ color: #202020; font-size: 18px; font-weight: 300; margin-bottom: 40px; text-transform: uppercase;}
+
+
+.BlogContent .blogReplySection li{ border-bottom: 1px solid #e6e6e6; padding-bottom: 30px; margin-bottom: 30px;}
+
+.BlogContent .blogReplySection li .img{  float: left;   width: 58px;
+    height: 58px;
+    border-radius: 100%;
+    background-color: #c4c4c4;
+    overflow: hidden;}
+.BlogContent .blogReplySection li .detail{ margin-left: 82px;}
+
+.BlogContent .blogReplySection li .detail .reply{ float: right;}
+.BlogContent .blogReplySection li .detail .reply a{ background-color: #003e79; color: #fff; font-size: 13px;  display: inline-block;  padding:5px 7px; text-transform: uppercase;}
+
+
+.BlogContent .blogReplySection li .detail h4{ color: #6a6a6a; font-size: 13px; margin-bottom: 7px; }
+.BlogContent .blogReplySection li .detail .desc{ font-size: 11px; margin-bottom: 7px;}
+.BlogContent .blogReplySection li .detail .txt{ color: #6a6a6a; font-size: 13px; line-height: 24px;}
+
+.BlogContent .blogReplySection li ul li{
+	border-top: 1px solid #e6e6e6;
+    padding: 20px 15px 0px;
+    margin-bottom: 0;
+    border-bottom: 0;
+    margin-top: 20px;
+}
+.BlogContent .blogReplySection li ul li .img{ display: none;}
+.BlogContent .blogReplySection li ul li .detail{ }
+
+.BlogContent .blogCommentSection{}
+
+.BlogContent .blogCommentSection h3{ color: #141414; font-size: 25px; font-weight: 600;     margin-bottom: 15px;}
+.BlogContent .blogCommentSection .reqMsg{ color: #808080;
+    font-size: 15px;
+    margin-bottom: 30px;
+    font-weight: 400;}
+.BlogContent .blogCommentSection .req{ color: #ff0000;}
+.BlogContent .blogCommentSection .commentForm {
+    max-width: 700px;
+}
+.BlogContent .blogCommentSection .commentForm .form-group{    margin-bottom: 22px;}
+.BlogContent .blogCommentSection .commentForm .form-group label{ color: #535353; font-size: 16px; margin-bottom: 8px;}
+.BlogContent .blogCommentSection .commentForm .form-control{ background-color: #fcfcfc; border: 1px solid #dddddd;  border-radius: 0px; box-shadow: none;}
+.BlogContent .blogCommentSection .commentForm textarea.form-control{ height: 234px; resize: none;}
+ 
+.BlogContent .blogCommentSection .commentForm .form-button .btn-primary{     color: #ffffff;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: 0;
+    height: 43px;
+    border-radius: 3px;
+    padding: 10px 19px;}
+ 
+.Blogsidebar .sidebarRow{ padding-bottom: 40px;}
+.Blogsidebar .sidebarRow h2{     color: #1c1d21;
+    font-size: 18px;
+    border-bottom: 2px solid #1c1d21;
+    padding: 0 0 13px;
+    margin-bottom: 15px;
+    font-weight: 600;}
+.Blogsidebar .sidebarRow h2 i.fa{    color: #1c1d21;
+    font-size: 18px;
+    margin-right: 4px;}
+
+.Blogsidebar .sidebarRow ul{}
+.Blogsidebar .sidebarRow ul li{     border-bottom: 1px dotted #cccccc;
+    padding: 0 0 9px;
+    margin-bottom: 10px;;}
+.Blogsidebar .sidebarRow ul li a{ color:#1c1d21; font-size: 15px;}
+
+/* Dashboard Page CSS
+   ========================================================================== */
+.dasboardContainer .tabDasboard li{ float:left; width: 33.33%; padding: 0 15px;}
+.dasboardContainer .tabDasboard li a{ background-color: #f55753; border-radius: 3px; padding: 10px;}
+.dasboardContainer .tabDasboard li.active a{}
+
+.dasboardContainer .tabDasboard li h3{ color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: right;
+    margin-top: -16px;}
+.dasboardContainer .tabDasboard li .icon{     display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    padding: 10px;}
+.dasboardContainer .tabDasboard li .icon img{ max-width: 100%;}
+
+.dasboardContainer .tabDasboard li .countValue{    float: right;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;}
+.dasboardContainer .tabDasboard li.LightBlue a{background-color: #88c6ff;}
+.dasboardContainer .tabDasboard li.green a{background-color: #27c46b;}
+
+.dasboardContainer .tabDasboard li.active a:after { 
+	top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #f55753;
+    border-width: 8px;
+    margin-left: -30px;
+}
+.dasboardContainer .tabDasboard li.LightBlue.active a:after{border-top-color: #88c6ff;}
+.dasboardContainer .tabDasboard li.green.active a:after{border-top-color: #27c46b;}
+
+.dasboardContainer .tab-content{ border: 1px solid #e5e5e5; position: relative; padding:0;     margin-bottom: 0;} 
+.dasboardContainer .tab-content .tab-pane.active:before{ content: ""; background-color: #f55753;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: -1px;}
+
+.dasboardContainer .tab-content #inbox.tab-pane.active:before{ background-color: #88c6ff;}
+.dasboardContainer .tab-content #appointment.tab-pane.active:before{background-color: #27c46b;}
+	
+.dasboardContainer .tab-content .serviceRequestContent{ padding: 15px; }
+.dasboardContainer .tab-content h2.title{ border-bottom: 1px solid #e5e5e5; color: #003d79; font-size: 16px; font-weight: 600; padding-bottom: 12px; margin-bottom: 5px;}
+
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown{    float: right;     margin-top: -6px;}
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown label{     font-size: 14px;
+    color: #000;
+    font-weight: normal;
+    margin-right: 6px;} 
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select{    width: 110px;}
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select.open span.caret{ border-bottom: 4px dashed; border-top: 0px;}
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select .dropdown-toggle {padding: 5px 10px; box-shadow: none;}
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select .dropdown-toggle:hover,
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select .dropdown-toggle:focus{ background-color: transparent; outline: 0; background-image: none; box-shadow: none;}
+.dasboardContainer .tab-content .serviceRequestContent .filterDropdown .bootstrap-select.dropdown-menu>li>a {
+    padding: 3px 10px;}
+
+.dasboardContainer .Dashboardtable{ display: table; width: 100%;}
+.dasboardContainer .Dashboardtable .tableRow{ display: table-row; }
+.dasboardContainer .Dashboardtable .tableRow .tableCol{ border-bottom: 1px solid #e5e5e5;  color: #000; font-size: 12px; display: table-cell; padding: 15px 0; vertical-align: middle;}
+
+.dasboardContainer .Dashboardtable .tableHead{}
+
+.dasboardContainer .Dashboardtable .tableHead .tableCol{ border-bottom: 2px solid #e5e5e5; color:#000000; font-size: 13px; font-weight: 600; }
+.dasboardContainer .Dashboardtable .tableCol .lg-hidden{ display: none;}
+.dasboardContainer .Dashboardtable .tableHead .tableCol.StatusCol{ width: 11%;}
+.dasboardContainer .Dashboardtable .statusbtn{ background-color: #2895c4; color: #fff; cursor: pointer; font-size: 12px; border-radius: 3px; display: inline-block; padding: 4px 6px; }
+
+.dasboardContainer .Dashboardtable .statusbtn.red{ background-color: #f63a49;}
+.dasboardContainer .Dashboardtable .statusbtn.green{ background-color: #27c46b;}
+
+.dasboardContainer .Dashboardtable .tableRow .tableCol.ServiceReqCol a{ text-decoration: underline;}
+
+.dasboardContainer .Dashboardtable .tableHead .tableCol.actionCol{ width: 80px;}
+
+.dasboardContainer .tab-content .serviceRequestContent .ActionBtn{ text-align: left;}
+.dasboardContainer .tab-content .serviceRequestContent .ActionBtn li{     display: inline-block; margin-right: 20px;}
+.dasboardContainer .tab-content .serviceRequestContent .ActionBtn li i{ color: #003e79; font-size: 25px;}
+.dasboardContainer .tab-content .serviceRequestContent .ActionBtn li.delete { margin-right: 0px;}
+.dasboardContainer .tab-content .serviceRequestContent .ActionBtn li.delete i{ color: #c70000;}
+
+.dasboardContainer .Dashboardtable .tableRow:last-child .tableCol{ border-bottom: 0px; padding-bottom: 2px;}
+
+.dasboardContainer .Dashboardtable .actionCol{}
+.dasboardContainer .Dashboardtable .actionCol .dropdown{ float:left;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown button{background-color: #f15827;
+    color: #ffffff;
+    font-size: 12px;
+    border: 0px;
+    border-radius: 3px;
+    padding: 3.5px 7px;}    
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu{ background-color: #f15827;
+    border: 0;
+    border-radius: 3px 0px 3px 3px;
+    padding-bottom: 0;
+	 margin: -2px 0 0 0;
+    right: 0;
+    left: auto;
+    min-width: 110px;
+}
+
+.dasboardContainer .Dashboardtable .actionCol .dropdown.open button .caret{    border-bottom: 4px dashed;  border-top: 0px dashed;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown.open button{ position: relative;     z-index: 9999;} 
+.dasboardContainer .Dashboardtable .actionCol .dropdown.open button:after{ content: ""; background-color: rgba(255,255,255,0.5); height: 1px; display: block; position: absolute; bottom: 0px; left: 5px;right: 5px; z-index: 9;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li{ padding: 0 5px;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li:hover, .dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li a:hover{ background-color: #003d79; background-image: none; color: #fff;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li a{ color: #fff; font-size: 13px; padding: 3px 1px;  border-bottom: 1px solid rgba(255,255,255,0.6);}
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li:last-child a{ border-bottom: 0px;}
+.dasboardContainer .Dashboardtable .actionCol .dropdown .dropdown-menu li a .fa{ margin-right: 3px;}
+
+.dasboardContainer .Dashboardtable .PhoneCol a{ color: #003e79; font-weight: 600;}
+
+.dasboardContainer .inboxContent { overflow: hidden; }
+.dasboardContainer .inboxContent  .hamburgerIcon{    color: #003e79;     font-size: 16px;}
+.dasboardContainer .inboxContent .hamburgerIcon{ display: none;}
+
+.dasboardContainer .inboxContent .Listmail{float: left; overflow: hidden; max-width: 277px; border-right: 1px solid #e5e5e5; }
+ .dasboardContainer .inboxContent .Listmail .search{ height: 46px; border-bottom: 1px solid #e5e5e5; position: relative; padding: 6px 13px;}
+
+.dasboardContainer .inboxContent .Listmail .search .input-group{}
+.dasboardContainer .inboxContent .Listmail .search .input-group .form-control { border-radius: 0; border-right: 0; border-color: #e6e6e6; box-shadow: none;}
+.dasboardContainer .inboxContent .Listmail .search .input-group-addon { background-color: #fff; color: #1a4077; cursor: pointer; font-size: 16px; border-left: 0; border-color: #e6e6e6; border-radius: 0;}
+
+.dasboardContainer .inboxContent .contentScroll { padding-left: 12px; padding-top: 10px; padding-bottom: 8px;}
+.dasboardContainer .inboxContent .contentScroll .mCSB_scrollTools .mCSB_draggerRail, .dasboardContainer .inboxContent .contentScroll .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar { width: 5px; -webkit-border-radius: 60px; -moz-border-radius: 60px; border-radius: 60px;}
+.dasboardContainer .inboxContent .contentScroll .mCSB_scrollTools { width: 10px;}
+.dasboardContainer .inboxContent .contentScroll .mCSB_inside > .mCSB_container { margin-right: 13px;}
+
+.dasboardContainer .inboxContent .listItem { border-bottom: 1px solid #e5e5e5; padding-bottom: 13px; margin-bottom: 7px; margin-top: 7px; float: left; width: 100%;}
+.dasboardContainer .inboxContent .Listmail .listItem:last-child{border-bottom: 0; margin-bottom: 0;}
+	
+.dasboardContainer .inboxContent .listItem .image{ position: relative; width: 40px; float: left;}
+.dasboardContainer .inboxContent .listItem .image .status{ background-color: #1ddc09; width: 10px; height: 10px; border-radius: 100%; display: block; position: absolute; bottom: -3px; border: 2px solid #fff; right: 10px;}
+.dasboardContainer .inboxContent .listItem .image .status.busy{ background-color: #ff0000;}
+.dasboardContainer .inboxContent .listItem .image .status.away{ background-color: #ffdb14;}
+.dasboardContainer .inboxContent .listItem .img{   background-color: #dddcda; border: 2px solid #003e79; border-radius: 100%; width: 40px; height: 40px; overflow: hidden; text-align: center;  }
+.dasboardContainer .inboxContent .listItem .img img.default { max-width: 90%; margin: 4px auto; }
+.dasboardContainer .inboxContent .listItem .detail{ margin-left: 53px;}
+.dasboardContainer .inboxContent .listItem .detail h3{ color: #000; font-size: 13px; font-weight: 600; margin-bottom: 3px;}
+ .dasboardContainer .inboxContent .listItem .detail h3 span{ color: #c8c8c8; float: right;font-weight: 400; font-size: 13px;}
+ .dasboardContainer .inboxContent .listItem .detail .subject{ color: #003e79;  font-size: 12px;  margin-bottom: 2px;}
+ .dasboardContainer .inboxContent .listItem .detail .txt{ color: #666; font-size: 12px;}
+ 
+.dasboardContainer .inboxContent .listItem.active{ background-color: #003e79;  color: #fff; margin: -6px 0px 7px 2px; padding: 13px 5px 13px; border-radius: 3px;}
+ .dasboardContainer .inboxContent .listItem.active .img { border-color: #fff; }
+ .dasboardContainer .inboxContent .listItem.active .detail h3, .dasboardContainer .inboxContent .listItem.active .detail .subject{ color: #fff;}
+ .dasboardContainer .inboxContent .listItem.active .detail .txt{  color: rgba(255,255,255,0.5);}
+ 
+ .dasboardContainer .inboxContent .detailMail{ margin-left: 277px; position: relative; height: 100%;}
+ .dasboardContainer .inboxContent .detailMail .contentScroll{ padding-left: 20px;}
+ 
+ 
+.dasboardContainer .inboxContent .detailMail .title{ border-bottom: 1px solid #e5e5e5; height: 46px; padding: 13px 20px; position: relative; }
+.dasboardContainer .inboxContent .detailMail .title h3{ color: #003e79; font-weight: 600; font-size: 16px;  padding: 0 40px 0 0;}
+.dasboardContainer .inboxContent .detailMail .title h3 span.fav{ color: #000; font-size: 16px; margin-left: 10px;}
+
+
+
+/*.dasboardContainer .inboxContent .detailMail .title a.deleteIcon{float: right;
+    background-color: #d20a0a;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    font-size: 18px;
+    position: absolute;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
+    top: 7px;
+    right: 15px;
+}*/
+
+.dasboardContainer .inboxContent .detailMail .title .actionBtn{  position: absolute; color: #fff; top: 7px; height:0; right: 15px;}
+.dasboardContainer .inboxContent .detailMail .title .actionBtn a{ border-radius: 3px; color: #fff; display: inline-block; font-size: 13px; text-align: center; padding: 8px 7px 8px; text-transform: uppercase;}
+.dasboardContainer .inboxContent .detailMail .title a.ReplyIcon{ background-color: #3aa1ff;}
+.dasboardContainer .inboxContent .detailMail .title a.deleteIcon{ background-color: #d20a0a; margin-left: 8px; }
+.dasboardContainer .inboxContent .detailMail .listItem{ padding-right: 15px; padding-bottom: 20px; margin-bottom: 19px;}
+.dasboardContainer .inboxContent .detailMail .listItem .detail .txt {color: #000; line-height: 22px; font-size: 13px; }
+.dasboardContainer .inboxContent .detailMail .listItem .detail .txt p{ margin-bottom: 20px;}
+.dasboardContainer .inboxContent .detailMail .listItem .detail .txt p:last-child{ margin-bottom: 0px;}
+.dasboardContainer .inboxContent .detailMail .listItem .detail h3 span { float: none; margin-left: 10px;}
+.dasboardContainer .inboxContent .detailMail .listItem .detail h3 { margin-bottom: 6px;  margin-top: 2px;}
+
+.dasboardContainer .inboxContent .detailMail .replyForm{ border-top: 1px solid #e6e6e6; padding: 10px 20px; position: absolute; width: 100%; background-color: #fff; bottom: 0;}
+.dasboardContainer .inboxContent .detailMail .replyForm .form-group {
+    margin-bottom: 0; margin-right: 120px; position: relative;}
+.dasboardContainer .inboxContent .detailMail .replyForm .form-group .icon{ position: absolute; right: 10px; font-size: 16px; top: 11px;}
+.dasboardContainer .inboxContent .detailMail .replyForm .form-group .icon i.fa{  color: #c5c5c5; margin-left: 8px;}
+.dasboardContainer .inboxContent .detailMail .replyForm .form-control{ border: 1px solid #e6e6e6; box-shadow: none; margin-bottom: 0px;  width: 100%; height: 38px; font-size: 14px; padding-right: 48px; border-radius: 3px;}
+.dasboardContainer .inboxContent .detailMail .replyForm  .btn{    float: right;  color: #fff;  font-size: 15px;  border-radius: 3px;  height: 38px;text-transform: uppercase;  min-width: 107px;}
+	
+	
+	
+/* Dashboard Detail Modal CSS
+   ========================================================================== */
+.DashboardDetailModal .modal-body{padding: 20px 20px 20px;}
+
+.DashboardDetailModal .formSearch{    border: 1px solid #dddddd;  border-radius: 3px;  position: relative; height: 44px; margin-bottom: 20px;}
+.DashboardDetailModal .formSearch input.form-control{ background-color: transparent; border: 0px; border-radius: 0px;  margin-bottom: 0;  font-size: 16px;  color: #666;  box-shadow: none; height: 42px;  padding-right: 40px;}
+.DashboardDetailModal .formSearch button.searchBtn { background-color: transparent; border: 0; color: #003e79;  font-size: 19px; height: 42px; float: right; position: absolute;  width: 42px; right: 0; top: 0;}
+
+.DashboardDetailModal .detailList{}
+.DashboardDetailModal .detailList .Lisitem{ border: 1px solid #e6e6e6; margin-bottom: 20px;}
+.DashboardDetailModal .detailList .Lisitem h2{ background-color: #f6f6f6; color: #003e79; font-size: 18px; font-weight: 600; padding: 13px 10px; position: relative; text-transform: uppercase;}
+.DashboardDetailModal .detailList .Lisitem h2:after{ content: "";    background-color: #e6e6e6; height: 1px; width: 100%; display: block; left: 0; bottom: -2px; position: absolute;}
+	
+.DashboardDetailModal .detailList .Lisitem .table{ display: table; color: #666666; margin-bottom: 0; padding: 0 10px;}
+.DashboardDetailModal .detailList .Lisitem .tableRow.tableHead{ color: #000000;}
+
+.DashboardDetailModal .detailList .Lisitem .tableRow.tableHead .tableCell{     border-bottom: 2px solid #dddddd; color: #000; font-size: 15px; font-weight: 600; padding-bottom: 11px;}
+
+.DashboardDetailModal .detailList .Lisitem .tableRow{}
+
+.DashboardDetailModal .detailList .Lisitem .tableCell{ border-bottom: 1px solid #dddddd; display: table-cell; padding: 15px 10px; line-height: 23px;}
+.DashboardDetailModal .detailList .Lisitem .tableRow:last-child .tableCell{ border-bottom: 0px;}
+
+.DashboardDetailModal .detailList .Lisitem .tableCell.providerTxt span{ color: #000; margin-left: 1px;}
+
+.DashboardDetailModal .detailList .Lisitem .defaultTxt{ color: #666666; font-size: 14px; line-height: 24px; padding: 12px 10px;}
+
+/* AppointMent Modal CSS
+   ========================================================================== */
+.appointmentModal .default-form label{ color: #666666; font-size: 16px; margin-bottom: 8px;}
+.appointmentModal .default-form .input-group .form-control{ border-right: 0; border-radius: 3px 0px 0px 3px;}
+.appointmentModal .default-form .input-group .input-group-addon { background-color: #003e79; color: #fff; border-left: 0;  border-radius: 0px 3px 3px 0px; }
+.appointmentModal.customModal .default-form .form-group, .appointmentModal.customModal .default-form .input-group {  position: relative; margin-bottom: 10px; }
+.appointmentModal.customModal .modal-footer .btn{ max-width: 267px; margin: auto;}
+
+
+/* Admin Dahboard Tab CSS
+   ========================================================================== */	
+.AdmindasboardContainer .tabDasboard li{ float: left; width: 25%; padding: 0 11px; margin-bottom: 30px;}
+.AdmindasboardContainer .tabDasboard li.active a:after { margin-left: -8px;}
+.AdmindasboardContainer .tabDasboard li a { padding: 10px 10px 7px; }
+.AdmindasboardContainer .tabDasboard li .icon {/* width: 60px; height: 60px; padding: 11px; position: relative; top: 5px;*/ }
+.AdmindasboardContainer .tabDasboard li h3 {     font-size: 18px;
+    height: 31px;
+    line-height: 19px;}
+.AdmindasboardContainer .tabDasboard li h3 span{ display: block; font-size: 13px; font-weight: normal;}
+
+.AdmindasboardContainer .tabDasboard li.RedShade a{ background-color: #db402c;}
+.AdmindasboardContainer .tabDasboard li.RedShade.active a:after{border-top-color: #db402c;}
+.AdmindasboardContainer .tabDasboard li.BlueShade1 a{ background-color: #003e79;}
+.AdmindasboardContainer .tabDasboard li.BlueShade1.active a:after{border-top-color: #003e79;}
+.AdmindasboardContainer .tabDasboard li.BlueShade2 a{ background-color: #4060a2;}
+.AdmindasboardContainer .tabDasboard li.BlueShade2.active a:after{border-top-color: #4060a2;}
+
+
+.AdmindasboardContainer .tab-content { border: 0px solid #e5e5e5; position: relative; margin-top: 10px;}
+.AdmindasboardContainer .tab-content .tab-pane.active:before{ display: none;}
+.AdmindasboardContainer .tab-content .serviceRequestContent{ margin-bottom: 30px;}
+.AdmindasboardContainer .contentBox{    border: 1px solid #e5e5e5; position: relative; padding: 0; margin-bottom: 0px;}
+.AdmindasboardContainer .contentBox:before { content: "";  background-color: #f55753;  height: 3px;  width: 100%;  position: absolute;    left: 0;  top: -1px;}
+.AdmindasboardContainer #appointment .contentBox:before{background-color: #27c46b;}
+.AdmindasboardContainer #manageMarkup .contentBox:before{background-color: #4060a2;}
+.AdmindasboardContainer #inbox .contentBox:before{background-color: #88c6ff;}
+.AdmindasboardContainer  #googleAnalytics .contentBox:before{background-color: #db402c;}
+
+.AdmindasboardContainer .Dashboardtable .tableHead .tableCol.StatusCol { width: auto;}
+
+.AdmindasboardContainer .queueContent .serviceRequestContent:before{ display: none;}
+.AdmindasboardContainer .tab-content .queueContent h2.title{ background-color: #003d79; color: #fff;
+    margin: -15px -15px 15px -15px; padding: 15px 15px 15px 15px;
+    border-radius: 3px 3px 0px 0px;
+}
+.AdmindasboardContainer .queueContent .serviceRequestContent.unassignContent { margin-bottom: 40px;}
+
+.dasboardContainer .Dashboardtable .tableRow .tableCol.providerbtnCol{ width: 150px;}
+.AdmindasboardContainer .Dashboardtable .providerbtnCol .btn{ background-color: #27c46b; color: #fff; text-transform: uppercase; font-size: 12px;}
+	
+.AdmindasboardContainer .queueContent .serviceRequestContent.assignedContent h2.title{ background-color: #27c46b;}	
+
+.AdmindasboardContainer .queueContent .serviceRequestContent .zipCol{ width: 14%;}
+
+.AdmindasboardContainer .queueContent .serviceRequestContent .tagBtn{ background-color: #003e79; color: #fff; font-size: 12px; border-radius: 3px; padding: 5px 10px 6px;}
+
+.appointmentModal .modal-dialog{ max-width: 500px; margin-left: auto; margin-right: auto; width: 96%;}
+.appointmentModal.customModal .modal-body { padding: 25px 30px 20px; }
+.appointmentModal .modal-body .btn-primary{ background-color: #003e79; font-size: 20px; height: 53px;  max-width: 270px; text-transform: uppercase; margin: 20px auto 10px; }
+.appointmentModal .unavailableMsg{ color: #232323; font-size: 16px;  text-align: center; text-transform: uppercase;}
+.appointmentModal .unavailableMsg .icon{ color: #cdcdcd; font-size: 85px; margin-bottom: 20px;}
+
+.dasboardContainer .analyticsContent .Dashboardtable{ margin-top: 20px;}
+.dasboardContainer .analyticsContent .Dashboardtable .tableRow .tableCol:first-child{ text-align: left;}
+.dasboardContainer .analyticsContent .Dashboardtable .tableRow .tableCol{ text-align: center; width: 14.4%;}
+
+.analyticsContent .default-form .rowField{ padding-top: 15px; border-bottom: 1px solid #e5e5e5;}
+.analyticsContent .default-form .rowField .form-group{ margin-bottom: 20px;}
+.analyticsContent .default-form .rowField .form-group label{ color: #000; font-size: 14px;}
+.ManageContent .serviceRequestContent h2.title{ margin-bottom: 23px;}
+.ManageContent .serviceRequestContent h3.title{ border-bottom: 1px solid #dddddd; color: #003e79; font-size: 15px; padding-bottom: 14px; font-weight: 600;}
+.ManageContent .serviceRequestContent .manageMarkupTable .tableCol{ }
+
+
+/* Pcakage Option CSS
+   ========================================================================== */	
+.PackageContent{}
+.PackageContent .title{ color: #666666; text-align: center; line-height: normal; }
+.PackageContent .title h2{ color: #000000; font-size: 26px; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; }
+
+.PackageContent .title h2:before, .PackageContent .title h2:after{ content: ""; display: inline-block;  width: 55px; height: 1px; background-color: #dbdbdb; margin: 9px 10px;}
+
+
+.pricingTable{ margin-top: 40px;}
+.pricingTable .column{ border: 1px solid #e7e8ec; margin-bottom: 30px;}
+.pricingTable .column .title{ background-color: #242f32; color: #fff; padding: 15px; line-height: 1;}
+.pricingTable .column .title h3{ font-size: 26px; text-transform: uppercase; margin-bottom: 10px;}
+.pricingTable .column .title .price{ font-size: 40px; font-weight: 600;}
+.pricingTable .column .title .price span{ font-size: 18px; vertical-align: top; font-weight: 400; margin-right: 5px; position: relative; top: 6px;}
+.pricingTable .column .title .date{ margin-top: 10px; text-transform: uppercase;}
+
+.pricingTable .column ul.listContent{}
+.pricingTable .column ul.listContent li{ color: #010101; font-size: 14px; border-bottom: 1px solid #e7e8ec; padding: 10px 5px; line-height: 20px; text-align: center; }
+.pricingTable .column ul.listContent li span{ color: #8d8d8d; display: block; font-size: 12px;}
+
+.pricingTable .column .button { padding: 23px 10px; text-align: center; }
+.pricingTable .column .button a{ background-color: #242f32; border-radius: 3px; color: #fff; font-size: 15px; text-transform: uppercase; display: inline-block; width: 100%; padding: 13px 10px; max-width: 211px;}
+
+.pricingTable .column .button a:hover{background-color: #f15925;}
+
+.pricingTable .column.blueCol .title, .pricingTable .column.blueCol .button a{background-color: #003e79;}
+.pricingTable .column.blueCol .button a:hover{background-color: #f15925;}
+.pricingTable .column.orangeCol .title, .pricingTable .column.orangeCol .button a{background-color: #f15925;}
+.pricingTable .column.orangeCol .button a:hover{background-color: #003e79;}
+
+.ProviderContent{ margin-top: 30px;}
+.ProviderContent .rowText{ border-bottom: 1px solid #e6e6e6; color: #000000; margin-bottom: 30px; padding-bottom: 10px;     line-height: 24px;}
+.ProviderContent .rowText h3{ color: #1a4077; font-size: 16px; font-weight: 600; text-transform: uppercase; margin-bottom: 25px;}
+.ProviderContent .rowText p{ margin-bottom: 20px; line-height: 24px;}
+.ProviderContent .button{ margin-bottom: 15px;}
+.ProviderContent .rowText ul{ margin-bottom: 5px;}
+.ProviderContent .rowText ul li{ margin-bottom: 15px;}
+.ProviderContent .rowText ul li::before { content: "";display: inline-block;  font-size: 16px;  margin-right: 10px;  text-align: left;  width: 16px;display: inline-block;  font-family: FontAwesome;  font-style: normal; font-weight: normal; line-height: 1;}
+
+/* Pckage Option CSS
+   ========================================================================== */	
+.AdminpackageContent{ padding: 12px 15px; }
+.AdminpackageContent h2.title{ border-bottom: 1px solid #e5e5e5; color: #003e79; font-size: 20px; font-weight: 600; padding-bottom: 12px;}
+.AdminpackageContent h2.title a.btn{ float: right;     margin: -7px 0 0;}
+.AdminpackageContent h2.title:after{ display: inline-block;}
+
+.AdminpackageContent .pricingTable{ margin-left: -10px; margin-right: -10px;}
+.AdminpackageContent .pricingTable > li{ width: 25%; float: left; padding: 0 10px;}
+.AdminpackageContent .pricingTable > li .title{ text-align: center;  position: relative;  overflow: hidden;}
+
+
+.AdminpackageContent .pricingTable ul.listContent li { background-color: #fff; padding:1px 1px 0px;}
+.AdminpackageContent .pricingTable ul.listContent li textarea{ border: 0px; resize: vertical;  margin-bottom: 1px!important; background-color: #e9e9e9; box-shadow: none; border-radius: 0;  padding: 5px;}
+.AdminpackageContent .pricingTable ul.listContent li textarea:focus{ border: 0px;}
+.AdminpackageContent .pricingTable ul.listContent li textarea.smallTxt{ color: #8d8d8d; font-size: 12px;}
+.AdminpackageContent .pricingTable ul.listContent li.odd textarea{ background-color: #f6f6f6; }
+
+.AdminpackageContent .pricingTable ul.listContent li{}
+
+.AdminpackageContent .pricingTable .btnRow{ text-align: center;}
+.AdminpackageContent .pricingTable .btnRow a{border-radius: 0 0 3px 3px; padding: 4px 8px 4px 8px;}
+
+.AdminpackageContent .pricingTable .column .button a{ padding: 9px 10px; max-width: 100%;}
+
+.AdminpackageContent .pricingTable .title ul.toolIcon { position: absolute; top: 23%; right: 0;}
+.AdminpackageContent .pricingTable .title ul.toolIcon li{}
+.AdminpackageContent .pricingTable .title ul.toolIcon li a{ background-color: #50acfb; display: block;  width: 28px; text-align: center; color: #fff;font-size: 16px; padding: 6px 0; cursor: pointer;}
+.AdminpackageContent .pricingTable .title ul.toolIcon li.delete a{ background-color:#e00000;}
+
+
+.AdminpackageContent .pricingTable .title .editTitleForm{ display: none; position: absolute; background-color: #fff; top: 0; left: 0; width: 100%; padding: 1px;}
+.AdminpackageContent .pricingTable .title.open .editTitleForm{ display: block;}
+.AdminpackageContent .pricingTable .title .editTitleForm .default-form{ background-color: #fafafa;     padding: 5px;}
+.AdminpackageContent .pricingTable .title .editTitleForm .form-group{ margin-bottom: 14px;}
+.AdminpackageContent .pricingTable .title .editTitleForm .form-control{ height: 30px;  text-transform: uppercase;  padding: 4px 6px; color: #333333;line-height: 1;}
+	
+.AdminpackageContent .pricingTable .title .editTitleForm .select-group{ padding-left: 40px;}
+.AdminpackageContent .pricingTable .title .editTitleForm .select{ width: 32px;  position: absolute; left: 0;}
+	
+.AdminpackageContent .pricingTable .title .editTitleForm .default-form .form-group .bootstrap-select .dropdown-toggle{  height: 30px; padding: 3px 4px 5px;  color: #000000;  font-size: 14px;}
+.AdminpackageContent .pricingTable .title .editTitleForm .default-form .form-group .bootstrap-select.btn-group .dropdown-toggle .caret{ right: 5px;}
+
+.AdminpackageContent .pricingTable .column .btnToggle{    position: relative;}
+.AdminpackageContent .pricingTable .column .button .editLink{ display: none; position: absolute; height: 34px; top: 0; left: 0; width: 100%;}
+.AdminpackageContent .pricingTable .column .button .editLink input{ border: 1px solid #242f32; width: 100%; border-radius: 3px; height: 34px; padding: 0px 0px 0px 5px; font-size: 13px;}
+
+.AdminpackageContent .pricingTable .column .btnToggle.open .editLink{ display: block;}
+.AdminpackageContent .pricingTable .column .button  a.link{ max-width: 100%; width: 27px; height: 23px; border-radius: 0px 0 3px 3px; float: right;margin-top: -2px; text-align: center; padding: 4px 0px 0px 0px; font-size: 14px; cursor: pointer;}
+
+.AdminpackageContent .addColumnBtn{  max-width: 373px;  width: 100%;  margin: 30px auto -50px;  background-color: #fff;}
+.AdminpackageContent .addColumnBtn a{display: block; border: 2px dashed #d7d9d9; border-radius: 3px; padding: 20px 10px; font-size: 22px; text-align: center; font-weight: 600; color: #c6c6c6;}
+.AdminpackageContent .addColumnBtn span.icon{ border: 5px solid #c6c6c6; border-radius: 100%; color: #c6c6c6;  display: block; font-size: 50px; height: 68px; margin: 15px auto auto;  width: 68px;}
+.AdminpackageContent .addColumnBtn span.icon .fa{ vertical-align: middle; }
+.mbtm80{ margin-bottom: 80px;}
+
+/* RegisterAccount CSS
+   ========================================================================== */
+ .registerContainer{ }
+ .registerContainer .stepwizard{ }
+ .registerContainer .stepwizard:before{ display: none;}
+ .registerContainer .stepwizard .stepwizardSection{ position: relative;}
+ .registerContainer .stepwizard .stepwizardSection:before{ content: ""; background-color: #edeff0; height: 5px; width: 100%; position: absolute; top: 40%;}
+	
+.registerContainer .stepwizard .stepwizardSection .stepwizard-step:first-child:before, .registerContainer .stepwizard .stepwizardSection .stepwizard-step:last-child:after{ content: "";  position: absolute; width: 50%; top: 0; height: 100%; left: 0;  background-color: #fff;  z-index: 1;}
+ .registerContainer .stepwizard .stepwizardSection .stepwizard-step:last-child:after{ left: auto; right: 0;}
+ 
+.registerContainer .stepwizard .stepwizard-step .btn{ background-color: #edeff0; border: 0px; color: #333333; font-size: 16px; font-weight: 600; line-height: 28px;  position: relative; z-index: 2; }
+.registerContainer .stepwizard .stepwizard-step .btn.complete { background-color: #27c46b; border-color: #27c46b; color: #fff; }
+.registerContainer .stepwizard .stepwizard-step .btn.active { background-color: #003d79;  border-color: #003d79; color: #fff;}
+
+
+/* ViewListing V2 CSS
+   ========================================================================== */
+.viewListingContentv2  .posItem, .viewListingContentv2 .TeamMember {     float: none; width: 100%; box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); background-color: #ffffff; padding: 3px; border-radius: 3px; }
+.viewListingContentv2 .posItem .detail { padding: 5px 5px 5px; }
+.viewListingContentv2 .media-gallery .item { padding: 15px 15px; }
+.viewListingContentv2 .posItem .detail .text { font-size: 13px;}
+
+.viewListingContentv2 .media-gallery .image a, .viewListingContentv2 .media-gallery.video-gallery .image .responsive-video { border: 3px solid #ffffff; box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); border-radius: 3px; width: 100%;}
+
+/* Privacy Page CSS
+   ========================================================================== */
+.customTextContent{ position: relative;}
+
+.customTextContent .downloadBtn {float: right; margin-top: -10px;}
+.customTextContent  a.btn{text-transform: uppercase;  font-size: 13px;  font-weight: 600;}
+
+.customTextContent .rowText{ border-bottom: 1px solid #e6e6e6; color: #000000; margin-bottom: 24px; padding-bottom: 10px;     line-height: 26px;}
+.customTextContent .rowText h3{ color: #000000; font-size: 16px; font-weight: 600; text-transform: uppercase; margin-bottom: 15px;}
+.customTextContent .rowText p{ margin-bottom: 15px;}
+
+.customTextContent .button{ margin-bottom: 15px;}
+.customTextContent .rowText ul{ margin-bottom: 5px;}
+.customTextContent .rowText ul li{ margin-bottom: 15px; padding-left: 27px;}
+.customTextContent .rowText ul li::before { content: ""; font-size: 16px;  margin-right: 10px;  text-align: left;  width: 16px;display: inline-block;  font-family: FontAwesome;  font-style: normal; font-weight: normal; line-height: 1;     margin-left: -27px;}
+.customTextContent .lastrow{ margin-bottom: 0; border-bottom: 0px; padding-bottom: 0; }
+.noshow{
+    display: none;
+}
+
+.termsScrollContent{ padding-top:5px; padding-right: 5px;}
+.termsScrollContent .mCSB_container{ padding: 10px 10px 0 0;}
+
+.serviceTermContent .rowText{ padding-left: 38px;}
+.serviceTermContent .rowText.pl0{ padding-left: 0px;}
+
+.serviceTermContent .rowText label.number{ background-color: #edeff0; border-radius: 100%; width: 27px; text-align: center; font-size: 15px; height: 27px; font-weight: 600; line-height: 27px; margin-left: -38px; float: left;}
+
+.serviceTermContent .agrementTxt{ padding-left: 0px;}
+.serviceTermContent .bottomForm .customCheckbox, .serviceTermContent .bottomForm.default-form .form-group, .serviceTermContent .bottomForm.default-form .form-button{ margin-bottom: 14px;}  
+.serviceTermContent .bottomForm.default-form .form-group .form-control{ width: 100%; max-width: 280px;}
+.serviceTermContent .bottomForm.default-form .form-button a.btn{ font-size: 15px; max-width: 134px;    padding: 9px; width: 100%;}
+
+
+.submitListing-section.myaccountSection .tab-content .rowForm{ margin-bottom: 10px;}
+.submitListing-section.myaccountSection .tab-content .form-button { margin-bottom: 20px; }
+.submitListing-section.myaccountSection .tab-content .form-button.save-button{ margin-bottom: 0px;     margin-top: -11px; }
+
+
+

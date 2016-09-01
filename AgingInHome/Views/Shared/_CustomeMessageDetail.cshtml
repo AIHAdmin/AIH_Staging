@@ -1,0 +1,400 @@
+﻿@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using AgingInHome.Models
+@using AgingInHome.Helpers;
+@model List<AgingInHome.Models.InboxModel>
+@{
+    var userid = User.Identity.GetUserId();
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+    var allUser = new AgingInHomeContext().AspNetUsers.Include("ConsumerProfiles").ToList();
+    var msgType = (string)ViewBag.msgType;
+    var userIdentity = (ClaimsIdentity)User.Identity;
+    var OffSet = (string)ViewBag.offset;
+    var claims = userIdentity.Claims;
+    var roleClaimType = userIdentity.RoleClaimType;
+    var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+    var sortMessages = Model;
+    var count = 0;
+    var currentConsumer = allUser.Where(s => s.Id == Model.FirstOrDefault().RecipientId || s.Id == Model.FirstOrDefault().SenderId).FirstOrDefault();
+}
+
+<div class="detailMail" id="MessageHideDiv">
+    <div class="col-xs-12 loader spanloaderInbox text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>
+    <div class="title scrolldiv">
+        @if (msgType == "all")
+        {
+            @Html.Hidden("AutorefreshOff", "true");
+            <div class="actionBtn">
+                @if (roles[0].Value == "Consumer")
+                {
+                    <form id="makeappointment">
+                        <div>
+
+                            @Html.Hidden("ConsumerId", userid)
+                            @if (roles[0].Value == "Consumer")
+                            {
+                                if (Model.FirstOrDefault(f => f.SenderId != userid) != null)
+                                {
+                                    @Html.Hidden("ProviderId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                                }
+                                if (Model.FirstOrDefault(f => f.RecipientId != userid) != null)
+                                {
+                                    @Html.Hidden("ProviderId", Model.FirstOrDefault(f => f.RecipientId != userid).RecipientId)
+                                }
+
+                            }
+                            @Html.Hidden("ServiceDate")
+                            @Html.Hidden("BestTime")
+                            @if (Model.FirstOrDefault(f => f.ContactUsId != null) != null)
+                            {
+                                @Html.Hidden("ContactUsId", Model.FirstOrDefault(f => f.ContactUsId != null).ContactUsId)
+
+                            }
+                        </div>
+                    </form>
+                    <a href="#" class="ReplyIcon btnmakeappointment" id="@Model.FirstOrDefault().ContactUsId"><i aria-hidden="true" class="fa fa-paper-plane"></i> Send Appointment Request</a>
+                }
+                <a href="#" class="deleteIcon delbtn" id="@Model.FirstOrDefault().ConversationId">Archieve</a>
+            </div>
+        }
+        else
+        {
+            @Html.Label(msgType + " Details")
+        }
+    </div>
+    @if (msgType == "Sent")
+    {
+        sortMessages = Model.Where(p => p.SenderId == userid).ToList();
+
+    }
+    @if (msgType == "Recieved")
+    {
+        sortMessages = Model.Where(p => p.RecipientId == userid).ToList();
+
+
+    }
+    @if (msgType == "Archive")
+    {
+        sortMessages = Model.Where(p => p.IsArchive == true).ToList();
+
+
+    }
+    @if (msgType == "ProviderArchive")
+    {
+        sortMessages = Model.Where(p => p.IsProviderArchive == true).ToList();
+
+
+    }
+    @if (msgType == "AdminArchive")
+    {
+        sortMessages = Model.Where(p => p.isAdminArchive == true).ToList();
+    }
+    <!-- Converstaion Content -->
+    <div class="contentScroll mCustomScrollbar" style="height: 489px;">
+        @foreach (var Msg in sortMessages.OrderBy(s => s.Id).ToList())
+        {
+            count = count + 1;
+        <!-- List Item -->
+            <div class="listItem">
+                <div class="image">
+                    <div class="img">
+                        <img src="/assets/images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                <div class="detail">
+                    <h3>
+                        @if (Msg.SenderId == userid || Msg.SenderId == null)
+                        {
+                            @Html.Label("Me")
+                        }
+                        else
+                        {
+                            if (roles[0].Value == "Consumer")
+                            {
+                                if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                                {
+                                    @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName)
+                                }
+                                else
+                                {
+                                    @Html.Label("Admin")
+                                }
+
+                            }
+                            if (roles[0].Value == "Admin")
+                            {
+                                if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                                {
+                                    @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName)
+
+                                }
+                                else
+                                {
+                                    if (allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault() != null)
+                                    {
+                                        @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault().FirstName + " " + allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault().LastName)
+                                    }
+
+                                }
+
+                            }
+                            if (roles[0].Value == "Provider")
+                            {
+                                if (count == 1 && currentConsumer != null && currentConsumer.ConsumerProfiles.Count > 0)
+                                {
+                                    @Html.Label(currentConsumer.ConsumerProfiles.FirstOrDefault().FirstName + currentConsumer.ConsumerProfiles.FirstOrDefault().LastName)
+
+                                }
+                                else
+                                {
+
+                                    @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).UserName.Split('@')[0])
+
+                                }
+                            }
+                        }
+                        @{
+                            if (OffSet != "0")
+                            {
+                                TimeSpan timespan = new TimeSpan(Convert.ToInt32(OffSet), 0, 0);
+
+                                <span> @HelperClass.ToClientTime(Convert.ToDateTime(Msg.SentDate)) </span>
+                            }
+                            else
+                            { <span> @HelperClass.ToClientTime(Convert.ToDateTime(Msg.SentDate)) </span>}
+                        }
+                    </h3>
+                    <div class="txt">
+                        @Html.Raw(Msg.MessageBody)
+                    </div>
+                </div>
+            </div>
+        <!-- //List Item -->
+                            }
+
+    </div>
+
+    <!-- //Converstaion Content -->
+    <!-- Reply Form -->
+    <div class="replyForm">
+        @Html.Hidden("RecipientSenderId", (Model.FirstOrDefault().SenderId == userid ? Model.FirstOrDefault().RecipientId : Model.FirstOrDefault().SenderId))
+        <form id="SendMessage">
+
+            @if (Model.FirstOrDefault(f => f.RecipientId != userid) != null)
+            {
+                @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.RecipientId != userid).RecipientId)
+            }
+            @if (Model.FirstOrDefault(f => f.SenderId != userid) != null)
+            {
+                @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+            }
+            @if (roles[0].Value == "Consumer")
+            {
+                sortMessages = sortMessages.Where(d => d.IsArchive == false).ToList();
+            }
+            @if (roles[0].Value == "Provider")
+            {
+                sortMessages = sortMessages.Where(d => d.IsProviderArchive == false).ToList();
+            }
+            @if (roles[0].Value == "Admin")
+            {
+                sortMessages = sortMessages.Where(d => d.isAdminArchive != true).ToList();
+            }
+            @Html.Hidden("ConversationId", Model.FirstOrDefault().ConversationId)
+            @Html.Hidden("SenderId", userid)
+            <button type="button" class="btn btn-primary" id="btnSaveCustomeMsg"><span class="xs-hidden">Send</span> <i aria-hidden="true" class="fa fa-paper-plane"></i></button>
+            <div class="form-group">
+                <input type="text" id="MessageBody" name="MessageBody" class="form-control" placeholder="Enter your message">
+                <span id="spanCustMessageError" class="text-danger field-validation-error"></span>
+                @*<span class="icon">
+                        <i aria-hidden="true" class="fa fa-smile-o"></i>
+                        <i aria-hidden="true" class="fa fa-paperclip"></i>
+                    </span>*@
+            </div>
+
+        </form>
+    </div>
+    <!-- //Reply Form -->
+</div>
+
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script>
+    $(function () {
+
+        function GetTodayDate() {
+            var tdate = new Date();
+            var dd = tdate.getDate(); //yields day
+            var MM = tdate.getMonth(); //yields month
+            var yyyy = tdate.getFullYear(); //yields year
+
+            //Get Time
+            var hours = tdate.getHours();
+            var minutes = tdate.getMinutes();
+            var seconds = tdate.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes;
+
+            var xxx = (MM + 1) + "/" + dd + "/" + yyyy + ' ' + strTime;
+            return xxx;
+        }
+
+        function SetCustomSingleMessageHtml(MessageBody) {
+            var html = "";
+            html = '<div class="listItem">' +
+              '<div class="image">' +
+                  '<div class="img">' +
+                      '<img src="/assets/images/sm-default-img.png" class="default">' +
+                  '</div>' +
+                  '<span class="status"></span>' +
+              '</div>' +
+              '<div class="detail">' +
+                  '<h3>' +
+                  '<label for="Me">Me</label>' +
+                      '<span> ' + GetTodayDate() + ' </span>' +
+                  '</h3>' +
+                  '<div class="txt">' +
+                     MessageBody +
+                  '</div>' +
+              '</div>' +
+          '</div>';
+            $('#MessageHideDiv').find('.mCSB_container').append(html);
+        }
+
+        function setHeight() {
+            windowHeight = $(window).height();
+            tabnavHeight = $(".tabDasboard").height();
+            navigationHeight = $(".navigation").height();
+            footerHeight = $("footer").height();
+            TitleHeight = $(".inboxContent .detailMail .title").innerHeight();
+            actionBtnHeight = $(".inboxContent .detailMail .title .actionBtn").innerHeight();
+            inboxHeight = $(window).height() - tabnavHeight - navigationHeight - footerHeight;
+
+            $('.inboxContent').css('height', inboxHeight);
+
+            $('.inboxContent .Listmail .contentScroll').css('height', inboxHeight - 46);
+
+            $('.inboxContent .detailMail .contentScroll').css('height', inboxHeight - TitleHeight - 59 - actionBtnHeight);
+
+        };
+
+        setHeight();
+
+        $(window).resize(function () {
+            setHeight();
+        });
+
+        $("select").selectpicker('refresh');
+        var count = 0;
+        $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+        var messageBody = "";
+
+        if ($("#AutorefreshOff").val() == "true") {
+
+            setInterval(function () {
+                messageBody = $("[name='MessageBody']").val();
+                if ($(".msgDetails").is(':visible')) {
+                    if (parseInt($("#ConversationId").val()) > 0) {
+                        if (count == 0) {
+                            if (!$('#myCustomeModal').hasClass('in')) {
+                                $.ajax({
+                                    url: "@Url.Action("GetCustomMessageDetail","Consumer")",
+                                    data: { ConversationId: $("#ConversationId").val(), MsgSenderId: $('#RecipientSenderId').val(), refresh: true }, success: function (result) {
+                                        if (result != "" && result != "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n") {
+                                            $('#MessageHideDiv').find('.mCSB_container').append(result);
+                                            $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                                            $("[name='MessageBody']").val(messageBody)
+                                            if (messageBody != "") {
+                                                $("[name='MessageBody']").focus();
+                                            }
+                                        }
+                                        // count = 1;
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                }
+            }, 10000);
+
+        }
+
+        $(".msgbody").hide();
+        $(".replybtn").click(function () {
+            $(".msgbody").show();
+            $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+
+        });
+
+
+        $(".delbtn").click(function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("UpdateAchieveStatus", "Consumer")",
+                data: { RequestId: id },
+                success: function (result) {
+                    $('.openConversationMsg[data-detailid=' + id + ']').remove();
+                    $('.openConversationMsg:first').trigger('click');
+                    alert("Conversation archived succesfully.");
+                }
+            });
+        });
+
+
+
+
+
+        $("#btnSaveCustomeMsg").click(function (e) {
+            e.preventDefault();
+            if ($("#SendMessage #MessageBody").val() != "") {
+                SetCustomSingleMessageHtml($("#MessageBody").val());
+                $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                var ob = $("#SendMessage").serialize();
+                $("#MessageBody").val("");
+                $.ajax({
+                    url: "@Url.Action("SaveCustomeMessage", "Utitility")",
+                    data: ob,
+                    success: function (result) {
+                        $(".messageBody").hide();
+                    }
+                });
+            }
+            else {
+                $('#spanCustMessageError').html("Please enter a message!")
+                setInterval(function () {
+                    $('#spanCustMessageError').html("");
+                }, 3000)
+            }
+        });
+
+        $(".cancel").click(function () {
+            $("#MessageHideDiv").hide();
+        });
+        $(".OpenAppointments").click(function () {
+
+            $(".AdminAppointment").trigger("click");
+        });
+
+        $(".btnmakeappointment").click(function () {
+            $("#myCustomeModal").modal('show');
+
+        });
+
+        $('#MessageBody').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                if ($(this).val() != "") {
+                    $('#btnSaveCustomeMsg').trigger('click');
+                }
+                return false;
+            }
+        });
+
+    })
+</script>

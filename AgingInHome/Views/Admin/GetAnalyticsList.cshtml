@@ -1,0 +1,17 @@
+﻿@using AgingInHome.Models
+@model List<AgingInHome.Models.AnalyticsModel>
+<div class="tableRow tableHead">
+    <div class="tableCol">Provider</div>
+    <div class="tableCol">ProfileID</div>
+    <div class="tableCol">ViewId</div>
+    <div class="tableCol">IsActive</div>
+</div>
+@foreach (AnalyticsModel analytics in Model)
+{
+    <div class="tableRow">
+        <div class="tableCol"><span class="lg-hidden">Provider:</span>@analytics.Provider</div>
+        <div class="tableCol"><span class="lg-hidden">ProfileID:</span>@analytics.profileId</div>
+        <div class="tableCol"><span class="lg-hidden">ViewId:</span>@analytics.viewId</div>
+        <div class="tableCol"><span class="lg-hidden">IsActive:</span>@(analytics.isActive ? "Yes" : "No")</div>
+    </div>
+}

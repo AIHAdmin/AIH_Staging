@@ -1,0 +1,313 @@
+﻿@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using AgingInHome.Models
+@model List<AgingInHome.Models.InboxModel>
+@{
+    var userid = User.Identity.GetUserId();
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+    var allUser = new AgingInHomeContext().AspNetUsers.ToList();
+    var msgType = (string)ViewBag.msgType;
+    var userIdentity = (ClaimsIdentity)User.Identity;
+    var claims = userIdentity.Claims;
+    var roleClaimType = userIdentity.RoleClaimType;
+    var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+    var sortMessages = Model;
+    var ServiceRequestDetailsId = Model.FirstOrDefault().ServiceRequestDetailsId;
+    var Getid = new AgingInHomeContext().ServiceRequestDetails.FirstOrDefault(s => s.Id == ServiceRequestDetailsId);
+    int? servicerequestCatid = 0;
+    if (Getid != null)
+    {
+        servicerequestCatid = Getid.ServiceRequestCatId;
+    }
+    else
+    {
+        servicerequestCatid = null;
+    }
+
+    var serviceCategoryDetail = new AgingInHomeContext().ServiceRequestCategories.FirstOrDefault(s => s.Id == servicerequestCatid);
+
+
+}
+<div class="detailMail" id="MessageHideDiv">
+    <div class="title scrolldiv">
+        <h3><span class="hamburgerIcon closeIcon"><i aria-hidden="true" class="fa fa-bars"></i></span> <span class="hamburgerIcon openIcon hide"><i aria-hidden="true" class="fa fa-bars"></i></span> @Model.Last().Subject  <span class="fav"><i aria-hidden="true" class="fa fa-star-o"></i></span></h3>
+        @if (msgType == "all")
+        {
+            @Html.Hidden("AutorefreshOn", "true");
+            <div class="actionBtn">
+                @if (roles[0].Value == "Consumer")
+                {
+                    <form id="makeappointment">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+
+                            @Html.Hidden("ConsumerId", userid)
+                            @if (roles[0].Value == "Consumer")
+                            {
+                                @Html.Hidden("ProviderId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                            }
+                            @Html.Hidden("ServiceDate", serviceCategoryDetail.ServiceDate)
+                            @Html.Hidden("BestTime", serviceCategoryDetail.BestTime)
+                            @Html.Hidden("ServiceRequestDetailsId", Model.FirstOrDefault().ServiceRequestDetailsId)
+                        </div>
+                    </form>
+                    <a href="#" class="ReplyIcon btnmakeappointment" id="@Model.FirstOrDefault().ServiceRequestDetailsId"><i aria-hidden="true" class="fa fa-paper-plane"></i> Send Appointment Request</a>
+                }
+                <a href="#" class="deleteIcon delbtn" id="@Model.FirstOrDefault().ServiceRequestDetailsId">Archieve</a>
+            </div>
+        }
+        else
+        {
+            @Html.Label(msgType + " Details", new { @style = "color:#4F81BC;font-size:24px" })
+        }
+    </div>
+
+    <!-- Converstaion Content -->
+    <div class="contentScroll mCustomScrollbar" style="height: 489px;">
+        @if (msgType == "Sent")
+        {
+            sortMessages = Model.Where(p => p.SenderId == userid).ToList();
+
+        }
+        @if (msgType == "Recieved")
+        {
+            sortMessages = Model.Where(p => p.RecipientId == userid).ToList();
+
+        }
+        @if (msgType == "Archive")
+            {
+                sortMessages = Model.Where(p => p.IsArchive == true).ToList();
+            }
+        @if (msgType == "ProviderArchive")
+            {
+                sortMessages = Model.Where(p => p.IsProviderArchive == true).ToList();
+            }
+        @foreach (var Msg in sortMessages.OrderBy(s => s.Id).ToList())
+        {
+            @*string name = "";
+                if (Msg.SenderId == userid)
+                {
+                    @name= "Me";
+                }
+                else
+                {
+                    if (roles[0].Value == "Consumer")
+                    {
+                        if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                        {
+                            @name= AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName.ToString();
+                        }
+                        else
+                        {
+                            @name= "Admin";
+                        }
+                    }
+                    if (roles[0].Value == "Provider")
+                    {
+                        @name= allUser.FirstOrDefault(d => d.Id == Msg.SenderId).UserName.Split('@')[0].ToString();
+
+                    }
+                }*@
+        <!-- List Item -->
+            <div class="listItem">
+                <div class="image">
+                    <div class="img">
+                        <img src="/assets/images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                <div class="detail">
+                    <h3>
+                        
+                            @if (Msg.SenderId == userid)
+                            {
+                                @Html.Label("Me")
+                            }
+                            else
+                            {
+                                if (roles[0].Value == "Consumer")
+                                {
+                                    if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                                    {
+                                        @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName)
+                                    }
+                                    else
+                                    {
+                                        <span>Admin</span>
+                                    }
+                                }
+                                if (roles[0].Value == "Provider")
+                                {
+                                   @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).UserName.Split('@')[0])
+
+                                }
+                            }
+                        
+                        <span>@Msg.SentDate</span>
+                    </h3>
+                    <div class="txt">
+                        @Html.Raw(Msg.MessageBody)
+                    </div>
+                </div>
+            </div>
+        <!-- //List Item -->
+                            }
+
+    </div>
+
+    <!-- //Converstaion Content -->
+    <!-- Reply Form -->
+    <div class="replyForm">
+        <form id="SendMessage">
+            @Html.Hidden("SenderId", userid)
+            @if (roles[0].Value == "Consumer")
+            {
+                @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                sortMessages = sortMessages.Where(d => d.IsArchive == false).ToList();
+            }
+            @if (roles[0].Value == "Provider")
+            {
+                if (Model.FirstOrDefault(f => f.RecipientId != userid) != null)
+                {
+                    @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.RecipientId != userid).RecipientId)
+                }
+                sortMessages = sortMessages.Where(d => d.IsProviderArchive == false).ToList();
+            }
+            @if (roles[0].Value == "Admin")
+            {
+                @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                sortMessages = sortMessages.Where(d => d.IsProviderArchive == false).ToList();
+            }
+
+            @Html.Hidden("ServiceRequestDetailsId", Model.FirstOrDefault().ServiceRequestDetailsId)
+            <button type="button" id="btnSaveCustomeMsg" class="btn btn-primary"><span class="xs-hidden">Send</span> <i aria-hidden="true" class="fa fa-paper-plane"></i></button>
+            <div class="form-group">
+                <input type="text" id="MessageBody" name="MessageBody" class="form-control" placeholder="Enter your message">
+                <span class="icon">
+                    <i aria-hidden="true" class="fa fa-smile-o"></i>
+                    <i aria-hidden="true" class="fa fa-paperclip"></i>
+                </span>
+            </div>
+
+        </form>
+    </div>
+    <!-- //Reply Form -->
+
+</div>
+<script>
+    $(function () {
+        $("select").selectpicker('refresh');
+        var count = 0;
+        var messageBody = "";
+       $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+        if ($("#AutorefreshOn").val()=="true") {
+
+        setInterval(function () {
+            messageBody = $("[name='MessageBody']").val();
+            if ($(".msgDetails").is(':visible')) {
+                if (parseInt($("#ServiceRequestDetailsId").val()) > 0) {
+                    if (count == 0) {
+                        $.ajax({
+                            url: "@Url.Action("GetMessageDetail","Consumer")",
+                            data: { RequestId: $("#ServiceRequestDetailsId").val() },
+                            success: function (result) {
+                                $(".msgDetails").html(result);
+                                $("[name='MessageBody']").val(messageBody)
+                                if (messageBody != "") {
+                                    $("[name='MessageBody']").focus();
+                                }
+
+                                $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+                                count = 1;
+                            }
+                        });
+                    }
+
+
+
+                }
+
+            }
+
+        }, 30000);
+
+        }
+        $(".msgbody").hide();
+        $(".OpenAppointments").click(function () {
+            $(".AdminAppointment").trigger("click");
+        });
+        $(".replybtn").click(function () {
+            $(".msgbody").show();
+            $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+        });
+        $(".delbtn").click(function () {
+
+            $.ajax({
+                url: "@Url.Action("UpdateAchieveStatus", "Consumer")",
+                data: { RequestId: $(this).attr("id") },
+                success: function (result) {                    
+                    if (result.toLowerCase() != "false") {
+                        window.location.href = "@Url.Action("Dashboard","Consumer")";
+                    }
+                    else {
+                        window.location.href = "@Url.Action("Dashboard","ProviderListing")";
+                    }
+
+
+                }
+            });
+
+
+
+
+        });
+        $("#btnSaveCustomeMsg").click(function (e) {
+            debugger;
+            if ($("#SendMessage #MessageBody").val() != "") {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Action("SaveMessage","Consumer")",
+                    data: $("#SendMessage").serialize(),
+                    success: function (result) {
+
+                        $(".messageBody").hide();
+                        $("#MessageBody").val("");
+                        $.ajax({
+                            url: "@Url.Action("GetMessageDetail","Consumer")",
+                            data: { RequestId: $("#ServiceRequestDetailsId").val() },
+                            success: function (result) {
+                                $(".msgDetails").html();
+                                $(".msgDetails").html(result);
+                                $(".msgDetails").show();
+                                $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+                            }
+                        });
+
+
+                    }
+                });
+            }
+            else {
+                $('#spanDetialMessageError').html("Please enter a message!")
+                setInterval(function () {
+                    $('#spanDetialMessageError').html("");
+                }, 3000)
+            }
+        });
+        $(".cancel").click(function () {
+            $("#MessageHideDiv").hide();
+        });
+        $(".btnmakeappointment").click(function () {
+            $.ajax({
+                url: "@Url.Action("MakeAppointment","Consumer")",
+                data: $("#makeappointment").serialize(),
+                success: function (result) {
+
+                    $(".btnmakeappointment").hide();
+                    alert("Your appointment send successfully");
+
+                }
+            });
+        });
+    })
+</script>

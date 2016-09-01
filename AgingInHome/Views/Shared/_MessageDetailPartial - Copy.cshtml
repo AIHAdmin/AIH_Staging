@@ -1,0 +1,299 @@
+﻿@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using AgingInHome.Models
+@model List<AgingInHome.Models.InboxModel>
+@{
+    var userid = User.Identity.GetUserId();
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+    var allUser = new AgingInHomeContext().AspNetUsers.ToList();
+    var msgType = (string)ViewBag.msgType;
+    var userIdentity = (ClaimsIdentity)User.Identity;
+    var claims = userIdentity.Claims;
+    var roleClaimType = userIdentity.RoleClaimType;
+    var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+    var sortMessages = Model;
+    var ServiceRequestDetailsId = Model.FirstOrDefault().ServiceRequestDetailsId;
+    var Getid = new AgingInHomeContext().ServiceRequestDetails.FirstOrDefault(s => s.Id == ServiceRequestDetailsId);
+    int? servicerequestCatid = 0;
+    if (Getid != null)
+    {
+        servicerequestCatid = Getid.ServiceRequestCatId;
+    }
+    else
+    {
+        servicerequestCatid = null;
+    }
+
+    var serviceCategoryDetail = new AgingInHomeContext().ServiceRequestCategories.FirstOrDefault(s => s.Id == servicerequestCatid);
+
+
+}
+<div style="border:1px solid #EDEDED; padding:20px; padding-bottom:0px;max-height:900px" id="MessageHideDiv">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12 scrolldiv" style="height:300px;overflow:auto">
+            @if (msgType == "all")
+            {
+                @Html.Hidden("AutorefreshOn", "true");
+                @Html.Label("Conversation Details", new { @style = "color:#4F81BC;font-size:24px" })
+                <span class="pull-right">
+                    @if (roles[0].Value == "Consumer")
+                    {
+                        <form id="makeappointment">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+
+                                @Html.Hidden("ConsumerId", userid)
+                                @if (roles[0].Value == "Consumer")
+                                {
+                                    @Html.Hidden("ProviderId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                                }
+                                @Html.Hidden("ServiceDate", serviceCategoryDetail.ServiceDate)
+                                @Html.Hidden("BestTime", serviceCategoryDetail.BestTime)
+                                @Html.Hidden("ServiceRequestDetailsId", Model.FirstOrDefault().ServiceRequestDetailsId)
+                            </div>
+                        </form>
+                        <button class="btn btn-info btnmakeappointment" id="@Model.FirstOrDefault().ServiceRequestDetailsId"><i class="fa fa-send-o"></i> &nbsp;Send Appointment Request</button>
+                    }
+                    <button class="btn btn-danger delbtn" id="@Model.FirstOrDefault().ServiceRequestDetailsId"><i class="fa fa-trash"></i> &nbsp; Archieve</button>
+
+                    <button class="btn btn-primary replybtn"><i class="fa fa-mail-reply"></i> &nbsp; Reply</button>
+                </span>
+            }
+            else
+            {
+                @Html.Label(msgType + " Details", new { @style = "color:#4F81BC;font-size:24px" })
+            }
+            <hr />
+
+            <center> @Html.Label("Subject:" + Model.Last().Subject, new { @style = "font-size:20px" })</center><br />
+            @if (msgType == "Sent")
+            {
+                sortMessages = Model.Where(p => p.SenderId == userid).ToList();
+
+            }
+            @if (msgType == "Recieved")
+            {
+                sortMessages = Model.Where(p => p.RecipientId == userid).ToList();
+
+            }
+            @if (msgType == "Archive")
+            {
+                sortMessages = Model.Where(p => p.IsArchive == true).ToList();
+            }
+            @if (msgType == "ProviderArchive")
+            {
+                sortMessages = Model.Where(p => p.IsProviderArchive == true).ToList();
+            }
+
+            @foreach (var Msg in sortMessages.OrderBy(s => s.Id).ToList())
+            {
+
+                <div class="row">
+
+                    <div class="col-lg-8 col-sm-8 col-xs-6">
+
+                        @if (Msg.SenderId == userid)
+                        {
+                            @Html.Label("Me:", new { @class = "text-primary" }) <br />
+                            <p style="text-align:justify">@Html.Raw(Msg.MessageBody)</p>
+                        }
+                        else
+                        {
+                            if (roles[0].Value == "Consumer")
+                            {
+                                if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                                {
+                                    @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName + ":")<br />
+                                    <p style="text-align:justify">@Html.Raw(Msg.MessageBody)</p>
+
+                                }
+                                else
+                                {
+                                    @Html.Label("Admin:")<br />
+                                    <p style="text-align:justify">@Html.Raw(Msg.MessageBody)</p>
+                                }
+                            }
+                            if (roles[0].Value == "Provider")
+                            {
+                                @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).UserName.Split('@')[0] + ":")<br />
+                                <p style="text-align:justify">@Html.Raw(Msg.MessageBody)</p>
+                            }
+                        }
+
+
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-6">
+
+                        <b>@Msg.SentDate</b>
+                    </div>
+
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+    @if (msgType == "all")
+    {
+        <div class="row" style="padding-bottom: 19px;padding-top: 10px;background: #EDEDED;margin: 0px -20px;margin-top: 12px;">
+            <form id="SendMessage">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+
+                    @Html.Hidden("SenderId", userid)
+                    @if (roles[0].Value == "Consumer")
+                {
+                        @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                        sortMessages = sortMessages.Where(d => d.IsArchive == false).ToList();
+                    }
+                    @if (roles[0].Value == "Provider")
+                {
+                    if (Model.FirstOrDefault(f => f.RecipientId != userid) != null)
+                    {
+                            @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.RecipientId != userid).RecipientId)
+                        }
+                        sortMessages = sortMessages.Where(d => d.IsProviderArchive == false).ToList();
+                    }
+                    @if (roles[0].Value == "Admin")
+                {
+                        @Html.Hidden("RecipientId", Model.FirstOrDefault(f => f.SenderId != userid).SenderId)
+                        sortMessages = sortMessages.Where(d => d.IsProviderArchive == false).ToList();
+                    }
+
+                    @Html.Hidden("ServiceRequestDetailsId", Model.FirstOrDefault().ServiceRequestDetailsId)
+                    @Html.Label("Message")<br />
+                    <div class="col-lg-11 col-sm-10 col-xs-10">
+                        @Html.TextArea("MessageBody", "", 1, 10, new { @class = "form-control" })
+                        <span id="spanDetialMessageError" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="col-lg-1 col-sm-2 col-xs-2">
+                        <span class="pull-right">
+                            <button class="btn btn-success send-o"><i class="fa fa-send-o"></i> &nbsp; Send</button>
+                        </span>
+                    </div>
+
+                    @*<span class="pull-right">
+                            <button class="btn btn-default cancel">Cancel</button>
+                        </span>&nbsp;*@
+
+                </div>
+            </form>
+
+
+        </div>
+    }
+
+</div>
+<script>
+    $(function () {
+        var count = 0;
+        var messageBody = "";
+        $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+        if ($("#AutorefreshOn").val()=="true") {
+
+        setInterval(function () {
+            messageBody = $("[name='MessageBody']").val();
+            if ($(".msgDetails").is(':visible')) {
+                if (parseInt($("#ServiceRequestDetailsId").val()) > 0) {
+                    if (count == 0) {
+                        $.ajax({
+                            url: "@Url.Action("GetMessageDetail","Consumer")",
+                            data: { RequestId: $("#ServiceRequestDetailsId").val() },
+                            success: function (result) {
+                                $(".msgDetails").html(result);
+                                $("[name='MessageBody']").val(messageBody)
+                                if (messageBody != "") {
+                                    $("[name='MessageBody']").focus();
+                                }
+
+                                $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+                                count = 1;
+                            }
+                        });
+                    }
+
+
+
+                }
+
+            }
+
+        }, 30000);
+
+        }
+        $(".msgbody").hide();
+        $(".OpenAppointments").click(function () {
+            $(".AdminAppointment").trigger("click");
+        });
+        $(".replybtn").click(function () {
+            $(".msgbody").show();
+            $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+        });
+        $(".delbtn").click(function () {
+
+            $.ajax({
+                url: "@Url.Action("UpdateAchieveStatus", "Consumer")",
+                data: { RequestId: $(this).attr("id") },
+                success: function (result) {
+                    if (result.toLowerCase() != "false") {
+                        window.location.href = "@Url.Action("Dashboard","Consumer")";
+                    }
+                    else {
+                        window.location.href = "@Url.Action("Dashboard","ProviderListing")";
+                    }
+
+
+                }
+            });
+
+
+
+
+        });
+        $(".send-o").click(function (e) {
+            if ($("#SendMessage #MessageBody").val() != "") {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Action("SaveMessage","Consumer")",
+                    data: $("#SendMessage").serialize(),
+                    success: function (result) {
+
+                        $(".messageBody").hide();
+                        $("#MessageBody").val("");
+                        $.ajax({
+                            url: "@Url.Action("GetMessageDetail","Consumer")",
+                            data: { RequestId: $("#ServiceRequestDetailsId").val() },
+                            success: function (result) {
+                                $(".msgDetails").html();
+                                $(".msgDetails").html(result);
+                                $(".msgDetails").show();
+                                $('.scrolldiv').scrollTop($('.scrolldiv')[0].scrollHeight)
+                            }
+                        });
+
+
+                    }
+                });
+            }
+            else {
+                $('#spanDetialMessageError').html("Please enter a message!")
+                setInterval(function () {
+                    $('#spanDetialMessageError').html("");
+                }, 3000)
+            }
+        });
+        $(".cancel").click(function () {
+            $("#MessageHideDiv").hide();
+        });
+        $(".btnmakeappointment").click(function () {
+            $.ajax({
+                url: "@Url.Action("MakeAppointment","Consumer")",
+                data: $("#makeappointment").serialize(),
+                success: function (result) {
+
+                    $(".btnmakeappointment").hide();
+                    alert("Your appointment send successfully");
+
+                }
+            });
+        });
+    })
+</script>

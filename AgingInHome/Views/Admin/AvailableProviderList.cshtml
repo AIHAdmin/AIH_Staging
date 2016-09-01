@@ -1,0 +1,36 @@
+﻿
+@*<br />
+@if (ViewBag.Count != 0)
+{
+    <div class="form-group">
+        @Html.Label("Available Provider belonging to this category")
+        @Html.DropDownList("AvailableProviderList", (SelectList)ViewBag.AvailableProviderList, "Select Provider", new { @class = "form-control" })
+    </div>
+}
+else
+{
+    <div class="form-group">
+        @Html.Label("Unavailable Provider belonging to this category")
+      
+    </div>
+}*@
+
+<div class="default-form">
+    <div class="row">
+        <div class="col-xs-12">
+            @if (ViewBag.Count != 0)
+            { 
+            <label>Available Provider belonging to this category.</label>
+            <div class="form-group">
+                @Html.DropDownList("AvailableProviderList", (SelectList)ViewBag.AvailableProviderList, "Select Provider", new { @class = "selectpicker" })
+            </div>
+
+            <button data-listingid="1" class="btn btn-block btn-primary " type="button" id="AssignedNewProvider">AssIgn ProvIder</button>
+            }
+            else
+            {
+                 <label>Unavailable Provider belonging to this category.</label>
+            }
+        </div>
+    </div>
+</div>

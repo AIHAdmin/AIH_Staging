@@ -1,0 +1,282 @@
+﻿@model AgingInHome.Models.RegisterViewModel
+<div class="maincontainer">
+    <h3>Consumer Register</h3>
+    <div class="listingDiv article">
+        <div style="padding: 10px 36px;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label("First Name")
+                            <div>
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                <span id="spanFirstName" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.Label("Last Name")
+                            <div>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                <span id="spanLastName" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { })
+                            <div>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                <span id="spanEmail" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { })
+                            <div>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                <span id="spanPassword" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { })
+                            <div>
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { })
+                            <div>
+                                <select id="Gender" name="Gender" class="form-control">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                <span id="spanGender" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12" >
+                        <div class="col-lg-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                            @Html.LabelFor(model => model.Age, htmlAttributes: new { })
+                            <div>
+                                <select id="Age" name="Age" class="form-control">
+                                    <option value="" selected>Select Age</option>
+                                    @for (int i = 1; i < 131; i++)
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                <span id="spanAge" class="text-danger field-validation-error"></span>
+                            </div>
+                            @*@Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6" style="padding-left: 0px;padding-right: 0px; ">
+                            @Html.LabelFor(model => model.Relation, htmlAttributes: new { })
+                            <select id="relation" name="relation" class="form-control">
+                                <option value="">Select relation</option>
+                                <option value="Spouse/Partner">Spouse/Partner</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Other Relative">Other Relative</option>
+                                <option value="Friend">Friend</option>
+                                <option value="Client">Client</option>
+                                <option value="Myself">Myself</option>
+                            </select>
+                            @*@Html.DropDownList("Relation", (SelectList)ViewBag.State, new { @class = "form-control" })*@
+                            @Html.ValidationMessageFor(model => model.Relation, "", new { @class = "text-danger" })
+                            <span id="spanRelation" class="text-danger field-validation-error"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12" style="float:left">
+                        <div class="col-lg-6 col-sm-6 col-xs-12" style="padding-left: 0px;">
+                            @Html.Label("Primary Phone")
+                            @Html.EditorFor(model => model.PrimaryPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PrimaryPhone, "", new { @class = "text-danger" })
+                            <span id="spanPrimaryPhone" class="text-danger field-validation-error"></span>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-12" style="padding-left: 0px;padding-right: 0px;">
+                            @Html.Label("Alter Phone")
+                            @Html.EditorFor(model => model.AlterPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AlterPhone, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+
+                        <div class="form-group">
+                            @Html.Label("Type Of Medical Insurance")
+                            <div>
+                                @Html.EditorFor(model => model.TypeOfMedicalInsurance, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TypeOfMedicalInsurance, "", new { @class = "text-danger" })
+                                <span id="spanMedicalInsurance" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6 col-sm-6 col-xs-6" style="padding-left: 0px;">
+                            @Html.Label("Zip code")
+                            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @*<input type="text" name="ZipCode" value="" class="form-control" />*@
+                            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                            <span id="spanZipCode" class="text-danger field-validation-error"></span>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6" style="padding-left: 0px;padding-right: 0px;">
+                            @Html.Label("State")
+                            @Html.DropDownList("StateId", (SelectList)ViewBag.State, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <input id="btnSubmit" type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*<div class="form-group">
+                        <div class="pull-right" style="margin-right:1%">
+                            <input id="btnSubmit" type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>*@
+                </div>
+
+
+
+
+
+            }
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#PrimaryPhone").mask("(000) 000-0000");
+        $("#AlterPhone").mask("(000) 000-0000");
+        $('#ZipCode').val('');
+        var flag = true;
+        //Check client side validation
+        $('#btnSubmit').click(function () {
+            flag = true;
+            if ($("#Age option:selected").val() == '')
+            {
+                $('#spanAge').html('Age is required');
+                flag= false;
+            }
+            else
+            {
+                $('#spanAge').html('');
+            }
+            if ($("#FirstName").val() == '') {
+                $('#spanFirstName').html('First name is required');
+                flag = false;
+            }
+            else {
+                $('#spanFirstName').html('');
+            }
+            if ($("#LastName").val() == '') {
+                $('#spanLastName').html('Last name is required');
+                flag = false;
+            }
+            else {
+                $('#spanLastName').html('');
+            }
+            if ($("#Email").val() == '') {
+                $('#spanEmail').html('Email is required');
+                flag = false;
+            }
+            else {
+                $('#spanEmail').html('');
+            }
+            if ($("#Password").val() == '') {
+                $('#spanPassword').html('Password is required');
+                flag = false;
+            }
+            else {
+                $('#spanPassword').html('');
+            }
+            if ($("#relation option:selected").val() == '') {
+                $('#spanRelation').html('Relation is required');
+                flag = false;
+            }
+            else {
+                $('#spanRelation').html('');
+            }
+            if ($("#Gender option:selected").val() == '') {
+                $('#spanGender').html('Gender is required');
+                flag = false;
+            }
+            else {
+                $('#spanGender').html('');
+            }
+            if ($("#PrimaryPhone").val() == '') {
+                $('#spanPrimaryPhone').html('PrimaryPhone is required');
+                flag = false;
+            }
+            else {
+                $('#spanPrimaryPhone').html('');
+            }
+            if ($("#TypeOfMedicalInsurance").val() == '') {
+                $('#spanMedicalInsurance').html('Type Of Medical Insurance is required');
+                flag = false;
+            }
+            else {
+                $('#spanMedicalInsurance').html('');
+            }
+            if ($("#ZipCode").val() == '') {
+                $('#spanZipCode').html('Zip Code is required');
+                flag = false;
+            }
+            else {
+                $('#spanZipCode').html('');
+            }
+            return flag;
+        });
+        
+    })
+</script>

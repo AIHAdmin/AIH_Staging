@@ -1,0 +1,428 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Aging In Home</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+   
+    
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-select.min.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.css">
+    @*<link href="../css/style.css" rel="stylesheet">*@
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/slick.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/slick-theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:700,400' rel='stylesheet' type='text/css'>
+    <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+   
+   
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    
+    <script src="~/Scripts/slick.js"></script>
+    <!-- custom scrollbar plugin -->
+    <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+    <script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+    <script src="~/Scripts/cropbox-min.js"></script>
+    <script src="https://www.google-analytics.com/analytics.js" async=""></script>
+    <script src="https://apis.google.com/js/platform.js" gapi_processed="true"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-md-4 col-lg-3 link-up-btn hidden-xs">
+                    @*@Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "btn orang-btn" })*@
+                    <button class="btn orang-btn" onclick="location.href='@Url.Action("Register", "Account")'">Sign up</button>
+                    <button class="btn blue-btn" onclick="location.href='@Url.Action("Login", "Account")'">Sign in</button>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="logo"><a href="#" onclick="location.href='@Url.Action("Index", "Home")'"><img class="img-responsive" src="../images/logo.jpg" alt="" /></a></div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-lg-6 top-menu">
+                    <nav class="navbar navbar-default">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#" onclick="location.href='@Url.Action("ServiceRequest", "Consumer")'"><i class="fa fa-phone hide-xs" aria-hidden="true"></i> Service Request</a></li>
+                                <li><a href="#" onclick="location.href='@Url.Action("SearchListing", "ProviderListing")'"><i class="fa fa-list-ul hide-xs" aria-hidden="true"></i> Search Listings</a></li>
+                                <li class="visible-xs"><a href="#" onclick="location.href='@Url.Action("Register", "Account")'"><i class="fa fa-user" aria-hidden="true"></i>Sign up</a></li>
+                                <li class="visible-xs"><a href="#" onclick="location.href='@Url.Action("Login", "Account")'"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign in</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        @using (@Html.BeginForm("SearchListing", "ProviderListing", FormMethod.Get))
+        {
+            <div class="visible-xs big-search">
+                <div class="location">
+
+
+                    @Html.Label("Location")
+                    <div class="input-group">
+                        @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "Your Zip code or City, State" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><img src="../Images/search-icon.png" alt="" /></button>
+                        </span>
+                    </div>
+
+                    <!-- /input-group -->
+                    @*<label>Location</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="your zip code or city,state">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><img src="../images/search-icon.png" alt="" /></button>
+                        </span>
+                    </div>*@
+                </div>
+                <div class="sm-left-panel">
+
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <img src="../images/fnl.png" alt="" /> </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                            @{Html.RenderAction("ProviderListingPartial", "ProviderListing");}
+
+                            @*<div class="checkbox">
+                                <input type="checkbox" value="" id="serv100">
+                                <label for="serv100"> Adult Day Care</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv102">
+                                <label for="serv102"> Ambulance</label>
+                                <span class="count">5</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv103">
+                                <label for="serv103"> Grocery Delivery</label>
+                                <span class="count">9</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv104">
+                                <label for="serv104"> Home Care Agency</label>
+                                <span class="count">10</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv105">
+                                <label for="serv105"> Home Health Care Agency</label>
+                                <span class="count">5</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv106">
+                                <label for="serv106"> Occupational Therapy</label>
+                                <span class="count">12</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv107">
+                                <label for="serv107"> Optometrist</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv108">
+                                <label for="serv108"> Adult Day Care</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv109">
+                                <label for="serv109"> Adult Day Care</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv110">
+                                <label for="serv110"> Ambulance</label>
+                                <span class="count">5</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv111">
+                                <label for="serv111"> Grocery Delivery</label>
+                                <span class="count">9</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv112">
+                                <label for="serv112"> Home Care Agency</label>
+                                <span class="count">10</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv113">
+                                <label for="serv113"> Home Health Care Agency</label>
+                                <span class="count">5</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv114">
+                                <label for="serv114"> Occupational Therapy</label>
+                                <span class="count">12</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv115">
+                                <label for="serv115"> Optometrist</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv116">
+                                <label for="serv116"> Adult Day Care</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv117">
+                                <label for="serv117"> Adult Day Care</label>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv118">
+                                <label for="serv118"> Ambulance</label>
+                                <span class="count">5</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv119">
+                                <label for="serv119"> Grocery Delivery</label>
+                                <span class="count">9</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv220">
+                                <label for="serv220"> Home Care Agency</label>
+                                <span class="count">10</span>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" value="" id="serv221">
+                                <label for="serv221"> Home Health Care Agency</label>
+                                <span class="count">5</span>
+                            </div>*@
+                            <!--<div class="checkbox"><input type="checkbox" value="" id="serv222"><label for="serv222"> Occupational Therapy</label><span class="count">12</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv224"><label for="serv224"> Optometrist</label><span class="count">1</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv225"><label for="serv225"> Adult Day Care</label><span class="count">1</span></div><div class="checkbox"><input type="checkbox" value="" id="serv26"><label for="serv26"> Adult Day Care</label><span class="count">1</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv227"><label for="serv227"> Ambulance</label><span class="count">5</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv228"><label for="serv228"> Grocery Delivery</label><span class="count">9</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv229"><label for="serv229"> Home Care Agency</label><span class="count">10</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv330"><label for="serv330"> Home Health Care Agency</label><span class="count">5</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv331"><label for="serv331"> Occupational Therapy</label><span class="count">12</span></div>
+                        <div class="checkbox"><input type="checkbox" value="" id="serv332"><label for="serv332"> Optometrist</label><span class="count">1</span></div>
+                         <div class="checkbox"><input type="checkbox" value="" id="serv333"><label for="serv333"> Adult Day Care</label><span class="count">1</span></div>-->
+                            <button type="submit" class="btn orang-btn">Search</button>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+                                }
+    </header>
+    <div>
+        @RenderBody()
+        <footer style="position:relative;bottom:0;">
+            <div class="container">
+                <div class="row">
+                    <p class="col-md-12 text-center">
+                        Copyright Aging in Home © 2016 All Right Reserved
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @* @Scripts.Render("~/bundles/jquery")*@
+   
+    <script>
+        (function ($) {
+            $(window).on("load", function () {
+
+                /* all available option parameters with their default values */
+                $(".content").mCustomScrollbar({
+                    setWidth: false,
+                    setHeight: false,
+                    setTop: 0,
+                    setLeft: 0,
+                    axis: "y",
+                    scrollbarPosition: "inside",
+                    scrollInertia: 950,
+                    autoDraggerLength: true,
+                    autoHideScrollbar: false,
+                    autoExpandScrollbar: false,
+                    alwaysShowScrollbar: 0,
+                    snapAmount: null,
+                    snapOffset: 0,
+                    mouseWheel: {
+                        enable: true,
+                        scrollAmount: "auto",
+                        axis: "y",
+                        preventDefault: false,
+                        deltaFactor: "auto",
+                        normalizeDelta: false,
+                        invert: false,
+                        disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+                    },
+                    scrollButtons: {
+                        enable: false,
+                        scrollType: "stepless",
+                        scrollAmount: "auto"
+                    },
+                    keyboard: {
+                        enable: true,
+                        scrollType: "stepless",
+                        scrollAmount: "auto"
+                    },
+                    contentTouchScroll: 25,
+                    advanced: {
+                        autoExpandHorizontalScroll: false,
+                        autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+                        updateOnContentResize: true,
+                        updateOnImageLoad: true,
+                        updateOnSelectorChange: false,
+                        releaseDraggableSelectors: false
+                    },
+                    theme: "light",
+                    callbacks: {
+                        onInit: false,
+                        onScrollStart: false,
+                        onScroll: false,
+                        onTotalScroll: false,
+                        onTotalScrollBack: false,
+                        whileScrolling: false,
+                        onTotalScrollOffset: 0,
+                        onTotalScrollBackOffset: 0,
+                        alwaysTriggerOffsets: true,
+                        onOverflowY: false,
+                        onOverflowX: false,
+                        onOverflowYNone: false,
+                        onOverflowXNone: false
+                    },
+                    live: false,
+                    liveSelector: null
+                });
+
+            });
+        })(jQuery);
+    </script>
+    <script>
+
+        $('.dropdown-menu').click(function (e) {
+            e.stopPropagation()
+        })
+    </script>
+
+</body>
+</html>
+@*<script>
+        $(function () {
+            $(".form-control").focusin(function () {
+
+                $(this).attr("placeholder", false)
+            });
+        });
+    </script>*@
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+@*<script src="js/bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>*@
+
+<!-- custom scrollbar plugin -->
+@*<script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>*@
+
+
+<script>
+    (function ($) {
+        $(window).on("load", function () {
+            $(".contentScroll").mCustomScrollbar();
+            /* all available option parameters with their default values */
+            $(".content").mCustomScrollbar({
+                setWidth: false,
+                setHeight: false,
+                setTop: 0,
+                setLeft: 0,
+                axis: "y",
+                scrollbarPosition: "inside",
+                scrollInertia: 950,
+                autoDraggerLength: true,
+                autoHideScrollbar: false,
+                autoExpandScrollbar: false,
+                alwaysShowScrollbar: 0,
+                snapAmount: null,
+                snapOffset: 0,
+                mouseWheel: {
+                    enable: true,
+                    scrollAmount: "auto",
+                    axis: "y",
+                    preventDefault: false,
+                    deltaFactor: "auto",
+                    normalizeDelta: false,
+                    invert: false,
+                    disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+                },
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "stepless",
+                    scrollAmount: "auto"
+                },
+                keyboard: {
+                    enable: true,
+                    scrollType: "stepless",
+                    scrollAmount: "auto"
+                },
+                contentTouchScroll: 25,
+                advanced: {
+                    autoExpandHorizontalScroll: false,
+                    autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+                    updateOnContentResize: true,
+                    updateOnImageLoad: true,
+                    updateOnSelectorChange: false,
+                    releaseDraggableSelectors: false
+                },
+                theme: "light",
+                callbacks: {
+                    onInit: false,
+                    onScrollStart: false,
+                    onScroll: false,
+                    onTotalScroll: false,
+                    onTotalScrollBack: false,
+                    whileScrolling: false,
+                    onTotalScrollOffset: 0,
+                    onTotalScrollBackOffset: 0,
+                    alwaysTriggerOffsets: true,
+                    onOverflowY: false,
+                    onOverflowX: false,
+                    onOverflowYNone: false,
+                    onOverflowXNone: false
+                },
+                live: false,
+                liveSelector: null
+            });
+
+        });
+    })(jQuery);
+</script>
+<script>
+
+    $('.dropdown-menu').click(function (e) {
+        e.stopPropagation()
+    })
+</script>

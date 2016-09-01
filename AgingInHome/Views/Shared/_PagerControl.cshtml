@@ -1,0 +1,45 @@
+﻿@model AgingInHome.Models.PagerModel
+
+<script src="@Url.Content("~/Scripts/Custom/Paging.js?v=1")"></script>
+
+@Html.HiddenFor(x => x.PerPageRecord, new { @id = "hdnPerPageRecord" })
+@Html.HiddenFor(x => x.TotalRecord, new { @id = "hdnTotalRecord" })
+@Html.HiddenFor(x => x.TotalPage, new { @id = "hdnTotalPage" })
+@Html.HiddenFor(x => x.PageNumber, new { @id = "hdnPageNumber" })
+
+@if (Model.TotalPage > 1)
+{
+    <nav class="text-right">
+        <ul class="pagination">
+            <li>
+                <a href="javascript:void(0)" aria-label="Previous" onclick="Pagging(0);">
+                    <span aria-hidden="true"><span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span></span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" aria-label="Previous" onclick="Pagging(-1);">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="javascript:void(0)">Current Page : </a>
+                <input type="text" name="PageNumber" class="" id="currentPage" value="@Model.PageNumber" style="width:30px" onchange="Pagging2(this.value);" />
+            </li>
+            <li><span>Total Pages : @Model.TotalPage</span></li>
+            <li>
+                <a href="javascript:void(0)" aria-label="Next" onclick="Pagging(+1);">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" aria-label="Previous" onclick="Pagging(2);">
+                    <span aria-hidden="true"><span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span></span>
+                </a>
+            </li>
+        </ul>
+        @Html.DropDownListFor(x => x.PerPageRecord, new SelectList(Model.PerPageRecordlist, "Key", "Value"), new { @class = "form-control total_page pgno", Id = "hdnPerPageRecord", @onchange = "Pagging1(this.value);" })
+    </nav>
+
+  
+}
+

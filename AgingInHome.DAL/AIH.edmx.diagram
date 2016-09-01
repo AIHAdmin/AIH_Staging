@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c70f9b91a4544030af9028aba118d053" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="AgingInHomeModel.Appointment" Width="1.5" PointX="12.75" PointY="24.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AspNetRole" Width="1.5" PointX="1.5" PointY="38.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="45.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="35.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AspNetUser" Width="1.5" PointX="0.75" PointY="31.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Attachment" Width="1.5" PointX="18" PointY="26.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.CategoryService" Width="1.5" PointX="3" PointY="32.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ContactU" Width="1.5" PointX="13.5" PointY="18.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Country" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.FavoriteDetail" Width="1.5" PointX="7.5" PointY="50.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.HourOfOperation" Width="1.5" PointX="3" PointY="40.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Inbox" Width="1.5" PointX="15.75" PointY="25.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ListingAboutU" Width="1.5" PointX="7.5" PointY="43.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ListingArticle" Width="1.5" PointX="7.5" PointY="53.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ListingBlog" Width="1.5" PointX="7.5" PointY="28.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ProviderCategory" Width="1.5" PointX="0.75" PointY="27.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.RatingTable" Width="1.5" PointX="12.5" PointY="30.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.RequiedListing" Width="1.5" PointX="3" PointY="27.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServiceArea" Width="1.5" PointX="7.5" PointY="33.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServiceDetail" Width="1.5" PointX="7.5" PointY="24.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServicePriceType" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServiceRequest" Width="1.5" PointX="0.75" PointY="19.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServiceRequestCategory" Width="1.5" PointX="3" PointY="22.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ServiceRequestDetail" Width="1.5" PointX="10.5" PointY="25.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Service" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Appointments_AspNetUsers" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Appointments_AspNetUsers1" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Appointments_ServiceRequestDetails" />
+        <AssociationConnector Association="AgingInHomeModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AgingInHomeModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Inbox_AspNetUsers" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Inbox_AspNetUsers1" />
+        <AssociationConnector Association="AgingInHomeModel.FK_RatingTable_AspNetUsers" />
+        <AssociationConnector Association="AgingInHomeModel.FK_RequiedListing_AspNetUsers" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Attachments_Inbox" />
+        <AssociationConnector Association="AgingInHomeModel.FK_CategoryServices_ProviderCategory" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceDetails_CategoryServices" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Inbox_ContactUs" />
+        <AssociationConnector Association="AgingInHomeModel.FK_Inbox_ServiceRequestDetails" />
+        <AssociationConnector Association="AgingInHomeModel.FK_RequiedListing_ProviderCategory" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceRequestCategories_ProviderCategory" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceRequestCategories_ServiceRequest1" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceRequestDetails_ServiceRequestCategories" />
+        <AssociationConnector Association="AgingInHomeModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="AgingInHomeModel.C__MigrationHistory" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.MasterProviderCategoryService" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.sysdiagram" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ProviderImageGalary" Width="1.5" PointX="7.5" PointY="37.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ProviderTeam" Width="1.5" PointX="7.5" PointY="15" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ProviderVideo" Width="1.5" PointX="7.5" PointY="20.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ProviderListing" Width="1.5" PointX="5.25" PointY="25.5" IsExpanded="false" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderListing_AspNetUsers" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderListing_CategoryServices" />
+        <AssociationConnector Association="AgingInHomeModel.FK_FavoriteDetail_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderListing_HourOfOperation" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ListingAboutUs_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ListingArticle_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ListingBlog_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderListing_ProviderCategory" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderImageGalary_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ListingTeam_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderVideos_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_RatingTable_ProviderListing1" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceArea_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceDetails_ProviderListing" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceRequestDetails_ProviderListing" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Analytic" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.GoogleUser" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AdwordBuget" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.AnalyticsStat" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.Markup" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ListingBlogComment" Width="1.5" PointX="3" PointY="13.5" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ListingBlogComment_AspNetUsers" />
+        <EntityTypeShape EntityType="AgingInHomeModel.ConsumerProfile" Width="1.5" PointX="5.25" PointY="20" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ConsumerProfile_AspNetUsers" />
+        <EntityTypeShape EntityType="AgingInHomeModel.UsState" Width="1.5" PointX="3" PointY="23.75" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ConsumerProfile_UsStates" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ProviderListing_UsStates" />
+        <AssociationConnector Association="AgingInHomeModel.FK_ServiceArea_UsStates" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

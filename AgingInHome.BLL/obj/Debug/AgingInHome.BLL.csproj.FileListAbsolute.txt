@@ -1,0 +1,36 @@
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll.config
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.pdb
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.pdb
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.xml
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.csprojResolveAssemblyReference.cache
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll.config
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.xml
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.xml
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.csprojResolveAssemblyReference.cache
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome june 20 2016\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll.config
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.BLL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\AgingInHome.DAL.pdb
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.xml
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\bin\Debug\EntityFramework.SqlServer.xml
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.csprojResolveAssemblyReference.cache
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.dll
+D:\DayUsers\ManojK\Official\Projects\AgingInHome\AgingInHome.BLL\obj\Debug\AgingInHome.BLL.pdb

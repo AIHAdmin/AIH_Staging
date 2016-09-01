@@ -1,0 +1,865 @@
+﻿@using Microsoft.AspNet.Identity
+@model List<AgingInHome.Models.ServiceRequestModel>
+@{
+    ViewBag.Title = "Dashboard";
+    var categories = Model.SelectMany(j => j.ServiceRequestCategories);
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+}
+<!-- Main Container -->
+<div class="main-container inner-container">
+    <div class="container dasboardContainer">
+        <!-- Tab Dasboard -->
+        <div class="row">
+            <ul class="nav tabDasboard" role="tablist">
+                <li role="presentation" class="LightBlue active">
+                    <a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="/assets/images/icons/envelope-with-pencil.svg" /></span>
+                        <span class="countValue" id="spanCountInbox">0</span>
+                        <h3>Messages</h3>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#ServiceRequest" aria-controls="ServiceRequest" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="/assets/images/icons/computer-service.svg" /></span>
+                        <span class="countValue">@Model.Count</span>
+                        <h3>Service Request(s)</h3>
+                    </a>
+                </li>
+                <li role="presentation" class="green">
+                    <a href="#appointment1" aria-controls="appointment1" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="/assets/images/icons/appointment-icon.svg" /></span>
+                        <span class="countValue appointmentCount">0</span>
+                        <h3>Appointment</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- //Tab Dasboard -->
+        <!-- Tab Content -->
+        <div class="tab-content" style="margin-bottom:100px">
+            <!-- Inbox COntent -->
+            <div role="tabpanel" class="tab-pane clearfix active" id="inbox">
+                <div class="inboxContent">
+                    <!-- List mail COntent -->
+                    <div class="Listmail">
+                        <!-- Search Content -->
+                        <div class="search">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInboxMail" placeholder="Search ..">
+                                    <div class="input-group-addon"><i aria-hidden="true" id="btnSearchMail" class="fa fa-search"></i><img src="/assets/images/searchClose.png" id="crossIcon" /></div>
+                                </div>
+                            </form>
+                            <span class="hamburgerIcon closeIcon"><i aria-hidden="true" class="fa fa-bars"></i></span>
+                        </div>
+                        <!-- //Search Content -->
+
+                        <div class="contentScroll " id="_inboxMails" style="height: 548px;">
+                           
+                                @Html.Partial("_inboxMessageDetail", Model)
+                           
+                        </div>
+                    </div>
+                    <!-- //List mail COntent -->
+                    <div class="msgDetails" style="height:100%">
+                        <div id="MessageHideDiv"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //Inbox COntent -->
+            <!-- Service Request COntent -->
+            <div role="tabpanel" class="tab-pane" id="ServiceRequest">
+                <div class="serviceRequestContent">
+
+                    <h2 class="title">Service Request(s)</h2>
+
+                    <div class="Dashboardtable">
+                        <div class="tableRow tableHead">
+                            <div class="tableCol dateCol">Date</div>
+                            <div class="tableCol reqCatCol">Requested Category</div>
+                            <div class="tableCol StatusCol">Status</div>
+                            <div class="tableCol ServiceReqCol">Service Request Detail</div>
+                            <div class="tableCol actionCol">Action</div>
+                        </div>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var ServiceReuest in Model)
+                            {
+                                <div class="tableRow">
+                                    <div class="tableCol dateCol">@ServiceReuest.CreatedDate</div>
+                                    <div class="tableCol reqCatCol">@ServiceReuest.Categorynames</div>
+                                    <div class="tableCol StatusCol">
+
+                                        @if (ServiceReuest.IsActive == false)
+                                        {
+                                            <span class="statusbtn red">Deleted</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="statusbtn blue">Pending</span>
+                                        }
+                                        @if (ServiceReuest.ResultUrl != "")
+                                        {
+                                            <a href="@ServiceReuest.ResultUrl">Click Here</a>
+                                        }
+                                    </div>
+                                    <div class="tableCol ServiceReqCol">
+                                        <a data-toggle="modal" data-target="#detail1" href="#" class="btnCheckDetail" data-servicerequestid="@ServiceReuest.Id">Check Detail</a>
+
+
+                                        <!-- Check Detail Modal -->
+                                        <div class="modal customModal DashboardDetailModal fade" id="detail1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>								<h4 class="modal-title" id="myModalLabel">ServIce Request DetaIl</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Search -->
+                                                        @*<div class="formSearch">
+                                                                <form>
+                                                                    <input class="form-control" type="search" placeholder="Search..." />
+                                                                    <button class="searchBtn"><i aria-hidden="true" class="fa fa-search"></i></button>
+
+                                                                </form>
+
+                                                            </div>*@
+                                                        <!-- //Search -->
+                                                        <!-- Detail List -->
+                                                        <div class="detailList">
+                                                            <div class="col-xs-12 loader spanloader text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>
+                                                            <div class="contentScroll DivServiceDetails mCustomScrollbar" id="DivServiceDetails" style="height: 494px;">
+
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- //Detail List -->
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- //Check Detail Modal -->
+
+
+                                    </div>
+                                    <div class="tableCol actionCol">
+                                        <ul class="ActionBtn">
+                                            @if (ServiceReuest.IsActive == true || ServiceReuest.IsActive == null)
+                                            {
+                                                <li><a href="@Url.Action("UpdateServiceRequest","Consumer",new { @RequestId = ServiceReuest.Id })"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                                <li class="delete"><a href="@Url.Action("ServiceRequestDelete","Consumer",new { @RequestId = ServiceReuest.Id })"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="#"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></a></li>
+                                                <li class="delete"><a href="#"><i aria-hidden="true" class="fa fa-trash-o"></i></a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                    <hr />
+                    <div id="ServiceRequestPager" class="text-center"></div>
+                </div>
+            </div>
+            <!-- //Service Request COntent -->
+            <!-- Appointmnet COntent -->
+            <div role="tabpanel" class="tab-pane" id="appointment1">
+                <div class="serviceRequestContent" id="appointments">
+                </div>
+                <hr />
+                <div id="AppointmentPager" class="text-center"></div>
+                <!-- ADD AppoIntment Modal -->
+                <div class="modal customModal fade appointmentModal" id="addApointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>								<h4 class="modal-title" id="myModalLabel">ADD AppoIntment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="default-form">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Appointment Date</label>
+                                            <div class="input-group">
+                                                @Html.Hidden("formid")
+                                                @Html.TextBox("NewServiceDate", "", new { @class = "form-control newservicedateclass", @placeholder = "22/7/2016" })
+                                                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Best Time</label>
+                                            <div class="form-group">
+                                                <select class="selectpicker newConsumerservicebestimeclass" id="NewBestTime">
+                                                    <option value="">When is the best time for a service providers to reach you?</option>
+                                                    <option value="Anytime">Anytime</option>
+                                                    <option value="Afternoon">Afternoon </option>
+                                                    <option value="Morning">Morning</option>
+                                                    <option value="Evening">Evening</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-block btn-primary " name="name" id="sendnewAppointment" type="button">ADD AppoIntment</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- //ADD AppoIntment Modal -->
+            </div>
+            <!-- //Appointmnet COntent -->
+        </div>
+        <!-- //Tab Content -->
+
+    </div>
+</div>
+<!-- //Main Container -->
+<!-- ADD AppoIntment Modal -->
+<div class="modal customModal fade appointmentModal" id="myCustomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>								<h4 class="modal-title" id="myModalLabel">ADD AppoIntment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="default-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Appointment Date</label>
+                            <div class="input-group">
+                                <div class="input-group Mb0">
+                                    @Html.TextBox("CustomeServiceDate", "", new { @class = "form-control" })
+                                    <div class="input-group-addon"><i aria-hidden="true" class="fa fa-calendar"></i></div>
+                                </div>
+                                <span class="text-danger" id="spanCustomeServiceDate"></span>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Best Time</label>
+                            <div class="form-group">
+                                <select class="selectpicker newservicebestimeclass" id="CustomeBestTime">
+                                    <option value="">When is the best time for a service providers to reach you?</option>
+                                    <option value="Anytime">Anytime</option>
+                                    <option value="Afternoon">Afternoon </option>
+                                    <option value="Morning">Morning</option>
+                                    <option value="Evening">Evening</option>
+                                </select>
+                                <span class="text-danger" id="spanCustomeBestTime"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-block btn-primary " name="name" id="sendAppointment" type="button">ADD AppoIntment</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- //ADD AppoIntment Modal -->
+<script src="~/assets/js/jquery.bootpag.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var currentPageNumber = 1;
+        function DefaultLoader()
+        {
+            var html="";
+            html='<div class="col-xs-12 loader spanloaderInbox text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>';
+            return html;
+        }
+        //$('.contentScroll').mCustomScrollbar({
+        //    scrollButtons: {
+        //        enable: true
+        //    }
+        //});
+       // $("#_inboxMails").find('.mCSB_container').empty();
+        $('.contentScroll').mCustomScrollbar();
+      
+        $('#crossIcon').hide();
+        $('.spanloaderInbox').hide();
+      
+        $('body').on('click','.btnCheckDetail',function () {
+            $('#DivServiceDetails').find('.mCSB_container').empty();
+            $('.spanloader').show();
+            var serviceRequestId = $(this).data("servicerequestid");
+            $.ajax({
+                url: "@Url.Action("ServiceRequestDetail", "Consumer")",
+                data: { RequestId: serviceRequestId },
+                success: function (result) {
+                    if (result != "" && result != undefined) {
+                        $('#DivServiceDetails').find('.mCSB_container').append(result);
+                        $('.spanloader').hide();
+
+                    }
+                }
+            });
+        });
+
+        $('#spanCountInbox').html($('#inboxcountfeild').val());
+
+        $("#ComposeModal").hide();
+
+        $("[name='NewServiceDate']").datepicker({
+            minDate: new Date()
+        });
+
+
+
+        function isValidEmailAddress(emailAddress) {
+            var pattern = new RegExp("^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+            return pattern.test(emailAddress);
+        };
+
+        //set value on page load
+        $(".inboxcount").append($("#inboxcountfeild").val());
+
+        var count = $('#AppointmentTotalRecords').val();
+        var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#AppointmentPager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetAllConsumerAppointments", "Consumer")',
+                data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    currentPageNumber=num;
+                    $("#appointments").html(result);
+                    $("select").selectpicker('refresh');
+                }
+            });
+
+        });
+
+        $.ajax({
+            url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+            data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+            success: function (result) {
+                $("#appointments").html(result);
+                $(".appointmentCount").empty();
+                $(".appointmentCount").append($('#AppointmentTotalRecords').val());
+                $("select").selectpicker('refresh');
+                var count = $('#AppointmentTotalRecords').val();
+                var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+                $('#AppointmentPager').bootpag({
+                    total: totalPages,
+                    page: currentPageNumber,
+                    maxVisible: 5,
+                    leaps: true,
+                    firstLastUse: true,
+                    first: '←',
+                    last: '→',
+                    wrapClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                })
+            }
+        });
+        //end set value on page load
+
+        //Start Reload the service Request and Pager
+
+        function LoadServiceRequests() {
+            $.ajax({
+                url: '@Url.Action("GetConsumerServiceRequest", "Consumer")',
+                data: { pagenumber: 1, pageSize: 5 },
+                success: function (result) {
+                    $('.Dashboardtable').html(result);
+                    $('#DivServiceDetails').mCustomScrollbar();
+                }
+            });
+            var count =@Model.Count;
+            var totalPages= (count%5) > 0 ? ((count/5) +1) : (count/5);
+            $('#ServiceRequestPager').bootpag({
+                total: totalPages,
+                page: 1,
+                maxVisible: 5,
+                leaps: true,
+                firstLastUse: true,
+                first: '←',
+                last: '→',
+                wrapClass: 'pagination',
+                activeClass: 'active',
+                disabledClass: 'disabled',
+                nextClass: 'next',
+                prevClass: 'prev',
+                lastClass: 'last',
+                firstClass: 'first'
+            })
+        }
+
+
+        var count =@Model.Count;
+        var totalPages= (count%5) > 0 ? ((count/5) +1) : (count/5);
+        $('#ServiceRequestPager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+
+            $.ajax({
+                url: '@Url.Action("GetConsumerServiceRequest", "Consumer")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $('.Dashboardtable').html(result);
+                    $('#DivServiceDetails').mCustomScrollbar();
+                }
+            });
+            // some ajax content loading...
+        });
+
+        LoadServiceRequests();
+        //END Reload the service Request and Pager
+     
+        //Start Search Inbox Mail
+        $('#crossIcon').click(function () {
+            $('.spanInboxMail').show();
+            $('#searchInboxMail').val("");
+            $('#btnSearchMail').show();
+            $(this).hide();
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "Consumer")',
+                data: { search: $('#searchInboxMail').val() },
+                success: function (result) {
+                    $("#_inboxMails").find('.mCSB_container').empty();
+                    //$('#_inboxMails').html(result);
+                    $("#_inboxMails").find('.mCSB_container').append(result);
+                    $('.contentScroll').mCustomScrollbar();
+                    $("#spanCountInbox").empty();
+                    $("#spanCountInbox").append($("#inboxcountfeild").val());
+                    $('.openConversationMsg:first').trigger('click')
+                    var conversationid=$('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId='+conversationid+']').addClass('active');
+                    $('.spanInboxMail').hide();
+                }
+            });
+        });
+       // $('#crossIcon').trigger('click');
+
+        $('#btnSearchMail').click(function(){
+            $(this).hide();
+            $('#crossIcon').show();
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "Consumer")',
+                data: { search: $('#searchInboxMail').val()  },
+                success: function (result) {
+                    $("#_inboxMails").find('.mCSB_container').empty();
+                    //$('#_inboxMails').html(result);
+                    $("#_inboxMails").find('.mCSB_container').append(result);
+                    $('.contentScroll').mCustomScrollbar();
+                    $("#spanCountInbox").empty();
+                    $("#spanCountInbox").append($("#inboxcountfeild").val());
+                    $('.openConversationMsg:first').trigger('click');
+                    var conversationid=$('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId='+conversationid+']').addClass('active');
+                }
+            });
+
+        });
+
+        $('#searchInboxMail').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                if ($(this).val() != "") {
+                    $('#btnSearchMail').trigger('click');
+                }
+                return false;
+            }
+        });
+        //End Search Inbox Mail
+
+
+
+        setInterval(function () {
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "Consumer")',
+                data: { search: $('#searchInboxMail').val()  },
+                success: function (result) {
+                    $('#_inboxMails').html("");
+                    $('#_inboxMails').html(result);
+                    $('#_inboxMails').mCustomScrollbar("update");
+                    $("#spanCountInbox").empty();
+                    $("#spanCountInbox").append($("#inboxcountfeild").val());
+                    var conversationid=$('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId='+conversationid+']').addClass('active');
+                    //$('.openConversationMsg:first').trigger('click');
+                }
+            });
+
+        }, 30000);
+
+
+        $(".AdminAppointment").click(function () {
+            $("#ComposeModal").hide();
+            $.ajax({
+                url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                success: function (result) {
+                    $(".appointmentCount").empty();
+                    $(".appointmentCount").append($("#Appointmentcountfeild").val());
+                    $("#appointments").html(result);
+                }
+            });
+        });
+
+        $(document).on("click", '.openmsg', function () {
+            $('.spanloaderInbox').show();
+            $(".msgDetails").find('.detailMail').remove();
+            var MsgId = $(this).attr("data-detailId");
+            var readmsg = parseInt($(this).data('unreadmsg'));
+            if (readmsg > 0) {
+                var RemainigUnread = parseInt($("#inboxcountfeild").val()) - readmsg;
+                $(".inboxcount").empty().append(RemainigUnread);
+            }
+            $.ajax({
+                url: "@Url.Action("GetMessageDetail","Consumer")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").append(result);
+                    $('.contentScroll').mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                    $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                    $('.spanloaderInbox').hide();
+                }
+            });
+        });
+
+        $(document).on("click", ".openConversationMsg", function () {
+            $('.openConversationMsg.active').removeClass('active');
+            $(this).addClass('active');
+            $(".msgDetails").find("#MessageHideDiv").html(DefaultLoader());
+            $('.spanloaderInbox').show();
+            var readmsg = parseInt($(this).data('unreadmsg'));
+            if (readmsg > 0) {
+                var RemainigUnread = parseInt($("#inboxcountfeild").val()) - readmsg;
+                $(".inboxcount").empty().append(RemainigUnread);
+            }
+            var MsgId = $(this).attr("data-detailId");
+            var senderid = $(this).attr("data-senderid");
+            $.ajax({
+                url: "@Url.Action("GetCustomMessageDetail","Consumer")",
+                data: { ConversationId: MsgId,MsgSenderId: senderid },
+                success: function (result) {
+
+                    $(".msgDetails").html(result);
+                    $('.contentScroll').mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                    $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                    setTimeout(function(){$('.spanloaderInbox').hide();},3000);
+                }
+            });
+
+        });
+        $(".sendmsg").click(function () {
+            $("#ComposeModal").hide();
+            var MsgId = $(this).attr("data-detailId");
+            var detailtype = $(this).attr("data-type");
+            $.ajax({
+                url: "@Url.Action("SentMessageDetail","Consumer")",
+                data: { RequestId: MsgId, type: detailtype },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                    $('.contentScroll').mCustomScrollbar("update");
+                }
+            });
+        });
+
+        $('.openConversationMsg:first').trigger('click');
+
+        $(".btnsendcustomermsg").click(function () {
+
+            var flag = true;
+            var reciptEmail = $('#ReciptEmail').val();
+            var reciptSubject = $('#Subject').val();
+            var reciptMessageBody = $('#MessageBody').val();
+
+            if (reciptEmail == '') {
+                $('#spanReciptEmail').html('Recipt Email is required.');
+                flag = false;
+            }
+            else if (!isValidEmailAddress(reciptEmail)) {
+                $('#spanReciptEmail').html('Recipt Email is not valid.');
+                flag = false;
+            }
+            else {
+                $('#spanReciptEmail').html('');
+            }
+
+            if (reciptSubject == '') {
+                $('#spanReciptSubject').html('Subject is required.');
+                flag = false;
+            }
+            else {
+                $('#spanReciptSubject').html('');
+            }
+
+            if (reciptMessageBody == '') {
+                $('#spanReciptMessageBody').html('Message is required.');
+                flag = false;
+            }
+            else {
+                $('#spanReciptMessageBody').html('');
+            }
+
+            if (flag) {
+                $.ajax({
+                    url: "@Url.Action("SendCustomerMessage", "Consumer")",
+                    data: $("#customerMessagesend").serialize(),
+                    success: function (result) {
+                        if (result == "True") {
+                            alert("Message sent Successfully.");
+                            $('#ReciptEmail').val('');
+                            $('#Subject').val('');
+                            $('#MessageBody').val('');
+                            $("#ComposeModal").hide();
+
+                        }
+                        else {
+                            alert("Sender email is not registered with the application.");
+                        }
+                    }
+                });
+            }
+
+
+        });
+        $(".btncompose").click(function () {
+            $("#ComposeModal").show();
+        });
+        $(".dismiss").click(function () {
+            $("#ComposeModal").hide();
+        });
+        $(".recievemsg").click(function () {
+            var MsgId = $(this).attr("data-detailId");
+            $.ajax({
+                url: "@Url.Action("RecMessageDetail","Consumer")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                }
+            });
+
+        });
+        $(".archivemsg").click(function () {
+            var MsgId = $(this).attr("data-detailId");
+            $.ajax({
+                url: "@Url.Action("ArchiMessageDetail","Consumer")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                }
+            });
+
+        });
+        $(document).on("click", ".cancelAppointment", function () {
+
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("CancelAppointment", "Consumer")",
+                data: { AppointId: appid },
+                success: function (result) {
+                    $.ajax({
+                        url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                        data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                        success: function (result) {
+                            $("#appointments").html(result);
+                            $(".appointmentCount").empty();
+                            $(".appointmentCount").append($("#Appointmentcountfeild").val());
+                        }
+                    });
+                }
+            });
+        });
+        $(document).on("click", ".cancelConsumerAppointment", function () {
+
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("CancelConsumerAppointment", "Consumer")",
+                data: { appontmentID: appid },
+                success: function (result) {
+                    $.ajax({
+                        url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                        data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                        success: function (result) {
+                            $("#appointments").html(result);
+                            $(".appointmentCount").empty();
+                            $(".appointmentCount").append($("#Appointmentcountfeild").val());
+
+                        }
+                    });
+                }
+            });
+        });
+        $(document).on("click", ".newappointment", function (e) {
+
+            e.preventDefault();
+            $("[name='formid']").val($(this).attr("id"));
+            $(".newservicedateclass").val("");
+            $(".newConsumerservicebestimeclass option:selected").val("");
+            $("#addApointment").modal("show");
+
+        });
+        $("#sendnewAppointment").click(function (e) {
+            e.preventDefault();
+            var formid = $("[name='formid']").val();
+            $("#addApointment").modal("hide");
+            $(".servicedate" + formid).val($(".newservicedateclass").val());
+            $(".besttime" + formid).val($(".newConsumerservicebestimeclass option:selected").val());
+            $.ajax({
+                url: "@Url.Action("MakeAppointment", "Consumer")",
+                data: $("#" + formid).serialize(),
+                success: function (result) {
+                    alert("Your appointment send Successfully");
+                    $.ajax({
+                        url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                        data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                        success: function (result) {
+                            $(".appointmentCount").empty();
+                            $(".appointmentCount").append($("#Appointmentcountfeild").val());
+                            $("#appointments").html(result);
+                        }
+                    });
+                }
+            });
+        });
+        $("#CustomeServiceDate").datepicker({
+            minDate: new Date()
+        });
+        $("#sendAppointment").click(function () {
+            var flag= true;
+            var CustmDate = $("[name='CustomeServiceDate']").val();
+            var custmTime = $("#CustomeBestTime").val();
+            if(CustmDate=="")
+            {
+                $('#spanCustomeServiceDate').html("Date is required");
+                flag=false;
+            }
+            else
+                $('#spanCustomeServiceDate').html("");
+
+
+            if(custmTime=="")
+            {
+                $('#spanCustomeBestTime').html("Time is required");
+                flag=false;
+            }
+            else
+                $('#spanCustomeBestTime').html("");
+
+            if(!flag)
+                return false;
+
+
+
+            $("#myCustomeModal").modal('hide');
+
+            $("[name='ServiceDate']").val(CustmDate);
+            $("[name='BestTime']").val(custmTime);
+            $.ajax({
+                url: "@Url.Action("MakeCustomeAppointment","Consumer")",
+                data: $("#makeappointment").serialize(),
+                success: function (result) {
+                    $("[name='CustomeServiceDate']").val("");
+                    $("#CustomeBestTime").val("");
+                    $(".btnmakeappointment").hide();
+                    //$('.openConversationMsg:first').trigger('click');
+                    alert("Your appointment send successfully");
+
+                }
+            });
+        });
+
+        $(document).on("click", ".AcceptAppointment", function () {
+
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("AcceptAppointment", "Consumer")",
+                data: { AppointId: appid, UserType: "Consumer" },
+                success: function (result) {
+                    $.ajax({
+                        url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                        data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                        success: function (result) {
+                            $("#appointments").html(result);
+                            $(".appointmentCount").empty();
+                            $(".appointmentCount").append($("#Appointmentcountfeild").val());
+
+                        }
+                    });
+                }
+            });
+        });
+        $(document).on("click", ".RejectAppointment", function () {
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("RejectAppointment", "Consumer")",
+                data: { AppointId: appid, UserType: "Consumer" },
+                success: function (result) {
+                    $.ajax({
+                        url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                        data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                        success: function (result) {
+                            $("#appointments").html(result);
+                            $(".appointmentCount").empty();
+                            $(".appointmentCount").append($("#Appointmentcountfeild").val());
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

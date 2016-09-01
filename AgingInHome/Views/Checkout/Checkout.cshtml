@@ -1,0 +1,317 @@
+﻿@using AgingInHome.Helpers
+@model AgingInHome.Models.CheckoutDetailModel
+@{
+    ViewBag.Title = "Checkout";
+}
+@using (@Html.BeginForm("Checkout", "Checkout", FormMethod.Post, new { @id = "checkoutForm" }))
+{
+
+    <div class="maincontainer">
+        <h3>Checkout</h3>
+        <div class="listingDiv article">
+            <div class="row" style="padding: 24px;">
+                <h5 style="margin-left: 17px;">Promote your business to Millions of Homebound Customers</h5><br />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("First Name")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @tabindex = "1" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        <span id="spanFirstName" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Company Name")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", @tabindex = "3" })
+                        @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+                        <span id="spanCompanyName" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Phone")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @tabindex = "5" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                        <span id="spanPhone" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Address")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @tabindex = "7" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                        <span id="spanAddress" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("State")<span style="color:red;">*</span>
+                        @Html.DropDownList("State", (SelectList)ViewBag.State, new { @class = "form-control", @tabindex = "9" })
+                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                        <span id="spanState" class="text-danger field-validation-error"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Last Name")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @tabindex = "2" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        <span id="spanLastName" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Email Address")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @tabindex = "4" })
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-xs-12">
+                                <span id="spanEmail" class="text-danger field-validation-error"></span>
+                            </div>
+                        </div>
+                      
+                      
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Country")<span style="color:red;">*</span>
+                        @Html.DropDownList("Country", (SelectList)ViewBag.Countries, new { @class = "form-control", @tabindex = "6" })
+                        @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                        <span id="spanCountry" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Town / City")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", @tabindex = "8" })
+                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                        <span id="spanCity" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Zip")<span style="color:red;">*</span>
+                        @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", @tabindex = "10" })
+                        @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "text-danger" })
+                        <span id="spanZipCode" class="text-danger field-validation-error"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <h5 style="margin-left: 25px;">Your Order</h5>
+            @Html.Partial("~/Views/Shared/_OrderDetail.cshtml", Model.SelectedServices)
+
+            <h5 style="margin-left: 25px;">Card Detail</h5><br />
+            <div class="row CardDetail">
+                <div class="form-control customeformcontrol">
+                    <div class="innerCarddetail">
+                        @Html.RadioButton("payment", "") &nbsp; <span>Credit Card</span>
+                    </div>
+                    <div style="padding:20px">
+                        <span>Pay with your credit card via simplify Commerce by Mastercard</span><br />
+                        <div class="cardinnerdetail">
+                            <div class="form-group">
+                                @Html.Label("Card Number *")
+                                @Html.TextBox("CrditCardNumber", "", new { @class = "form-control", @placeholder = "0000-0000-0000-0000", @tabindex = "11" })
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Expiry(MM/YY) *")
+                                        @Html.TextBox("CardExpiryDate", "", new { @class = "form-control", @placeholder = "MM/YY", @tabindex = "12" })
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Card Code *")
+                                        @Html.TextBox("CraditCardCode", "", new { @class = "form-control", @tabindex = "13" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <br />
+            <div class="row CardDetail">
+                <div class="form-control customeformcontrol">
+                    <div class="innerCarddetail">
+                        @Html.RadioButton("payment", "") &nbsp; <span>
+                            @*<form action="https://www.sandbox.paypal.com/cgi-bin/webscr">
+                                    <input type="hidden" name="cmd" value="_xclick">
+                                    <input type="hidden" name="business" value="jeroen@xyz.com">
+                                    <input type="hidden" name="item_name" value="Your PDF file without watermarks">
+                                    <input type="hidden" name="item_number" value="2ca168a959bb48e28a2ddb4b4640c568">
+                                    <input type="hidden" name="amount" value="1.99">
+                                    <input type="hidden" name="currency_code" value="USD">
+                                    <input type="hidden" name="return" value="http://xslfop.com/order/complete">
+                                    <input type="hidden" name="cancel_return" value="http://xslfop.com/order/cancel">
+                                    <input type="hidden" name="notify_url" value="http://xslfop.com/order/ipn/">
+                                    <input type="hidden" name="no_note" value="1">
+                                    <input type="image" name="submit" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" alt="PayPal — The safer, easier way to pay online.">
+                                    <img src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" alt="">
+
+                                </form>*@
+
+                        </span><br />
+                        @Html.ActionLink("What is paypal?", "")
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group" style="margin-left: 58%;">
+                @Html.CheckBox("termandcondition") &nbsp; I have read and accepted the terms and conditions.
+                @*<input type="submit" name="name" value="Next" class="btn btn-primary btn-lg " style="padding: 23px;width:125px;text-align:left;padding-left:26px;" />
+                    <br /><i class="fa fa-long-arrow-right fa-2x arrowbtn" aria-hidden="true" style="margin-left: 29%;"></i>*@
+                <button type="submit" class="btn btn-primary btn-lg nextbtn" tabindex="14" style="padding: 23px;width:125px;text-align:left;padding-left:26px;border-radius: inherit; background:#1F3F88">Next &nbsp;<i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+
+
+            </div>
+
+        </div>
+    </div>
+}
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" hidden="hidden">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="AggingInHome@gmail.com">
+    <input type="hidden" name="item_name" value="Services">
+    <input type="hidden" name="item_number" value="1">
+    <input type="hidden" name="amount" value="1.99">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="return" value="http://166.62.88.193/Checkout/Success">
+    <input type="hidden" name="cancel_return" value="http://166.62.88.193/Checkout/Cancel">
+    <input type="hidden" name="notify_url" value="http://xslfop.com/order/ipn/">
+    <input type="hidden" name="no_note" value="1">
+    <input type="submit" id="paypalbtn" value="Buy with additional parameters!" />
+    @*<input type="image" name="submit" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" alt="PayPal — The safer, easier way to pay online.">
+        <img src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" alt="">*@
+
+</form>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@*<form action="https://www.paypal.com/cgi-bin/webscr" method="post" hidden="hidden" >
+
+        <input type="hidden" name="cmd" value="_xclick" />
+        <input type="hidden" name="business" value="youremailaddress@yourdomain.com" />
+        <input type="hidden" name="item_name" value="Sercice Promotes" />
+        <input type="hidden" name="amount" value="" />
+        <input type="submit" id="paypalbtn" value="Buy with additional parameters!" />
+    </form>*@
+
+
+@*@Html.PayPalButton(true,
+    PaypalHelpers.EButtonType.BuyNow,
+    "jeroen@xyz.com",
+    "Your PDF file without watermarks",
+    "2ca168a959bb48e28a2ddb4b4640c568",
+    1.99f,
+    PaypalHelpers.ECurrencyCode.USD,
+    "http://xslfop.com/order/complete",
+    "http://xslfop.com/order/cancel",
+    "http://xslfop.com/order/ipn")*@
+
+
+
+
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function () {
+        $("#CrditCardNumber").mask("0000-0000-0000-0000");
+        $("#CardExpiryDate").mask("00/00");
+        $("#CraditCardCode").mask("000");
+        $("[name='amount']").val(parseInt($("#totalprice").text().trim().substr(1)));
+        var flag = true;
+        $(".nextbtn").click(function (e) {
+            e.preventDefault();
+            flag = true;
+            if ($("#FirstName").val() == '') {
+                $('#spanFirstName').html('First name is required');
+                flag = false;
+            }
+            else {
+                $('#spanFirstName').html('');
+            }
+            if ($("#LastName").val() == '') {
+                $('#spanLastName').html('Last name is required');
+                flag = false;
+            }
+            else {
+                $('#spanLastName').html('');
+            }
+            if ($("#Email").val() == '') {
+                $('#spanEmail').html('Email is required');
+                flag = false;
+            }
+            else {
+                $('#spanEmail').html('');
+            }
+            if ($("#Phone").val() == '') {
+                $('#spanPhone').html('Phone is required');
+                flag = false;
+            }
+            else {
+                $('#spanPhone').html('');
+            }
+            if ($("#ZipCode").val() == '') {
+                $('#spanZipCode').html('Zip Code is required');
+                flag = false;
+            }
+            else {
+                $('#spanZipCode').html('');
+            }
+            if ($("#City").val() == '') {
+                $('#spanCity').html('City is required');
+                flag = false;
+            }
+            else {
+                $('#spanCity').html('');
+            }
+            if ($("#CompanyName").val() == '') {
+                $('#spanCompanyName').html('City is required');
+                flag = false;
+            }
+            else {
+                $('#spanCompanyName').html('');
+            }
+            if ($("#Country option:selected").val() == '') {
+                $('#spanCountry').html('Company Name is requied');
+                flag = false;
+            }
+            else {
+                $('#spanCountry').html('');
+            }
+            if ($("#State option:selected").val() == '') {
+                $('#spanState').html('Company Name is requied');
+                flag = false;
+            }
+            else {
+                $('#spanState').html('');
+            }
+            if ($("#Address").val() == '') {
+                $('#spanAddress').html('Address is requied');
+                flag = false;
+            }
+            else {
+                $('#spanAddress').html('');
+            }
+
+
+            if (flag) {
+                if ($("[name='payment']:checked").next('span').text() != "Credit Card") {
+                    //var resutl=$.validator.unobtrusive.parseDynamicContent('#checkoutForm');
+                    var result = $("#checkoutForm").validate();
+                    if (result.valid()) {
+
+                        $('#paypalbtn').trigger("click");
+                    }
+                }
+                else {
+                    alert("Please Select the Paypal button");
+                }
+
+            } else
+                $('#FirstName').focus();
+        })
+
+
+
+
+    })
+</script>

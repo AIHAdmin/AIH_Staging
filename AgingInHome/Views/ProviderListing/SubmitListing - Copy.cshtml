@@ -1,0 +1,1028 @@
+﻿@model AgingInHome.Models.ProviderListingModel
+@{Layout = "~/Views/Shared/_Layoutnew.cshtml";}
+@using AgingInHome.DAL
+@{
+    ViewBag.Title = "Provider Listing";
+    var actionname = "";
+    var i = 0;
+    var currentdetail = new ServiceDetail();
+}
+@if (Model.ProviderListingId == 0)
+{
+    actionname = "PreviewProviderListing";
+}
+else
+{
+    actionname = "SubmitListing";
+}
+@using (@Html.BeginForm(actionname, "ProviderListing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(m => m.ProviderListingId)
+    @Html.HiddenFor(m => m.Bitimagestring)
+    <div class="grey-section">
+        <div class="container">
+            <h1>SUBMIT LISTING</h1>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/comapny-nm.png"></i>company</h2>
+                <div class="comapany-form">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Company Name</label>*@
+                                @Html.Label("Company Name")
+                                @*<input type="text" class="form-control" id="exampleInputName2">*@
+                                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CompanyName)
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Phone Number</label>*@
+                                @Html.Label("Phone Number")
+                                @*<input type="text" class="form-control" id="exampleInputEmail2">*@
+                                @Html.TextBoxFor(m => m.ProviderContactNumber, new { @class = "form-control", @placeholder = "(000) 000-0000" })
+                                @Html.ValidationMessageFor(m => m.ProviderContactNumber)
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Address</label>*@
+                                @Html.Label("Address")
+                                @*<input type="text" class="form-control" id="exampleInputName14">*@
+                                @Html.TextBoxFor(m => m.ProviderAddress, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ProviderAddress)
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">City</label>*@
+                                @Html.Label("City")
+                                @*<input type="text" class="form-control" id="exampleInputEmai15">*@
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.City, "", new { @style = "display: block;" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">State</label>*@
+                                @Html.Label("State")
+                                @Html.DropDownList("StateId", (SelectList)ViewBag.State, new { @class = "form-control selectpicker" })
+                                @Html.ValidationMessageFor(m => m.StateId)
+                                @*<select class="form-control selectpicker">
+                                        <option>State</option>
+                                        <option>State</option>
+                                        <option>State</option>
+                                        <option>State</option>
+                                    </select>*@
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @Html.Label("Zip code")
+                                @*<input type="text" class="form-control" id="exampleInputEmail6">*@
+                                @Html.TextBoxFor(m => m.Zipcode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Zipcode)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/service.png"></i>Services</h2>
+                <div class="comapany-form">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">What Best Describes you?</label>*@
+                                @Html.Label("What Best Describes You?")
+                                @Html.DropDownList("CategoryId", (SelectList)ViewBag.Categorylist, "Select what Best Describes You?", new { @class = "form-control selectpicker" })
+                                @Html.ValidationMessageFor(m => m.CategoryId)
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                @Html.Label("Year of experience?")
+                                @*<label for="exampleInputEmail2">Years of experience</label>*@
+                                @Html.DropDownListFor(m => m.Experience, new SelectList(Model.YearOfExperience, "Key", "Value"), "Select Experience", new { @class = "form-control selectpicker" })
+                                @Html.ValidationMessageFor(m => m.Experience)
+                                @*<select class="form-control selectpicker">
+                                        <option>Select</option>
+                                        <option>Select</option>
+                                        <option>Select</option>
+                                        <option>Select</option>
+                                        <option>Select</option>
+                                    </select>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            @if (Model.ProviderListingId != 0)
+                            {
+                                foreach (var item in ViewBag.CategoryServicelist)
+                                {
+                                    <span>
+                                        @{
+                                            if (Model.ServiceDetails != null)
+                                            {
+                                                currentdetail = Model.ServiceDetails.FirstOrDefault(s => s.CategoryServiceId == item.CategoryServiceId);
+                                            }
+                                        }
+                                    </span>
+                                    <div class="row hidden-xs">
+                                        <div class="col-sm-4">
+                                            <div class="checkbox">
+                                                @*<input type="checkbox" value="" id="fm1">
+                                                    <label for="fm1">
+                                                        Health Care and
+                                                        Medical Services
+                                                    </label>*@
+                                                <input type="checkbox" name="ServiceDetails[@i].IsSelected" value="true" @(currentdetail.IsSelected == null ? "" : "checked") />@item.Name
+                                                <input type="hidden" name="ServiceDetails[@i].CategoryServiceId" value="@item.CategoryServiceId" />
+                                                <input type="hidden" name="ServiceDetails[@i].Id" value="@currentdetail.Id" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            <select class="form-control selectpicker" name="ServiceDetails[@i].ServiceType">
+                                                <option @(currentdetail.ServiceType == "Select Service type" ? "selected" : "")>Select Service type</option>
+                                                <option value="hour" @(currentdetail.ServiceType == "hour" ? "selected" : "")>Hour</option>
+                                                <option value="visit" @(currentdetail.ServiceType == "visit" ? "selected" : "")>Visit</option>
+                                                <option value="Service" @(currentdetail.ServiceType == "Service" ? "selected" : "")>Service</option>
+                                            </select>
+                                            @*<select class="form-control selectpicker">
+                                                    <option>Select Service Type</option>
+                                                    <option>Select Service Type</option>
+                                                    <option>Select Service Type</option>
+                                                    <option>Select Service Type</option>
+                                                    <option>Select Service Type</option>
+                                                </select>*@
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            @*<input type="text" class="form-control" id="exampleInputEmai15" placeholder="Services Price">*@
+                                            @Html.Label("Service Price")
+                                            @Html.TextBox("ServiceDetails[" + @i + "].ServicePrice", currentdetail.ServicePrice, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                                    i = i + 1;
+                                                }
+                                            }
+                            <div class="row">
+                                <div class="col-sm-12 text-right _customServiceclick"><a class="add-link" href="#">Add custom Service</a></div>
+                                <div class="col-md-6 hidden">
+                                    <div class="form-group">
+                                        @Html.Label("Services", new { })<br />
+                                        @Html.RadioButtonFor(m => m.ServicePriceType, "hour", new { @checked = "checked" })&nbsp; hour
+                                        @Html.RadioButtonFor(m => m.ServicePriceType, "Visit")&nbsp; Visit
+                                        @Html.RadioButtonFor(m => m.ServicePriceType, "Service")&nbsp; Service
+                                        @Html.ValidationMessageFor(f => f.ServicePriceType)
+                                    </div>
+                                </div>
+                                <div class="col-md-6 hidden">
+                                    <div class="form-group">
+                                        @Html.Label("Services Price")
+                                        @Html.TextBoxFor(m => m.ServicePrice, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.ServicePrice)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="customService">
+                                @if (Model.ServiceDetails != null)
+                                {
+                                    foreach (var custom in Model.ServiceDetails.Where(s => s.CategoryServiceId == null).ToList())
+                                    {
+                                        <div class="row hidden-xs service-types">
+                                            <div class="form-group">
+                                                @Html.Label("Service Name")
+                                                <input type="text" name="ServiceDetails[@i].CustomeService" value="@custom.CustomeService" placeholder="Services Name" class="form-control" />
+                                                <input type="hidden" name="ServiceDetails[@i].Id" value="@custom.Id" />
+                                            </div>
+                                            <div class="form-group">
+
+                                                <select class="form-control selectpicker" name="ServiceDetails[@i].ServiceType" placeholder="Select Service Type">
+                                                    <option>Select Service type</option>
+                                                    <option value="hour" @(custom.ServiceType == "hour" ? "selected" : "")>Hour</option>
+                                                    <option value="visit" @(custom.ServiceType == "visit" ? "selected" : "")>Visit</option>
+                                                    <option value="Service" @(custom.ServiceType == "Service" ? "selected" : "")>Service</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group last-service">
+                                                @Html.TextBox("ServiceDetails[" + @i + "].ServicePrice", @custom.ServicePrice, new { @class = "form-control", @placeholder = "Services Price" })
+                                            </div>
+                                            <span class="customeremove cros badge"><a href="#">X</a></span>e
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/area.png"></i>Services Areas</h2>
+                <div class="comapany-form" id="serviceAreaDiv">
+                    <div class="row area-form">
+                        <div class="form-group">
+                            @*<label for="exampleInputName2">City</label>
+                                <input type="text" class="form-control" id="exampleInputName2">*@
+                            @Html.Label("City")
+                            @Html.TextBoxFor(m => m.ServiceAreas[0].City, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].City, "", new { @style = "display: block;" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("State")
+                            @Html.DropDownList("ServiceAreas[0].StateId", (SelectList)ViewBag.State, new { @class = "form-control selectpicker" })
+                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].StateId)
+                            @*<label for="exampleInputEmail2">State</label>
+                                <select class="form-control selectpicker">
+                                    <option>State</option>
+                                    <option>State</option>
+                                    <option>State</option>
+                                    <option>State</option>
+                                    <option>State</option>
+                                </select>*@
+                        </div>
+                        <div class="form-group">
+                            @*<label for="exampleInputEmail2">Zipcode</label>
+                                <input type="text" class="form-control" id="exampleInputEmail2">*@
+                            @Html.Label("Zipcode")
+                            @Html.TextBoxFor(m => m.ServiceAreas[0].ZipCode, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].ZipCode)
+                        </div>
+                        <div class="form-group  last-area">
+                            @*<label for="exampleInputEmail2">Service Radius</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3">*@
+                            @Html.Label("Service Radius")
+                            @if (Model.ProviderListingId == 0)
+                            {
+                                @Html.DropDownListFor(m => m.ServiceAreas[0].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value"), "Select Radius", new { @class = "form-control selectpicker" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.ServiceAreas[0].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value", @Model.ServiceAreas[0].ServiceRadius), "Select Radius", new { @class = "form-control selectpicker" })
+                            }
+                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].ServiceRadius, "", new { @style = "display: block;" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        @Html.ActionLink("Add another", "", "", new { @class = "col-sm-12 text-left add-link", @id = "AddOther" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/pht.png"></i>Logo/Photo</h2>
+                <div class="comapany-form">
+                    <div class="row upload-form">
+                        <div class="upload-pic"><img id="getImgPreview" src="/images/dumy-pic.jpg" height="200" width="200" /></div>
+                        <div class="col-md-9 col-sm-9 col-xs-8 form-group">
+                            @*<label>Company Logo/Your Photo</label>*@
+                            @Html.Label("Company Logo/Your Photo")
+                            <span class="file-input btn btn-file orang-btn">
+                                Browse
+                                @if (Model.ProviderListingId == 0)
+                                {
+                                    <input type="file" id="file" data-val="true" accept="image/*" data-val-required="please select a file" name="LogoUrl" />
+                                    @Html.ValidationMessageFor(m => m.LogoUrl)
+                                }
+                                else
+                                {
+                                    <input type="file" id="file" accept="image/*" name="imageUrl" value="" />
+                                }
+
+                            </span>
+                            <div class="col-md-8 col-sm-7 col-xs-7">
+                                <p>please upload image 200 x 150. And should be png/jpg format </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/watch.png"></i>Hours</h2>
+                <div class="comapany-form hours-form">
+                    <div class="row">
+                        <div class="hrs">Monday</div>
+                        <div class="form-group">
+                            <div class="open-lbl">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.MonStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                            @Html.ValidationMessageFor(m => m.hourOfOperation.MonStart)
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.MonEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                            @Html.ValidationMessageFor(m => m.hourOfOperation.MonEnd)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Tuesday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.TueStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.TueEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Wednesday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.WedStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.WedEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Thrsday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.ThuStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.ThuEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Friday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.FriStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.FriEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Saturday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.SatStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.SatEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="hrs">Sunday</div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Open</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.SunStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                        <div class="form-group">
+                            <div class="open-lbl show-xs">Close</div>
+                            @Html.DropDownListFor(m => m.hourOfOperation.SunEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "form-control selectpicker" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/acc.png"></i>Account</h2>
+                <div class="comapany-form">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Primary Email</label>
+                                    <input type="text" class="form-control" id="exampleInputName2">*@
+                                @if (Model.ProviderListingId == 0)
+                                {
+                                    @Html.Label("Primary Email")
+                                    @Html.TextBoxFor(m => m.PrimaryEmail, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.PrimaryEmail)
+
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputEmail2">*@
+                                @Html.Label("Password")
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Verify Password</label>*@
+                                @Html.Label("Verify Password")
+                                @*<input type="password" class="form-control" id="exampleInputEmail3">*@
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/chanels.png"></i>Channels</h2>
+                <div class="comapany-form">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Website Link</label>
+                                    <input type="text" class="form-control" id="exampleInputName2">*@
+                                @Html.Label("Website Link")
+                                @Html.TextBoxFor(m => m.WebsiteURL, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Google+ Link</label>*@
+                                @Html.Label("Google+ Link")
+                                @*<input type="text" class="form-control" id="exampleInputEmail2">*@
+                                @Html.TextBoxFor(m => m.GoogleURL, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Twitter link</label>*@
+                                @Html.Label("Twitter link")
+                                @*<input type="text" class="form-control" id="exampleInputEmail3">*@
+                                @Html.TextBoxFor(m => m.TwitterURL, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Facebook link</label>*@
+                                @Html.Label("Facebook link")
+                                @*<input type="text" class="form-control" id="exampleInputName2">*@
+                                @Html.TextBoxFor(m => m.FacebookURL, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white-bg">
+                <h2><i class="icon contact-icn"><img alt="" src="/images/about-icon.png"></i>About us</h2>
+                <div class="comapany-form">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @*<label for="exampleInputName2">Who We Are</label>*@
+                                @Html.Label("Who We Are")
+                                @*<textarea class="form-control" rows="3"></textarea>*@
+                                @Html.TextAreaFor(m => m.WhoWeAre, 4, 8, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.WhoWeAre)
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Why Choose Us</label>
+                                    <textarea class="form-control" rows="3"></textarea>*@
+                                @Html.Label("Why Choose Us")
+                                @Html.TextAreaFor(m => m.WhyWeDo, 4, 8, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.WhyWeDo)
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @*<label for="exampleInputEmail2">Our Mission</label>*@
+                                @Html.Label("Our Mission")
+                                @*<textarea class="form-control" rows="3"></textarea>*@
+                                @Html.TextAreaFor(m => m.WhatWeDo, 4, 8, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.WhatWeDo)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn orang-btn next">NEXT</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+                                            }
+<div class="modal fade" style="display: none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog crop-model" role="document">
+        <div class="modal-content">
+            <div class="modal-example-header" style="padding:3% 3%;background: #f15925;color: white;">
+                <button type="button" style="color:#fff;opacity:1;" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color:#fff;">Crop Image</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="imageBox">
+                        <div class="thumbBox"></div>
+                        <div class="spinner" style="display: none">Loading...</div>
+                    </div>
+                </center>
+
+            </div>
+            <div class="modal-footer">
+                @*<input type="button" class="close" style="float:inherit" id="btnCrop" value="Crop">*@
+                @*<input type="button" id="btnZoomIn" value="+">
+                    <input type="button" id="btnZoomOut" value="-">*@
+                <button type="button" id="btnCrop" class="btn btn-success">Crop</button>
+                <button type="button" id="btnZoomIn" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button type="button" id="btnZoomOut" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $('._liveSearch .dropdown-menu').addClass('contentScroll mCustomScrollbar');
+        $("select").selectpicker('refresh');
+        $('#ProviderContactNumber').mask('(000)000-0000')
+        if ($('#hdnCityError').val() != '' && $('#hdnCityError').val() != undefined) {
+            $('#CategoryId').val('');
+            alert($('#hdnCityError').val());
+        }
+
+        $('.big-search').addClass('hidden-xs');
+        $('header').addClass('brd-btm');
+
+        //Time validation for monday
+        $("#hourOfOperation_MonEnd").change(function () {
+            var EndValMon = $('option:selected', this).text();
+            var hrEnd = EndValMon.substring(EndValMon.length - 2, EndValMon.length);
+            var EndTime = EndValMon.match(/\d+/);
+
+            var startValMon = $('#hourOfOperation_MonStart :selected').text();
+            var hrstartMon = startValMon.substring(startValMon.length - 2, startValMon.length);
+            var numberstartMon = startValMon.match(/\d+/);
+            if (hrstartMon == 'AM' && hrEnd == 'AM' || hrstartMon == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartMon)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_MonEnd').val('');
+                }
+            }
+            if (hrstartMon == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_MonEnd').val('');
+            }
+
+        });
+
+        //Time validation for tuesday
+        $("#hourOfOperation_TueEnd").change(function () {
+            var EndValTue = $('option:selected', this).text();
+            var hrEnd = EndValTue.substring(EndValTue.length - 2, EndValTue.length);
+            var EndTime = EndValTue.match(/\d+/);
+
+            var startValTue = $('#hourOfOperation_TueStart :selected').text();
+            var hrstartTue = startValTue.substring(startValTue.length - 2, startValTue.length);
+            var numberstartTue = startValTue.match(/\d+/);
+            if (hrstartTue == 'AM' && hrEnd == 'AM' || hrstartTue == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartTue)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_MonEnd').val('');
+                }
+            }
+            if (hrstartTue == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_TueEnd').val('');
+            }
+
+        });
+
+        //Time validation for wednesday
+        $("#hourOfOperation_WedEnd").change(function () {
+            var EndValWed = $('option:selected', this).text();
+            var hrEnd = EndValWed.substring(EndValWed.length - 2, EndValWed.length);
+            var EndTime = EndValWed.match(/\d+/);
+
+            var startValWed = $('#hourOfOperation_WedStart :selected').text();
+            var hrstartWed = startValWed.substring(startValWed.length - 2, startValWed.length);
+            var numberstartWed = startValWed.match(/\d+/);
+            if (hrstartWed == 'AM' && hrEnd == 'AM' || hrstartWed == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartWed)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_MonEnd').val('');
+                }
+            }
+            if (hrstartWed == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_WedEnd').val('');
+            }
+
+        });
+
+        //Time validation for thursday
+        $("#hourOfOperation_ThuEnd").change(function () {
+            var EndValThu = $('option:selected', this).text();
+            var hrEnd = EndValThu.substring(EndValThu.length - 2, EndValThu.length);
+            var EndTime = EndValThu.match(/\d+/);
+
+            var startValThu = $('#hourOfOperation_ThuStart :selected').text();
+            var hrstartThu = startValThu.substring(startValThu.length - 2, startValThu.length);
+            var numberstartThu = startValThu.match(/\d+/);
+            if (hrstartThu == 'AM' && hrEnd == 'AM' || hrstartThu == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartThu)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_MonEnd').val('');
+                }
+            }
+            if (hrstartThu == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_MonEnd').val('');
+            }
+
+        });
+
+        //Time validation for friday
+        $("#hourOfOperation_FriEnd").change(function () {
+            var EndValFri = $('option:selected', this).text();
+            var hrEnd = EndValFri.substring(EndValFri.length - 2, EndValFri.length);
+            var EndTime = EndValFri.match(/\d+/);
+
+            var startValFri = $('#hourOfOperation_FriStart :selected').text();
+            var hrstartFri = startValFri.substring(startValFri.length - 2, startValFri.length);
+            var numberstartFri = startValFri.match(/\d+/);
+            if (hrstartFri == 'AM' && hrEnd == 'AM' || hrstartFri == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartFri)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_FriEnd').val('');
+                }
+            }
+            if (hrstartFri == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_FriEnd').val('');
+            }
+
+        });
+
+        //Time validation for saturday
+        $("#hourOfOperation_SatEnd").change(function () {
+            var EndValSat = $('option:selected', this).text();
+            var hrEnd = EndValSat.substring(EndValSat.length - 2, EndValSat.length);
+            var EndTime = EndValSat.match(/\d+/);
+
+            var startValSat = $('#hourOfOperation_SatStart :selected').text();
+            var hrstartSat = startValSat.substring(startValSat.length - 2, startValSat.length);
+            var numberstartSat = startValSat.match(/\d+/);
+            if (hrstartSat == 'AM' && hrEnd == 'AM' || hrstartSat == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartSat)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_SatEnd').val('');
+                }
+            }
+            if (hrstartSat == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_SatEnd').val('');
+            }
+
+        });
+
+        //Time validation for sunday
+        $("#hourOfOperation_SunEnd").change(function () {
+            var EndValSun = $('option:selected', this).text();
+            var hrEnd = EndValSun.substring(EndValSun.length - 2, EndValSun.length);
+            var EndTime = EndValSun.match(/\d+/);
+
+            var startValSun = $('#hourOfOperation_SunStart :selected').text();
+            var hrstartSun = startValSun.substring(startValSun.length - 2, startValSun.length);
+            var numberstartSun = startValSun.match(/\d+/);
+            if (hrstartSun == 'AM' && hrEnd == 'AM' || hrstartSun == 'PM' && hrEnd == 'PM') {
+                if (parseInt(EndTime) < parseInt(numberstartSun)) {
+                    alert('Close time should be greater than start time');
+                    $('#hourOfOperation_SunEnd').val('');
+                }
+            }
+            if (hrstartSun == 'PM' && hrEnd == 'AM') {
+                alert('Close time should be greater than start time');
+                $('#hourOfOperation_SunEnd').val('');
+            }
+
+        });
+
+        var size;
+        if (parseInt($("[name='Zipcode']").val()) == 0) {
+            $("[name='Zipcode']").val("");
+        }
+
+        $("#ProviderContactNumber").mask("(000) 000-0000");
+        var countlist = 0;
+        $(".fa-plus-square-o").hide();
+        // $("table").hide();
+        $(".fa-plus-square-o").click(function () {
+            $(".fa-minus-square-o").show();
+            $(".table").show();
+            $(this).hide();
+        });
+        $(".fa-minus-square-o").click(function () {
+            $(".fa-plus-square-o").show();
+            $(".table").hide();
+            $(this).hide();
+        });
+
+        $("._customServiceclick").click(function (e) {
+            countlist = $(".catgoryserviceDiv").children("div").length;
+            countlist = countlist + $(".customdiv").children("div").length;
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Action("LoadCustomService")",
+                data: { count: countlist },
+                success: function (partialView) {
+                    $(".customService").before(partialView);
+                    $("select").selectpicker('refresh');
+                    $('._addNewCustomer').last().find('._textcustSer').focus();
+                }
+            })
+        });
+        $(document).on("click", ".customeremove", function () {
+            $(this).parent().remove();
+        });
+
+
+        $("#AddOther").click(function (e) {
+            countlist = countlist + 1;
+
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Action("ServiceAreaPartial")",
+                data: { count: countlist },
+                success: function (partialView) {
+                    $("#serviceAreaDiv").append(partialView);
+                    $("select").selectpicker('refresh');
+                    $('._AddNewProvideritem').last().find('._textServiceCity').focus();
+                }
+            })
+        });
+        $(document).on("click", ".customeOther", function () {
+            $(this).parent().remove();
+        });
+        $("#file").change(function () {
+           
+            if ($(this)[0].files[0].type.indexOf("image") == -1) {
+                alert("Invalid Type");              
+                return false;
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+            }
+            size = parseFloat($(this)[0].files[0].size / 1024).toFixed(2);
+
+        });
+
+
+
+        ///*****User for Image croping*****///
+
+        YUI().use('node', 'crop-box', function (Y) {
+            var options =
+            {
+                imageBox: '.imageBox',
+                thumbBox: '.thumbBox',
+                spinner: '.spinner',
+                imgSrc: ''
+            }
+            var cropper;
+            Y.one('#file').on('change', function () {
+
+                var reader = new FileReader();
+
+                if (size < 4000) {
+                    reader.onloadend = function (e) {
+                        options.imgSrc = e.target.result;
+                       
+                        cropper = new Y.CropBox(options);
+                    }
+                    reader.readAsDataURL(this.get('files')._nodes[0]);
+                        
+                    this.get('files')._nodes = [];
+                    $("#myModal").modal({ backdrop: false, keyboard: false });
+
+                    $("#myModal").modal('show');
+                }
+                else {
+                    alert("your current image size is " + size + " KB.your image should be less than 4000 KB")
+                }
+            })
+            Y.one('#btnCrop').on('click', function (e) {
+                var img = cropper.getAvatar();
+                $("#Bitimagestring").val(img);
+                $('#getImgPreview').attr("src",img);
+                $("#myModal").modal('hide');
+                //Y.one('.cropped').append('<img src="' + img + '">');
+            })
+            Y.one('#btnZoomIn').on('click', function () {
+                cropper.zoomIn();
+            })
+            Y.one('#btnZoomOut').on('click', function () {
+                cropper.zoomOut();
+            })
+        })
+
+        $("[name='CategoryId']").change(function () {
+            var catid = $(this).val();
+
+            $.ajax({
+                url: "@Url.Action("LoadCategoryService")",
+                data: { categoryId: catid },
+                success: function (partialview) {
+                    $(".catgoryserviceDiv").empty();
+                    $(".catgoryserviceDiv").append(partialview);
+
+                }
+            })
+            //
+        });
+        ///*****End image croping******///
+        YUI.add('crop-box', function (Y) {
+            Y.CropBox = Y.Base.create('crop-box', Y.Base, [],
+                {
+                    initializer: function (options) {
+                        this.options = options;
+                        this.state = {};
+                        this.render();
+                    },
+                    render: function () {
+                        var self = this;
+                        this.imageBox = Y.one(this.options.imageBox);
+                        this.thumbBox = this.imageBox.one(this.options.thumbBox);
+                        this.spinner = this.imageBox.one(this.options.spinner);
+
+                        this.initObject();
+                        return this;
+                    },
+                    initObject: function () {
+                        var self = this;
+                        this.spinner.show();
+
+                        this.image = new Image();
+                        this.image.onload = function () {
+                            self.spinner.hide();
+                            self.setBackground();
+
+                            //event handler
+                            self.imageBox.on('mousedown', self.imgMouseDown, self);
+                            self.imageBox.on('mousemove', self.imgMouseMove, self);
+                            self.mouseup = Y.one('body').on('mouseup', self.imgMouseUp, self);
+
+                            Y.UA.gecko > 0 ?
+                                self.imageBox.on('DOMMouseScroll', self.zoomImage, self) :
+                                self.imageBox.on('mousewheel', self.zoomImage, self);
+                        };
+                        this.image.src = this.options.imgSrc;
+                    },
+                    setBackground: function () {
+                        if (!this.ratio) this.ratio = 1;
+
+                        var w = parseInt(this.image.width) * this.ratio;
+                        var h = parseInt(this.image.height) * this.ratio;
+
+                        var pw = (this.imageBox.get('clientWidth') - w) / 2;
+                        var ph = (this.imageBox.get('clientHeight') - h) / 2;
+
+                        this.imageBox.setAttribute('style',
+                            'background-image: url(' + this.image.src + '); ' +
+                            'background-size: ' + w + 'px ' + h + 'px; ' +
+                            'background-position: ' + pw + 'px ' + ph + 'px; ' +
+                            'background-repeat: no-repeat');
+                    },
+                    imgMouseDown: function (e) {
+                        e.stopImmediatePropagation();
+                        this.state.dragable = true;
+                        this.state.mouseX = e.clientX;
+                        this.state.mouseY = e.clientY;
+                    },
+                    imgMouseMove: function (e) {
+                        e.stopImmediatePropagation();
+                        if (this.state.dragable) {
+                            var x = e.clientX - this.state.mouseX;
+                            var y = e.clientY - this.state.mouseY;
+
+                            var bg = this.imageBox.getStyle('backgroundPosition').split(' ');
+
+                            var bgX = x + parseInt(bg[0]);
+                            var bgY = y + parseInt(bg[1]);
+
+                            this.imageBox.setStyle('backgroundPosition', bgX + 'px ' + bgY + 'px');
+
+                            this.state.mouseX = e.clientX;
+                            this.state.mouseY = e.clientY;
+                        }
+                    },
+                    imgMouseUp: function (e) {
+                        e.stopImmediatePropagation();
+                        this.state.dragable = false;
+                    },
+                    zoomImage: function (e) {
+                        e.wheelDelta > 0 ? this.ratio *= 1.1 : this.ratio *= 0.9;
+                        this.setBackground();
+                    },
+                    getAvatar: function () {
+                        var self = this,
+                            width = this.thumbBox.get('clientWidth'),
+                            height = this.thumbBox.get('clientHeight'),
+                            canvas = document.createElement("canvas"),
+                            dim = this.imageBox.getStyle('backgroundPosition').split(' '),
+                            size = this.imageBox.getStyle('backgroundSize').split(' '),
+                            dx = parseInt(dim[0]) - this.imageBox.get('clientWidth') / 2 + width / 2,
+                            dy = parseInt(dim[1]) - this.imageBox.get('clientHeight') / 2 + height / 2,
+                            dw = parseInt(size[0]);
+                        dh = parseInt(size[1]);
+                        sh = parseInt(this.image.height);
+                        sw = parseInt(this.image.width);
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        var context = canvas.getContext("2d");
+                        context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
+                        var imageData = canvas.toDataURL('image/jpeg');
+
+                        return imageData;
+                    },
+                    zoomIn: function () {
+                        this.ratio *= 1.1;
+                        this.setBackground();
+                    },
+                    zoomOut: function () {
+                        this.ratio *= 0.9;
+                        this.setBackground();
+                    },
+                    destructor: function () {
+                        if (this.mouseup) this.mouseup.detach()
+                    }
+                });
+        }, '1.0',
+{
+    requires: ['node', 'base']
+});
+
+    })
+</script>
+<style>
+     .panel-info {
+            border: none;
+        }
+
+        .customService {
+            margin-left: 2%;
+            color: #2a6496;
+            cursor: pointer;
+        }
+
+    .imageBox {
+        position: relative;
+        min-height: 250px;
+        min-width: 250px;
+        border: 1px solid #aaa;
+        background: #fff;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        cursor: move;
+    }
+
+        .imageBox .thumbBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            box-sizing: border-box;
+            border: 1px solid rgb(102, 102, 102);
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            background: none repeat scroll 0% 0% transparent;
+        }
+
+        .imageBox .spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+        }
+
+    .crop-model.modal-dialog {
+        left: auto;
+    }
+
+    .LabelAlign {
+        float: right;
+    }
+</style>

@@ -1,0 +1,472 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+@model AgingInHome.Models.ProviderListingModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+    var listing = 0;
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+
+}
+
+<!-- Main Container -->
+<div class="main-container inner-container">
+    <div class="container dasboardContainer">
+        <!-- Tab Dasboard -->
+        <div class="row">
+            <ul class="nav tabDasboard" role="tablist">
+                <li role="presentation" class="LightBlue active">
+                    <a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="/assets/images/icons/envelope-with-pencil.svg" /></span>
+                        <span class="countValue inboxcount">@listing</span>
+                        <h3>Messages</h3>
+                    </a>
+                </li>
+                <li role="presentation" class="green">
+                    <a href="#appointment" aria-controls="appointment" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="/assets/images/icons/appointment-icon.svg" /></span>
+                        <span class="countValue appointmentCount">0</span>
+                        <h3>Appointment</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- //Tab Dasboard -->
+        <!-- Tab Content -->
+        <div class="tab-content" style="margin-bottom:100px">
+            <!-- Inbox Content -->
+            <div role="tabpanel" class="tab-pane active clearfix" id="inbox">
+                <div class="customloader spanInboxMail"><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>
+                <div class="inboxContent">
+                    <!-- List mail COntent -->
+                    <div class="Listmail">
+                        <!-- Search Content -->
+                        <div class="search">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInboxMail" placeholder="Search ..">
+                                    <div class="input-group-addon"><i aria-hidden="true" id="btnSearchMail" class="fa fa-search"></i><img src="/assets/images/searchClose.png" id="crossIcon" /></div>
+                                </div>
+                            </form>
+                            <span class="hamburgerIcon closeIcon"><i aria-hidden="true" class="fa fa-bars"></i></span>
+                        </div>
+                        <!-- //Search Content -->
+
+                        <div class="contentScroll mCustomScrollbar Inbox" style="height: 548px;">
+
+                        </div>
+                    </div>
+                    <!-- //List mail COntent -->
+                    <div class="msgDetails" style="height:100%">
+                        <div id="MessageHideDiv"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //Inbox Content -->
+            <!-- Appointmnet COntent -->
+            <div role="tabpanel" class="tab-pane" id="appointment">
+                <div class="serviceRequestContent" id="appointments">
+                </div>
+                <hr />
+                <div id="AppointmentPager" class="text-center"></div>
+                <!-- ADD AppoIntment Modal -->
+                <div class="modal customModal fade appointmentModal" id="addApointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>								<h4 class="modal-title" id="myModalLabel">ADD AppoIntment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="default-form">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Appointment Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group Mb0">
+                                                    @Html.Hidden("formid")
+                                                    @Html.TextBox("NewServiceDate", "", new { @class = "form-control newservicedateclass", @placeholder = "22/7/2016" })
+                                                    <div class="input-group-addon"><i aria-hidden="true" class="fa fa-calendar"></i></div>
+                                                </div>
+                                                <span class="text-danger" id="spanCustomeServiceDate"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Best Time</label>
+                                            <div class="form-group">
+                                                <select class="selectpicker newProviderservicebestimeclass" id="NewBestTime">
+                                                    <option value="">When is the best time for a service providers to reach you?</option>
+                                                    <option value="Anytime">Anytime</option>
+                                                    <option value="Afternoon">Afternoon </option>
+                                                    <option value="Morning">Morning</option>
+                                                    <option value="Evening">Evening</option>
+                                                </select>
+                                                <span class="text-danger" id="spanCustomeBestTime"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-block btn-primary " name="name" id="sendnewAppointment" type="button">ADD AppoIntment</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- //ADD AppoIntment Modal -->
+            </div>
+            <!-- //Appointmnet COntent -->
+        </div>
+        <!-- //Tab Content -->
+    </div>
+</div>
+<!-- //Main Container -->
+<script src="~/assets/js/jquery.bootpag.min.js"></script>
+<script>
+    $(function () {
+        var currentPageNumber = 1;
+        function DefaultLoader() {
+            var html = "";
+            html = '<div class="col-xs-12 loader spanloaderInbox text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>';
+            return html;
+        }
+        $('.spanloaderInbox').hide();
+        $('.spanInboxMail').show();
+        $('#crossIcon').hide();
+        $("[name='NewServiceDate']").datepicker({
+            minDate: new Date()
+        });
+        $(".Inbox").find('.mCSB_container').empty();
+
+        $.ajax({
+            url: "@Url.Action("GetinboxDetail", "ProviderListing")",
+            success: function (result) {
+                $(".Inbox").find('.mCSB_container').append(result);
+                $(".inboxcount").empty();
+                $(".inboxcount").append($("#inboxcountfeild").val());
+                $('.contentScroll').mCustomScrollbar();
+                $('.openConversationMsg:first').trigger('click');
+                $('.spanInboxMail').hide();
+            }
+        });
+
+        setInterval(function () {
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "ProviderListing")',
+                data: { search: $('#searchInboxMail').val() },
+                success: function (result) {
+                    $(".Inbox").find('.mCSB_container').empty();
+                    $(".Inbox").find('.mCSB_container').append(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $('.contentScroll').mCustomScrollbar();
+                    //$('.openConversationMsg:first').trigger('click');
+                    var conversationid = $('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId=' + conversationid + ']').addClass('active');
+                    $('.spanInboxMail').hide();
+                }
+            });
+        }, 120000)
+
+        var count = $('#AppointmentTotalRecords').val();
+        var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#AppointmentPager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetAllProviderAppointments", "ProviderListing")',
+                data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    currentPageNumber = num;
+                    $("#appointments").html(result);
+                    $(".appointmentCount").empty();
+                    $(".appointmentCount").append($("#AppointmentTotalRecords").val());
+                    $("select").selectpicker('refresh');
+                }
+            });
+
+        });
+        function GetAllProviderAppointments() {
+            $.ajax({
+                url: "@Url.Action("GetAllProviderAppointments", "ProviderListing")",
+                data: { bestTime: $('#dropdownBestTime').val() == undefined ? "" : $('#dropdownBestTime').val(), pagenumber: currentPageNumber, pageSize: 5 },
+                success: function (result) {
+                    $("#appointments").html(result);
+                    $(".appointmentCount").empty();
+                    $(".appointmentCount").append($('#AppointmentTotalRecords').val());
+                    $("select").selectpicker('refresh');
+                    var count = $('#AppointmentTotalRecords').val();
+                    var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+                    $('#AppointmentPager').bootpag({
+                        total: totalPages,
+                        page: currentPageNumber,
+                        maxVisible: 5,
+                        leaps: true,
+                        firstLastUse: true,
+                        first: '←',
+                        last: '→',
+                        wrapClass: 'pagination',
+                        activeClass: 'active',
+                        disabledClass: 'disabled',
+                        nextClass: 'next',
+                        prevClass: 'prev',
+                        lastClass: 'last',
+                        firstClass: 'first'
+                    })
+                }
+            });
+
+        }
+
+        GetAllProviderAppointments();
+
+        //Start Search Inbox Mail
+
+        $('#crossIcon').click(function () {
+            $('.spanInboxMail').show();
+            $('#searchInboxMail').val("");
+            $('#btnSearchMail').show();
+            $(this).hide();
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "ProviderListing")',
+                data: { search: $('#searchInboxMail').val() },
+                success: function (result) {
+                    $(".Inbox").find('.mCSB_container').empty();
+                    $(".Inbox").find('.mCSB_container').append(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $('.contentScroll').mCustomScrollbar();
+                    $('.openConversationMsg:first').trigger('click');
+                    var conversationid = $('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId=' + conversationid + ']').addClass('active');
+                    $('.spanInboxMail').hide();
+                }
+            });
+        });
+
+
+        $('#btnSearchMail').click(function () {
+            $('.spanInboxMail').show();
+            $(this).hide();
+            $('#crossIcon').show();
+
+            $.ajax({
+                url: '@Url.Action("SearchInboxMailByText", "ProviderListing")',
+                data: { search: $('#searchInboxMail').val() },
+                success: function (result) {
+                    $(".Inbox").find('.mCSB_container').empty();
+                    $(".Inbox").find('.mCSB_container').append(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $('.contentScroll').mCustomScrollbar();
+                    $('.openConversationMsg:first').trigger('click');
+                    var conversationid = $('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId=' + conversationid + ']').addClass('active');
+                    $('.spanInboxMail').hide();
+                }
+            });
+
+        });
+
+        $('#searchInboxMail').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                if ($(this).val() != "") {
+                    $('#btnSearchMail').trigger('click');
+                }
+                return false;
+            }
+        });
+        //End Search Inbox Mail
+
+        $(".inboxcount").append($("#inboxcountfeild").val());
+
+        $(document).on("click", ".openmsg", function () {
+            $('.spanloaderInbox').show();
+            var readmsg = parseInt($(this).data('unreadmsg'));
+            if (readmsg > 0) {
+                var RemainigUnread = parseInt($("#inboxcountfeild").val()) - readmsg;
+                $(".inboxcount").empty().append(RemainigUnread);
+            }
+            var MsgId = $(this).attr("data-detailId");
+            $.ajax({
+                url: "@Url.Action("GetMessageDetail","Consumer")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                    $('.contentScroll').mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                    $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                    $('.spanloaderInbox').hide();
+                }
+            });
+        });
+        $(document).on("click", ".openConversationMsg", function () {
+            $('.openConversationMsg.active').removeClass('active');
+            $(this).addClass('active');
+            $(".msgDetails").find("#MessageHideDiv").html(DefaultLoader());
+            $('.spanloaderInbox').show();
+            var readmsg = parseInt($(this).data('unreadmsg'));
+            if (readmsg > 0) {
+                var RemainigUnread = parseInt($("#inboxcountfeild").val()) - readmsg;
+                $(".inboxcount").empty().append(RemainigUnread);
+            }
+            var MsgId = $(this).attr("data-detailId");
+            var senderid = $(this).attr("data-senderid");
+            $.ajax({
+                url: "@Url.Action("GetCustomMessageDetail","Consumer")",
+                data: { ConversationId: MsgId, MsgSenderId: senderid },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                    $('.contentScroll').mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                    $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                    setTimeout(function () { $('.spanloaderInbox').hide(); }, 3000);
+                }
+            });
+        });
+
+        $(".sendmsg").click(function () {
+            var MsgId = $(this).attr("data-detailId");
+            var detailtype = $(this).attr("data-type");
+
+            $.ajax({
+                url: "@Url.Action("SentMessageDetail","Consumer")",
+                data: { RequestId: MsgId, type: detailtype },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+
+                }
+            });
+
+        });
+        $(".recievemsg").click(function () {
+
+            var MsgId = $(this).attr("data-detailId");
+            $.ajax({
+                url: "@Url.Action("RecMessageDetail","Consumer")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+
+                }
+            });
+        });
+
+        $(".archivemsg").click(function () {
+            var MsgId = $(this).attr("data-detailId");
+            $.ajax({
+                url: "@Url.Action("ArchiMessageDetail","ProviderListing")",
+                data: { RequestId: MsgId },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+
+                }
+            });
+        });
+        $(document).on("click", ".cancelAppointment", function () {
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("CancelAppointment", "Consumer")",
+                data: { AppointId: appid },
+                success: function (result) {
+                    GetAllProviderAppointments();
+                }
+            });
+        });
+
+        $(document).on("click", ".AcceptAppointment", function () {
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("AcceptAppointment", "Consumer")",
+                data: { AppointId: appid, UserType: "Provider" },
+                success: function (result) {
+                    GetAllProviderAppointments();
+                }
+            });
+        });
+        $(document).on("click", ".RejectAppointment", function () {
+
+            var appid = $(this).attr("id");
+            $.ajax({
+                url: "@Url.Action("RejectAppointment", "Consumer")",
+                data: { AppointId: appid, UserType: "Provider" },
+                success: function (result) {
+                    GetAllProviderAppointments();
+                }
+            });
+        });
+        $(document).on("click", ".newappointment", function (e) {
+            e.preventDefault();
+            $("[name='formid']").val($(this).attr("id"));
+
+        });
+
+        $("#sendnewAppointment").click(function (e) {
+            e.preventDefault();
+
+            var flag = true;
+            var CustmDate = $(".newservicedateclass").val();
+            var custmTime = $(".newProviderservicebestimeclass option:selected").val();
+            if (CustmDate == "") {
+                $('#spanCustomeServiceDate').html("Date is required");
+                flag = false;
+            }
+            else
+                $('#spanCustomeServiceDate').html("");
+
+
+            if (custmTime == "") {
+                $('#spanCustomeBestTime').html("Time is required");
+                flag = false;
+            }
+            else
+                $('#spanCustomeBestTime').html("");
+
+            if (!flag)
+                return false;
+
+            var formid = $("[name='formid']").val();
+            $("#addApointment").modal("hide");
+            $(".servicedate" + formid).val(CustmDate);
+            $(".besttime" + formid).val(custmTime);
+            $.ajax({
+                url: "@Url.Action("MakeAppointment", "ProviderListing")",
+                data: $("#" + formid).serialize(),
+                success: function (result) {
+                    alert("Your appointment send Successfully");
+                    $(".newservicedateclass").val("");
+                    $(".newProviderservicebestimeclass option:selected").val("");
+                    GetAllProviderAppointments();
+
+                }
+            });
+        });
+
+    })
+</script>

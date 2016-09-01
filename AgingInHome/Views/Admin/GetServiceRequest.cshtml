@@ -1,0 +1,34 @@
+﻿@using AgingInHome.BLL.Enums
+@using AgingInHome.Models
+@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@model  List<AgingInHome.Models.ServiceRequestModel> 
+
+<div class="tableRow tableHead">
+    <div class="tableCol dateCol">Date</div>
+    <div class="tableCol reqCatCol">Requested Category</div>
+    <div class="tableCol StatusCol">Status</div>
+</div>
+
+
+@if(Model.Count > 0)
+{ 
+    foreach (var ServiceReuest in Model)
+{
+
+    <div class="tableRow">
+        <div class="tableCol dateCol">@ServiceReuest.CreatedDate</div>
+        <div class="tableCol reqCatCol">@ServiceReuest.Categorynames</div>
+        @if (ServiceReuest.ResultUrl != "")
+        {
+
+            <div class="tableCol StatusCol"><a href="@ServiceReuest.ResultUrl">Click Here</a></div>
+        }
+        else
+        {
+            <div class="tableCol StatusCol"><span class="statusbtn blue" title="Please check the email">Pending</span></div>
+        }
+    </div>
+}
+  
+}                      

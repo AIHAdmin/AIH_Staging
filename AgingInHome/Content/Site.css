@@ -1,0 +1,544 @@
+﻿body {
+    /*padding-top: 50px;*/
+    /*padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+
+/* Custome style sheet */
+.maincontainer {
+    margin-top: 20px;
+    min-height: 200px;
+    margin: 0px;
+    padding: 5px 20px;
+    font-family: Arial;
+    background: #FFFAF7;
+    clear: both;
+}
+
+.listingDiv {
+    border: 1px solid silver;
+    background: white;
+    margin: 2% 3%;
+    min-width: 90%;
+    min-height: 400px;
+}
+
+    .listingDiv p {
+        text-align: justify;
+    }
+
+.maincontainer h3 {
+    padding-top: 20px;
+    text-align: center;
+    font-family: Arial;
+}
+
+.input-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.col-md-3, .col-md-2 {
+    padding-right: 0px !important;
+    padding-left: 3px !important;
+}
+
+.navbar-inverse {
+    background: white !important;
+    color: black;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #053569;
+    }
+
+        /*.navbar-inverse .navbar-nav > li > a:hover {
+            color: #FA5B24;
+        }*/
+
+.arrowbtn {
+    margin-top: -50px;
+    padding-top: -26px;
+    margin-left: 71px;
+    position: absolute;
+    z-index: 1000;
+    color: white;
+}
+
+.footer {
+    background: #262626;
+    color: white;
+    padding: 16px 1px;
+    text-align: center;
+}
+
+.getstartbtn {
+    width: 266px;
+    margin-top: 18px;
+    padding: 27px;
+    background: #1F3F88;
+    margin-left: 40%;
+    text-align: left;
+}
+
+.getstartarrow {
+    position: absolute;
+    z-index: 100;
+    margin-left: 49%;
+    color: white;
+    margin-top: -4%;
+}
+
+.article hr {
+    border-top: 3px solid #eeeeee;
+}
+
+.article h5 {
+    color: #003D78;
+    font-weight: bold;
+}
+
+.article p {
+    font-size: small;
+}
+
+.CardDetail {
+    padding: 0px 39px;
+}
+
+    .CardDetail .customeformcontrol {
+        margin: 0px;
+        padding: 0px;
+        height: auto;
+    }
+
+    .CardDetail .form-control .innerCarddetail {
+        background: #EDEDED;
+        padding: 20px;
+        margin: 0px;
+    }
+
+    .CardDetail .form-control span {
+        font-weight: bold;
+    }
+
+.cardinnerdetail {
+    border: 1px solid #EDEDED;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.set-col-padding {
+    padding-left: 0px;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.registerbtn {
+    padding: 10px 31px;
+    border-radius: inherit;
+    background: #1F3F88;
+}
+
+.ProviderListingheader {
+    padding: 10px 0px;
+    text-align: center;
+    background: #EDEDED;
+}
+
+.ListingRightPanel {
+    background: white;
+    padding: 20px 10px;
+    border: 1px solid #EDEDED;
+    margin-top: 38px;
+    overflow: hidden;
+}
+
+.InnerContainer {
+    margin: 0px 5%;
+}
+
+    .InnerContainer p {
+        text-align: justify;
+    }
+
+.ListingRightPanel span {
+    display: block;
+}
+
+.imgDiv {
+    margin: 0px 10px;
+    margin-left: 10px;
+    min-width: 100%;
+}
+
+.mainContent {
+    background: white;
+    padding: 20px 10px;
+    border: 1px solid #EDEDED;
+    margin-top: 38px;
+    margin-right: 3%;
+    width: 100%;
+}
+
+.rightDiv {
+    margin: 0px 10px;
+}
+
+    .rightDiv .titleName {
+        margin-left: 10px;
+    }
+
+.msgs {
+    background: #EDEDED;
+    text-align: center;
+    padding: 5px 0px;
+    border-radius: 32px 29px;
+    width: 70px;
+}
+
+.blogPart {
+    margin-right: 16px;
+    margin-top: 21px;
+    background: white;
+}
+
+.SimilarProvider {
+    margin-right: 16px;
+    margin-top: 21px;
+    background: white;
+    border: 1px solid #EDEDED;
+    padding: 10px 20px;
+}
+
+    .SimilarProvider span {
+        padding-top: 8px;
+    }
+
+.SerchLeftPanel {
+    margin-top: 60px;
+    margin-left: 1%;
+    border: 1px solid #EDEDED;
+    background: white;
+    padding: 10px;
+}
+
+    .SerchLeftPanel span {
+        background: black;
+        color: white;
+        padding: 1px;
+        border-radius: 10px;
+        width: 39px;
+        text-align: center;
+    }
+
+    .SerchLeftPanel input[type="checkbox"] {
+        margin: 6px 0px;
+    }
+
+.SerchRightPanel {
+    margin-top: 60px;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.hourTime {
+    width: 13%;
+    display: -webkit-inline-box;
+    font-size: 9px;
+    text-align: left;
+}
+
+.Homebennersearch {
+    background: #4C4C4A;
+    opacity: 0.8;
+    padding: 10px;
+    margin-left: 2%;
+    position: initial;
+    z-index: 999;
+    margin-top: -22%;
+}
+    .Homebennersearch h2 {
+        color: white;
+        font-family: Arial;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .Homebennersearch h6 {
+        color: white;
+        font-family: Arial;
+        text-align: center;
+    }
+
+    .Homebennersearch input[type=text] {
+        /*border: none;*/
+        border-bottom: 1px solid #EDEDED;
+        background: #4C4C4A;
+        width: 100%;
+        /*margin: 2px 20px;*/
+        color: white;
+    }
+    .Homebennersearch input[type=text] placeholder{
+       
+        color: white;
+    }
+
+    .Homebennersearch button {
+        background: #3276b1;
+        border-color: #4C4C4A;
+    }
+
+        .Homebennersearch button :hover {
+            background: #EF571A !important;
+            border-color: #4C4C4A !important;
+        }
+
+    .Homebennersearch input[type=text] :focus {
+        outline: none !important;
+        border-color: #4C4C4A;
+    }
+
+.homeMid {
+    background: #EDEDED;
+    padding: 35px;
+    text-align: center;
+}
+
+    .homeMid span {
+        font-weight: bolder;
+    }
+
+.HomeDetail {
+    padding: 30px;
+    margin: 0px 50px;
+}
+
+    .HomeDetail h2 {
+        color: #EF571A;
+        text-align: center;
+        font-family: Arial;
+        font-weight: bolder;
+    }
+
+    .HomeDetail h4 {
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    .HomeDetail h3 {
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+.homebottom {
+    background: #EF571A;
+    padding: 0px 50px 20px 50px;
+}
+
+    .homebottom h2, h5 {
+        color: white;
+    }
+/**Admin DashBoard*/
+.AdminServiceRequest {
+    background: #4F81BC;
+    padding: 14px 20px;
+    color: white;
+    border-radius: 6px 6px;
+    cursor:pointer;
+}
+ .AdminQueue {
+    background:#1183D1;
+    padding: 14px 20px;
+    color: white;
+    border-radius: 6px 6px;
+    cursor:pointer;
+}
+
+.AdminInbox {
+    background: #FE946D;
+    padding: 14px 20px;
+    color: white;
+    border-radius: 6px 6px;
+    cursor:pointer;
+}
+
+.AdminAppointment {
+    background: #C6A153;
+    padding: 14px 20px;
+    color: white;
+    border-radius: 6px 6px;
+    cursor:pointer;
+}
+
+.innerServiceRequest {
+    border: 1px solid #EDEDED;
+    padding: 10px;
+}
+.QueueDetail {
+    border: 1px solid #EDEDED;
+    padding: 10px;
+}
+
+    .innerServiceRequest .button {
+        padding: 5px;
+        color: white;
+    }
+
+.Admincontainer {
+    margin: 40px 7%;
+    min-height: 450px;
+}
+
+.Consumercontainer {
+    margin: 40px 7%;
+    min-height: 450px;
+}
+
+.navbar-toggle {
+    background-color: #1F3F88;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    /*display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    font-family:inherit*/
+   position: absolute;
+  top: 95%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+.dropdown-content > a {
+  display: block;
+  padding: 0px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 0.99;
+  color: #333333;
+  white-space: nowrap;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.messageBody{
+    border:1px solid#EDEDED;
+    padding:5%;
+    margin:5%
+}
+#serviceRequestDiv{
+    color:white
+}
+.SectionHeading{
+    color:black;
+    font-size: xx-large;
+}
+/*.composemodal {
+        margin: -36% 0 0 0 !important;
+    left: -8% !important;
+    }*/
+/*.liformating ul{
+    list-style:none;
+}
+.liformating ul li:before{
+    content: "•";
+    font-size: 300%;
+    padding-right: 5px;
+}*/
+/*@media only screen and (max-width: 500px) {
+    .col-xs-11 {
+        position: initial;
+        z-index: 999;
+        margin-top: -7%;
+    }
+}*/
+@media only screen and (max-width: 500px) {
+
+        .panel-info {
+    border: none;
+}
+    .col-xs-11 {
+        position: initial;
+        z-index: 999;
+        margin-top: 1%;
+        margin-left: 17px;
+    }
+    strong{
+    color:black !important;
+    font-size:large !important;
+}
+    .imgcenter{
+        margin-left:25%
+    }
+    .pull-right{
+        float:left !important
+    }
+}
+@media only screen and (max-width: 700px) {
+    strong{
+    color:black !important;
+    font-size:large !important;
+}
+}
+@media only screen and (max-width: 500px) {
+    /*.composemodal {
+         margin: -64% 0 0 0 !important;
+         left: 2% !important
+    }*/
+}
+   
+

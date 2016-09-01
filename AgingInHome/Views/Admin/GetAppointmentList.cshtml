@@ -1,0 +1,44 @@
+﻿@using AgingInHome.Models
+@model AgingInHome.Models.AdminDashboardModel
+<div class="tableRow tableHead">
+    <div class="tableCol providerCol">Providers Name</div>
+    <div class="tableCol providerCol">Consumer Name</div>
+    <div class="tableCol appDateCol">Appointment Date</div>
+    <div class="tableCol PhoneCol">Consumer Phone <span class="hidden-xs hidden-sm">Number</span></div>
+    <div class="tableCol PhoneCol">Provider Phone <span class="hidden-xs hidden-sm">Number</span></div>
+    <div class="tableCol BestTimeCol">Best Time</div>
+    <div class="tableCol StatusCol">Status</div>
+</div>
+
+@foreach (var appoints in Model.AllAppointment.ToList())
+{
+    //if (@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId)!=null)
+    //{
+    <div class="tableRow">
+        <div class="tableCol providerCol"><span class="lg-hidden">Providers Name:</span>@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).CompanyName</div>
+        <div class="tableCol providerCol"><span class="lg-hidden">Consumer Name:</span>@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().FirstName  @appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().LastName</div>
+        <div class="tableCol appDateCol"><span class="lg-hidden">Appointment Date:</span>@appoints.ServiceDate</div>
+        <div class="tableCol PhoneCol"><span class="lg-hidden">Consumer Phone:</span><a href="tel:@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().PrimaryPhone">@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().PrimaryPhone</a> </div>
+        <div class="tableCol PhoneCol"><span class="lg-hidden">Provider Phone:</span><a href="tel:@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).ProviderContactNumber">@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).ProviderContactNumber</a> </div>
+        <div class="tableCol BestTimeCol"><span class="lg-hidden">Best Time:</span>@appoints.BestTime</div>
+        <div class="tableCol StatusCol">
+            @if (appoints.IsCancel == true)
+            {
+                <span class="statusbtn blue">Cancelled</span>
+            }
+            else if (appoints.IsConsumerAccept == null)
+            {
+                <span class="statusbtn blue">Pending</span>
+            }
+            else if (appoints.IsConsumerAccept == true)
+            {
+                <span class="statusbtn green">Accepted</span>
+            }
+            else if (appoints.IsConsumerAccept == false)
+            {
+                <span class="statusbtn red">Rejected</span>
+            }
+        </div>
+    </div>
+
+}

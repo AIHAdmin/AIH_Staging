@@ -1,0 +1,79 @@
+﻿@using AgingInHome.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+}
+<div class="row">
+    <div class="maincontainer">
+        <div class="listingDiv article">
+            <div style="padding:10px 20px">
+
+                <div class="col-lg-offset-3 col-md-6">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+
+                            @Html.AntiForgeryToken()
+                            <h1 class="title">
+                                <span class="bg" style="text-transform:uppercase">
+                                    Sign in
+                                </span>
+                                <br />
+                                <span class="orangeTxt"> Use a local account to log in</span>
+                            </h1>
+
+
+                            <hr />
+                            <div style="padding:0px 20px">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @style= "color:#003e79" })<span style="color:red;">*</span>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @maxlength = "511", @placeholder = "Please enter Email Id" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @style = "color:#003e79" })<span style="color:red;">*</span>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @maxlength = "50", @placeholder = "Please enter password" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                                @*<div class="form-group">
+                                        @Html.LabelFor(m => m.UserRole)
+                                        @Html.DropDownListFor(m => m.UserRole, Model.Roles,new { @class = "form-control"} )
+                                    </div>*@
+
+                                <div class="form-group">
+                                    <div class="checkbox" style="margin-left:20px">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                    <br />
+                                    <p>
+                                        @Html.ActionLink("Register as a new user", "Register")<br />
+                                        @Html.ActionLink("Forgot Password", "ForgotPassword")
+                                    </p>                                   
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-12 form-button text-center">
+                                        <button class="btn btn-primary pull-right registerbtn" type="submit">Log in</button>
+                                    </div></div>
+
+                                @* Enable this once you have account confirmation enabled for password reset functionality
+                                    <p>
+                                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                    </p>*@
+                            </div>
+                        }
+                    </section>
+                </div>
+
+                @*<div class="col-md-4">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>

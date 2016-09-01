@@ -1,0 +1,217 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using AgingInHome.BLL.Enums
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        var userIdentity = (ClaimsIdentity)User.Identity;
+        var claims = userIdentity.Claims;
+        var roleClaimType = userIdentity.RoleClaimType;
+        var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+        @Html.AntiForgeryToken()
+        <div id="CustomCss">
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Service Request", "ServiceRequest", "Consumer", routeValues: null, htmlAttributes: new { id = "serviceRequest" })</li>
+                    <li>@Html.ActionLink("Search Listings", "SearchListing", "ProviderListing", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    <li class="dropdown">
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @id = "Welcome" })
+                        @*<label style="cursor: pointer;color: #053569;padding-top: 8%;">Hello @User.Identity.GetUserName()</label>*@
+
+                        @if (roles[0].Value == "Admin")
+                {
+                <span class="dropdown-content">
+                    <a href="@Url.Action("Dashboard","Admin")">Dahboard</a>
+
+                </span>
+                }
+                        @if (roles[0].Value == "Consumer")
+                {
+                <span class="dropdown-content">
+                    <a href="@Url.Action("Dashboard","Consumer")">Dahboard</a><br />
+
+                </span>
+                }
+                        @if (roles[0].Value == "Provider")
+                {
+                <span class="dropdown-content">
+                    <a href="@Url.Action("MyListing", "ProviderListing")">My listing</a><br />
+                    <a href="@Url.Action("Dashboard","ProviderListing")">Dahboard</a><br />
+
+                </span>
+                }
+                        @if (roles[0].Value == "SaleUser")
+                {
+                <span class="dropdown-content">
+                    <a href="@Url.Action("Dashboard","SaleDepartment")">Dahboard</a><br />
+
+                </span>
+                }
+
+                    </li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+                </div>
+            </div>
+                }
+                }
+                else
+                {
+                <div id="CustomCss">
+                    <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                @*<a href="#">Service Request</a>*@
+                                @Html.ActionLink("Service Request", "ServiceRequest", "Consumer",null, new { @class = "HeaderLinks" })
+                            </li>
+                            @*<li><a href="#">Search Listings</a></li>*@
+                            <li>@Html.ActionLink("Search Listings", "SearchListing", "ProviderListing",null, new { @class = "HeaderLinks" })</li>
+
+                        </ul>
+                        <ul class="nav navbar-nav log-btn ">
+                            <li>
+                                @*<a href="#">Sign Up</a>*@
+                                @Html.ActionLink("Sign up", "Register", "Account",null,new {@class="HeaderBtn" })
+                            </li>
+                            <li>
+                                @*<a href="#">Login</a>*@
+                                @Html.ActionLink("Sign in", "Login", "Account",null,new { @class = "HeaderBtn" })
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @*<ul class="nav navbar-nav navbar-right" style="font-family:Arial;font-weight:bold">
+                    <li>@Html.ActionLink("Service Request", "ServiceRequest", "Consumer", routeValues: null, htmlAttributes: new { id = "serviceRequest" })</li>
+                    <li>@Html.ActionLink("Search Listings", "SearchListing", "ProviderListing", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    <li class="dropdown">
+                        @Html.ActionLink("Sign up", "Register", "Account", routeValues: null, htmlAttributes: new { @id = "Welcome", @class = "btn btn-primary signupsigninbtn" })
+                        @*<input type="button" class="btn btn-primary" name="name" value="Sign up" style="margin-top:12%"/>*@
+                @*<span class="dropdown-content">
+                    <a href="@Url.Action("ConsumerRegister", "Account")">Consumer</a><br />
+                    <a href="@Url.Action("AdminRegister", "Account")">Admin</a><br />
+                    <a href="@Url.Action("BecomeProvider", "ProviderListing")">Provider</a><br />
+                    @*<a href="@Url.Action("Register", "Account")">Sales Person </a><br />*@
+                @*</span>*@
+
+                }
+
+                <script>
+                    $(function () {
+                        $("#Welcome").click(function (e) {
+                            //e.preventDefault();
+                        });
+                        $(".HeaderLinks").on({
+                            mouseover: function () {
+                                $(this).css({ "border-bottom": "1px solid", "color": "#003b76 !important" });
+                            },
+                            mouseleave: function () {
+                                $(this).css("border-bottom", "0px solid");
+
+                            }
+                        });
+                    })
+                </script>
+                <style>
+                                    .HeaderBtn:hover {
+                                        /*background-color:orangered !important;*/
+                                        color: orangered !important;
+                                    }
+
+                                    .HeaderLinks:hover {
+                                        /*background-color:orangered !important;*/
+                                        color: orangered !important;
+                                    }
+                                    /*#serviceRequest:hover,#loginLink:hover, #Welcome:hover {
+                        background-color: #FA5B24 !important;
+                        color: white !important;
+                    }*/
+
+                                    .signupsigninbtn {
+                                        height: 31px;
+                                        margin-top: 13%;
+                                        padding-top: 3px !important;
+                                        margin-right: 3px;
+                                        color: white !important;
+                                    }
+
+                                    @@media only screen and (max-width: 700px) {
+                                        .signupsigninbtn {
+                                            width: 20% !important;
+                                            margin: 0px !important;
+                                            margin-left: 15px !important;
+                                            margin-bottom: 3px !important;
+                                        }
+                                    }
+
+                                    header {
+                                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+                                        padding: 25px 0;
+                                        position: relative;
+                                    }
+
+                                    .logo p {
+                                        color: #003b76;
+                                        font-size: 14px;
+                                        margin-bottom: 0;
+                                        margin-top: 6px;
+                                    }
+
+                                    nav.navbar {
+                                        background: transparent;
+                                        border: none;
+                                        margin: 0;
+                                    }
+
+                                    .navbar .nav .active > a {
+                                        background: transparent;
+                                        color: #003b76;
+                                    }
+
+                                        .navbar .nav .active > a:hover {
+                                            background: transparent;
+                                            color: #003b76;
+                                        }
+
+                                    .navbar .nav li a:hover {
+                                        color: #003b76;
+                                    }
+
+                                    .navbar .nav .active > a::after {
+                                        background-color: #003e79;
+                                        bottom: 0;
+                                        content: "";
+                                        height: 1px;
+                                        left: 20%;
+                                        position: absolute;
+                                        width: 60%;
+                                    }
+
+                                    .navbar .nav li a {
+                                        color: #003b76;
+                                        padding: 23px 11px 10px;
+                                    }
+
+                                    .nav.navbar-nav.log-btn a {
+                                        background-color: #003b76;
+                                        border-radius: 5px;
+                                        color: #fff;
+                                        margin-left: 5px;
+                                        margin-top: 13px;
+                                        padding: 10px 30px;
+                                    }
+
+                                        .nav.navbar-nav.log-btn a:hover, .nav.navbar-nav.log-btn a:focus {
+                                            background: #1c4d88;
+                                            color: #fff;
+                                        }
+
+                                    .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+                                        color: #003b76;
+                                    }
+
+                                    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+                                        background-color: transparent;
+                                        color: #003b76;
+                                    }
+                </style>

@@ -1,0 +1,141 @@
+﻿@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using AgingInHome.Models
+@using AgingInHome.Helpers;
+@model List<AgingInHome.Models.InboxModel>
+@{
+    var userid = User.Identity.GetUserId();
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+    var allUser = new AgingInHomeContext().AspNetUsers.Include("ConsumerProfiles").ToList();
+    var msgType = (string)ViewBag.msgType;
+    var OffSet = (string)ViewBag.offset;
+    var userIdentity = (ClaimsIdentity)User.Identity;
+    var claims = userIdentity.Claims;
+    var roleClaimType = userIdentity.RoleClaimType;
+    var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+    var sortMessages = Model;
+    var count = 0;
+    AspNetUser currentConsumer = null;
+    if (Model.Count > 0)
+    {
+        currentConsumer = allUser.Where(s => s.Id == Model.FirstOrDefault().RecipientId || s.Id == Model.FirstOrDefault().SenderId).FirstOrDefault();
+    }
+}
+
+
+
+@if (msgType == "Sent")
+{
+    sortMessages = Model.Where(p => p.SenderId == userid).ToList();
+
+}
+@if (msgType == "Recieved")
+{
+    sortMessages = Model.Where(p => p.RecipientId == userid).ToList();
+
+
+}
+@if (msgType == "Archive")
+{
+    sortMessages = Model.Where(p => p.IsArchive == true).ToList();
+
+
+}
+@if (msgType == "ProviderArchive")
+{
+    sortMessages = Model.Where(p => p.IsProviderArchive == true).ToList();
+
+
+}
+@if (msgType == "AdminArchive")
+{
+    sortMessages = Model.Where(p => p.isAdminArchive == true).ToList();
+}
+
+@if (sortMessages.Count() > 0)
+{
+    foreach (var Msg in sortMessages.OrderBy(s => s.Id).ToList())
+    {
+        count = count + 1;
+        <div class="listItem">
+            <div class="image">
+                <div class="img">
+                    <img src="/assets/images/sm-default-img.png" class="default">
+                </div>
+                <span class="status"></span>
+            </div>
+            <div class="detail">
+                <h3>
+                    @if (Msg.SenderId == userid || Msg.SenderId == null)
+                    {
+                        @Html.Label("Me")
+                    }
+                    else
+                    {
+                        if (roles[0].Value == "Consumer")
+                        {
+                            if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                            {
+                                @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName)
+                            }
+                            else
+                            {
+                                @Html.Label("Admin")
+                            }
+
+                        }
+                        if (roles[0].Value == "Admin")
+                        {
+                            if (AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId) != null)
+                            {
+                                @Html.Label(AllListing.FirstOrDefault(d => d.UserId == Msg.SenderId).CompanyName)
+
+                            }
+                            else
+                            {
+                                if (allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault() != null)
+                                {
+                                    @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault().FirstName + " " + allUser.FirstOrDefault(d => d.Id == Msg.SenderId).ConsumerProfiles.FirstOrDefault().LastName)
+                                }
+
+                            }
+
+                        }
+                        if (roles[0].Value == "Provider")
+                        {
+                            if (count == 1 && currentConsumer != null && currentConsumer.ConsumerProfiles.Count > 0)
+                            {
+                                @Html.Label(currentConsumer.ConsumerProfiles.FirstOrDefault().FirstName + currentConsumer.ConsumerProfiles.FirstOrDefault().LastName)
+
+                            }
+                            else
+                            {
+
+                                @Html.Label(allUser.FirstOrDefault(d => d.Id == Msg.SenderId).UserName.Split('@')[0])
+
+                            }
+                        }
+                    }
+
+
+                    @{
+                        if (OffSet != "0")
+                        {
+                            TimeSpan timespan = new TimeSpan(Convert.ToInt32(OffSet), 0, 0);
+
+                            <span> @HelperClass.ToClientTime(Convert.ToDateTime(Msg.SentDate)) </span>
+                        }
+                        else
+                        { <span> @HelperClass.ToClientTime(Convert.ToDateTime(Msg.SentDate)) </span>}
+                    }
+
+                </h3>
+                <div class="txt">
+                    @Html.Raw(Msg.MessageBody)
+                </div>
+            </div>
+        </div>
+
+                            }
+                        }

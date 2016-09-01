@@ -1,0 +1,123 @@
+﻿@model AgingInHome.Models.ListingBlogModel
+
+@{
+    ViewBag.Title = "AddBlog";
+    var listingid = ViewBag.listingId;
+}
+
+
+@using (Html.BeginForm("AddBlog", "ArticleAndBlogs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="ListingId" value="@listingid" />
+    <div class="maincontainer">
+        <h3>Add Blog</h3>
+        <div class="listingDiv article" style="padding:20px">
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.HiddenFor(m => m.ListingBlogId)
+
+                <div class="form-group">
+                    @Html.Label("Blog Title", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BlogTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Blog Description", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.BlogDescription, 10, 60, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BlogDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Blog Image", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if (ViewBag.blogId > 0)
+                        {
+                            <img src="../Images/Blogimages/@Model.BlogImage" class="img-rounded" width="150" height="150" name="logoimage" alt="Alternate Text" />
+                        }
+                        else
+                        {
+                            <img src="" class="img-rounded" width="150" height="150" name="logoimage" alt="Alternate Text" hidden="hidden"/>
+
+                        }
+                        <input type="file" name="imageUrl" value="" />
+
+                        @Html.ValidationMessageFor(model => model.BlogImage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsActive)
+                            @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsPublished, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsPublished)
+                            @Html.ValidationMessageFor(model => model.IsPublished, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsCommentOn, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsCommentOn)
+                            @Html.ValidationMessageFor(model => model.IsCommentOn, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        @if (ViewBag.blogId > 0)
+                        {
+                            <input type="submit" value="Update Blog" class="btn btn-success" />
+
+                        }
+                        else
+                        {
+                            <input type="submit" value="Add Blog" class="btn btn-success" />
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    $(function () {
+        $("[name='imageUrl']").change(function (event) {
+            
+            var file = $("[name='imageUrl']").get(0).files[0];
+            var r = new FileReader();
+            r.onload = function () {
+                var binimage = r.result;
+                $("[name='logoimage']").attr("src", binimage);
+                $("[name='logoimage']").attr("hidden",false);
+
+            };
+            r.readAsDataURL(file);
+            
+        });
+    })
+</script>

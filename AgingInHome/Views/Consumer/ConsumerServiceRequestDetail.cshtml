@@ -1,0 +1,64 @@
+﻿@model AgingInHome.Models.ServiceRequestModel
+
+    @foreach (var ServiceRequestCategories in Model.ServiceRequestCategories.Where(c=>c.IsActive != false).ToList())
+    {
+        if (ServiceRequestCategories.ServiceRequestDetails.Count > 0)
+        {
+            <div class="Lisitem">
+                <h2>@ServiceRequestCategories.ProviderCategory.CategoryName</h2>
+                <div class="table">
+                    <div class="tableRow tableHead">
+                        <div class="tableCell">Company Name</div>
+                        <div class="tableCell">Status</div>
+                        <div class="tableCell">Provider Invitation Status</div>
+                    </div>
+                    @foreach (var ListingDetail in ServiceRequestCategories.ServiceRequestDetails)
+                {
+                <div class="tableRow">
+                    <div class="tableCell">@ListingDetail.ProviderListing.CompanyName</div>
+                    @if (!ListingDetail.Mailrespose == true)
+                        {
+                        <div class="tableCell">
+                            <span class="statusbtn blue"> Pending</span>
+                        </div>
+                        <div class="tableCell">
+                            Waiting for Provider
+                        </div>
+                        }
+                        else
+                        {
+                            if (ListingDetail.IsProviderInvite == true)
+                            {
+                        <div class="tableCell"><span class="statusbtn blue">Request Cancelled</span></div>
+                        <div class="tableCell providerTxt">
+                            <p>Providers: <span>jinah hospital</span></p>
+                            <p>Address: <span>711 York Rd, Suite 102</span></p>
+                            <p>Phone number: <span>(030) 446-4047</span></p>
+                        </div>
+                            }
+                            else
+                            {
+                        <div class="tableCell">
+                            <span class="statusbtn red"> Rejected </span>
+                        </div>
+                        <div class="tableCell">
+                            Provider Rejected your Invitation because of some Reason
+                        </div>
+                            }
+                        }
+                </div>
+                }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="Lisitem">
+                <h2>@ServiceRequestCategories.ProviderCategory.CategoryName</h2>
+
+                <div class="defaultTxt">
+                    <p>We didn't find any service provider in this category. We will notify you within 7 days with any listing in this category.</p>
+                </div>
+            </div>
+        }
+    }

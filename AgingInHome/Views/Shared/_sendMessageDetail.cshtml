@@ -1,0 +1,95 @@
+﻿@using AgingInHome.Models
+@using Microsoft.AspNet.Identity
+@model List<AgingInHome.Models.ServiceRequestModel>
+@{
+    var SendMsg = 0;
+    var AllListing = (List<ProviderListingModel>)ViewBag.alllisting;
+}
+@foreach (var item in Model)
+{
+    foreach (var item1 in item.ServiceRequestCategories)
+    {
+        foreach (var item2 in item1.ServiceRequestDetails)
+        {
+            if (item2.Inboxes.Where(d => d.SenderId == User.Identity.GetUserId()).Count() > 0)
+            {
+                foreach (var item3 in item2.Inboxes)
+                {
+
+                <tr class="sendmsg" data-detailId="@item3.ServiceRequestDetailsId" data-type="ServiceRequest">
+                   
+                    @*@if (item3.IsRead == true)
+                    {*@
+                        <td>@item2.ProviderListing.CompanyName</td>
+                        <td>@item3.Subject</td>
+                    @*}*@
+                    @*else
+                    {
+                        <td><b>@item2.ProviderListing.CompanyName</b></td>
+                        <td><b>@item3.Subject</b></td>
+                    }*@
+
+                    <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@item3.SentDate</td>
+                </tr>
+                    SendMsg = SendMsg + 1;
+
+                    break;
+                }
+            }
+
+
+        }
+    }
+}
+@foreach (var item in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+{
+        if (item.AllMessages.Where(d => d.SenderId == User.Identity.GetUserId()).Count() > 0)
+        {
+            foreach (var item3 in item.AllMessages)
+            {
+
+            <tr class="sendmsg" data-detailId="@item3.ConversationId" data-type="Conversation">
+
+                @{var finduser = AllListing.Where(s => s.UserId == item3.RecipientId || s.UserId == item3.SenderId).FirstOrDefault();
+                }
+                @if (finduser != null)
+                {
+                    <td>@finduser.CompanyName</td>;
+
+                }
+                else
+                {
+                    //companyname = alluserlist.Where(s => s.Id == item3.RecipientId || s.Id == item3.SenderId).FirstOrDefault().Email.Split('@')[0];
+                    <td>Admin</td>;
+
+                }
+                @*@if (item3.IsRead == true)
+                    {*@
+
+
+                <td>@item3.Subject</td>
+                @*}
+                    else
+                    {
+                        <td><b>@item2.ProviderListing.CompanyName</b></td>
+                        <td><b>@item3.Subject</b></td>
+                    }*@
+
+                <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@item3.SentDate</td>
+            </tr>
+
+
+
+                                SendMsg = SendMsg + 1;
+
+                                //if (item2.Inboxes.Where(d => d.IsArchive == true).Count() > 0)
+                                //{
+                                //    ArchiveMsg = ArchiveMsg + 1;
+                                //}
+
+                                break;
+                            }
+                        }
+                    }
+@Html.Hidden("Sendcountfeild", SendMsg)
+

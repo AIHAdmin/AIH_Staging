@@ -1,0 +1,1338 @@
+﻿@using AgingInHome.Models;
+@using AgingInHome.DAL;
+@model AgingInHome.Models.ProviderListingModel
+@{
+    ViewBag.Title = "ViewListing";
+    var ConsumerDetail = (AspNetUser)ViewBag.ConsumerDetail;
+}
+@{
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+}
+
+@if (Model.ServiceAreas[0].ZipCode > 0)
+{
+    @Html.HiddenFor(m => m.ServiceAreas[0].ZipCode, new { @id = "postcode" });
+}
+@Html.Hidden("isratingShow", (bool)ViewBag.checkRatingShowOrNot)
+@Html.Hidden("ProviderId", Model.UserId)
+@Html.Hidden("LoggedInUserId", Model.LoggedInUserId)
+@if (ConsumerDetail != null)
+{
+    @Html.Hidden("LoggedInConFirstName", ConsumerDetail.ConsumerProfiles.FirstOrDefault().FirstName)
+    @Html.Hidden("LoggedInConLastName", ConsumerDetail.ConsumerProfiles.FirstOrDefault().LastName)
+    @Html.Hidden("LoggedInConEmailId", ConsumerDetail.Email)
+    @Html.Hidden("LoggedInConPhoneNumber", ConsumerDetail.ConsumerProfiles.FirstOrDefault().PrimaryPhone)
+}
+@Html.HiddenFor(m => m.ProviderListingId) <input type="hidden" name="AvgRating" id="AvgRating" value="@Model.AvgRating" />
+<input type="hidden" id="WhatWeDo" value="@HttpUtility.UrlDecode(Model.WhatWeDo, System.Text.Encoding.Default)" />
+<input type="hidden" id="WhoWeAre" value="@HttpUtility.UrlDecode(Model.WhoWeAre, System.Text.Encoding.Default)" />
+<input type="hidden" id="WhyWeDo" value="@HttpUtility.UrlDecode(Model.WhyWeDo, System.Text.Encoding.Default)" />
+<script>
+    function OnImgError() {
+        $('.viewListingContent').addClass('noImage');
+    }
+
+</script>
+<style type="text/css">
+    .morecontent span {
+        display: none;
+    }
+
+    #profile-description {
+        position: relative;
+    }
+
+        #profile-description .text {
+            width: 50px;
+            margin-bottom: 5px;
+            color: #777;
+            padding: 0px;
+            position: relative;
+            font-family: Arial;
+            font-size: 14px;
+            display: block;
+        }
+
+        #profile-description .show-more {
+            color: #f15925;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            height: auto;
+            padding: 0 8px;
+            position: relative;
+            text-align: center;
+            text-decoration: underline;
+            width: auto;
+        }
+
+            #profile-description .show-more:hover {
+                color: #f26b3d;
+            }
+
+        #profile-description .show-more-height {
+            height: 47px;
+            overflow: hidden;
+        }
+
+        #profile-description .show-more {
+            padding: 4px 4px;
+        }
+</style>
+<!-- Main Container -->
+
+<div class="main-container inner-container">
+    <div class="container">
+        <!--Show contact us for cusumer only if logged in, do not show for providers and admin, and show every time if no user logged in-->
+        @if (ConsumerDetail != null || Model.LoggedInUserId == null)
+        {
+            <div class="row hidden-lg hidden-md viewListingcontactBtn">
+                <div class="col-xs-12">
+                    <a href="#" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#ContactModel"><i aria-hidden="true" class="fa fa-file-text-o"></i>Contact Us</a>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade contact-modal" id="ContactModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Contact Us</h4>
+                            </div>
+                            <div class="modal-body contactForm">
+                                @using (Html.BeginForm("Contactus", "Utitility", FormMethod.Post, new { @id = "mbcontactusform" }))
+                                {
+                                    @Html.Hidden("ProviderUserId", Model.UserId)
+                                    @Html.Hidden("ProviderListingId", Model.ProviderListingId)
+                                    @Html.HiddenFor(x => x.IsMobileView, new { @value = true })
+                                    <div class="default-form">
+                                        <div class="form-group">
+                                            <input type="text" name="FirstName" required placeholder="FirstName" class="form-control clearContactDetails _hide">
+                                            <span id="FirstNamevalidation"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="LastName" required placeholder="LastName" class="form-control clearContactDetails _hide">
+                                            <span id="LastNamevalidation"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="Email" required placeholder="Email" class="form-control clearContactDetails  _hide">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="Phone" required placeholder="Phone" class="form-control clearContactDetails phnClass  _hide">
+                                            <span id="Phonevalidation"></span>
+                                        </div>
+                                        <div class="form-group clearfix">
+                                            <h4>Please check any that apply *</h4>
+                                            <ul class="customCheckbox">
+                                                <li><label><input id="check-1" type="checkbox" name="MbCall" /> <span class="lbl">Please call me with more information</span></label></li>
+                                                <li><label><input id="check-2" type="checkbox" name="IsEmail" /> <span class="lbl">Please Email me with more information</span></label></li>
+                                                <li><label><input id="check-3" type="checkbox" name="MbAppointmentSchedule" /><span class="lbl">I did Like to Schedule an appointment</span></label></li>
+                                                <li><label><input id="check-4" type="checkbox" name="CustomeMsg" /> <span class="lbl">I did like to type a custom Message</span></label></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="form-group AppointmentDateTimeDiv">
+                                            <div class="input-group">
+                                                @Html.TextBox("mbAppointmentDate", "", new { @class = "form-control datepicker", @placeholder = "Appointment Date", @aria_describedby = "basic-addon1" })
+                                                <span id="basic-addon1" class="input-group-addon"><i aria-hidden="true" class="fa fa-calendar"></i></span>
+                                                @*<span style="color:red" class="AppointmentSchedule"></span>*@
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group AppointmentDateTimeDiv">
+                                            <div class="input-group">
+                                                @Html.TextBox("AppointmentTime", "", new { @class = "form-control timepicker", @placeholder = "Appointment Time", @aria_describedby = "basic-addon1" })
+                                                @*<input type="text" aria-describedby="basic-addon1" placeholder="Appointment Time" class="form-control">*@
+                                                <span id="basic-addon1" class="input-group-addon"><i aria-hidden="true" class="fa fa-clock-o"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group CustomeMessageBody1" hidden="hidden">
+                                            @*<textarea class="form-control" placeholder="Appointment Time"></textarea>*@
+                                            @Html.TextArea("CustomeMessageBody", "", 5, 5, new { @class = "form-control customemsg", @placeholder = "Appointment Description" })
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="instructionTxt _hide">By submittng this form you agree to the <a href="#">terms of use</a></p>
+                                            <input type="button" id="mbContactusbtn" value="Send" class="btn btn-block btn-secondary" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- Row -->
+        <div class="row" style="margin-bottom:100px!important;">
+            <!-- Left Content Section -->
+            <!--Show contact us for cusumer only if logged in, do not show for providers and admin, and show every time if no user logged in-->
+            <div class="col-md-@(ConsumerDetail != null || Model.LoggedInUserId == null ? 9: 12)">
+                <div class="viewListingContent">
+                    <h1 class="title">@Model.ProviderCategory1.CategoryName : <span>@Model.CompanyName</span></h1>
+                    <div class="expbadge"><span>@Model.Experience exp.</span></div>
+                    <div class="callTopSection hidden-xs">
+                        <ul class="socialLink">
+                            @if (Model.TwitterURL != null)
+                            {
+                                <li><a href="http://@Model.TwitterURL" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                            }
+                            @if (Model.GoogleURL != null)
+                            {
+                                <li><a href="http://@Model.GoogleURL" target="_blank" class="googleplus"><i class="fa fa-google-plus"></i></a></li>
+                            }
+                            @if (Model.FacebookURL != null)
+                            {
+                                <li><a href="http://@Model.FacebookURL" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                            }
+
+
+                        </ul>
+
+                    </div>
+                    <!-- what we do Section -->
+
+                    <div class="row rowSection DetailImgSection">
+                        <!-- Image -->
+                        <div class="col-sm-4">
+                            <div class="imageSection">
+                                <div class="ribbon">
+                                    <span>@Model.Experience exp.</span>
+                                </div>
+                                <div class="img" style="background-image:url('../Images/ProviderListingImages/@Model.Logo')">
+                                    <img src="../Images/ProviderListingImages/@Model.Logo" id="LogoImg" onError="OnImgError(this);" />
+                                </div>
+                                <ul class="socialLink hidden-sm hidden-md hidden-lg">
+                                    @if (Model.FacebookURL != null)
+                                    {
+                                        <li><a href="http://@Model.FacebookURL" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                    }
+                                    @if (Model.GoogleURL != null)
+                                    {
+                                        <li><a href="http://@Model.GoogleURL" target="_blank" class="googleplus"><i class="fa fa-google-plus"></i></a></li>
+
+                                    }
+                                    @if (Model.TwitterURL != null)
+                                    {
+                                        <li><a href="http://@Model.TwitterURL" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- //Image -->
+                        <!-- Text -->
+                        <div class="col-sm-8 whatwedoText detailSection">
+                            <h3>Details</h3>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    @if (Model.AvgRating != null)
+                                    {
+                                        <div class="detailItem">
+                                            <label>
+                                                <i class="fa fa-user"></i>
+                                            </label>
+                                            <div class="txt">
+                                                @{ int p = 0;
+                                                    for (int x = 0; x < @Model.AvgRating; x++)
+                                                    {
+                                                        p = p + 1;
+                                                        <i class="img-responsive fa fa-star"></i>
+                                                    }
+                                                    for (int j = 4; j >= p; j--)
+                                                    {
+                                                        <i class="img-responsive fa fa-star-o"></i>
+                                                    }     }
+                                            </div>
+                                        </div>
+                                                    }
+                                    @if (Model.ProviderAddress != null && Model.ProviderAddress != "")
+                                    {
+                                        <div class="detailItem">
+                                            <label>
+                                                <i class="fa fa-map-marker"></i>
+
+                                            </label>
+                                            <div class="txt">
+                                                @Model.ProviderAddress @Model.ServiceAreas[0].City @Model.ServiceAreas[0].UsState.State, @Model.ServiceAreas[0].ZipCode
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="col-sm-6">
+                                    @if (Model.ProviderContactNumber != null && Model.ProviderContactNumber != "")
+                                    {
+                                        <div class="detailItem">
+                                            <label>
+                                                <i class="fa fa-phone"></i>
+
+                                            </label>
+                                            <div class="txt">
+                                                <a href="tel:@Model.ProviderContactNumber" class="phnClass">@Model.ProviderContactNumber</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.WebsiteURL != null && Model.WebsiteURL != "")
+                                    {
+                                        <div class="detailItem">
+                                            <label>
+                                                <i class="fa fa-globe"></i>
+
+                                            </label>
+                                            <div class="txt">
+                                                <a href="http://@Model.WebsiteURL" target="_blank">@Model.WebsiteURL</a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //Text -->
+                    </div>
+
+                    <!-- //what we do Section -->
+                    <!-- Hours Section -->
+                    <div class="row rowSection">
+                        <div class="col-xs-12">
+                            <h2 class="SectionTitle">
+                                <span>Hours</span>
+                            </h2>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="hoursTable">
+                                <div class="hoursTableItem">
+                                    <div class="hoursTitle">
+                                        Mon<span class="hidden-xs">day</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.MonStart != null && Model.hourOfOperation.MonStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.MonStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.MonEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem">
+                                    <div class="hoursTitle">
+                                        Tue<span class="hidden-xs">sday</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.TueStart != null && Model.hourOfOperation.TueStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.TueStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.TueEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem">
+                                    <div class="hoursTitle">
+                                        Wed<span class="hidden-xs">nesday</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.WedStart != null && Model.hourOfOperation.WedStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.WedStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.WedEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem">
+                                    <div class="hoursTitle">
+                                        Thu<span class="hidden-xs">rsday</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.ThuStart != null && Model.hourOfOperation.ThuStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.ThuStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.ThuEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem">
+                                    <div class="hoursTitle">
+                                        Fri<span class="hidden-xs">day</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.FriStart != null && Model.hourOfOperation.FriStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.FriStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.FriEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem  hidden-xs">
+                                    <div class="hoursTitle orangeTxt">
+                                        Sat<span class="hidden-xs">urday</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.SatStart != null && Model.hourOfOperation.SatStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.SatStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.SatEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                Closed
+                                            </text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem hidden-xs">
+                                    <div class="hoursTitle orangeTxt">
+                                        Sun<span class="hidden-xs">day</span>
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.SunStart != null && Model.hourOfOperation.SunStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.SunStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.SunEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>Closed</text>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class="hoursTableItem hidden-lg hidden-md hidden-sm">
+                                    <div class="hoursTitle orangeTxt">
+                                        Sat-Sun
+                                    </div>
+                                    <div class="hoursTime">
+                                        @if (Model.hourOfOperation.SunStart != null && Model.hourOfOperation.SunStart != "Closed")
+                                        {
+                                            <text>
+                                                @Model.hourOfOperation.SunStart
+                                            </text>
+                                            <text>
+                                                - @Model.hourOfOperation.SunEnd
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>Closed</text>
+
+                                        }
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- //Hours Section -->
+                    <!-- About Section -->
+                    <div class="row rowSection">
+                        <div class="col-xs-12">
+                            <h2 class="SectionTitle">
+                                <span>About Us</span>
+                            </h2>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="aboutItem htmltext">
+                                <h3>What We Do</h3>
+                                <div id="profile-description">
+                                    <div class="_showhide">
+                                        <span class="text show-more-height _WhatWeDo" style="width:100%">
+                                        </span>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="aboutItem htmltext">
+                                <h3>Why Choose Us:</h3>
+                                <div id="profile-description">
+                                    <div class="_showhide">
+                                        <span class="text show-more-height _WhyWeDo" style="width:100%">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="aboutItem htmltext">
+                                <h3>Our Mission:</h3>
+                                <div id="profile-description">
+                                    <div class="_showhide">
+                                        <span class="text show-more-height _WhoWeAre" style="width:100%">
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- //About Section -->
+                    <!-- Our Services Section -->
+                    @if (Model.ServiceCategoryViewModel != null && Model.ServiceCategoryViewModel.Count > 0)
+                    {
+                        <div class="row rowSection serviceSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Our Services</span>
+                                </h2>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="owl-carousel media-gallery service-gallery">
+
+
+                                    @foreach (var item in Model.ServiceCategoryViewModel)
+                                    {
+                                        <div class="item serviceItem">
+                                            <div class="desc">
+                                                <h4>@item.ServiceCategoryName</h4>
+                                                <h5></h5>
+                                                <span class="price">$@item.ServiceCategoryPrice</span>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    <!-- //Our Services Section -->
+
+                    @if (Model.IsTeamShow && Model.ProviderTeams.Count > 0)
+                    {
+                    <!-- Our Team Section -->
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Our Team</span>
+                                </h2>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="owl-carousel media-gallery team-gallery">
+                                        @foreach (var item in Model.ProviderTeams)
+                                        {
+                                            <div class="item TeamMember">
+                                                <div class="image">
+                                                    <img src="~/Images/TeamImages/@item.imageUrl" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" />
+                                                </div>
+                                                <div class="detail">
+                                                    <h4>@item.Teamtitle @item.TeamFirstName @item.TeamLastName  </h4>
+                                                    <span class="position">@item.TeamPosition</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- //Our Team Section -->
+                    }
+                    <!-- Images Section -->
+                    @if (Model.IsPhotosShow && Model.ProviderImageGalaries.Count > 0)
+                    {
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Images</span>
+                                </h2>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="owl-carousel media-gallery image-gallery">
+
+                                        @foreach (var item in Model.ProviderImageGalaries)
+                                        {
+                                            <div class="item">
+                                                <div class="image">
+                                                    <a href="~/Images/ProviderGalaryImages/@item.ImagePath" rel="prettyPhoto[gallery1]"><img alt="" src="~/Images/ProviderGalaryImages/@item.ImagePath" onError="this.onerror = null; this.src = '/assets/images/no-image.jpg';" /></a>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- //Image Section -->
+                    <!-- Video Section -->
+                    @if (Model.IsVideoShow && Model.ProviderVideos.Count > 0)
+                    {
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Videos</span>
+                                </h2>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="owl-carousel media-gallery video-gallery">
+
+                                        @foreach (var item in Model.ProviderVideos)
+                                        {
+                                            <div class="item">
+                                                <div class="image">
+                                                    <a href="@item.VideoUrl" rel="prettyPhoto">
+                                                        @*<iframe width="200"
+                                                            id="VideoContainer"
+                                                            height="300"
+                                                            src="@item.VideoUrl"
+                                                            frameborder="0"
+                                                            allowfullscreen></iframe>*@
+                                                        <span class="playIcon"><i class="fa fa-play-circle"></i></span>
+                                                        <img alt="" src="https://i1.ytimg.com/vi/k4yXQkG2s1E/hqdefault.jpg" class="UpdateImgUrl" data-imgsrc="@item.VideoUrl" onError="this.onerror = null; this.src = '/assets/images/no-image.jpg';" />
+                                                    </a>
+                                                </div>
+
+                                                @*<div class="image">
+                                                        <a href="#">
+                                                            <article>
+                                                                <iframe width="200"
+                                                                        height="300"
+                                                                        src="@item.VideoUrl"
+                                                                        frameborder="0"
+                                                                        allowfullscreen></iframe>
+                                                            </article>
+                                                        </a>
+                                                    </div>*@
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- //Video Section -->
+                    <!-- Blog News Section -->
+                    @if (Model.IsBlogShow && Model.ListingBlogs.Count > 0)
+                    {
+                    <!-- Blog Section -->
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Blog</span>
+                                </h2>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="owl-carousel media-gallery blog-gallery">
+                                        @foreach (var blog in Model.ListingBlogs)
+                                        {
+                                            <div class="item">
+                                                <div class="posItem">
+                                                    <div class="image">
+                                                        <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @blog.ListingBlogId, IsBlog = true })" target="_blank">
+                                                            <img src="~/Images/BlogImages/@blog.BlogImage" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="detail">
+                                                        <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @blog.ListingBlogId, IsBlog = true })" target="_blank"><h4>@blog.BlogTitle</h4></a>
+                                                        <div class="desc"><span><i aria-hidden="true" class="fa fa-calendar"></i> @blog.CreatedDate.ToString("dd MMM yyyy")</span><a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @blog.ListingBlogId, IsBlog = true })" target="_blank"><span><i aria-hidden="true" class="fa fa-comment-o"></i> Add Comment</span></a></div>
+                                                        <div class="text">
+                                                            <span class="more">@blog.BlogDescription</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    <!-- //Blog Section -->
+                    }
+                    @if (Model.IsBlogShow && Model.ListingBlogs.Count > 0)
+                    {
+                    <!-- News Section -->
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>News</span>
+                                </h2>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="owl-carousel media-gallery news-gallery">
+                                        @foreach (var news in Model.ListingArticles)
+                                        {
+                                            <div class="item">
+                                                <div class="posItem">
+                                                    <div class="image">
+                                                        <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @news.ListingArticleId, IsBlog = false })" target="_blank"> <img src="~/Images/ArticleImages/@news.ArticleImage" onError="this.onerror = null; this.src = '/assets/images/no-image-box.png';" /></a>
+                                                    </div>
+                                                    <div class="detail">
+                                                        <a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @news.ListingArticleId, IsBlog = false })" target="_blank"><h4>@news.ArticleTitle</h4></a>
+                                                        <div class="desc"><span><i aria-hidden="true" class="fa fa-calendar"></i> @news.CreatedDate.ToString("dd MMM yyyy")</span><a href="@Url.Action("BlogNewsDetails", "ProviderListing", new { BlogNewsId = @news.ListingArticleId, IsBlog = false })" target="_blank"><span><i aria-hidden="true" class="fa fa-comment-o"></i> Add Comment</span></a></div>
+                                                        <div class="text"><span class="more">@news.ArticleDescription</span> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    <!-- //News Section -->
+                    }
+
+                    <!-- //Blog News Section -->
+                    <!-- Blog News Section -->
+                    @{
+                        List<ProviderListingModel> _obj = new List<ProviderListingModel>();
+                        _obj = (List<ProviderListingModel>)ViewBag.SimilarProvider;
+
+                    }
+                    @if (_obj != null && _obj.Count > 0)
+                    {
+                        <div class="row rowSection">
+                            <div class="col-xs-12">
+                                <h2 class="SectionTitle">
+                                    <span>Similar Providers</span>
+                                </h2>
+                            </div>
+                            @foreach (var item in (List<ProviderListingModel>)ViewBag.SimilarProvider)
+                            {
+
+                                var tempCompanyName = item.CompanyName.Replace(' ', '-');
+
+                                <div class="col-xxs-12 col-xs-6 col-sm-4">
+                                    <div class="providerItem">
+                                        <div class="image">
+                                            <img src="../Images/ProviderListingImages/@item.Logo" onError="this.onerror = null; this.src = '/assets/images/no-image.jpg';" />
+                                        </div>
+                                        <div class="detail">
+                                            <h4>@item.ProviderCategory1.CategoryName: <span><a href="@Url.Action("ViewListing", "ProviderListing", new { CompanyName = tempCompanyName })">@item.CompanyName:</a></span></h4>
+                                            <ul>
+                                                <li><i aria-hidden="true" class="fa fa-map-marker"></i> @item.ProviderAddress @item.ServiceAreas[0].City   @item.ServiceAreas[0].UsState.State, @item.ServiceAreas[0].ZipCode</li>
+                                                <li><i aria-hidden="true" class="fa fa-phone"></i> <a href="#">@item.ProviderContactNumber</a> </li>
+                                            </ul>
+
+                                            <a href="@Url.Action("ViewListing", "ProviderListing", new { CompanyName = tempCompanyName })" class="btn">View More</a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+
+
+                            @*<div class="hidden-xs col-sm-4">
+                                    <div class="providerItem">
+                                        <div class="image">
+                                            <img src="assets/images/provider-img1.jpg" />
+                                        </div>
+                                        <div class="detail">
+                                            <h4>Adult Day Care: <span>MHH</span></h4>
+                                            <ul>
+                                                <li><i aria-hidden="true" class="fa fa-map-marker"></i> 711 new york, Karachi Arkansas, 19090</li>
+                                                <li><i aria-hidden="true" class="fa fa-phone"></i> <a href="#">(023) 154-4545</a> </li>
+                                            </ul>
+
+                                            <a href="#" class="btn">View More</a>
+
+                                        </div>
+
+                                    </div>
+                                </div>*@
+
+
+                        </div>
+                    }
+                    <!-- //Blog News Section -->
+                </div>
+            </div>
+            <!-- //Left Content Section -->
+            <!--Show contact us for cusumer only if logged in, do not show for providers and admin, and show every time if no user logged in-->
+            @if (ConsumerDetail != null || Model.LoggedInUserId == null)
+            {
+            <!-- Right Section -->
+                <div class="col-md-3 sidebar hidden-sm hidden-xs">
+                    @using (Html.BeginForm("Contactus", "Utitility", FormMethod.Post, new { @id = "contactusform" }))
+                {
+                        @Html.Hidden("ProviderUserId", Model.UserId)
+                        @Html.Hidden("ProviderListingId", Model.ProviderListingId)
+                        @Html.HiddenFor(x => x.IsMobileView, new { @value = false })
+                        <div class="contactForm">
+                            <h2><i aria-hidden="true" class="fa fa-file-text-o"></i>Contact Us</h2>
+                         
+                            <div class="default-form">
+                                <div class="form-group">
+                                    @*<input class="form-control" type="text" required placeholder="First Name" />*@
+                                    <input type="text" name="FirstName" required placeholder="First Name" class="form-control clearContactDetails _hide">
+                                    <span id="FirstNamevalidation"></span>
+                                </div>
+                                <div class="form-group">
+                                    @*<input class="form-control" type="text" placeholder="Last Name" />*@
+                                    <input type="text" name="LastName" required placeholder="Last Name" class="form-control  clearContactDetails _hide">
+                                    <span id="LastNamevalidation"></span>
+                                </div>
+                                <div class="form-group">
+                                    @*<input class="form-control" type="text" placeholder="Email" />*@
+                                    <input type="email" name="Email" required placeholder="Email" class="form-control clearContactDetails  _hide">
+                                </div>
+                                <div class="form-group">
+                                    @*<input class="form-control" type="text" placeholder="Phone" />*@
+                                    <input type="text" name="Phone" required placeholder="Phone" class="form-control clearContactDetails phnClass _hide">
+                                    <span id="Phonevalidation"></span>
+                                </div>
+                                <div class="form-group">
+                                    <h4>Please check any that apply *</h4>
+                                    <ul class="customCheckbox">
+                                        <li><label><input id="check-1" type="checkbox" name="IsCall" /> <span class="lbl">Please call me with more information</span></label></li>
+                                        <li><label><input id="check-2" type="checkbox" name="IsEmail" /> <span class="lbl">Please Email me with more information</span></label></li>
+                                        <li><label><input id="check-3" type="checkbox" name="AppointmentSchedule" /><span class="lbl">I did Like to Schedule an appointment</span></label></li>
+                                        <li><label><input id="check-4" type="checkbox" name="CustomeMsg" /> <span class="lbl">I did like to type a custom Message</span></label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="form-group AppointmentDateTimeDiv">
+                                    <div class="input-group">
+                                        @*<input type="text" aria-describedby="basic-addon1" placeholder="Appointment Date" class="form-control">*@
+                                        @Html.TextBox("AppointmentDate", "", new { @class = "form-control datepicker", @placeholder = "Appointment Date", @aria_describedby = "basic-addon1" })
+                                        <span id="basic-addon1" class="input-group-addon"><i aria-hidden="true" class="fa fa-calendar"></i></span>
+                                        <span style="color:red" class="AppointmentSchedule"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group AppointmentDateTimeDiv">
+                                    <div class="input-group">
+                                        @Html.TextBox("AppointmentTime", "", new { @class = "form-control timepicker appointmentStyle", @placeholder = "Appointment Time", @aria_describedby = "basic-addon1" })
+                                        @*<input type="text" aria-describedby="basic-addon1" placeholder="Appointment Time" class="form-control">*@
+                                        <span id="basic-addon1" class="input-group-addon"><i aria-hidden="true" class="fa fa-clock-o"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group CustomeMessageBody1" hidden="hidden">
+                                    @*<textarea class="form-control" placeholder="Appointment Time"></textarea>*@
+                                    @Html.TextArea("CustomeMessageBody", "", 5, 5, new { @class = "form-control customemsg", @placeholder = "Appointment Description" })
+                                </div>
+                                <div class="form-group">
+                                    <p class="instructionTxt _hide">By submittng this form you agree to the <a href="#">terms of use</a></p>
+                                    <input type="button" id="Contactusbtn" value="Send" class="btn btn-block btn-secondary" />
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="map map-widget">
+                        <div class="img">
+                            @*<img src="assets/images/mapImg.jpg" class="img-resposnive" />*@
+                            <div id="googleMap" hidden="hidden" style="width:100%;height:240px;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            <!-- //Right Section -->
+
+            }
+        </div>
+        <!-- //Row -->
+    </div>
+</div>
+<!-- //Main Container -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<script>
+
+    $(function () {
+
+        setTimeout(function () {
+            var countdiv = $(".serviceItem").length;
+            if (countdiv < 4) {
+                $('.service-gallery .owl-controls').hide();
+            }
+
+            var countdiv = $(".image-gallery .owl-item").length;
+            if (countdiv < 4) {
+                $('.image-gallery .owl-controls').hide();
+            }
+
+            var countdiv = $(".video-gallery .owl-item").length;
+            if (countdiv < 4) {
+                $('.video-gallery .owl-controls').hide();
+            }
+
+            var countdiv = $(".news-gallery .owl-item").length;
+            if (countdiv < 4) {
+                $('.news-gallery .owl-controls').hide();
+            }
+
+            var countdiv = $(".blog-gallery .owl-item").length;
+            if (countdiv < 4) {
+                $('.blog-gallery .owl-controls').hide();
+            }
+
+            var countdiv = $(".team-gallery .owl-item").length;
+            if (countdiv < 4) {
+                $('.team-gallery .owl-controls').hide();
+            }
+
+        }, 2000);
+
+
+
+        $('._WhatWeDo').append($('#WhatWeDo').val());
+
+        $('._WhoWeAre').append($('#WhoWeAre').val());
+
+        $('._WhyWeDo').append($('#WhyWeDo').val());
+
+        $(".phnClass").mask("(000) 000 - 0000");
+        //Show more and less
+        var showChar = 100, showtxt = "Read More", hidetxt = "less";
+        $('.more').each(function () {
+            if ($(window).width() <= 767)
+                showChar = 70;
+            var content = $(this).text();
+            if (content.length > showChar) {
+                var con = content.substr(0, showChar);
+                var hcon = content.substr(showChar, content.length - showChar);
+                var txt = con + '<span class="dots">...</span><span class="morecontent"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="moretxt">' + showtxt + '</a></span>';
+                $(this).html(txt);
+            }
+        });
+        $(".moretxt").click(function () {
+            if ($(this).hasClass("sample")) {
+                $(this).removeClass("sample");
+                $(this).text(showtxt);
+            } else {
+                $(this).addClass("sample");
+                $(this).text(hidetxt);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+
+        //End Show more and less
+
+
+        var showChar = 258;
+        $('.htmltext').each(function () {
+            $(this).find('._showhide').append('<span class="show-more">...more</span>');
+            var _text = $(this).find('.show-more-height').text();
+            if ($(window).width() <= 767)
+                showChar = 50;
+            if (_text.trim().length < showChar)
+                $(this).find(".show-more").hide();
+            else
+                $(this).find(".show-more").show();
+
+        });
+
+        $(".show-more").click(function () {
+
+            if ($(this).parent().find(".text").hasClass("show-more-height")) {
+                $(this).text("less");
+            } else {
+                $(this).text("...more");
+            }
+
+            $(this).parent().find(".text").toggleClass("show-more-height");
+        });
+
+
+        if ($("#LoggedInUserId").val() != undefined && $("#LoggedInUserId").val() != "" && $("#LoggedInUserId").val() != null) {
+            $('._hide').hide();//The fields with class  will be _hide  hidden when the consumer is logged in.
+            $('input[name=FirstName]').val($('#LoggedInConFirstName').val());
+            $('input[name=LastName]').val($('#LoggedInConLastName').val());
+            $('input[name=Email]').val($('#LoggedInConEmailId').val());
+            $('input[name=Phone]').val($('#LoggedInConPhoneNumber').val());
+        };
+
+        $(".alert-danger").hide();
+        // $("[name='Phone']").mask("(000) 000-0000");
+        if ($("#isratingShow").val() == "True") {
+
+            $("#myModal").modal('show');
+        }
+
+        //*******Google Map*******//
+        var map;
+        var marker;
+        var mapProp
+        var geocoder = new google.maps.Geocoder();
+
+
+
+
+        $.ajax({
+            url: '@Url.Action("GetZipCoordinates","ProviderListing")',
+            data: { zip: $("#postcode").val() },
+            success: function (result) {
+
+                var latlong = result.split(',');
+                lat = latlong[0];
+                lng = latlong[1];
+
+
+                var ss = new google.maps.LatLng(lat, lng)
+                mapProp = {
+                    center: ss,
+                    zoom: 12,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                var marker = new google.maps.Marker({
+                    position: ss,
+                    map: map
+                });
+
+                marker.setMap(map);
+
+
+
+
+            }
+        });
+
+
+        $("#googleMap").attr("hidden", false);
+
+
+        $(".AppointmentDateTimeDiv").attr("hidden", true);
+        var d = new Date();
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var today = days[d.getDay()];
+        $(".businessHours").find(".row").each(function (d, t) {
+            if ($(this).children().first().text().trim() == today) {
+                $(t).css({ "color": "blue", "font-weight": "bolder" });
+            }
+        })
+        var ratingvale = parseFloat($("#AvgRating").val());
+
+        $('.timepicker').timepicker();
+
+        $(".datepicker").datepicker({
+            startDate: new Date(),
+            todayBtn: true,
+            todayHighlight: true,
+            format: 'mm/dd/yyyy'
+        }).datepicker("setDate", new Date());
+
+
+
+        $("[name='CustomeMsg']").click(function () {
+            if ($("[name='CustomeMsg']").is(':checked')) {
+                $(".CustomeMessageBody1").attr("hidden", false);
+            }
+            else {
+                $(".CustomeMessageBody1").attr("hidden", true);
+            }
+        });
+
+        $("[name='IsCall']").click(function () {
+            if ($("[name='IsCall']").is(':checked')) {
+                $(".alert-danger").hide();
+            }
+        });
+
+        $("[name='MbCall']").click(function () {
+            if ($("[name='MbCall']").is(':checked')) {
+                $(".alert-danger").hide();
+            }
+        });
+
+        $("[name='AppointmentSchedule']").click(function () {
+            if ($("[name='AppointmentSchedule']").is(':checked')) {
+                $(".AppointmentDateTimeDiv").attr("hidden", false);
+                $(".alert-danger").hide();
+            }
+            else {
+                $(".AppointmentDateTimeDiv").attr("hidden", true);
+                if (!$("[name='IsCall']").is(':checked')) {
+                    $(".alert-danger").show();
+                }
+
+            }
+        })
+
+        $("[name='MbAppointmentSchedule']").click(function () {
+            if ($("[name='MbAppointmentSchedule']").is(':checked')) {
+                $(".AppointmentDateTimeDiv").attr("hidden", false);
+                $(".alert-danger").hide();
+            }
+            else {
+                $(".AppointmentDateTimeDiv").attr("hidden", true);
+                if (!$("[name='MbCall']").is(':checked')) {
+                    $(".alert-danger").show();
+                }
+            }
+        })
+
+        
+
+
+        $("#Contactusbtn").click(function (e) {
+            debugger
+            var error = [];
+
+            if (error.length > 0) {
+            }
+            else {
+                if ($("#LoggedInUserId").val() != undefined && $("#LoggedInUserId").val() != "" && $("#LoggedInUserId").val() != null) {
+                    $.ajax({
+                        url: "@Url.Action("Contactus", "Utitility")",
+                        type: 'POST',
+                        data: $("#contactusform").serialize(),
+
+                        success: function (Status) {
+                            if (Status != "False") {
+                                $(".contactusform").val("");
+                                $(".customemsg").val("");
+                                $('.clearContactDetails').val("");
+                                $("[type='checkbox']").attr("checked", false);
+                                $(".AppointmentDateTimeDiv").attr("hidden", true);
+                                $(".CustomeMessageBody").attr("hidden", true);
+                                alert("Successfully Submitted");
+                            }
+                            //your success code
+                        },
+                        error: function () {
+                            //your error code
+                        }
+                    });
+                }
+                else {
+                    alert("Please sign in before submit Contact us form");
+                }
+            }
+        })
+
+        $("#mbContactusbtn").click(function (e) {
+            debugger
+            var error = [];
+            if (error.length > 0) {
+            }
+            else {
+                //modified by Naveen 11-7-16
+                //if ($("#UserId").val() != null) {
+                if ($("#LoggedInUserId").val() != undefined && $("#LoggedInUserId").val() != "" && $("#LoggedInUserId").val() != null) {
+                    $.ajax({
+                        url: "@Url.Action("Contactus", "Utitility")",
+                        type: 'POST',
+                        data: $("#mbcontactusform").serialize(),
+
+                        success: function (Status) {
+                            if (Status != "False") {
+                                $(".contactusform").val("");
+                                $(".customemsg").val("");
+                                $('.clearContactDetails').val("");
+                                $("[type='checkbox']").attr("checked", false);
+                                $(".AppointmentDateTimeDiv").attr("hidden", true);
+                                $(".CustomeMessageBody").attr("hidden", true);
+                                alert("Successfully Submitted");
+                            }
+                            //your success code
+                        },
+                        error: function () {
+                            //your error code
+                        }
+                    });
+                }
+                else {
+                    alert("Please sign in before submit Contact us form");
+                }
+            }
+        })
+        ////*****For rating ******////////////////
+        $("#DontRatign").click(function () {
+            $.ajax({
+                url: "@Url.Action("DontRatign", "Utitility")",
+                type: 'POST',
+                data: { ProviderId: $("#ProviderId").val() },
+
+                success: function (Status) {
+                    $("#myModal").modal('hide');
+                    //your success code
+                },
+                error: function () {
+                    //your error code
+                }
+            });
+        });
+        $("#Ratingbtn").click(function (e) {
+            e.preventDefault();
+
+            var error = [];
+            $.each($(".Ratingform"), function () {
+                if ($(this).val() == "") {
+                    $(this).css("border-color", "red");
+                    error.push(1);
+                }
+                else {
+                    $(this).css("border-color", "silver");
+                }
+            })
+
+            $("#speedrating,#Qualityrating,#Reliabilityrating").rateYo().rateYo("rating").each(function (index, element) {
+                if (element == 0) {
+                    alert("Please select all rating");
+                    return false;
+                }
+            });
+
+            if (error.length > 0) {
+
+
+            }
+            else {
+                var obj = {};
+                obj.ProviderListingId = parseInt($("#ProviderListingId").val());
+                obj.UserId = $("#UserId").val();
+                obj.Speedpoint = parseInt($("#speedrating").rateYo().rateYo("rating"));
+                obj.QualityPoint = parseInt($("#Qualityrating").rateYo().rateYo("rating"));
+                obj.ReliabilityPoint = parseInt($("#Reliabilityrating").rateYo().rateYo("rating"));
+                obj.Comments = $("#Comment").val();
+                obj.Name = $("#RatingUserName").val();
+                obj.Email = $("#RatingUseEmail").val();
+                obj.Website = $("#RatingUseWebsite").val();
+                obj.ProviderId = $("#ProviderId").val();
+                $.ajax({
+                    url: "@Url.Action("Rating", "Utitility")",
+                    type: 'POST',
+                    data: { _RatingModal: obj },
+
+                    success: function (Status) {
+                        if (Status != "False") {
+                            $(".Ratingform").val("");
+                            $("#Reliabilityrating").rateYo().rateYo("rating", 0);
+                            $("#Qualityrating").rateYo().rateYo("rating", 0);
+                            $("#speedrating").rateYo().rateYo("rating", 0);
+                            $("#myModal").modal('hide');
+                            alert("Rating Successfully Submitted");
+                        }
+                        //your success code
+                    },
+                    error: function () {
+                        //your error code
+                    }
+                });
+            }
+        });
+        var getVidId = function (url) {
+            var vidId;
+            if (url.indexOf("youtube.com/watch?v=") !== -1)//https://m.youtube.com/watch?v=e3S9KINoH2M
+            {
+                vidId = url.substr(url.indexOf("youtube.com/watch?v=") + 20);
+            }
+            else if (url.indexOf("youtube.com/watch/?v=") !== -1)//https://m.youtube.com/watch/?v=e3S9KINoH2M
+            {
+                vidId = url.substr(url.indexOf("youtube.com/watch/?v=") + 21);
+            }
+            else if (url.indexOf("youtu.be") !== -1) {
+                vidId = url.substr(url.indexOf("youtu.be") + 9);
+            }
+            else if (url.indexOf("www.youtube.com/embed/") !== -1) {
+                vidId = url.substr(url.indexOf("www.youtube.com/embed/") + 22);
+            }
+            else if (url.indexOf("?v=") !== -1)// http://m.youtube.com/?v=tbBTNCfe1Bc
+            {
+                vidId = url.substr(url.indexOf("?v=") + 3, 11);
+            }
+            else {
+                console.warn("YouTubeUrlNormalize getVidId not a youTube Video: " + url);
+                vidId = null;
+            }
+
+            if (vidId.indexOf("&") !== -1) {
+                vidId = vidId.substr(0, vidId.indexOf("&"));
+            }
+            return vidId;
+        };
+
+        $('.UpdateImgUrl').load(function () {
+            var imgsrc = $(this).data('imgsrc');
+            var vid = getVidId(imgsrc);
+            $(this).attr('src', "https://i1.ytimg.com/vi/" + vid + "/hqdefault.jpg")
+        })
+
+
+
+    });
+</script>
+@section GA{
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '@ViewBag.ProfileId', 'auto');
+        ga('send', 'pageview');
+    </script>
+}

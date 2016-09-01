@@ -1,0 +1,717 @@
+﻿@model AgingInHome.Models.ProviderListingModel
+@{Layout = "~/Views/Shared/_Layoutnew1.cshtml";}
+@using AgingInHome.DAL
+@{
+    ViewBag.Title = "Provider Listing";
+    var actionname = "";
+    var i = 0;
+    var currentdetail = new ServiceDetail();
+}
+@if (Model.ProviderListingId == 0)
+{
+    actionname = "PreviewProviderListing";
+}
+else
+{
+    actionname = "SubmitListing";
+}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="~/Scripts/cropbox-min.js"></script>
+<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+
+<!-- Main Container -->
+<div class="main-container inner-container">
+    @using (@Html.BeginForm(actionname, "ProviderListing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.ProviderListingId)
+        @Html.HiddenFor(m => m.Bitimagestring)
+        @Html.ValidationSummary(true)
+        <div class="container">
+            <h1 class="main-title">SUBMIT <span>LISTING</span></h1>
+            <!-- Submit Listing Section -->
+            <div class="submitListing-section">
+                <!-- Nav tabs -->
+                <div class="listingTab">
+                    <ul class="nav nav-tabs" role="tablist">
+
+                        <li role="presentation" class="active"><a href="#company" class="disabledlink" id="tabCompany" aria-controls="company" role="tab" data-toggle="tab"><img src="~/assets/images/icons/comapny-icon.png" /> company</a></li>
+                        <li role="presentation"><a href="#services" class="disabledlink" id="tabService" aria-controls="services" role="tab" data-toggle="tab"><img src="~/assets/images/icons/services-icon.png" /> Services</a></li>
+                        <li role="presentation"><a href="#services-areas" class="disabledlink" id="tabservicesareas" aria-controls="services-areas" role="tab" data-toggle="tab"><img src="~/assets/images/icons/servicesArea-icon.png" /> Services Areas</a></li>
+                        <li role="presentation"><a href="#account" class="disabledlink" id="tabAccount" aria-controls="account" role="tab" data-toggle="tab"><img src="~/assets/images/icons/account-icon.png" /> Account</a></li>
+                        <li role="presentation"><a href="#hours" class="disabledlink" id="tabHours" aria-controls="Hours" role="tab" data-toggle="tab"><img src="~/assets/images/icons/hours-icon.png" /> Hours</a></li>
+                        <li role="presentation"><a href="#channels" class="disabledlink" id="tabChannels" aria-controls="channels" role="tab" data-toggle="tab"><img src="~/assets/images/icons/channel-icon.png" /> Channels</a></li>
+                        <li role="presentation"><a href="#aboutus" class="disabledlink" aria-controls="aboutus" id="tabAboutUs" role="tab" data-toggle="tab"><img src="~/assets/images/icons/about-icon.png" /> About us</a></li>
+                        <span class="arrow-icon">
+                            <i aria-hidden="true" class="fa fa-angle-down"></i>
+                            <i aria-hidden="true" class="fa fa-angle-up"></i>
+                        </span>
+                    </ul>
+                </div>
+
+                <!-- Tab panes -->
+                <div class="tab-content default-form submitListingSection" style="margin-bottom: 100px">
+                    <!-- Company Form -->
+                    <div role="tabpanel" class="tab-pane active" id="company">
+                        <h2>Company Information</h2>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", @placeholder = "Company Name", @maxlength = "100" })
+                                    @Html.ValidationMessageFor(m => m.CompanyName)
+                                    <span id="spanCompanyName" class="validError"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.ProviderAddress, new { @class = "form-control", @placeholder = "Address", @maxlength = "700" })
+                                    @Html.ValidationMessageFor(m => m.ProviderAddress)
+                                    <span id="spanProviderAddress" class="validError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "City", @maxlength = "200" })
+                                    @Html.ValidationMessageFor(m => m.City, "", new { @style = "display: block;" })
+                                    <span id="spanCity" class="validError"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group subListingState">
+                                    @Html.DropDownList("StateId", (SelectList)ViewBag.State, "Select the State", new { @class = "selectpicker"})
+                                    @Html.ValidationMessageFor(m => m.StateId)
+                                    <span id="spanStateId" class="validError"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Zipcode, new { @class = "form-control zipMasking numriconly", @placeholder = "Zip code", @maxlength = "5" })
+                                    @Html.ValidationMessageFor(m => m.Zipcode)
+                                    <span id="spanZipcode" class="validError"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.ProviderContactNumber, new { @class = "form-control phnMasking numriconly", @maxlength = "100", @placeholder = "Phone Number" })
+                                    @Html.ValidationMessageFor(m => m.ProviderContactNumber)
+                                    <span id="spanProviderContactNumber" class="validError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-button text-center">
+                            <button type="button" id="btnCompany" class="btn btn-primary btn-next">Next</button>
+                        </div>
+
+                    </div>
+                    <!-- //Company Form -->
+                    <!-- Service Form -->
+                    <div role="tabpanel" class="tab-pane" id="services">
+                        <h2>Services</h2>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>What Best Describes You?</label>
+                                    @Html.DropDownList("CategoryId", (SelectList)ViewBag.Categorylist, "Select what Best Describes You?", new { @class = "selectpicker _liveSearch" })
+                                    @Html.ValidationMessageFor(m => m.CategoryId)
+                                    <span id="spanCategoryId" class="validError"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Year of experience?</label>
+                                    @Html.DropDownListFor(m => m.Experience, new SelectList(Model.YearOfExperience, "Key", "Value"), "Select Experience", new { @class = "selectpicker" })
+                                    @Html.ValidationMessageFor(m => m.Experience)
+                                    <span id="spanExperience" class="validError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Sub List -->
+                        <div class="serviceSubList CustomRowList catgoryserviceDiv">
+
+                            @if (Model.ProviderListingId != 0)
+                            {
+                                foreach (var item in ViewBag.CategoryServicelist)
+                                {
+                                    <span>
+                                        @{
+                                            if (Model.ServiceDetails != null)
+                                            {
+                                                currentdetail = Model.ServiceDetails.FirstOrDefault(s => s.CategoryServiceId == item.CategoryServiceId);
+                                            }
+                                        }
+                                    </span>
+                                    <div class="row">
+                                        @*<div class="remove-icon">
+                                                <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </div>*@
+                                        <div class="CustomRowListItem categorylistitem clearfix">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="form-control" name="ServiceDetails[@i].IsSelected" value="true" @(currentdetail.IsSelected == null ? "" : "checked") />@item.Name
+                                                    <input type="hidden" name="ServiceDetails[@i].CategoryServiceId" value="@item.CategoryServiceId" />
+                                                    <input type="hidden" name="ServiceDetails[@i].Id" value="@currentdetail.Id" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="form-control selectpicker" name="ServiceDetails[@i].ServiceType">
+                                                        <option @(currentdetail.ServiceType == "Select Service type" ? "selected" : "")>Select Service type</option>
+                                                        <option value="hour" @(currentdetail.ServiceType == "hour" ? "selected" : "")>Hour</option>
+                                                        <option value="visit" @(currentdetail.ServiceType == "visit" ? "selected" : "")>Visit</option>
+                                                        <option value="Service" @(currentdetail.ServiceType == "Service" ? "selected" : "")>Service</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    @Html.TextBox("ServiceDetails[" + @i + "].ServicePrice", currentdetail.ServicePrice, new { @class = "form-control numriconly", @maxlength = "10", @placeholder = "Services Price" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                                }
+                                            }
+                        </div>
+                        <div class="serviceSubList CustomRowList customService">
+                            @if (Model.ServiceDetails != null)
+                            {
+                                foreach (var custom in Model.ServiceDetails.Where(s => s.CategoryServiceId == null).ToList())
+                                {
+                                    <div class="row">
+                                        <div class="remove-icon 1">
+                                            <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="CustomRowListItem clearfix">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="ServiceDetails[@i].CustomeService" value="@custom.CustomeService" placeholder="Services Name" class="form-control" />
+                                                    <input type="hidden" name="ServiceDetails[@i].Id" value="@custom.Id" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="selectpicker" name="ServiceDetails[@i].ServiceType" placeholder="Select Service Type">
+                                                        <option>Select Service type</option>
+                                                        <option value="hour" @(custom.ServiceType == "hour" ? "selected" : "")>Hour</option>
+                                                        <option value="visit" @(custom.ServiceType == "visit" ? "selected" : "")>Visit</option>
+                                                        <option value="Service" @(custom.ServiceType == "Service" ? "selected" : "")>Service</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    @Html.TextBox("ServiceDetails[" + @i + "].ServicePrice", @custom.ServicePrice, new { @class = "form-control numriconly", @maxlength = "10", @placeholder = "Services Price" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                }
+                            }
+                        </div>
+                        <!-- Service Sub List -->
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <div class="row">
+                                <div class="col-sm-6 text-right">
+                                    <button type="button" class="btn btn-secondary btn-next _customServiceclick"><i class="fa fa-plus-circle"></i> Add custom Service</button>
+                                </div>
+                                <div class="col-sm-6 text-left">
+                                    <button type="button" id="btnPrevServices" class="btn btn-primary btn-next btn-prev">Previous</button>
+                                    <button type="button" id="btnservices" class="btn btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden">
+                            <div class="form-group">
+                                @Html.Label("Services", new { })<br />
+                                @Html.RadioButtonFor(m => m.ServicePriceType, "hour", new { @checked = "checked" })&nbsp; hour
+                                @Html.RadioButtonFor(m => m.ServicePriceType, "Visit")&nbsp; Visit
+                                @Html.RadioButtonFor(m => m.ServicePriceType, "Service")&nbsp; Service
+                                @Html.ValidationMessageFor(f => f.ServicePriceType)
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden">
+                            <div class="form-group">
+                                @Html.Label("Services Price")
+                                @Html.TextBoxFor(m => m.ServicePrice, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ServicePrice)
+                            </div>
+                        </div>
+                        <!-- //Form Button -->
+
+
+                    </div>
+                    <!-- //Service Form -->
+                    <!-- Service Area -->
+                    <div role="tabpanel" class="tab-pane servicesAreas" id="services-areas">
+                        <h2>Service Areas</h2>
+                        <div id="serviceAreaDiv">
+                            <div class="row CustomRowList">
+                                <div class="remove-icon">
+                                    @*<a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>*@
+                                </div>
+                                <div class="CustomRowListItem clearfix">
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.ServiceAreas[0].City, new { @class = "form-control", @maxlength = "100", @placeholder = "City" })
+                                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].City, "", new { @style = "display: block;" })
+                                            <span id="spanServiceCity" class="validError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            @Html.DropDownList("ServiceAreas[0].StateId", (SelectList)ViewBag.State, new { @class = "selectpicker" })
+                                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].StateId)
+                                            <span id="spanServiceStateId" class="validError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.ServiceAreas[0].ZipCode, new { @class = "form-control zipMasking numriconly", @placeholder = "Zip code", @maxlength = "5" })
+                                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].ZipCode)
+                                            <span id="spanServiceZipCode" class="validError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            @if (Model.ProviderListingId == 0)
+                                            {
+                                                @Html.DropDownListFor(m => m.ServiceAreas[0].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value"), "Select Radius", new { @class = "selectpicker" })
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(m => m.ServiceAreas[0].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value", @Model.ServiceAreas[0].ServiceRadius), "Select Radius", new { @class = "selectpicker" })
+                                            }
+                                            @Html.ValidationMessageFor(m => m.ServiceAreas[0].ServiceRadius, "", new { @style = "display: block;" })
+                                            <span id="spanServiceRadius" class="validError"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <div class="row">
+                                <div class="col-sm-6 text-right">
+                                    @Html.ActionLink("Add another area", "", "", new { @class = "btn btn-secondary btn-next", @id = "AddOther" })
+                                </div>
+                                <div class="col-sm-6 text-left">
+                                    <button type="button" id="btnPrevServicesAreas" class="btn btn-primary btn-next btn-prev">Previous</button>
+                                    <button type="button" id="btnServicesAreas" class="btn btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //Form Button -->
+
+                    </div>
+                    <!-- //Service Areas -->
+                    <!-- Account Section -->
+                    <div role="tabpanel" class="tab-pane accountSection" id="account">
+                        <h2>Account</h2>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h3>Upload Logo or Photo</h3>
+                                <div class="uploadBlock">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="uploadImage">
+                                                <img id="getImgPreview" src="~/assets/images/default-img.png" />
+                                                <span class="cameraIcon"><a href="#"><i class="fa fa-camera"></i></a></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 upload-detail">
+                                            <div class="verticalContent">
+                                                <div class="desc">Please upload image 200 x 150 and should be png/jpg format.</div>
+                                                <div class="uploadBtn">
+                                                    @if (Model.ProviderListingId == 0)
+                                                    {
+                                                        <input type="file" id="file" data-val="true" accept="image/*" data-val-required="please select a file" name="LogoUrl" />
+                                                        @Html.ValidationMessageFor(m => m.LogoUrl)
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="file" id="file" accept="image/*" name="imageUrl" value="" />
+                                                    }
+                                                    <span class="btn">Upload Logo or Photo</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 hidden-xs">
+                                <div class="gdDivider"></div>
+                            </div>
+                            <div class="col-sm-5">
+                                <h3>Login Information</h3>
+                                <div class="form-group">
+                                    @if (Model.ProviderListingId == 0)
+                                    {
+                                        @Html.TextBoxFor(m => m.PrimaryEmail, new { @class = "form-control", @placeholder = "Primary Email", @maxlength = "100" })
+                                        @Html.ValidationMessageFor(m => m.PrimaryEmail, null, new { @class = "validError" })
+                                        <span id="spanPrimaryEmail" class="validError"></span>
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @maxlength = "100" })
+                                    <span id="spanPassword" class="validError"></span>
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password", @maxlength = "100" })
+                                    <span id="spanConfirmPassword" class="validError"></span>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <button type="button" id="btnPrevAccount" class="btn btn-primary btn-next btn-prev">Previous</button>
+                            <button type="button" id="btnAccount" class="btn btn-primary btn-next">Next</button>
+                        </div>
+                        <!-- //Form Button -->
+
+                    </div>
+                    <!-- //Account Section -->
+                    <!-- Hours Section -->
+                    <div role="tabpanel" class="tab-pane hourSection" id="hours">
+                        <h2>Hours</h2>
+
+                        <div class="row">
+                            <label class="day">Monday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.MonStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                        @Html.ValidationMessageFor(m => m.hourOfOperation.MonStart)
+                                        <span id="spanMonStart" class="validError"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.MonEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                        @Html.ValidationMessageFor(m => m.hourOfOperation.MonEnd)
+                                        <span id="spanMonEnd" class="validError"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="day">Tuesday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.TueStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.TueEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="day">Wednesday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.WedStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.WedEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <label class="day">Thursday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.ThuStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.ThuEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="day">Friday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.FriStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.FriEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <label class="day">Saturday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.SatStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.SatEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <label class="day">Sunday</label>
+                            <div class="hoursList">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.SunStart, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.hourOfOperation.SunEnd, new SelectList(Model.OperationHours, "Key", "Value"), "Select Hours", new { @class = "selectpicker" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <button type="button" id="btnPrevHours" class="btn btn-primary btn-next btn-prev">Previous</button>
+                            <button type="button" id="btnHours" class="btn btn-primary btn-next">Next</button>
+                        </div>
+                        <!-- //Form Button -->
+
+
+                    </div>
+                    <!-- //Hours Section -->
+                    <!-- Channels Section -->
+                    <div role="tabpanel" class="tab-pane" id="channels">
+                        <h2>Channels</h2>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i aria-hidden="true" class="fa fa-link"></i></span>
+                                    @Html.TextBoxFor(m => m.WebsiteURL, new { @class = "form-control", @placeholder = "Website Url", @maxlength = "300", aria_describedby = "basic-addon1" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i aria-hidden="true" class="fa fa-facebook"></i></span>
+                                    @*<input type="text" class="form-control" placeholder="Facebook Url" aria-describedby="basic-addon1">*@
+                                    @Html.TextBoxFor(m => m.FacebookURL, new { @class = "form-control", @placeholder = "Facebook Url", @maxlength = "300", aria_describedby = "basic-addon1" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i aria-hidden="true" class="fa fa-google-plus"></i></span>
+                                    @*<input type="text" class="form-control" placeholder="Google+  Url" aria-describedby="basic-addon1">*@
+                                    @Html.TextBoxFor(m => m.GoogleURL, new { @class = "form-control", placeholder = "Google+  Url", @maxlength = "300", aria_describedby = "basic-addon1" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i aria-hidden="true" class="fa fa-twitter"></i></span>
+                                    @*<input type="text" class="form-control" placeholder="Twitter Url" aria-describedby="basic-addon1">*@
+                                    @Html.TextBoxFor(m => m.TwitterURL, new { @class = "form-control", @placeholder = "Twitter Url", @maxlength = "300", aria_describedby = "basic-addon1" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <button type="button" id="btnPrevChannels" class="btn btn-primary btn-next btn-prev">Previous</button>
+                            <button type="button" id="btnChannels" class="btn btn-primary btn-next">Next</button>
+                        </div>
+                        <!-- //Form Button -->
+
+                    </div>
+                    <!-- //Channels Section -->
+                    <!-- About Us Section -->
+                    <div role="tabpanel" class="tab-pane" id="aboutus">
+                        <h2>About Us</h2>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group _DivsubmitWhoweAre">
+                                    <label>Who We Are</label>
+                                    @Html.TextAreaFor(m => m.WhoWeAre, 4, 8, new { @class = "form-control hidden", @maxlength = "500" })
+                                    <div class="_submitWhoweAre"></div>
+                                    @Html.ValidationMessageFor(m => m.WhoWeAre)
+                                    <span id="spanWhoWeAre" class="validError"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group _DivsubmitWhyWeDo">
+                                    <label>Why Choose Us</label>
+                                    @Html.TextAreaFor(m => m.WhyWeDo, 4, 8, new { @class = "form-control hidden", @maxlength = "500" })
+                                    <div class="_submitWhyWeDo"></div>
+                                    @Html.ValidationMessageFor(m => m.WhyWeDo)
+                                    <span id="spanWhyWeDo" class="validError"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group _DivsubmitWhatWeDo">
+                                    <label>Our Mission</label>
+                                    @Html.TextAreaFor(m => m.WhatWeDo, 4, 8, new { @class = "form-control hidden", @maxlength = "500" })
+                                    <div class="_submitWhatWeDo"></div>
+                                    @Html.ValidationMessageFor(m => m.WhatWeDo)
+                                    <span id="spanWhatWeDo" class="validError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Button -->
+                        <div class="form-group form-button text-center">
+                            <button type="button" id="btnPrevAboutUs" class="btn btn-primary btn-next btn-prev">Previous</button>
+                            <button type="submit" id="btnAboutUs" class="btn btn-primary btn-next">Submit</button>
+                        </div>
+                        <!-- //Form Button -->
+                    </div>
+                    <!-- //About Us Section -->
+
+                </div>
+            </div>
+            <!-- //Submit Listing Section -->
+        </div>
+                                            }
+</div>
+
+<!-- //Main Container -->
+<!---START Crop Image PopUp-->
+<div class="modal fade" style="display: none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog crop-model" role="document">
+        <div class="modal-content">
+            <div class="modal-example-header" style="padding:3% 3%;background: #f15925;color: white;">
+                <button type="button" style="color:#fff;opacity:1;" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="color:#fff;">Crop Image</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="imageBox">
+                        <div class="thumbBox"></div>
+                        <div class="spinner" style="display: none">Loading...</div>
+                    </div>
+                </center>
+
+            </div>
+            <div class="modal-footer">
+                @*<input type="button" class="close" style="float:inherit" id="btnCrop" value="Crop">*@
+                @*<input type="button" id="btnZoomIn" value="+">
+                    <input type="button" id="btnZoomOut" value="-">*@
+                <button type="button" id="btnCrop" class="btn btn-success">Crop</button>
+                <button type="button" id="btnZoomIn" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                <button type="button" id="btnZoomOut" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!---END Crop Image PopUp-->
+
+<script>
+    var LoadCategoryServiceUrl = "@Url.Action("LoadCategoryService")";
+    var LoadCustomServiceUrl = "@Url.Action("LoadCustomService")";
+    var ServiceAreaPartialUrl = "@Url.Action("ServiceAreaPartial")";
+    var UserEmailAlreadyExistUrl = "@Url.Action("UserEmailExits")";
+</script>
+<script src="~/assets/js/SubmitListing.js?v=1.1"></script>
+<style>
+    .panel-info {
+        border: none;
+    }
+
+    .submitListing-section .serviceSubList {
+        border: 0PX;
+        padding-top: 0PX;
+    }
+       
+
+    .imageBox {
+        position: relative;
+        min-height: 250px;
+        min-width: 250px;
+        border: 1px solid #aaa;
+        background: #fff;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        cursor: move;
+    }
+
+        .imageBox .thumbBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            box-sizing: border-box;
+            border: 1px solid rgb(102, 102, 102);
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            background: none repeat scroll 0% 0% transparent;
+        }
+
+        .imageBox .spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+        }
+
+    .crop-model.modal-dialog {
+        left: auto;
+    }
+
+    .LabelAlign {
+        float: right;
+    }
+</style>

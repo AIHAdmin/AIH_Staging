@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNet.Identity
+@model List<AgingInHome.Models.ServiceRequestModel>
+@{
+    var recMsg = 0;
+}
+@foreach (var item in Model)
+{
+    foreach (var item1 in item.ServiceRequestCategories)
+    {
+        foreach (var item2 in item1.ServiceRequestDetails)
+        {
+            if (item2.Inboxes.Where(d => d.RecipientId == User.Identity.GetUserId()).Count() > 0)
+            {
+                foreach (var item3 in item2.Inboxes)
+                {
+
+                    <tr class="recievemsg" data-detailId="@item3.ServiceRequestDetailsId">
+                        <td style="width:3%">@Html.CheckBox("checkbox")</td>
+                        @if (item3.IsRead == true)
+                        {
+                            <td>@item2.ProviderListing.CompanyName</td>
+                            <td>@item3.Subject</td>
+                        }
+                        else
+                        {
+                            <td><b>@item2.ProviderListing.CompanyName</b></td>
+                            <td><b>@item3.Subject</b></td>
+                        }
+
+                        <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;<b>@item3.SentDate</b> </td>
+                    </tr>
+
+
+
+                    recMsg = recMsg + 1;
+
+                    //if (item2.Inboxes.Where(d => d.IsArchive == true).Count() > 0)
+                    //{
+                    //    ArchiveMsg = ArchiveMsg + 1;
+                    //}
+
+                    break;
+                }
+            }
+
+
+        }
+    }
+}
+@Html.Hidden("RecCountfeild", recMsg)
+
+
+

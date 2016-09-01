@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>Analytics</h2>
+
+<link href="~/assets/css/component/developer.css" rel="stylesheet" />
+<div class="main-container inner-container">
+    <div class="container">
+        <!-- Step 1: Create the containing elements. -->
+        <div class="MyListingContent MygoogleAnalytics">
+            <div class="" id="embed-api-auth-container"></div>
+            <div class="" id="view-selector-container"></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Users" aria-controls="aboutus" role="tab" data-toggle="tab">Google Analytics</a></li>
+                @*<li role="presentation"><a href="#Sessions" aria-controls="blog" role="tab" data-toggle="tab">Sessions</a></li>
+                    <li role="presentation"><a href="#CTR" aria-controls="CTR" role="tab" data-toggle="tab">CTR</a></li>
+                    <li role="presentation"><a href="#CostPerTransaction" aria-controls="photos" role="tab" data-toggle="tab">Cost Per Transaction</a></li>
+                    <li role="presentation"><a href="#CPC" aria-controls="videos" role="tab" data-toggle="tab">CPC</a></li>
+                    <li role="presentation"><a href="#Ad-Click" aria-controls="ourteam" role="tab" data-toggle="tab">Ad-Click</a></li>*@
+            </ul>
+            <div class="tab-content">
+                <!-- About us -->
+                <div role="tabpanel" class="tab-pane  active clearfix" id="Users">
+                    <div style="display:none">
+                        <div id="data-chart-1-container"></div>
+                    </div>
+                    <div id="date-range-selector-1-container" class="date-range"></div>
+                    <div id="dvTable" class="GATable">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Step 2: Load the library. -->
+
+<script>
+    (function (w, d, s, g, js, fs) {
+        g = w.gapi || (w.gapi = {}); g.analytics = { q: [], ready: function (f) { this.q.push(f); } };
+        js = d.createElement(s); fs = d.getElementsByTagName(s)[0];
+        js.src = 'https://apis.google.com/js/platform.js';
+        fs.parentNode.insertBefore(js, fs); js.onload = function () { g.load('analytics'); };
+    }(window, document, 'script'));
+</script>
+
+<!-- Include the ViewSelector2 component script. -->
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
+<!-- Include the DateRangeSelector component script. -->
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/date-range-selector.js"></script>
+
+<script>
+    var CLIENT_ID = '43128087432-kk1epv2iu5ot3q68o1tttnhqqd40mvr5.apps.googleusercontent.com';
+    var SCOPE = ['https://www.googleapis.com/auth/analytics.readonly'];
+    var ids = "";
+    var checkAuth = function checkAuthF() {
+        gapi.auth.authorize({
+            'client_id': CLIENT_ID,
+            'immediate': true,
+            'response_type': 'token',
+            'scope': SCOPE
+        }, handleAuthResult);
+    };
+
+    var handleAuthResult = function handleAuthResultF(authResult) {
+        if (authResult && !authResult.error) {
+            setTimeout(checkAuth, (authResult.expires_in - 5 * 60) * 1000);
+        } else {
+            alert('Authorization failed. User action is required.');
+        }
+    }
+
+    gapi.analytics.ready(function () {
+        handleAuthResult('@ViewBag.AccessToken')
+    });
+
+    var handleAuthResult = function handleAuthResultF(token) {
+        //setTimeout(checkAuth, (authResult.expires_in - 5 * 60) * 1000);
+        acc_token = token;
+        gapi.analytics.auth.authorize({
+            'serverAuth': {
+                'access_token': token
+            }
+        });
+        gapi.analytics.auth.on('success', function (response) {
+            //hide the auth-button
+            document.querySelector("#auth-button").style.display = 'none';
+
+        });
+        var commonConfig = {
+            query: {
+                metrics: 'ga:users,ga:sessions,ga:CTR,ga:costPerTransaction,ga:CPC,ga:adClicks,ga:impressions,ga:pageviews',
+                dimensions: 'ga:date'
+            },
+            chart: {
+                type: 'LINE',
+                options: {
+                    width: '100%',
+                    colors: ['Orange', '#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', 'green']
+                }
+            }
+        };
+
+        var dateRange1 = {
+            'start-date': '14daysAgo',
+            'end-date': '8daysAgo'
+        };
+
+        var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        }).execute();
+
+        var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+            container: 'date-range-selector-1-container'
+        })
+       .set(dateRange1)
+       .execute();
+
+        var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
+            .set({ query: dateRange1 })
+            .set({ chart: { container: 'data-chart-1-container' } });
+
+
+        viewSelector.on('viewChange', function (data) {
+            ids = data.ids;
+            getAnalyticsTable();
+            dataChart1.set({ query: { ids: data.ids } }).execute();
+            var title = document.getElementById('view-name');
+            title.innerHTML = data.property.name + ' (' + data.view.name + ')';
+        });
+
+        dateRangeSelector1.on('change', function (data) {
+            startdate = data['start-date'];
+            enddate = data['end-date'];
+            getAnalyticsTable();
+            dataChart1.set({ query: data }).execute();
+            // Update the "from" dates text.
+            var datefield = document.getElementById('from-dates');
+            datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+
+        var dateS = new Date();
+        var dateE = new Date();
+        startdate = dateRange1['start-date'];
+        startdate = startdate.replace("daysAgo", "");
+        enddate = dateRange1['end-date'];
+        enddate = enddate.replace("daysAgo", "");
+
+
+        startdate = dateS.setDate(dateS.getDate() - parseInt(startdate));
+        enddate = dateE.setDate(dateE.getDate() - parseInt(enddate));
+
+        startdate = ConvertDate(startdate);
+        enddate = ConvertDate(enddate);
+
+        getAnalyticsTable();
+
+        function getAnalyticsTable() {
+            $.get("https://www.googleapis.com/analytics/v3/data/ga?ids=" + ids + "&start-date=" + startdate + "&end-date=" + enddate + "&metrics=ga%3Ausers%2Cga%3Asessions%2Cga%3Aimpressions%2Cga%3AadClicks%2Cga%3ACPC%2Cga%3ACTR%2Cga%3AcostPerTransaction%2Cga%3Apageviews&access_token=" + acc_token, function (data) {
+                var resultJSON = data;
+                var table = $("<table />");
+                table[0].border = "1";
+                table[0].width = "100%";
+                table[0].style.marginBottom = "10px";
+                var columnCount = resultJSON.totalsForAllResults.length;
+                //Add the header row.
+                var row = $(table[0].insertRow(-1));
+                $.each(resultJSON.totalsForAllResults, function (k, v) {
+                    k = k.replace('ga:', '');
+                    k = k.charAt(0).toUpperCase() + k.substr(1);
+                    var headerCell = $("<th />");
+                    headerCell.html(k.replace('ga:', ''));
+                    row.append(headerCell);
+                });
+                //Add the data rows.
+                row = $(table[0].insertRow(-1));
+                $.each(resultJSON.totalsForAllResults, function (k, v) {
+                    var cell = $("<td />");
+                    k = k.replace('ga:', '');
+                    k = k.charAt(0).toUpperCase() + k.substr(1);
+                    k=k.replace('ga:', '');
+                    if (k == "CPC")
+                    {
+                        v = parseInt(v) + parseInt(@ViewBag.Markup);
+                        cell.html(v);
+                    }
+                    else {
+                        cell.html(v);
+                    }
+                    row.append(cell);
+                });
+                var dvTable = $("#dvTable");
+                dvTable.html("");
+                dvTable.append(table);
+            });
+        }
+    }
+    function ConvertDate(date) {
+
+        date = new Date(date);
+        var d = date.getDate();
+        var m = date.getMonth();
+        m += 1;  // JavaScript months are 0-11
+        var mont = "";
+        if (m == 1)
+            mont = "01";
+        else if (m == 2)
+            mont = "02";
+        else if (m == 3)
+            mont = "03";
+        else if (m == 4)
+            mont = "04";
+        else if (m == 5)
+            mont = "05";
+        else if (m == 6)
+            mont = "06";
+        else if (m == 7)
+            mont = "07";
+        else if (m == 8)
+            mont = "08";
+        else if (m == 9)
+            mont = "09";
+        else if (m == 10)
+            mont = "10";
+        else if (m == 11)
+            mont = "11";
+        else if (m == 12)
+            mont = "12";
+        var y = date.getFullYear();
+        return y + "-" + mont + "-" + d;
+    }
+</script>

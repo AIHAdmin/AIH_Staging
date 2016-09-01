@@ -1,0 +1,40 @@
+﻿@using AgingInHome.Models;
+@using System.Web.Mvc;
+@model SQLAnalyzerModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="maincontainer">
+    <div class="listingDiv article">
+@using (Html.BeginForm("CreateSQLObjects", "SQLAnalyzer", FormMethod.Post))
+        {
+        <div style="margin:10px;overflow:hidden">
+            <div style="margin:10px;overflow:hidden">
+                @Html.EditorFor(x => x.body)
+                <br />
+                <input type="submit" name="name" value="Save" class="btn btn-success pull-right" />
+                
+                <br />
+            </div>
+        </div>
+}
+    </div>
+</div>
+@*<script>
+    $(function () {
+        $('input[type=button]').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("CreateSQLObjects", "SQLAnalyzerController")",
+                data: { body: $('#body').val() },
+                success: function () {
+
+                }
+            });
+        });
+    });
+</script>*@

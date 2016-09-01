@@ -1,0 +1,642 @@
+/* Reset CSS
+   ========================================================================== */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+html, body{ height: 100%;}
+
+body {
+	background-color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 1;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* Selection CSS */
+::-moz-selection {
+background: #003e79;
+color:#ffffff;
+}
+::selection {
+	background: #f15925;
+	color: #ffffff;
+}
+/* Common CSS
+   ========================================================================== */
+ol, ul {
+	list-style: none;
+}
+a, .btn{
+	transition: all 0.5s ease;
+}
+a:hover{ text-decoration: underline;
+}
+
+a:active, a:hover, a:focus, .btn:focus, .btn:active, .btn:hover {
+	outline: 0;
+}
+a:hover i.fa{
+    transform: rotate(360deg);
+    transition: all 0.5s ease 0s;
+}
+
+
+b, strong {
+	font-weight: bold;
+}
+a:hover {
+	text-decoration: none;
+}
+small {
+	font-size: 80%;
+}
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+img {
+	border: 0;
+}
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+*:focus {
+	outline: 0;
+}
+
+a{ color: #f15925;}
+a:hover{ color: #003e79;}
+
+/* Custom CSS
+   ========================================================================== */
+.wrapper{ height: auto; min-height: 100%; padding-bottom: 120px;}
+.container{ max-width: 1170px; width: 100%;}
+.main-container{ margin-top: 30px;}
+.inner-container{ margin-top: 25px; /*min-height: 478px;*/}
+.inner-container h1.main-title{ color: #003e79; font-size: 20px; text-transform: uppercase; font-weight: 600; margin-bottom: 25px;}
+.inner-container h1.main-title span{ color: #f15925; }
+
+
+/* Color Text CSS
+   ========================================================================== */
+.orangeTxt{ color:#f2683f!important;}
+
+
+/* Bg Color CSS
+   ========================================================================== */
+.blueBg{ background-color: #003e79;}
+.blueBg:hover{ background-color: #04519b;}
+.blueBg:active, .blueBg:focus{ background-color: #002c55;}
+
+.redBg{ background-color: #e00000;}
+.redBg:hover{ background-color: #f00c0c;}
+.redBg:active, .redBg:focus{ background-color: #bb0202;}
+
+.orangeBg{ background-color: #f15925;}
+.orangeBg:hover{ background-color: #f26b3d;}
+.orangeBg:active, .orangeBg:focus{ background-color: #e84c17;}
+
+.lightGreenBg{ background-color: #11d5bf;}
+.lightGreenBg:hover{ background-color: #1cead3;}
+.lightGreenBg:active, .lightGreenBg:focus{ background-color: #0cbeaa;}
+
+
+.greenShadeBg{ background-color: #91d100;}
+.greenShadeBg:hover{ background-color: #9ee204;}
+.greenShadeBg:active, .greenShadeBg:focus{ background-color: #83bc03;}
+
+
+
+.yellowBg{ background-color: #ffba00;}
+.yellowBg:hover{ background-color: #fdc429;}
+.yellowBg:active, .yellowBg:focus{ background-color: #e5a700;}
+
+.lightBlueBg{ background-color: #50acfb;}
+.lightBlueBg:hover{ background-color: #68b7fc;}
+.lightBlueBg:active, .lightBlueBg:focus{ background-color: #2796f6;}
+   
+.verticalContent {position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+/* FormInput CSS
+   ========================================================================== */
+.input-group .form-control:focus {
+    z-index: 1;
+}
+.req{ color: #ff0000;}
+
+   
+/* Form Placeholder CSS
+   ========================================================================== */
+.default-form .form-control:focus {
+	color: #4e4182;
+	box-shadow: none;
+	border-color: inherit;
+}
+.default-form .form-control::-webkit-input-placeholder {
+color: #99999f;
+}
+.default-form .form-control:-moz-placeholder { /* Firefox 18- */
+color: #99999f;
+}
+.default-form .form-control::-moz-placeholder {  /* Firefox 19+ */
+color: #99999f;
+}
+.default-form .form-control:-ms-input-placeholder {
+color: #99999f;
+}
+
+/* Default Form CSS
+   ========================================================================== */
+.default-form {
+}
+.default-form .form-group, .default-form .input-group {
+	position: relative;
+	margin-bottom: 30px;
+}
+.default-form .form-group label{    color: #797979;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 500;}
+
+.default-form .form-group .form-control, .default-form .input-group .form-control {
+    border: 1px solid #c8c8c8;
+    border-radius: 3px;
+    box-shadow: none;
+    color: #003e79;
+    font-size: 14px;
+    height: 43px;
+    font-weight: 400;
+}
+.default-form .input-group .form-control{
+	border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.default-form .form-group textarea.form-control{ height: 123px; resize: none;}
+
+
+.default-form .form-group .bootstrap-select {
+    width: 100%!important;
+}
+.default-form .form-group .bootstrap-select .dropdown-toggle{
+	background-color: #fff;
+    border: 1px solid #c8c8c8;
+    border-radius: 3px;
+	box-shadow: none;
+	font-size: 14px;
+	font-weight: 400;
+	color: #99999f;
+    width: 100%;
+    height: 43px;
+}
+.default-form .form-group .bootstrap-select.btn-group .dropdown-toggle .caret{ color: #757575;}
+
+.default-form .form-group .bootstrap-select .dropdown-toggle:hover,
+.default-form .form-group .bootstrap-select .dropdown-toggle:focus,
+.default-form .form-group .bootstrap-select .dropdown-toggle:active{ background-color: #fff; box-shadow: none;color: #99999f; outline: 0!important;
+}
+.default-form .form-group .bootstrap-select.btn-group .dropdown-menu li.disabled {
+    display: none;
+}
+.default-form .form-group .bootstrap-select .dropdown-menu {
+    border-top: 0;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: none;
+	border-color: #c8c8c8;
+    margin: 0;
+}
+
+
+/* Custom Dropdown CSS
+   ======================== */
+.custom-dropdown .dropdown-toggle.placeholder {
+    color: #a2a0ab;
+}
+
+.custom-dropdown .dropdown-toggle{
+	background-color: #fff;
+    border: 1px solid #c8c8c8;
+    border-radius: 3px;
+	color: #99999f;
+	display: block;
+	font-size: 16px;
+	padding: 0 10px;
+    width: 100%;
+    height: 43px;
+	    text-align: left;
+	overflow: hidden;
+	position:relative;
+	white-space:nowrap;
+}
+.custom-dropdown .dropdown-toggle:before{
+	content: "";
+    width: 0px;
+    height: 0px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #757575;
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    margin: auto;
+}
+
+.custom-dropdown.open .dropdown-toggle:before, .default-form .form-group .bootstrap-select.open .dropdown-toggle .caret{
+	border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #757575;
+	 border-top: 0px solid #757575;
+}
+.custom-dropdown.open .dropdown-toggle:after, .custom-dropdown .add-on.search-input:after, .default-form .form-group .bootstrap-select.open .dropdown-toggle:after {
+    content: "";
+    height: 1px;
+    background-color: #dfdfdf;
+    position: absolute;
+    top: 98%;
+    left: 10px;
+    right: 10px;
+}
+
+.custom-dropdown.open .dropdown-toggle, .default-form .form-group .bootstrap-select.open .dropdown-toggle{
+	border-radius: 3px 3px 0 0;
+	border-bottom: 0px;
+}
+
+
+
+.custom-dropdown .dropdown-menu {
+	border-radius: 0 0 3px 3px;
+	border: 1px solid #c8c8c8;
+	box-shadow: none;
+	border-top: 0px;
+	margin: 0;
+    padding-top: 10px;
+	width: 100%;
+}
+
+.custom-dropdown .dropdown-menu li a, .default-form .form-group .bootstrap-select .dropdown-menu li a {
+	color: #003e79;
+    line-height: 1;
+    padding: 6px 10px 6px;
+    display: block;
+    font-size: 14px;
+    width: 100%;
+}
+
+.custom-dropdown .dropdown-menu li a:hover, .default-form .form-group .bootstrap-select .dropdown-menu li a:hover { 
+	background-color: rgba(241, 89, 37, 0.1); background-image: none;
+}
+.custom-dropdown .dropdown-menu li a.active, .default-form .form-group .bootstrap-select .dropdown-menu li a.active { font-weight: 600; }
+.custom-dropdown .dropdown-menu .add-on.input-group {  margin: 0px 0 11px;
+    padding: 0px 10px 11px;
+    position: relative;
+    width: 100%;
+}
+.custom-dropdown .add-on.input-group .form-control {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 15px;
+    padding: 13px 44px 11px 12px;
+    line-height: 22px;
+    height: 46px;
+    vertical-align: middle;
+}
+.custom-dropdown .add-on.input-group .input-group-btn {
+    right: 9px;
+    background-color: #ffffff;
+    height: 44px;
+    line-height: 44px;
+    position: absolute;
+    text-align: center;
+    top: 1px;
+    vertical-align: middle;
+    width: 44px;
+}
+.custom-dropdown .add-on.input-group .input-group-btn .btn {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0 none;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 44px;
+    width: 44px;
+    transition: none;
+    -webkit-transition: none;
+    outline: none;
+	color: #99999f;
+	font-size: 16px;
+}
+
+
+
+
+
+/* Button CSS
+   ========================================================================== */
+.btn-primary{ background-color: #003e79; color:#fff;}
+.btn-primary:hover{ background-color: #014c94; color: #ffffff;}
+.btn-primary:active, .btn-primary:focus{ background-color: #02305b;  color: #ffffff;box-shadow: none;}
+
+.btn-secondary{ background-color: #f15925; color: #ffffff;}
+.btn-secondary:hover{ background-color: #f26b3d;color: #ffffff; }
+.btn-secondary:active, .btn-secondary:focus{ background-color: #dd4816; color: #ffffff;box-shadow: none;}
+
+
+/* Form Checkbox CSS
+   ============================ */
+.customCheckbox input[type=checkbox], .labelCheckbox input[type=checkbox] {
+	opacity: 0;
+	position: absolute;
+	cursor: pointer;
+}
+.customCheckbox label, label.labelCheckbox {
+	cursor: pointer;
+	color:#000;
+	font-size: 14px;
+	position: relative;
+    padding: 0 0 0 28px;
+}
+
+.customCheckbox input[type=checkbox]:checked, .customCheckbox input[type=checkbox]:focus, .labelCheckbox input[type=checkbox]:checked, .labelCheckbox input[type=checkbox]:focus  {
+	outline: none !important;
+}
+.customCheckbox input[type=checkbox]+.lbl {
+	display: inline-block;
+}
+.customCheckbox label::before, label.labelCheckbox::before {
+	background-color: #ffffff;
+	border: 2px solid #000;
+	border-radius: 4px;
+	content: "";
+    position: absolute;
+    height: 17px;
+    text-align: center;
+    vertical-align: middle;
+    width: 17px;
+    left: 0;
+}
+.customCheckbox input[type=checkbox]:checked+.lbl::before, .customCheckbox label:hover .lbl::before, .customCheckbox label.checked .lbl::before,
+.labelCheckbox input[type=checkbox]:checked+.lbl::before, label.labelCheckbox:hover .lbl::before, label.labelCheckbox.checked .lbl::before
+ {
+	content: '';
+    display: inline-block;
+    height: 7px;
+    left: 4px;
+    position: absolute;
+    vertical-align: middle;
+    width: 10px;
+    background: url(../../images/check-lg-black.png) no-repeat center;
+    background-size: cover;
+    top: 5px;
+}
+
+
+/* Count Box CSS
+   ============================ */
+.counter{ background-color: #003e79; height: 17px; padding: 0 5px; border-radius: 4px; font-size: 12px; line-height: 16px; color: #fff; min-width: 20px; text-align: center;}
+
+
+
+/* Navigation CSS
+   ========================================================================== */
+nav.navigation{
+	background-color: #ffffff;
+	border: 0;
+    border-bottom: 1px solid #dfdfdf;
+	margin-bottom: 1px;
+	height: 76px;	
+}
+/*nav.navigation .navbar-brand.logo img.img-logo{ width: 160px;}*/
+nav.navigation.navbar-default .navbar-toggle{
+	background-image:url(../../images/humburger-icon.png);
+	    width: 33px;
+    height: 28px;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    margin: 23px 15px;
+}
+
+
+
+nav.navigation .navbar-brand.logo{
+	 height: auto;
+     padding: 8px 15px 12px;
+	 transition: none;
+}
+	
+nav.navigation .navbar-nav > li{ padding: 20px 18px;}
+
+nav.navigation .navbar-nav>li>a{ 
+    padding: 8px 0;
+    font-size: 18px;
+    color: #656565;
+}
+nav.navigation .navbar-nav>li>a:hover, nav.navigation .navbar-nav>li>a:focus{ color: #014c94; background-color: transparent;}
+.nav>li>a:focus, .nav>li>a:hover{ color: #014c94; background-color: transparent;}
+
+
+nav.navigation .navbar-button { padding-left: 15px;}
+nav.navigation .navbar-button li{ float: left; padding: 22px 5px;}
+nav.navigation .navbar-button li:last-child{ padding-right: 0px;}
+nav.navigation .navbar-button a.btn{
+color: #003e79;
+    font-size: 14px;
+    height: 32px;
+      line-height: 28px;
+    padding: 0 10px;
+    min-width: 122px;
+    vertical-align: middle;
+    border: 2px solid #003e79;
+    background-color: transparent;
+}
+
+nav.navigation .navbar-button a.btn.btn-secondary{border: 2px solid #f05824; color: #f05824;}
+nav.navigation .navbar-button a.btn.btn-primary:hover{ background-color: #003e79; color: #ffffff;}
+nav.navigation .navbar-button a.btn.btn-primary:active, nav.navigation .navbar-button a.btn.btn-primary:focus{ background-color: #003e79;}
+
+nav.navigation .navbar-button a.btn.btn-secondary:hover{ background-color: #f05824; color: #ffffff;}
+nav.navigation .navbar-nav a.btn.btn-secondary:active, nav.navigation .navbar-nav a.btn.btn-secondary:focus{ background-color: #f05824;}
+
+
+nav.navigation .search a.searchIcon{ color: #003e79; font-size: 19px;  padding: 8px 15px; }
+
+nav.navigation .search .searchForm{ display: none;    position: absolute;
+        right: 12px;
+    top: 20px;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+}
+nav.navigation .search .searchForm.open{ display: block;}
+
+nav.navigation .search .searchForm .searchInput{
+	border: 0px;
+    height: 34px;
+    margin-bottom: 0;
+    font-size: 14px;
+    padding: 7px 29px 8px 8px;
+}
+
+nav.navigation .search a.close{ position: absolute;
+    right: 8px;
+    opacity: 1;
+    top: 4px;
+}
+
+nav.navigation .userDropdown{}
+nav.navigation .userDropdown label { color: #003e79; cursor: pointer; }
+nav.navigation .userDropdown label .img-avtar{display: inline-block;
+    width: 35px;
+    vertical-align: middle;
+    height: 35px;
+    margin-right: 5px;}
+nav.navigation .userDropdown label span.userName{ margin-right: 4px;}
+nav.navigation .userDropdown label span.arrow i.fa.fa-angle-up, nav.navigation .userDropdown.open label span.arrow i.fa.fa-angle-down{ display: none;}
+nav.navigation .userDropdown.open label span.arrow i.fa.fa-angle-up{ display: inline-block;}
+
+nav.navigation .userDropdown .dropdown-menu {
+    padding: 0;
+    border-top: 0;
+    margin: 1px 0 0;
+    right: 0;
+    border-radius: 0 0 3px 3px;
+    left: auto;
+}
+nav.navigation .userDropdown .dropdown-menu li{    padding: 0;
+    width: 100%;}
+nav.navigation .userDropdown .dropdown-menu li a{    padding: 6px 10px;
+    color: #003e79;}
+nav.navigation .userDropdown .dropdown-menu li a:hover{ background-image: none;background-color: #003e79;color: #fff;}
+nav.navigation .userDropdown .dropdown-menu li a i.fa{    margin-right: 4px;}
+
+nav.navigation .navbar-button li.userDropdown{    padding-right: 10px;}
+
+nav.navigation .navbar-header  .userDropdown {
+    float: right;
+    padding: 12px 10px 12px;
+}
+
+footer{background-color: #003e79; padding: 0; height: 65px; overflow: hidden; line-height: 65px; margin-top: 22px; position: relative; margin-top: -65px;}
+footer .copyrightTxt{color: #fff;}
+footer .socialIcon{ float:right; text-align: right; }
+footer .socialIcon li{ display:inline-block; margin:0 3px;}
+footer .socialIcon li a{ background-color: #3b5998; border-radius: 100%; display: block; color: #fff; font-size: 16px; width: 30px; height: 30px; line-height: 30px; text-align: center;}
+footer .socialIcon li.twitter a{background-color: #55acee;}
+footer .socialIcon li.google a{background-color: #db402c;}
+
+
+
+/* Custom Ribbon CSS
+   ============================ */
+
+.ribbon {
+		background-image:url(../../images/image-ribbon.png);
+		background-repeat: no-repeat;
+	height: 126px;
+    overflow: hidden;
+    position: absolute;
+    right: -4px;
+    text-align: right;
+    top: -3px;
+    width: 126px;
+    z-index: 1;
+}
+.ribbon.blue {
+	background-image:url(../../images/image-ribbon-blue.png);
+}
+.ribbon span {
+	background-image:url(../../images/badge-icon.png);
+	    background-repeat: no-repeat;
+    color: #ffffff;
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    position: relative;
+    right: -15px;
+    padding: 0px 0 0 8px;
+    text-align: center;
+    text-transform: uppercase;
+    top: 47px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+/* Custom Modal CSS
+   ========================================================================== */
+.customModal .modal-header{    background-color: #f15925;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 5px 5px 0px 0px;
+	padding: 13px 15px 8px;
+    margin-bottom: 4px;}
+.customModal .modal-header h4.modal-title{font-size: 20px; font-weight: 600;}
+.customModal .modal-header .close {
+    margin-top: -3px;
+    opacity: 1;
+    color: #fff;
+    font-size: 31px;
+}
+.customModal .modal-body{padding: 20px 30px 20px;}
+
+.customModal .modal-footer{
+	border-top: 0px solid #e5e5e5;
+	padding:0 30px 30px;
+}
+.customModal .modal-footer .btn{ font-size: 16px; text-transform: uppercase; padding: 12px;}
+
+
+/* Custom uploadBtn CSS
+   ========================================================================== */
+.CustomuploadBtn {
+    position: relative;margin-top: 11px;
+    display: inline-block;
+    width: auto;	cursor: pointer;
+}
+.CustomuploadBtn input {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+	cursor: pointer;
+}
+.CustomuploadBtn span.btn{    background-color: #f15925;
+    color: #fff;
+    height: 40px;
+    font-size: 15px;
+    line-height: 30px;
+    padding: 4px 15px;
+    margin-top: 1px;
+    cursor: pointer;}
+
+
+
+/* Form Error CSS
+   ========================================================================== */
+.has-error .dropdown-toggle, .default-form .form-group.has-error .bootstrap-select .dropdown-toggle, .default-form .form-group.has-error .form-control {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.default-form .form-group.has-error .requiredTxt{ color: #a94442; font-size: 12px;}

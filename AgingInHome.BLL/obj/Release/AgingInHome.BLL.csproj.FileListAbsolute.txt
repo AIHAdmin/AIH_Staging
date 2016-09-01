@@ -1,0 +1,12 @@
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\AgingInHome.BLL.dll.config
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\AgingInHome.BLL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\AgingInHome.BLL.pdb
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\AgingInHome.DAL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\EntityFramework.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\EntityFramework.SqlServer.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\AgingInHome.DAL.pdb
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\EntityFramework.xml
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\bin\Release\EntityFramework.SqlServer.xml
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Release\AgingInHome.BLL.csprojResolveAssemblyReference.cache
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Release\AgingInHome.BLL.dll
+D:\Freelance Work\Leo\Code\trunk\AgingInHome\AgingInHome.BLL\obj\Release\AgingInHome.BLL.pdb

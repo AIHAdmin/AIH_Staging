@@ -1,0 +1,277 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layoutnew1.cshtml";
+}
+<link href="~/assets/css/component/developer.css" rel="stylesheet" />
+<div class="main-container inner-container">
+    <div class="container">
+        <h1 class="main-title">MY <span>LISTING</span></h1>
+
+        <!-- My Listing Section -->
+        <!-- MyListing Sidebar -->
+        <div class="ListingNav">
+            <ul>
+                <li>
+                    <a href="#" class="lightBlueBg"><i class="fa fa-edit"></i> <span class="hidden-sm hidden-xs">Edit Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="redBg"><i class="fa fa-trash-o"></i> <span class="hidden-sm hidden-xs">Delete Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="orangeBg dbicon"><i class="fa fa-file-text-o"></i><i aria-hidden="true" class="fa fa-search"></i> <span class="hidden-sm hidden-xs">Preview Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="lightGreenBg"><i class="fa fa-bullhorn"></i> <span class="hidden-sm hidden-xs">Promote Listing</span></a>
+                </li>
+                <li>
+                    <a href="#" class="blueBg"><i class="fa fa-thumbs-o-up"></i> <span class="hidden-sm hidden-xs">Favorite Detail</span></a>
+                </li>
+                <li>
+                    <a href="#" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Rating Detail</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Google Analytics</span></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("PromotionalBudget", "Analytics")" class="yellowBg"><i aria-hidden="true" class="fa fa-star"></i> <span class="hidden-sm hidden-xs">Promotional Budget</span></a>
+                </li>
+            </ul>
+
+
+        </div>
+        <!-- //MyListing Sidebar -->
+        <!-- Step 1: Create the containing elements. -->
+        <div class="MyListingContent MygoogleAnalytics">
+            <div class="hidden" id="embed-api-auth-container"></div>
+            <div class="hidden" id="view-selector-container"></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Users" aria-controls="aboutus" role="tab" data-toggle="tab">Google Analytics</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- About us -->
+                <div role="tabpanel" class="tab-pane  active clearfix" id="Users">
+                    <div style="display:none;">
+                        <div id="data-chart-1-container"></div> @*users*@
+                    </div>
+                    <div id="date-range-selector-1-container" class="date-range"></div>
+                    <div id="dvTable" class="GATable">
+                    </div>
+                    <span>Promotional Budget</span>
+                    <div>
+                        <table class="GATable">
+                            <tr>
+                                <th> Promotional Budget</th>
+                                <th> Remaining Budget</th>
+                                <th> Days Remaining in Cycle</th>
+                            </tr>
+                            <tr>
+                                <td>@ViewBag.PromotionalBudget</td>
+                                <td>@ViewBag.RemainingBudget</td>
+                                <td>@ViewBag.RemainingDays</td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Step 2: Load the library. -->
+
+<script>
+    (function (w, d, s, g, js, fs) {
+        g = w.gapi || (w.gapi = {}); g.analytics = { q: [], ready: function (f) { this.q.push(f); } };
+        js = d.createElement(s); fs = d.getElementsByTagName(s)[0];
+        js.src = 'https://apis.google.com/js/platform.js';
+        fs.parentNode.insertBefore(js, fs); js.onload = function () { g.load('analytics'); };
+    }(window, document, 'script'));
+</script>
+
+<!-- Include the ViewSelector2 component script. -->
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
+<!-- Include the DateRangeSelector component script. -->
+<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/date-range-selector.js"></script>
+
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+<script>
+    var CLIENT_ID = '43128087432-kk1epv2iu5ot3q68o1tttnhqqd40mvr5.apps.googleusercontent.com';
+    var SCOPE = ['https://www.googleapis.com/auth/analytics.readonly'];
+
+    gapi.analytics.ready(function () {
+        handleAuthResult('@ViewBag.AccessToken')
+    });
+
+    var handleAuthResult = function handleAuthResultF(token) {
+        //setTimeout(checkAuth, (authResult.expires_in - 5 * 60) * 1000);
+        acc_token = token;
+        gapi.analytics.auth.authorize({
+            'serverAuth': {
+                'access_token': token
+            }
+        });
+        gapi.analytics.auth.on('success', function (response) {
+            //hide the auth-button
+            document.querySelector("#auth-button").style.display = 'none';
+
+        });
+        var commonConfig = {
+            query: {
+                metrics: 'ga:users,ga:sessions,ga:CTR,ga:costPerTransaction,ga:CPC,ga:adClicks,ga:impressions,ga:pageviews',
+                dimensions: 'ga:date',
+                'ids': 'ga:@ViewBag.ViewId',
+            },
+            chart: {
+                type: 'LINE',
+                options: {
+                    width: '100%',
+                    colors: ['Orange', '#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', 'green']
+                }
+            }
+        };
+
+        var dateRange1 = {
+            'start-date': '14daysAgo',
+            'end-date': '8daysAgo'
+        };
+
+        var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        }).execute();
+
+        var dateS = new Date();
+        var dateE = new Date();
+        startdate = dateRange1['start-date'];
+        startdate = startdate.replace("daysAgo", "");
+        enddate = dateRange1['end-date'];
+        enddate = enddate.replace("daysAgo", "");
+
+
+        startdate = dateS.setDate(dateS.getDate() - parseInt(startdate));
+        enddate = dateE.setDate(dateE.getDate() - parseInt(enddate));
+
+        startdate = ConvertDate(startdate);
+        enddate = ConvertDate(enddate);
+
+        getAnalyticsTable();
+        var obj = new Object();
+        function getAnalyticsTable() {
+            $.get("https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A" +@ViewBag.ViewId+"&start-date=" + startdate + "&end-date=" + enddate + "&metrics=ga%3Ausers%2Cga%3Asessions%2Cga%3Aimpressions%2Cga%3AadClicks%2Cga%3ACPC%2Cga%3ACTR%2Cga%3AcostPerTransaction%2Cga%3Apageviews&access_token=" + acc_token, function (data) {
+                debugger;
+                var resultJSON = data;
+                var table = $("<table />");
+                table[0].border = "1";
+                table[0].width = "100%";
+                table[0].style.marginBottom = "10px";
+                var columnCount = resultJSON.totalsForAllResults.length;
+                //Add the header row.
+                debugger;
+                var row = $(table[0].insertRow(-1));
+                $.each(resultJSON.totalsForAllResults, function (k, v) {
+                    k = k.replace('ga:', '');
+                    k = k.charAt(0).toUpperCase() + k.substr(1);
+                    var headerCell = $("<th />");
+                    headerCell.html(k.replace('ga:', ''));
+                    row.append(headerCell);
+                });
+                //Add the data rows.
+                row = $(table[0].insertRow(-1));
+                $.each(resultJSON.totalsForAllResults, function (k, v) {
+                    var cell = $("<td />");
+                    k = k.replace('ga:', '');
+                    k = k.charAt(0).toUpperCase() + k.substr(1);
+                    k=k.replace('ga:', '');
+                    if (k == "CPC")
+                    {
+                        v = parseInt(v) + parseInt(@ViewBag.Markup);
+                        cell.html(v);
+                    }
+                    else {
+                        cell.html(v);
+                    }
+
+                    row.append(cell);
+                });
+
+                var dvTable = $("#dvTable");
+                dvTable.html("");
+                dvTable.append(table);
+
+               // obj.Users =
+                $.ajax(
+                {
+                    type: "POST", //HTTP POST Method
+                    url: "AdminAnalytics/insertAnalytics", // Controller/View
+                    data: obj
+                });
+            });
+        }
+        var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+            container: 'date-range-selector-1-container'
+        })
+        .set(dateRange1)
+        .execute();
+
+        var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
+            .set({ query: dateRange1 })
+            .set({ chart: { container: 'data-chart-1-container' } });
+
+
+        viewSelector.on('viewChange', function (data) {
+            dataChart1.set({ query: { ids: data.ids } }).execute();
+            var title = document.getElementById('view-name');
+            title.innerHTML = data.property.name + ' (' + data.view.name + ')';
+        });
+
+        dateRangeSelector1.on('change', function (data) {
+            startdate = data['start-date'];
+            enddate = data['end-date'];
+            getAnalyticsTable();
+
+            // Update the "from" dates text.
+            var datefield = document.getElementById('from-dates');
+            datefield.innerHTML = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+
+    }
+    function ConvertDate(date) {
+
+        date = new Date(date);
+        var d = date.getDate();
+        var m = date.getMonth();
+        m += 1;  // JavaScript months are 0-11
+        var mont = "";
+        if (m == 1)
+            mont = "01";
+        else if (m == 2)
+            mont = "02";
+        else if (m == 3)
+            mont = "03";
+        else if (m == 4)
+            mont = "04";
+        else if (m == 5)
+            mont = "05";
+        else if (m == 6)
+            mont = "06";
+        else if (m == 7)
+            mont = "07";
+        else if (m == 8)
+            mont = "08";
+        else if (m == 9)
+            mont = "09";
+        else if (m == 10)
+            mont = "10";
+        else if (m == 11)
+            mont = "11";
+        else if (m == 12)
+            mont = "12";
+        var y = date.getFullYear();
+        return y + "-" + mont + "-" + d;
+    }
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script src="~/assets/js/jquery.mCustomScrollbar.min.js"></script>
+<script src="~/assets/js/editor.js"></script>
+<!-- Theme JavaScript -->
+<script src="~/assets/js/custom.js"></script>

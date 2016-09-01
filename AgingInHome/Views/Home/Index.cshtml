@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.Models
+@model AgingInHome.Models.ServiceRequestModel
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutNew1.cshtml";
+    var userid = User.Identity.GetUserId();
+}
+<style>
+    /*04-Aug-2016*/
+    footer {
+        margin-top: 1px;
+    }
+</style>
+<!-- Banner -->
+<div id="banner">
+    <div class="container">
+        <div class="bannerContent">
+            <h2>Connect With <span>In-home Providers</span></h2>
+            <h3>Solutions For the Homebound</h3>
+
+            <div class="bannerForm">
+                <form>
+                    <div class="form-group">
+                        <input type="text" id="txtSearch" class="numriconly" maxlength="5" placeholder="In what Zip Code do you need care?" />
+                    </div>
+                    <div class="form-button">
+                        <button class="btn btn-primary" id="findPros">Find Pros</button>
+                        <button class="btn btn-secondary" id="serviceReq">Service Request</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="overlay"></div>
+</div>
+<!-- //Banner -->
+<!-- WhyChoose Us Section -->
+<div class="whychooseSection">
+    <div class="container">
+        <h1 class="title"><span class="bg">WHY <span class="orangeTxt">CHOOSE US</span></span></h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="whychooseItem">
+                    <div class="image"><img src="/assets/images/icons/home-icon.png" /></div>
+                    <div class="detail">
+                        <span>Aging in Home</span> is the first interactive directory that brings the entire scope of in-home care into one online portal. Within minutes, you'll find information and reviews on providers across dozens of categories and specialties. You can connect directly with in-home care providers in your local area, helping you or a loved one remain in the home and independent!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="whychooseItem orangeColor">
+                    <div class="image"><i class="fa fa-heartbeat"></i></div>
+                    <div class="detail">
+                        <span>With a few clicks</span>  you'll find everything you need for physical, emotional, financial, and personal assistance, now and in the future. When the right in-home care provider team comes together, millions of Americans can remain in-home longer, enjoying the freedom and comforts of life for years to come!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="whychooseItem">
+                    <div class="image"><i aria-hidden="true" class="fa fa-thumbs-up"></i></div>
+                    <div class="detail">
+                        <span>Our mission</span> is to help people live at home safely, gracefully, and with dignity. To do this, we've brought together numerous in-home services, solutions, and care experts in a single website. With our large directory, you can connect with these providers and make informed choices about your in-home care.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- //WhyChoose Us Section -->
+<!-- Bottom footer -->
+<div class="bottomFooter">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-9">
+                <div class="text">
+                    <h2>Are you an in-home service provider?</h2>
+                    <h3>Find out how Aging in Home can give your business a serious boost</h3>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-3">
+                <div class="button">
+                    <a href="~/ProviderListing/BecomeProvider" class="btn btn-primary">Learn More</a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- Bottom footer -->
+
+<script type="text/javascript">
+    $(function () {
+
+       $("body").on("keydown", ".numriconly", function (e) {
+
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        $('#findPros').click(function (e) {
+            e.preventDefault();
+            var txtSearch = $('#txtSearch').val();
+            debugger;
+            location.href = "/ProviderListing/SearchListing?Location=" + txtSearch;
+            return false;
+        });
+
+        $('#serviceReq').click(function (e) {
+            e.preventDefault();
+            var txtSearch = $('#txtSearch').val();
+            debugger;
+            var url = '/Consumer/ServiceRequest?zipcode=_id_';
+            //location.href = "/Consumer/ServiceRequest?zipcode=" + txtSearch;
+            window.location.href = url.replace("_id_", txtSearch);
+            return false;
+        });
+    });
+</script>
+
+
+

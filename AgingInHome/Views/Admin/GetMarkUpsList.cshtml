@@ -1,0 +1,15 @@
+﻿@using AgingInHome.Models
+@model List<AgingInHome.Models.MarkupModel>
+<div class="tableRow tableHead">
+    <div class="tableCol">Mark Up</div>
+    <div class="tableCol">Is Default</div>
+    <div class="tableCol">IsActive</div>
+</div>
+@foreach (MarkupModel MarkUp in Model)
+{
+    <div class="tableRow">
+        <div class="tableCol"><span class="lg-hidden">Mark Up:</span>@MarkUp.Markup1</div>
+        <div class="tableCol"><span class="lg-hidden">Is Default:</span>@(MarkUp.IsDefault ? "Yes" : "No")</div>
+        <div class="tableCol"><span class="lg-hidden">IsActive:</span>@(MarkUp.IsActive ? "Yes" : "No")</div>
+    </div>
+}

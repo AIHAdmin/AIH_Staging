@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Manage Provider Analytic";
+}
+
+<h2>Manage Provider Analytic</h2>
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.jqGrid.min.js"></script>
+
+<div>
+    <div id="grid"></div>
+    <div id="pager"></div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        debugger;
+        $("#grid").jqGrid({
+            url: "/AdminAnalytics/ManageProviderAnalytic?searchType=3&searchText=&searchVia='AND'",
+            datatype: 'json',
+            contentType: 'application/json',
+            myType: 'POST',
+            jsonReader: {
+                root: 'Data',
+                id: 'Id',
+                repeatitems: false
+            },
+            colNames: ['Id', 'ProfileId', ],
+            colModel: [
+            { name: 'Id', index: 'Id', width: '60px', align: "center", sortable: true },
+            { name: 'ProfileId', index: 'ProfileId', width: '60px', align: "center", sortable: true },
+
+            ],
+            viewrecords: true,
+            height: 50,
+            autoencode: true,
+            gridview: true,
+            ignoreCase: true,
+            rowNum: 20,
+            rowList: [20, 30, 40],
+            sortname: '',
+            sortorder: "asc",
+            caption: "Markup Listing",
+            pager: $("#pager"),
+            autowidth: false,
+            shrinkToFit: true,
+            emptyrecords: "No records",
+            edit: true,
+            edittext: "Edit",
+        })
+
+
+    });
+</script>
+
+

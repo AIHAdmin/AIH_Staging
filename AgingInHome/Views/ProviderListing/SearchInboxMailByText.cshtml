@@ -1,0 +1,232 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+@model List<ServiceRequestDetail>
+@{
+    var listing = 0;
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var combinedInboxMessages = new List<combinedInboxMessagesModel>();
+}
+@foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+{
+    foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.IsRead == false).ToList())
+    {
+        var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+        listing = listing + countUnread;
+        if (Allmessages.AllMessages.Any(s => s.IsProviderArchive == false))
+        {
+            <span>
+                @{
+                    var inboxmessage = new combinedInboxMessagesModel();
+                    inboxmessage.ConversationMessage = true; inboxmessage.CreatedDate = Convert.ToDateTime(item3.SentDate);
+                    inboxmessage.UnreadMsg = countUnread;
+                    inboxmessage.Subject = Allmessages.AllMessages.First().MessageBody;
+                    inboxmessage.ConversationId = item3.ConversationId;
+                    inboxmessage.SenderId = item3.SenderId;
+                    inboxmessage.RecipientId = item3.RecipientId;
+
+                    if (item3.SenderId != userid && item3.SenderId != null)
+                    {
+                        if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0] == "TestAdmin")
+                        {
+                            inboxmessage.Name = "Admin";
+                        }
+                        else
+                        {
+                            inboxmessage.Name = @alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0];
+
+                        }
+
+                    }
+                    if (item3.RecipientId != userid)
+                    {
+                        inboxmessage.Name = @alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0];
+
+                    }
+                    combinedInboxMessages.Add(inboxmessage);
+
+                }
+            </span>
+                            }
+                            break;
+
+                        }
+                    }
+@foreach (var detail in Model.OrderByDescending(s => s.LastUpdation))
+{
+    if (detail.Inboxes.Where(d => d.IsProviderArchive == false).Count() > 0)
+    {
+        foreach (var item3 in detail.Inboxes)
+        {
+
+            var countUnread = detail.Inboxes.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+            listing = listing + countUnread;
+            <span>
+                @{
+                    var inboxmessage = new combinedInboxMessagesModel();
+                    inboxmessage.ConversationMessage = false; inboxmessage.CreatedDate = Convert.ToDateTime(item3.SentDate);
+                    inboxmessage.UnreadMsg = countUnread;
+                    inboxmessage.Subject = detail.Inboxes.Last().MessageBody;
+
+                    inboxmessage.ServiceRequestDetailsId = Convert.ToInt16(item3.ServiceRequestDetailsId);
+
+                    if (item3.SenderId != userid)
+                    {
+                        inboxmessage.Name = @alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0];
+
+                    }
+                    if (item3.RecipientId != userid)
+                    {
+                        inboxmessage.Name = @alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0];
+
+                    }
+                    combinedInboxMessages.Add(inboxmessage);
+                }
+            </span>
+
+                                break;
+                            }
+                        }
+                    }
+@{
+    TimeZone zone = TimeZone.CurrentTimeZone;
+    var _rst = combinedInboxMessages.GroupBy(c => c.Name).Select(c => new
+    {
+        Name = c.Select(x => x.Name).FirstOrDefault(),
+        CreatedDate = zone.ToLocalTime(c.Select(x => x.CreatedDate).FirstOrDefault()),
+        ConversationId = c.Select(x => x.ConversationId).FirstOrDefault(),
+        ConversationMessage = c.Select(x => x.ConversationMessage).FirstOrDefault(),
+        SenderId = c.Select(x => x.SenderId).FirstOrDefault() == userid ? c.Select(x => x.RecipientId).FirstOrDefault() : c.Select(x => x.SenderId).FirstOrDefault(),
+        ServiceRequestDetailsId = c.Select(x => x.ServiceRequestDetailsId).FirstOrDefault(),
+        UnreadMsg = c.Select(x => x.UnreadMsg).FirstOrDefault(),
+        Subject = c.Select(x => x.Subject).FirstOrDefault(),
+    }).ToList();
+}
+@foreach (var eachmessage in _rst)
+{
+    if (eachmessage.ConversationMessage == true)
+    {
+        if (eachmessage.Name != null)
+        {
+            if (eachmessage.Name.ToLower().Contains(Convert.ToString((string)ViewBag.search).ToLower()))
+            {
+
+         <!-- List Item -->
+                <div class="listItem openConversationMsg" data-detailId="@eachmessage.ConversationId" data-senderid="@eachmessage.SenderId" data-unreadmsg="@eachmessage.UnreadMsg">
+                    <div class="image">
+                        <div class="img">
+                            <img src="/assets/images/sm-default-img.png" class="default">
+                        </div>
+                        <span class="status"></span>
+                    </div>
+                    @if (eachmessage.UnreadMsg > 0)
+                    {
+                        <div class="detail">
+                            <h3>@eachmessage.Name<span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span> <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@eachmessage.Subject</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="detail">
+                            <h3>@eachmessage.Name <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@eachmessage.Subject</div>
+                        </div>
+                    }
+                </div>
+          <!-- //List Item -->
+            }
+        }
+        else if ((string)ViewBag.search == "")
+        {
+              <!-- List Item -->
+            <div class="listItem openConversationMsg" data-detailId="@eachmessage.ConversationId" data-senderid="@eachmessage.SenderId" data-unreadmsg="@eachmessage.UnreadMsg">
+                <div class="image">
+                    <div class="img">
+                        <img src="/assets/images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                @if (eachmessage.UnreadMsg > 0)
+                {
+                    <div class="detail">
+                        <h3>@eachmessage.Name<span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span> <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                        <div class="subject">@eachmessage.Subject</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="detail">
+                        <h3>@eachmessage.Name <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                        <div class="subject">@eachmessage.Subject</div>
+                    </div>
+                }
+            </div>
+          <!-- //List Item -->
+        }
+    }
+    else
+    {
+        if (eachmessage.Name != null)
+        {
+            if (eachmessage.Name.ToLower().Contains(Convert.ToString((string)ViewBag.search).ToLower()))
+            {
+
+        <!-- List Item -->
+                <div class="listItem openmsg" data-detailId="@eachmessage.ServiceRequestDetailsId" data-senderid="@eachmessage.SenderId" data-unreadmsg="@eachmessage.UnreadMsg">
+                    <div class="image">
+                        <div class="img">
+                            <img src="/assets/images/sm-default-img.png" class="default">
+                        </div>
+                        <span class="status"></span>
+                    </div>
+                    @if (eachmessage.UnreadMsg > 0)
+                    {
+                        <div class="detail">
+                            <h3>@eachmessage.Name<span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span> <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@eachmessage.Subject</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="detail">
+                            <h3>@eachmessage.Name <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@eachmessage.Subject</div>
+                        </div>
+                    }
+                </div>
+        <!-- //List Item -->
+            }
+        }
+        else if ((string)ViewBag.search == "")
+        {
+             <!-- List Item -->
+            <div class="listItem openmsg" data-detailId="@eachmessage.ServiceRequestDetailsId" data-senderid="@eachmessage.SenderId" data-unreadmsg="@eachmessage.UnreadMsg">
+                <div class="image">
+                    <div class="img">
+                        <img src="/assets/images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                @if (eachmessage.UnreadMsg > 0)
+                {
+                    <div class="detail">
+                        <h3>@eachmessage.Name<span id="@eachmessage.UnreadMsg">(@eachmessage.UnreadMsg)</span> <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                        <div class="subject">@eachmessage.Subject</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="detail">
+                        <h3>@eachmessage.Name <span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                        <div class="subject">@eachmessage.Subject</div>
+                    </div>
+                }
+            </div>
+        <!-- //List Item -->
+        }
+
+    }
+}
+@Html.Hidden("inboxcountfeild", _rst.Count())

@@ -1,0 +1,1334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgingInHomeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdwordBugets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="MonthlyPromotionalBudget" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="RemainingPromotionalBudget" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Analytics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="ProfileID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ViewID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="AnalyticsStats">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="Users" Type="int" />
+    <Property Name="Sessions" Type="int" />
+    <Property Name="CTR" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="CostPerTransaction" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="CPC" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="AdClicks" Type="int" />
+    <Property Name="Impressions" Type="int" />
+    <Property Name="Pageviews" Type="int" />
+    <Property Name="MarkupId" Type="int" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="AppointmentId" />
+    </Key>
+    <Property Name="AppointmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ConsumerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ServiceDate" Type="datetime" Nullable="false" />
+    <Property Name="BestTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsCancel" Type="bit" />
+    <Property Name="IsAlterTime" Type="datetime" />
+    <Property Name="IsAlterOffer" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ServiceRequestDetailsId" Type="int" />
+    <Property Name="IsProviderCancel" Type="bit" />
+    <Property Name="IsProviderAccept" Type="bit" />
+    <Property Name="IsConsumerAccept" Type="bit" />
+    <Property Name="AppointmentSendBy" Type="int" />
+    <Property Name="IsRatingDisable" Type="bit" />
+    <Property Name="ContactUsid" Type="int" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Attachments">
+    <Key>
+      <PropertyRef Name="AttachmentId" />
+    </Key>
+    <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InboxMessageId" Type="int" Nullable="false" />
+    <Property Name="ResourcePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="CategoryServices">
+    <Key>
+      <PropertyRef Name="CategoryServiceId" />
+    </Key>
+    <Property Name="CategoryServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="ProviderCategoryId" Type="int" />
+  </EntityType>
+  <EntityType Name="ConsumerProfile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Zipcode" Type="int" Nullable="false" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Relation" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="TypeOfMedicalInsurance" Type="nvarchar" MaxLength="50" />
+    <Property Name="PrimaryPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="AlterPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="City" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="ContactUs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsCall" Type="bit" />
+    <Property Name="IsEmail" Type="bit" />
+    <Property Name="AppointmentSchedule" Type="bit" />
+    <Property Name="CustomeMsg" Type="bit" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="CustomeMessageBody" Type="text" />
+    <Property Name="AppointmentDate" Type="datetime" />
+    <Property Name="AppointmentTime" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="abbreviation" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="70" />
+  </EntityType>
+  <EntityType Name="FavoriteDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AgingInHome.dbo.GoogleUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GoogleUser">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="RefreshToken" />
+      <PropertyRef Name="Userid" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="RefreshToken" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="Userid" Type="nvarchar" MaxLength="4000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HourOfOperation">
+    <Key>
+      <PropertyRef Name="HourOfOperationId" />
+    </Key>
+    <Property Name="HourOfOperationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MonStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="MonEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="TueStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="TueEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="WedStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="WedEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="ThuStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="ThuEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="FriStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="FriEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="SatStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="SatEnd" Type="nvarchar" MaxLength="50" />
+    <Property Name="SunStart" Type="nvarchar" MaxLength="50" />
+    <Property Name="SunEnd" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Inbox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderId" Type="nvarchar" MaxLength="128" />
+    <Property Name="RecipientId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+    <Property Name="MessageBody" Type="text" />
+    <Property Name="SentDate" Type="datetime" />
+    <Property Name="ServiceRequestDetailsId" Type="int" />
+    <Property Name="IsArchive" Type="bit" />
+    <Property Name="IsRead" Type="bit" />
+    <Property Name="IsStarred" Type="bit" />
+    <Property Name="IsProviderArchive" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ConversationId" Type="int" />
+    <Property Name="ContactUsId" Type="int" />
+    <Property Name="isAdminArchive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ListingAboutUs">
+    <Key>
+      <PropertyRef Name="ListingAboutUsId" />
+    </Key>
+    <Property Name="ListingAboutUsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="AboutUsDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ListingArticle">
+    <Key>
+      <PropertyRef Name="ListingArticleId" />
+    </Key>
+    <Property Name="ListingArticleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="ArticleTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ArticleDescription" Type="text" Nullable="false" />
+    <Property Name="ArticleImage" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsPublished" Type="bit" Nullable="false" />
+    <Property Name="IsCommentOn" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ListingBlog">
+    <Key>
+      <PropertyRef Name="ListingBlogId" />
+    </Key>
+    <Property Name="ListingBlogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="BlogTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BlogDescription" Type="text" Nullable="false" />
+    <Property Name="BlogImage" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsPublished" Type="bit" Nullable="false" />
+    <Property Name="IsCommentOn" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ListingBlogComment">
+    <Key>
+      <PropertyRef Name="ListingBlogCommentId" />
+    </Key>
+    <Property Name="ListingBlogCommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingBlogId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="BlogCommentDescription" Type="text" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Website" Type="varchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsBlog" Type="bit" />
+  </EntityType>
+  <EntityType Name="Markup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Markup" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="MasterProviderCategoryServices">
+    <Key>
+      <PropertyRef Name="CategoryServiceId" />
+    </Key>
+    <Property Name="CategoryServiceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="bigint" Nullable="false" />
+    <Property Name="CategoryServiceName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="bigint" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProviderCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProviderImageGalary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImagePath" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="date" Nullable="false" />
+    <Property Name="ModifyBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifyDate" Type="date" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProviderListing">
+    <Key>
+      <PropertyRef Name="ProviderListingId" />
+    </Key>
+    <Property Name="ProviderListingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="ProviderCategory" Type="nvarchar" MaxLength="50" />
+    <Property Name="CategoryServiceId" Type="int" />
+    <Property Name="ServicesAreaId" Type="int" Nullable="false" />
+    <Property Name="Experience" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProviderContactNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="HourOfOperationId" Type="int" Nullable="false" />
+    <Property Name="ServiceDescription" Type="text" />
+    <Property Name="Logo" Type="nvarchar" MaxLength="100" />
+    <Property Name="PrimaryEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CommunicationEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="GoogleURL" Type="nvarchar" MaxLength="150" />
+    <Property Name="FacebookURL" Type="nvarchar" MaxLength="150" />
+    <Property Name="TwitterURL" Type="nvarchar" MaxLength="150" />
+    <Property Name="WebsiteURL" Type="nvarchar" MaxLength="150" />
+    <Property Name="PinterestURL" Type="nvarchar" MaxLength="150" />
+    <Property Name="ListingDate" Type="datetime" Nullable="false" />
+    <Property Name="ServicePrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ServicePriceType" Type="nvarchar" MaxLength="50" />
+    <Property Name="WhoWeAre" Type="text" />
+    <Property Name="WhyWeDo" Type="text" />
+    <Property Name="WhatWeDo" Type="text" />
+    <Property Name="WhenWeDo" Type="text" />
+    <Property Name="IsApproved" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="ProviderAddress" Type="nvarchar" MaxLength="350" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsBlogShow" Type="bit" />
+    <Property Name="IsNewsShow" Type="bit" />
+    <Property Name="IsAboutUsShow" Type="bit" />
+    <Property Name="IsPhotosShow" Type="bit" />
+    <Property Name="IsVideoShow" Type="bit" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="Zipcode" Type="int" />
+    <Property Name="IsTeamShow" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProviderTeam">
+    <Key>
+      <PropertyRef Name="ListingTeamId" />
+    </Key>
+    <Property Name="ListingTeamId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="Teamtitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamMiddleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamPosition" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeamBiography" Type="text" Nullable="false" />
+    <Property Name="imageUrl" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ProviderVideos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VideoUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="date" Nullable="false" />
+    <Property Name="ModifyBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifyDate" Type="date" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="RatingTable">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="Speedpoint" Type="int" />
+    <Property Name="QualityPoint" Type="int" />
+    <Property Name="ReliabilityPoint" Type="int" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Website" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RequiedListing">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Zipcode" Type="int" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="ServiceDate" Type="datetime" />
+    <Property Name="Is7daysWait" Type="bit" />
+    <Property Name="ServiceRequestCatId" Type="int" />
+    <Property Name="IsQueue" Type="bit" />
+    <Property Name="AssignProviderName" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="ServiceArea">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StateId" Type="int" Nullable="false" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ServiceRadius" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="CategoryServiceId" Type="int" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="50" />
+    <Property Name="ServicePrice" Type="int" />
+    <Property Name="CustomeService" Type="nvarchar(max)" />
+    <Property Name="IsSelected" Type="bit" />
+  </EntityType>
+  <EntityType Name="ServicePriceType">
+    <Key>
+      <PropertyRef Name="ServicePriceTypeId" />
+    </Key>
+    <Property Name="ServicePriceTypeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ServicePriceTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="ZipCode" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="PrimaryPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="AlternatePhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="ServiceDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsDirectContact" Type="bit" />
+    <Property Name="ResultUrl" Type="nvarchar(max)" />
+    <Property Name="Relation" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="TypeOfMedicalInsurence" Type="nvarchar" MaxLength="50" />
+    <Property Name="BestTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="RequestStatus" Type="int" />
+    <Property Name="ProviderId" Type="int" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="LastUpdation" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ServiceRequestCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderCategoryId" Type="int" Nullable="false" />
+    <Property Name="ServiceRequestId" Type="int" Nullable="false" />
+    <Property Name="Iswait7days" Type="bit" />
+    <Property Name="LastUpdation" Type="datetime" />
+    <Property Name="ServiceDate" Type="datetime" />
+    <Property Name="BestTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ServiceRequestDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderListingId" Type="int" Nullable="false" />
+    <Property Name="IsProviderInvite" Type="bit" />
+    <Property Name="IsConsumerAcceptInvite" Type="bit" />
+    <Property Name="EmailDateTime" Type="datetime" />
+    <Property Name="Mailrespose" Type="bit" />
+    <Property Name="IsWaitMore7Days" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ServiceRequestCatId" Type="int" />
+    <Property Name="LastUpdation" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OnetimePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="RecPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="CreatedbBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UsStates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="varchar" MaxLength="250" />
+    <Property Name="Abbreviation" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Appointments_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="ProviderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointments_AspNetUsers1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="ConsumerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointments_ServiceRequestDetails">
+    <End Role="ServiceRequestDetails" Type="Self.ServiceRequestDetails" Multiplicity="0..1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceRequestDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="ServiceRequestDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attachments_Inbox">
+    <End Role="Inbox" Type="Self.Inbox" Multiplicity="1" />
+    <End Role="Attachments" Type="Self.Attachments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inbox">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Attachments">
+        <PropertyRef Name="InboxMessageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryServices_ProviderCategory">
+    <End Role="ProviderCategory" Type="Self.ProviderCategory" Multiplicity="0..1" />
+    <End Role="CategoryServices" Type="Self.CategoryServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryServices">
+        <PropertyRef Name="ProviderCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConsumerProfile_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ConsumerProfile" Type="Self.ConsumerProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConsumerProfile">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConsumerProfile_UsStates">
+    <End Role="UsStates" Type="Self.UsStates" Multiplicity="0..1" />
+    <End Role="ConsumerProfile" Type="Self.ConsumerProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsStates">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConsumerProfile">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FavoriteDetail_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="FavoriteDetail" Type="Self.FavoriteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="FavoriteDetail">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inbox_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Inbox" Type="Self.Inbox" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inbox">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inbox_AspNetUsers1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Inbox" Type="Self.Inbox" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inbox">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inbox_ContactUs">
+    <End Role="ContactUs" Type="Self.ContactUs" Multiplicity="0..1" />
+    <End Role="Inbox" Type="Self.Inbox" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContactUs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inbox">
+        <PropertyRef Name="ContactUsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inbox_ServiceRequestDetails">
+    <End Role="ServiceRequestDetails" Type="Self.ServiceRequestDetails" Multiplicity="0..1" />
+    <End Role="Inbox" Type="Self.Inbox" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceRequestDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inbox">
+        <PropertyRef Name="ServiceRequestDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingAboutUs_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ListingAboutUs" Type="Self.ListingAboutUs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ListingAboutUs">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingArticle_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ListingArticle" Type="Self.ListingArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ListingArticle">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingBlog_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ListingBlog" Type="Self.ListingBlog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ListingBlog">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingBlogComment_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ListingBlogComment" Type="Self.ListingBlogComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ListingBlogComment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingTeam_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ProviderTeam" Type="Self.ProviderTeam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ProviderTeam">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderImageGalary_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ProviderImageGalary" Type="Self.ProviderImageGalary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ProviderImageGalary">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderListing_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProviderListing">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderListing_CategoryServices">
+    <End Role="CategoryServices" Type="Self.CategoryServices" Multiplicity="0..1" />
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryServices">
+        <PropertyRef Name="CategoryServiceId" />
+      </Principal>
+      <Dependent Role="ProviderListing">
+        <PropertyRef Name="CategoryServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderListing_HourOfOperation">
+    <End Role="HourOfOperation" Type="Self.HourOfOperation" Multiplicity="1" />
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HourOfOperation">
+        <PropertyRef Name="HourOfOperationId" />
+      </Principal>
+      <Dependent Role="ProviderListing">
+        <PropertyRef Name="HourOfOperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderListing_ProviderCategory">
+    <End Role="ProviderCategory" Type="Self.ProviderCategory" Multiplicity="1" />
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProviderListing">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderListing_UsStates">
+    <End Role="UsStates" Type="Self.UsStates" Multiplicity="0..1" />
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsStates">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProviderListing">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderVideos_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ProviderVideos" Type="Self.ProviderVideos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ProviderVideos">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RatingTable_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="RatingTable" Type="Self.RatingTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RatingTable">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RatingTable_ProviderListing1">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="RatingTable" Type="Self.RatingTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="RatingTable">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequiedListing_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="RequiedListing" Type="Self.RequiedListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequiedListing">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequiedListing_ProviderCategory">
+    <End Role="ProviderCategory" Type="Self.ProviderCategory" Multiplicity="0..1" />
+    <End Role="RequiedListing" Type="Self.RequiedListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequiedListing">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceArea_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ServiceArea" Type="Self.ServiceArea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ServiceArea">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceArea_UsStates">
+    <End Role="UsStates" Type="Self.UsStates" Multiplicity="1" />
+    <End Role="ServiceArea" Type="Self.ServiceArea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsStates">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceArea">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceDetails_CategoryServices">
+    <End Role="CategoryServices" Type="Self.CategoryServices" Multiplicity="0..1" />
+    <End Role="ServiceDetails" Type="Self.ServiceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryServices">
+        <PropertyRef Name="CategoryServiceId" />
+      </Principal>
+      <Dependent Role="ServiceDetails">
+        <PropertyRef Name="CategoryServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceDetails_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ServiceDetails" Type="Self.ServiceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ServiceDetails">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRequestCategories_ProviderCategory">
+    <End Role="ProviderCategory" Type="Self.ProviderCategory" Multiplicity="1" />
+    <End Role="ServiceRequestCategories" Type="Self.ServiceRequestCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRequestCategories">
+        <PropertyRef Name="ProviderCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRequestCategories_ServiceRequest1">
+    <End Role="ServiceRequest" Type="Self.ServiceRequest" Multiplicity="1" />
+    <End Role="ServiceRequestCategories" Type="Self.ServiceRequestCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRequestCategories">
+        <PropertyRef Name="ServiceRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRequestDetails_ProviderListing">
+    <End Role="ProviderListing" Type="Self.ProviderListing" Multiplicity="1" />
+    <End Role="ServiceRequestDetails" Type="Self.ServiceRequestDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProviderListing">
+        <PropertyRef Name="ProviderListingId" />
+      </Principal>
+      <Dependent Role="ServiceRequestDetails">
+        <PropertyRef Name="ProviderListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRequestDetails_ServiceRequestCategories">
+    <End Role="ServiceRequestCategories" Type="Self.ServiceRequestCategories" Multiplicity="0..1" />
+    <End Role="ServiceRequestDetails" Type="Self.ServiceRequestDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceRequestCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRequestDetails">
+        <PropertyRef Name="ServiceRequestCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ssp_GetBlogNewsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BlogNewsId" Type="int" Mode="In" />
+    <Parameter Name="IsBlog" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="ssp_GetProviderBlogData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ssp_GetProviderListAnalytic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ssp_GetProviderNewsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ssp_GetProviderPhotosData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ssp_GetProviderTeamData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ssp_GetProviderVideosData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_GetAnalyticsListing" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="TotalRecords" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_GetMarkups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="TotalRecords" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_GetProviderListingRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PageNumber" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="TotalRecords" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="AgingInHomeModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdwordBugets" EntityType="Self.AdwordBugets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Analytics" EntityType="Self.Analytics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AnalyticsStats" EntityType="Self.AnalyticsStats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CategoryServices" EntityType="Self.CategoryServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConsumerProfile" EntityType="Self.ConsumerProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FavoriteDetail" EntityType="Self.FavoriteDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HourOfOperation" EntityType="Self.HourOfOperation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inbox" EntityType="Self.Inbox" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingAboutUs" EntityType="Self.ListingAboutUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingArticle" EntityType="Self.ListingArticle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingBlog" EntityType="Self.ListingBlog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingBlogComment" EntityType="Self.ListingBlogComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Markup" EntityType="Self.Markup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterProviderCategoryServices" EntityType="Self.MasterProviderCategoryServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProviderCategory" EntityType="Self.ProviderCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProviderImageGalary" EntityType="Self.ProviderImageGalary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProviderListing" EntityType="Self.ProviderListing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProviderTeam" EntityType="Self.ProviderTeam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProviderVideos" EntityType="Self.ProviderVideos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RatingTable" EntityType="Self.RatingTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequiedListing" EntityType="Self.RequiedListing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceArea" EntityType="Self.ServiceArea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceDetails" EntityType="Self.ServiceDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServicePriceType" EntityType="Self.ServicePriceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRequest" EntityType="Self.ServiceRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRequestCategories" EntityType="Self.ServiceRequestCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRequestDetails" EntityType="Self.ServiceRequestDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsStates" EntityType="Self.UsStates" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GoogleUser" EntityType="Self.GoogleUser" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GoogleUser].[username] AS [username], 
+    [GoogleUser].[RefreshToken] AS [RefreshToken], 
+    [GoogleUser].[Userid] AS [Userid]
+    FROM [dbo].[GoogleUser] AS [GoogleUser]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Appointments_AspNetUsers" Association="Self.FK_Appointments_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointments_AspNetUsers1" Association="Self.FK_Appointments_AspNetUsers1">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointments_ServiceRequestDetails" Association="Self.FK_Appointments_ServiceRequestDetails">
+      <End Role="ServiceRequestDetails" EntitySet="ServiceRequestDetails" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attachments_Inbox" Association="Self.FK_Attachments_Inbox">
+      <End Role="Inbox" EntitySet="Inbox" />
+      <End Role="Attachments" EntitySet="Attachments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryServices_ProviderCategory" Association="Self.FK_CategoryServices_ProviderCategory">
+      <End Role="ProviderCategory" EntitySet="ProviderCategory" />
+      <End Role="CategoryServices" EntitySet="CategoryServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConsumerProfile_AspNetUsers" Association="Self.FK_ConsumerProfile_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ConsumerProfile" EntitySet="ConsumerProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConsumerProfile_UsStates" Association="Self.FK_ConsumerProfile_UsStates">
+      <End Role="UsStates" EntitySet="UsStates" />
+      <End Role="ConsumerProfile" EntitySet="ConsumerProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FavoriteDetail_ProviderListing" Association="Self.FK_FavoriteDetail_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="FavoriteDetail" EntitySet="FavoriteDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inbox_AspNetUsers" Association="Self.FK_Inbox_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Inbox" EntitySet="Inbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inbox_AspNetUsers1" Association="Self.FK_Inbox_AspNetUsers1">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Inbox" EntitySet="Inbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inbox_ContactUs" Association="Self.FK_Inbox_ContactUs">
+      <End Role="ContactUs" EntitySet="ContactUs" />
+      <End Role="Inbox" EntitySet="Inbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inbox_ServiceRequestDetails" Association="Self.FK_Inbox_ServiceRequestDetails">
+      <End Role="ServiceRequestDetails" EntitySet="ServiceRequestDetails" />
+      <End Role="Inbox" EntitySet="Inbox" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingAboutUs_ProviderListing" Association="Self.FK_ListingAboutUs_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ListingAboutUs" EntitySet="ListingAboutUs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingArticle_ProviderListing" Association="Self.FK_ListingArticle_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ListingArticle" EntitySet="ListingArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingBlog_ProviderListing" Association="Self.FK_ListingBlog_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ListingBlog" EntitySet="ListingBlog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingBlogComment_AspNetUsers" Association="Self.FK_ListingBlogComment_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ListingBlogComment" EntitySet="ListingBlogComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingTeam_ProviderListing" Association="Self.FK_ListingTeam_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ProviderTeam" EntitySet="ProviderTeam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderImageGalary_ProviderListing" Association="Self.FK_ProviderImageGalary_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ProviderImageGalary" EntitySet="ProviderImageGalary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderListing_AspNetUsers" Association="Self.FK_ProviderListing_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderListing_CategoryServices" Association="Self.FK_ProviderListing_CategoryServices">
+      <End Role="CategoryServices" EntitySet="CategoryServices" />
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderListing_HourOfOperation" Association="Self.FK_ProviderListing_HourOfOperation">
+      <End Role="HourOfOperation" EntitySet="HourOfOperation" />
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderListing_ProviderCategory" Association="Self.FK_ProviderListing_ProviderCategory">
+      <End Role="ProviderCategory" EntitySet="ProviderCategory" />
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderListing_UsStates" Association="Self.FK_ProviderListing_UsStates">
+      <End Role="UsStates" EntitySet="UsStates" />
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderVideos_ProviderListing" Association="Self.FK_ProviderVideos_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ProviderVideos" EntitySet="ProviderVideos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RatingTable_AspNetUsers" Association="Self.FK_RatingTable_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="RatingTable" EntitySet="RatingTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RatingTable_ProviderListing1" Association="Self.FK_RatingTable_ProviderListing1">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="RatingTable" EntitySet="RatingTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequiedListing_AspNetUsers" Association="Self.FK_RequiedListing_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="RequiedListing" EntitySet="RequiedListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequiedListing_ProviderCategory" Association="Self.FK_RequiedListing_ProviderCategory">
+      <End Role="ProviderCategory" EntitySet="ProviderCategory" />
+      <End Role="RequiedListing" EntitySet="RequiedListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceArea_ProviderListing" Association="Self.FK_ServiceArea_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ServiceArea" EntitySet="ServiceArea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceArea_UsStates" Association="Self.FK_ServiceArea_UsStates">
+      <End Role="UsStates" EntitySet="UsStates" />
+      <End Role="ServiceArea" EntitySet="ServiceArea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceDetails_CategoryServices" Association="Self.FK_ServiceDetails_CategoryServices">
+      <End Role="CategoryServices" EntitySet="CategoryServices" />
+      <End Role="ServiceDetails" EntitySet="ServiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceDetails_ProviderListing" Association="Self.FK_ServiceDetails_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ServiceDetails" EntitySet="ServiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRequestCategories_ProviderCategory" Association="Self.FK_ServiceRequestCategories_ProviderCategory">
+      <End Role="ProviderCategory" EntitySet="ProviderCategory" />
+      <End Role="ServiceRequestCategories" EntitySet="ServiceRequestCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRequestCategories_ServiceRequest1" Association="Self.FK_ServiceRequestCategories_ServiceRequest1">
+      <End Role="ServiceRequest" EntitySet="ServiceRequest" />
+      <End Role="ServiceRequestCategories" EntitySet="ServiceRequestCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRequestDetails_ProviderListing" Association="Self.FK_ServiceRequestDetails_ProviderListing">
+      <End Role="ProviderListing" EntitySet="ProviderListing" />
+      <End Role="ServiceRequestDetails" EntitySet="ServiceRequestDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRequestDetails_ServiceRequestCategories" Association="Self.FK_ServiceRequestDetails_ServiceRequestCategories">
+      <End Role="ServiceRequestCategories" EntitySet="ServiceRequestCategories" />
+      <End Role="ServiceRequestDetails" EntitySet="ServiceRequestDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

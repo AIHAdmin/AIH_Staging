@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+
+@{
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var listing = 0;
+    var inboxtype = (string)ViewBag.InboxType;
+
+foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+    {
+        foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.Id).ToList())
+        {
+            if(@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId)==null)
+            {
+                continue;
+            }
+            var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+            listing = listing + countUnread;
+    <div class="listItem openConversationMsg" data-detailid="@item3.ConversationId">
+        <div class="image">
+            <div class="img">
+                <img src="../images/sm-default-img.png" class="default">
+            </div>
+            <span class="status"></span>
+        </div>
+        <div class="detail">
+@if (Allmessages.AllMessages.Where(d => d.IsRead == false && d.RecipientId == User.Identity.GetUserId()).Count() > 0)
+            {
+                if (item3.SenderId != userid)
+                {
+                      if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0] == "TestAdmin")
+                        {
+                        <h3>Admin<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+    }
+    else
+    {
+    <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+    }
+    <div class="subject">@item3.Subject</div>
+}
+ if (item3.RecipientId != userid)
+                {
+      <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+      <div class="subject">@item3.Subject</div>
+ }
+ }
+   else
+            {
+                if (item3.SenderId != userid)
+                {
+                     <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+     <div class="subject">@item3.Subject</div>
+                }
+                 if (item3.RecipientId != userid)
+                {
+                     <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+    <div class="subject">@item3.Subject</div>
+                     
+                 }
+}
+            
+</div>
+    </div>
+        }
+    }
+}

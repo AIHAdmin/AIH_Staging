@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+
+@{ 
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var listing = 0;
+    var inboxtype = (string)ViewBag.InboxType;
+}
+<table class="table table-responsive table-hover table-striped table-bordered ">
+    <tr>
+        <td colspan="4"><b>@inboxtype</b></td>
+    </tr>
+    @foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+    {
+        foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.Id).ToList())
+        {
+            var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+            listing = listing + countUnread;
+            <tr class="openConversationMsg @inboxtype" data-detailId="@item3.ConversationId">
+                @*<td style="width:3%">@Html.CheckBox("checkbox")</td>*@
+
+                @if (Allmessages.AllMessages.Where(d => d.IsRead == false && d.RecipientId == User.Identity.GetUserId()).Count() > 0)
+            {
+                if (item3.SenderId != userid)
+                {
+            <td>
+                @if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0] == "TestAdmin")
+                        {
+                        <b>Admin<span id="@countUnread">(@countUnread)</span></b>
+                        }
+                        else
+                        {
+                        <b>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]<span id="@countUnread">(@countUnread)</span></b>
+
+                        }
+            </td>
+
+            <td><b>@item3.Subject</b></td>
+            <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;<b>@item3.SentDate</b> </td>
+
+                }
+                if (item3.RecipientId != userid)
+                {
+            <td><b>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]<span id="@countUnread">(@countUnread)</span></b></td>
+            <td><b>@item3.Subject</b></td>
+            <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;<b>@item3.SentDate</b> </td>
+
+                }
+
+            }
+            else
+            {
+                if (item3.SenderId != userid)
+                {
+            <td>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]</td>
+            <td>@item3.Subject</td>
+            <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@item3.SentDate</td>
+                }
+                if (item3.RecipientId != userid)
+                {
+            <td>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]</td>
+            <td>@item3.Subject</td>
+            <td style="width:25%">@*<i class="fa fa-paperclip fa-2x"></i>*@ &nbsp;@item3.SentDate</td>
+
+                }
+            }
+
+
+
+            </tr>
+            break;
+
+        }
+    }
+    </table>
+    @Html.Hidden("inboxcountfeild", listing)
+

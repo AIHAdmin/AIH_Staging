@@ -1,0 +1,168 @@
+﻿@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+
+@{
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var listing = 0;
+    var inboxtype = (string)ViewBag.InboxType;
+    List<combinedInboxMessagesModel> combinedInboxMessages = new List<combinedInboxMessagesModel>();
+    combinedInboxMessagesModel combinedInbox = new combinedInboxMessagesModel();
+    foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+    {
+        combinedInbox = new combinedInboxMessagesModel();
+        foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.Id).ToList())
+        {
+
+            if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId) == null)
+            {
+                continue;
+            }
+
+            var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+            listing = listing + countUnread;
+            if (Allmessages.AllMessages.Where(d => d.IsRead == false && d.RecipientId == User.Identity.GetUserId()).Count() > 0)
+            {
+                if (item3.SenderId != userid)
+                {
+                    if (alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0] == "TestAdmin")
+                    {
+                        combinedInbox.Name = "Admin";
+                    }
+                    else
+                    {
+                        combinedInbox.Name = alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0];
+                    }
+                }
+                if (item3.RecipientId != userid)
+                {
+                    combinedInbox.Name = alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0];
+                }
+            }
+            else
+            {
+                if (item3.SenderId != userid)
+                {
+                    combinedInbox.Name = alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0];
+                }
+                if (item3.RecipientId != userid)
+                {
+                    combinedInbox.Name = alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0];
+                }
+            }
+            combinedInbox.Subject = Allmessages.AllMessages.OrderBy(s => s.Id).Last().MessageBody;
+            combinedInbox.UnreadMsg = countUnread;
+            combinedInbox.CreatedDate = item3.SentDate.Value;
+            combinedInbox.ConversationId = item3.ConversationId;
+            combinedInbox.ConversationMessage = false;
+            combinedInboxMessages.Add(combinedInbox);
+        }
+
+    }
+    var _rst = combinedInboxMessages.GroupBy(c => c.Name).Select(c => new
+    {
+        Name = c.Select(x => x.Name).FirstOrDefault(),
+        CreatedDate = c.Select(x => x.CreatedDate).FirstOrDefault(),
+        ConversationId = c.Select(x => x.ConversationId).FirstOrDefault(),
+        ConversationMessage = c.Select(x => x.ConversationMessage).FirstOrDefault(),
+        SenderId = c.Select(x => x.SenderId).FirstOrDefault(),
+        UnreadMsg = c.Select(x => x.UnreadMsg).FirstOrDefault(),
+        Subject = c.Select(x => x.Subject).FirstOrDefault()
+    }).ToList();
+
+    foreach (var eachmessage in _rst)
+    {
+        if (eachmessage.Name.ToLower().Contains(((string)ViewBag.Keyword).ToLower()))
+        {
+            <div class="listItem openConversationMsg" data-detailid="@eachmessage.ConversationId" data-senderid="@eachmessage.SenderId">
+                <div class="image">
+                    <div class="img">
+                        <img src="../images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                <div class="detail">
+                    <h3>@eachmessage.Name<span>@eachmessage.CreatedDate.ToString("MM/dd/yyyy")</span></h3>
+                    <div class="subject">@eachmessage.Subject</div>
+                </div>
+            </div>
+        }
+    }
+}
+@Html.Hidden("inboxcountfeild", _rst.Count())
+
+
+
+@*@using Microsoft.AspNet.Identity
+@using AgingInHome.DAL
+@using AgingInHome.Models
+
+@{
+    var userid = User.Identity.GetUserId();
+    var alluserlist = (List<AspNetUser>)ViewBag.allusers;
+    var listing = 0;
+    var inboxtype = (string)ViewBag.InboxType;
+
+    foreach (var Allmessages in (List<CustomeMessagesModel>)ViewBag.CustomeMessages)
+    {
+        foreach (var item3 in Allmessages.AllMessages.OrderBy(s => s.Id).ToList())
+        {
+            if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId) == null)
+            {
+                continue;
+            }
+            if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0].ToLower().Contains(((string)ViewBag.Keyword).ToLower()))
+            {
+            var countUnread = Allmessages.AllMessages.Where(f => f.IsRead == false && f.RecipientId == User.Identity.GetUserId()).Count();
+            listing = listing + countUnread;
+            <div class="listItem openConversationMsg" data-detailid="@item3.ConversationId">
+                <div class="image">
+                    <div class="img">
+                        <img src="../images/sm-default-img.png" class="default">
+                    </div>
+                    <span class="status"></span>
+                </div>
+                <div class="detail">
+                    @if (Allmessages.AllMessages.Where(d => d.IsRead == false && d.RecipientId == User.Identity.GetUserId()).Count() > 0)
+                    {
+                        if (item3.SenderId != userid)
+                        {
+                            
+                            if (@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0] == "TestAdmin")
+                            {
+                                <h3>Admin<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+                            }
+                            else
+                            {
+                                <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+                            }
+                            <div class="subject">@item3.Subject</div>
+                        }
+                        if (item3.RecipientId != userid)
+                        {
+                            <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@item3.Subject</div>
+                        }
+                    }
+                    else
+                    {
+                        if (item3.SenderId != userid)
+                        {
+                            <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.SenderId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@item3.Subject</div>
+                        }
+                        if (item3.RecipientId != userid)
+                        {
+                            <h3>@alluserlist.FirstOrDefault(d => d.Id == item3.RecipientId).UserName.Split('@')[0]<span>@item3.SentDate.Value.ToString("MM/dd/yyyy")</span></h3>
+                            <div class="subject">@item3.Subject</div>
+
+                        }
+                    }
+
+                </div>
+            </div>
+}
+        }
+    }
+}*@

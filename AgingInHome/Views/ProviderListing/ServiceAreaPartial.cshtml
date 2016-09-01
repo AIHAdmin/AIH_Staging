@@ -1,0 +1,117 @@
+﻿@{ 
+    int count = ViewBag.Count;
+}
+@model AgingInHome.Models.ProviderListingModel
+
+<div class="row CustomRowList _AddNewProvideritem">
+    <div class="remove-icon customeOther" id="serviceArea_@count" data-index="@count">
+        <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    </div>
+    <div class="CustomRowListItem clearfix">
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group">
+             
+                @Html.TextBoxFor(m => m.ServiceAreas[count].City, new { @class = "form-control _textServiceCity", @maxlength = "100", @placeholder = "City" })
+                @Html.ValidationMessageFor(m => m.ServiceAreas[count].City, "", new { @style = "display: block;" })
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group">
+               
+                @Html.DropDownList("ServiceAreas[" + count + "].StateId", (SelectList)ViewBag.State, new { @class = "selectpicker" })
+                @Html.ValidationMessageFor(m => m.ServiceAreas[count].StateId)
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group">
+               
+                @Html.TextBoxFor(m => m.ServiceAreas[count].ZipCode, new { @class = "form-control numriconly zipMasking", @placeholder = "Zip code",@maxlength = "5", })
+                @Html.ValidationMessageFor(m => m.ServiceAreas[count].ZipCode)
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.ServiceAreas[count].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value"), "Select Radius", new { @class = "selectpicker" })
+                @Html.ValidationMessageFor(m => m.ServiceAreas[count].ServiceRadius, "", new { @style = "display: block;" })
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+@*<div class="row area-form _AddNewProvideritem">
+    <div class="form-group">
+       
+       @Html.Label("City")
+    @Html.TextBoxFor(m => m.ServiceAreas[count].City, new { @class = "form-control _textServiceCity" })
+
+    @Html.ValidationMessageFor(m => m.ServiceAreas[count].City, "", new { @style = "display: block;" })
+    </div>
+    <div class="form-group">
+     
+        @Html.Label("State")
+        @Html.DropDownList("ServiceAreas[" + count + "].StateId", (SelectList)ViewBag.State, new { @class = "form-control selectpicker" })
+        @Html.ValidationMessageFor(m => m.ServiceAreas[count].StateId)
+       
+    </div>
+    <div class="form-group">
+      
+        @Html.Label("Zipcode")
+        @Html.TextBoxFor(m => m.ServiceAreas[count].ZipCode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ServiceAreas[count].ZipCode)
+    </div>
+    <div class="form-group  last-area">
+       
+        @Html.Label("Service Radius")
+        @Html.DropDownListFor(m => m.ServiceAreas[count].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value"), "Select Radius", new { @class = "form-control selectpicker" })
+        @Html.ValidationMessageFor(m => m.ServiceAreas[count].ServiceRadius, "", new { @style = "display: block;" })
+       
+    </div>
+    <span class="customeOther cros"><a href="#">X</a></span>
+</div>
+<hr style="margin:0px 0 5px 0" />*@
+
+
+@*<div class="row" style="margin:0px">
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.Label("City")
+            @Html.TextBoxFor(m => m.ServiceAreas[count].City, new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(m => m.ServiceAreas[count].City, "", new { @style = "display: block;" })
+           
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.Label("State")
+            @Html.DropDownList("ServiceAreas["+count+"].StateId", (SelectList)ViewBag.State, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ServiceAreas[count].StateId)
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.Label("Zipcode")
+            @Html.TextBoxFor(m => m.ServiceAreas[count].ZipCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ServiceAreas[count].ZipCode)
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.Label("Service Radius")
+            @Html.DropDownListFor(m => m.ServiceAreas[count].ServiceRadius, new SelectList(Model.ServiceRadius, "Key", "Value"), "Select Radius", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ServiceAreas[count].ServiceRadius, "", new { @style = "display: block;" })
+            <span class="customeOther badge pull-right" style="color:white;cursor:pointer;margin: -27px -23px 0 123px;">x</span>
+            <span>Service Area</span>
+        </div>
+
+    </div>
+</div>*@

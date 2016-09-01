@@ -1,0 +1,242 @@
+﻿@model List<AgingInHome.Models.AppointmentModel>
+@using AgingInHome.DAL;
+@{
+    var AllLisintg = new AgingInHomeContext().ProviderListings.ToList();
+}
+
+<h2 class="title">
+    Appointment
+    <span class="filterDropdown">
+        <label>Best Time</label>
+        <select id="dropdownBestTime" name="dropdownStatus" class="selectpicker">
+            <option value="" selected="selected">Anytime</option>
+            <option value="Afternoon">Afternoon </option>
+            <option value="Morning">Morning</option>
+            <option value="Evening">Evening</option>
+        </select>
+    </span>
+</h2>
+<div class="Dashboardtable">
+    @if (Model.Count > 0)
+    {
+        <div class="tableRow tableHead">
+            <div class="tableCol providerCol">Providers Name</div>
+            <div class="tableCol appDateCol">Appointment Date</div>
+            <div class="tableCol PhoneCol">Phone Number</div>
+            <div class="tableCol BestTimeCol">Best Time</div>
+            <div class="tableCol StatusCol">Status</div>
+            <div class="tableCol actionCol">Action</div>
+        </div>
+        foreach (var appointments in Model)
+        {
+            <div class="tableRow">
+                <div class="tableCol providerCol">
+                    <i aria-hidden="true" class="fa fa-user lg-hidden"></i> @{
+                        var companyName = "";
+                        var ProviderContactNumber = "";
+                        var Provider = new AgingInHomeContext().ProviderListings.Where(s => s.UserId == appointments.ProviderId).FirstOrDefault();
+                        companyName = Provider != null ? Provider.CompanyName : companyName;
+                        ProviderContactNumber = Provider != null ? Provider.ProviderContactNumber : ProviderContactNumber;
+                    }
+                    @companyName
+                </div>
+                <div class="tableCol appDateCol"><i aria-hidden="true" class="fa fa-calendar lg-hidden"></i> @appointments.ServiceDate</div>
+                <div class="tableCol PhoneCol"><i aria-hidden="true" class="fa fa-phone lg-hidden"></i> <a href="tel:0303440033">@ProviderContactNumber</a></div>
+                <div class="tableCol BestTimeCol"><i aria-hidden="true" class="fa fa-file-text lg-hidden"></i> @appointments.BestTime </div>
+                @if (appointments.AppointmentSendBy == 1)
+                {
+                    <div class="tableCol StatusCol">
+                        @if (appointments.IsCancel == true)
+                        {
+                            <span class="statusbtn red">Cancelled</span>
+                        }
+                        else if (appointments.IsProviderAccept == null)
+                        {
+                            <span class="statusbtn blue">Pending</span>
+                        }
+                        else if (appointments.IsProviderAccept == true)
+                        {
+                            <span class="statusbtn blue">Accepted</span>
+                        }
+                        else if (appointments.IsProviderAccept == false)
+                        {
+                            <span class="statusbtn blue">Rejected</span>
+                        }
+                    </div>
+
+                    if (appointments.IsCancel == true)
+                    {
+                        <div class="tableCol StatusCol">
+                            <span class="statusbtn red">Cancelled</span>
+                        </div>
+                    }
+                    else if (appointments.IsProviderAccept == false)
+                    {
+                        <div class="tableCol StatusCol">
+                            <span class="statusbtn red">Rejected</span>
+                        </div>
+                    }
+                    else if (appointments.IsProviderAccept == null)
+                    {
+                        <div class="tableCol actionCol">
+                            @*<span class="statusbtn red">Waiting for Provider</span>*@
+                            <div class="dropdown">
+                                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                    <li><a href="#" class="cancelConsumerAppointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-ban"></i> Cancel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tableCol actionCol">
+                            <form id="@appointments.AppointmentId">
+                                @Html.Hidden("ConsumerId", appointments.ConsumerId)
+                                @Html.Hidden("ProviderId", appointments.ProviderId)
+                                @Html.Hidden("ServiceDate", appointments.ServiceDate, new { @class = "servicedate" + appointments.AppointmentId })
+                                @Html.Hidden("BestTime", appointments.BestTime, new { @class = "besttime" + appointments.AppointmentId })
+                                @Html.Hidden("ServiceRequestDetailsId", appointments.ServiceRequestDetailsId)
+                                @Html.Hidden("AppointmentId", appointments.AppointmentId)
+                                <div class="dropdown">
+                                    <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li><a href="#"><i aria-hidden="true" class="fa fa-trash-o"></i> Delete</a></li>
+                                        <li><a href="#" class="newappointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add New</a></li>
+                                        <li><a href="#" class="cancelAppointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-ban"></i> Cancel</a></li>
+
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    }
+                }
+                else
+                {
+                    if (appointments.IsCancel == true)
+                    {
+                        <div class="tableCol StatusCol">
+                            <span class="statusbtn red">Cancelled</span>
+                        </div>
+                        @*<div class="tableCol StatusCol">
+                                <span class="statusbtn red">Appointment Cancelled</span>
+                            </div>*@
+                    }
+                    else if (appointments.IsConsumerAccept == null)
+                    {
+                        @*<div class="tableCol StatusCol">
+                                <span class="statusbtn blue">Pending</span>
+                            </div>*@
+                        <div class="tableCol actionCol">
+                            <div class="dropdown">
+                                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                    <li><a href="#" class="RejectAppointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-trash-o"></i> Reject</a></li>
+                                    <li><a href="#" class="AcceptAppointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-plus-circle"></i>Accept</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else if (appointments.IsConsumerAccept == false)
+                    {
+                        <div class="tableCol StatusCol">
+                            <span class="statusbtn red">Rejected</span>
+                        </div>
+                        @*<div class="tableCol StatusCol">
+                                <span class="statusbtn red">Appointment Rejected</span>
+                            </div>*@
+                    }
+                    else
+                    {
+                        @*<div class="tableCol StatusCol">
+                                <span class="statusbtn blue">Rejected</span>
+                            </div>*@
+                        <div class="tableCol actionCol">
+                            <form id="@appointments.AppointmentId">
+                                <div class="dropdown">
+                                    <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li><a href="#"><i aria-hidden="true" class="fa fa-trash-o"></i> Delete</a></li>
+                                        <li><a href="#" class="newappointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-plus-circle"></i> Add New</a></li>
+                                        <li><a href="#" class="cancelAppointment" id="@appointments.AppointmentId"><i aria-hidden="true" class="fa fa-ban"></i> Cancel</a></li>
+
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    }
+                }
+
+            </div>
+                            }
+                        }
+                        else
+                        {
+                            <center><h3>No Appointment Found</h3>  </center>
+                        }
+
+
+</div>
+
+@Html.Hidden("Appointmentcountfeild", Model.Count())
+@Html.Hidden("AppointmentTotalRecords", (int)ViewBag.TotalRecords)
+<script type="text/javascript">
+    $(function () {
+        $("select").selectpicker('refresh');
+        $('#dropdownBestTime').change(function () {
+            if ($(this).val() != undefined) {
+                var bestTime = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("GetAllConsumerAppointments", "Consumer")",
+                    data: { bestTime: bestTime },
+                    success: function (result) {
+                        $("#appointments").html(result);
+                        $('#dropdownBestTime').val(bestTime);
+                        $("select").selectpicker('refresh');
+                        $(".appointmentCount").empty();
+                        $(".appointmentCount").append($('#AppointmentTotalRecords').val());
+                        var count = $('#AppointmentTotalRecords').val();
+                        if (count > 0) {
+                            $('#AppointmentPager').show();
+                            var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+                            $('#AppointmentPager').bootpag({
+                                total: totalPages,
+                                page: 1,
+                                maxVisible: 5,
+                                leaps: true,
+                                firstLastUse: true,
+                                first: '←',
+                                last: '→',
+                                wrapClass: 'pagination',
+                                activeClass: 'active',
+                                disabledClass: 'disabled',
+                                nextClass: 'next',
+                                prevClass: 'prev',
+                                lastClass: 'last',
+                                firstClass: 'first'
+                            });
+                        }
+                        else {
+                            $('#AppointmentPager').hide();
+                        }
+
+
+                    }
+                });
+            }
+        });
+    });
+</script>

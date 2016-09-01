@@ -1,0 +1,1101 @@
+﻿@using AgingInHome.BLL.Enums
+@using AgingInHome.Models
+@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@model AgingInHome.Models.AdminDashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutNew1.cshtml";
+    //var bgcolor = "";
+    //  var listingid = 0;
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="main-container inner-container">
+    <div class="container dasboardContainer AdmindasboardContainer" style="margin-bottom:100px;">
+        <!-- Tab Dasboard -->
+        <div class="row">
+            <ul class="nav tabDasboard" role="tablist">
+                <li role="presentation" class="LightBlue active" id="liinbox">
+                    <a href="#inbox" aria-controls="inbox" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/envelope-with-pencil.svg" /></span>
+                        <span class="countValue" id="spanCountInbox">0</span>
+                        <h3>Messages</h3>
+                    </a>
+                </li>
+                <li role="presentation" >
+                    <a href="#ServiceRequest" aria-controls="ServiceRequest" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/computer-service.svg" /></span>
+                        <span class="countValue">@Model.AllServiceRequests.Count()</span>
+                        <h3>Service Request(s)</h3>
+                    </a>
+                </li>
+              
+                <li role="presentation" class="green">
+                    <a href="#appointment" aria-controls="appointment" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/appointment-icon.svg" /></span>
+                        <span class="countValue">@Model.AllAppointment.Count()</span>
+                        <h3>Appointment</h3>
+                    </a>
+                </li>
+                <li role="presentation" class="BlueShade1">
+                    <a href="#queue" aria-controls="queue" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/queue-icon.svg" /></span>
+                        <span class="countValue">@Model.AllQueuelisting.Count()</span>
+                        <h3>Queue</h3>
+                    </a>
+                </li>
+                <li role="presentation" class="RedShade">
+                    <a href="#googleAnalytics" aria-controls="googleAnalytics" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/analytics-icon.svg" /></span>
+                        <span class="countValue">50</span>
+                        <h3>Google analytics</h3>
+                    </a>
+                </li>
+                <li role="presentation" class="BlueShade2">
+                    <a href="#manageMarkup" aria-controls="manageMarkup" role="tab" data-toggle="tab">
+                        <span class="icon"><img src="../images/icons/markup-icon.svg" /></span>
+                        <span class="countValue">50</span>
+                        <h3>Manage Markup <span>& analytics Provider</span></h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- //Tab Dasboard -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Inbox Content -->
+            <div role="tabpanel" class="tab-pane clearfix active" id="inbox">
+                <div class="inboxContent contentBox">
+                    <!-- List mail COntent -->
+                    <div class="Listmail">
+                        <!-- Search Content -->
+                        <div class="search">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search .." id="txtsearchkey">
+                                    <div class="input-group-addon"><i aria-hidden="true" class="fa fa-search" id="btnsearchmails"></i><img src="/assets/images/searchClose.png" id="crossIcon" /></div>
+                                </div>
+                            </form>
+                            <span class="hamburgerIcon closeIcon"><i aria-hidden="true" class="fa fa-bars"></i></span>
+                        </div>
+                        <!-- //Search Content -->
+
+
+                        <div class="contentScroll mCustomScrollbar" style="height: 548px;">
+                            <div id="leftInboxMessage">
+                                @{Html.RenderAction("LoadInboxLeftContent1", "Admin");}
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- //List mail COntent -->
+                    <div class="msgDetails" style="height:100%">
+                        @*<div class="col-xs-12 loader spanloaderInbox text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>*@
+                        <div id="MessageHideDiv"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //Inbox Content -->
+            <!-- Service Request Content -->
+            <div role="tabpanel" class="tab-pane " id="ServiceRequest">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="serviceRequestContent contentBox">
+                            <h2 class="title">Provider Listing Request</h2>
+
+                            <div class="Dashboardtable" id="providerlistingtable">
+                                <div class="tableRow tableHead">
+                                    <div class="tableCol reqCatCol">Company Name</div>
+                                    <div class="tableCol dateCol">Date</div>
+                                    <div class="tableCol StatusCol">Status</div>
+                                    <div class="tableCol actionCol">Action</div>
+                                </div>
+                                @foreach (var listings in Model.AllListingNew)
+                                {
+                                <div class="tableRow">
+                                    <div class="tableCol reqCatCol">@listings.CompanyName</div>
+                                    <div class="tableCol dateCol">@listings.CreatedDate.ToString("MMM dd,yyyy") @listings.CreatedDate.ToShortTimeString()</div>
+                                    @if (listings.IsApproved != (int)ListingStatus.Pending)
+                                        {
+                                            if (listings.IsApproved == (int)ListingStatus.Accepted)
+                                            {
+                                    <div class="tableCol StatusCol"><span class="statusbtn blue">Suspend</span></div>
+                                            }
+                                            if (listings.IsApproved == (int)ListingStatus.Suspended)
+                                            {
+                                    <div class="tableCol StatusCol"><span class="statusbtn blue">Suspend</span></div>
+                                            }
+                                            if (listings.IsApproved == (int)ListingStatus.Rejected)
+                                            {
+                                    <div class="tableCol StatusCol"><span class="statusbtn red">Rejected</span></div>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                    <div class="tableCol StatusCol"><span class="statusbtn red">Pending</span></div>
+                                    <div class="tableCol actionCol">
+                                        <div class="dropdown">
+                                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                                <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="1" data-status="Accept"><i aria-hidden="true" class="fa fa-check-circle"></i> Accept</a></li>
+                                                <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="2" data-status="Reject"><i aria-hidden="true" class="fa fa-trash-o"></i> Reject</a></li>
+                                                <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="3" data-status="Suspend"><i aria-hidden="true" class="fa fa-ban"></i> Suspend</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                        }
+                                    <div class="tableCol actionCol">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                }
+
+                            </div>
+                            <hr />
+                            <div id="providerlistingpager" class="text-center"></div>
+                            @{
+                                int totalCount = ViewBag.AlllistingCount;
+                            }
+                            @Html.Hidden("hdnProviderListingRequestCount", totalCount)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="serviceRequestContent contentBox">
+                            <h2 class="title">Service Request(s)</h2>
+
+                            <div class="Dashboardtable" id="servicerequesttable">
+                                <div class="tableRow tableHead">
+                                    <div class="tableCol dateCol">Date</div>
+                                    <div class="tableCol reqCatCol">Requested Category</div>
+                                    <div class="tableCol StatusCol">Status</div>
+                                </div>
+                                @foreach (var ServiceReuest in Model.AllServiceRequests)
+                                {
+
+                                <div class="tableRow">
+                                    <div class="tableCol dateCol">@ServiceReuest.CreatedDate</div>
+                                    <div class="tableCol reqCatCol">@ServiceReuest.Categorynames</div>
+                                    @if (ServiceReuest.ResultUrl != "")
+                                        {
+
+                                    <div class="tableCol StatusCol"><a href="@ServiceReuest.ResultUrl">Click Here</a></div>
+                                        }
+                                        else
+                                        {
+                                    <div class="tableCol StatusCol"><span class="statusbtn blue" title="Please check the email">Pending</span></div>
+                                        }
+                                </div>
+                                }
+                            </div>
+                            <hr />
+                            <div id="servicelistingpager" class="text-center"></div>
+                            @Html.Hidden("hdnServiceRequestCount", (object)ViewBag.AllServiceRequests)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //Service Request Content -->
+         
+            <!-- Appointmnet Content -->
+            <div role="tabpanel" class="tab-pane" id="appointment">
+                <div class="serviceRequestContent contentBox">
+
+                    <h2 class="title">Appointment</h2>
+
+                    <div class="Dashboardtable" id="appointmentListing">
+                        <div class="tableRow tableHead">
+                            <div class="tableCol providerCol">Providers Name</div>
+                            <div class="tableCol providerCol">Consumer Name</div>
+                            <div class="tableCol appDateCol">Appointment Date</div>
+                            <div class="tableCol PhoneCol">Consumer Phone <span class="hidden-xs hidden-sm">Number</span></div>
+                            <div class="tableCol PhoneCol">Provider Phone <span class="hidden-xs hidden-sm">Number</span></div>
+                            <div class="tableCol BestTimeCol">Best Time</div>
+                            <div class="tableCol StatusCol">Status</div>
+                        </div>
+
+                        @foreach (var appoints in Model.AllAppointment.ToList())
+                        {
+                            //if (@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId)!=null)
+                            //{
+                        <div class="tableRow">
+                            <div class="tableCol providerCol"><span class="lg-hidden">Providers Name:</span>@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).CompanyName</div>
+                            <div class="tableCol providerCol"><span class="lg-hidden">Consumer Name:</span>@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().FirstName  @appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().LastName</div>
+                            <div class="tableCol appDateCol"><span class="lg-hidden">Appointment Date:</span>@appoints.ServiceDate</div>
+                            <div class="tableCol PhoneCol"><span class="lg-hidden">Consumer Phone:</span><a href="tel:@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().PrimaryPhone">@appoints.AspNetUser1.ConsumerProfiles.FirstOrDefault().PrimaryPhone</a> </div>
+                            <div class="tableCol PhoneCol"><span class="lg-hidden">Provider Phone:</span><a href="tel:@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).ProviderContactNumber">@Model.AllListing.FirstOrDefault(s => s.UserId == appoints.ProviderId).ProviderContactNumber</a> </div>
+                            <div class="tableCol BestTimeCol"><span class="lg-hidden">Best Time:</span>@appoints.BestTime</div>
+                            <div class="tableCol StatusCol">
+                                @if (appoints.IsCancel == true)
+                                    {
+                                    <span class="statusbtn blue">Cancelled</span>
+                                    }
+                                    else if (appoints.IsConsumerAccept == null)
+                                    {
+                                    <span class="statusbtn blue">Pending</span>
+                                    }
+                                    else if (appoints.IsConsumerAccept == true)
+                                    {
+                                    <span class="statusbtn green">Accepted</span>
+                                    }
+                                    else if (appoints.IsConsumerAccept == false)
+                                    {
+                                    <span class="statusbtn red">Rejected</span>
+                                    }
+                            </div>
+                        </div>
+
+                        }
+                    </div>
+                    <hr />
+                    <div id="appointmentlistpager" class="text-center"></div>
+                    @Html.Hidden("hdnappointmentCount", (object)ViewBag.AppointmentsCount)
+                </div>
+            </div>
+            <!-- //Appointmnet Content -->
+            <!-- Queue Content -->
+            <div role="tabpanel" class="tab-pane queueContent" id="queue">
+
+                <!-- UnAssigned Provider  -->
+
+                <div class="serviceRequestContent unassignContent contentBox">
+
+                    <h2 class="title">Unassign Provider</h2>
+
+                    <div class="Dashboardtable" id="tbleUnassignedProviders">
+                        <div class="tableRow tableHead">
+                            <div class="tableCol categoryCol">Category Name</div>
+                            <div class="tableCol userCol">User Name</div>
+                            <div class="tableCol zipCol">Zip Code</div>
+                            <div class="tableCol requestdateCol">Request Date</div>
+                            <div class="tableCol servicedateCol">Service Date</div>
+                            <div class="tableCol providerbtnCol">Select Provider</div>
+                        </div>
+                        @foreach (var Queuelisting in Model.UnassignProvider)
+                        {
+                        <div class="tableRow">
+                            <div class="tableCol categoryCol"><span class="lg-hidden">Category Name:</span>@Queuelisting.ProviderCategory.CategoryName</div>
+                            <div class="tableCol userCol"><span class="lg-hidden">User Name:</span>@Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().FirstName @Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().LastName</div>
+                            <div class="tableCol zipCol"><span class="lg-hidden">Zip Code:</span>@Queuelisting.Zipcode</div>
+                            <div class="tableCol requestdateCol"><span class="lg-hidden">Request Date:</span>@Queuelisting.RequestDate</div>
+                            <div class="tableCol servicedateCol"><span class="lg-hidden">Service Date:</span>@Queuelisting.ServiceDate</div>
+                            <div class="tableCol providerbtnCol">
+                                <a data-toggle="modal" data-target="#selectProvider" class="btn btn-green btnassign" name="@Queuelisting.Id" id="@Queuelisting.ProviderCategory.Id">Select Provider</a>
+                            </div>
+                            <div>
+                                <form id="@Queuelisting.Id">
+                                    @Html.Hidden("ProviderListingId", "")
+                                    @Html.Hidden("ServiceRequestCatId", Queuelisting.ServiceRequestCatId)
+                                    @Html.Hidden("Id", Queuelisting.Id)
+                                    @Html.Hidden("UserId", Queuelisting.UserId)
+                                    @Html.Hidden("Zipcode", Queuelisting.Zipcode)
+                                    @Html.Hidden("RequestDate", Queuelisting.RequestDate)
+                                    @Html.Hidden("ServiceDate", Queuelisting.ServiceDate)
+                                </form>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <hr />
+                    <div id="providerunassignedproviderpager" class="text-center"></div>
+
+                    @Html.Hidden("hdnUnassignedProviderCount", (object)ViewBag.UnAssignedProvidersCount)
+                </div>
+
+                <!-- //UnAssigned Provider  -->
+                <!-- Select Provider Modal -->
+
+                <div class="modal customModal fade appointmentModal" id="selectProvider" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>								<h4 class="modal-title" id="myModalLabel">ProvIder LIst</h4>
+                            </div>
+                            <div class="modal-body">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- //Select Provider Modal -->
+                <!-- Assigned Provider  -->
+
+                <div class="serviceRequestContent assignedContent contentBox">
+
+                    <h2 class="title">Assigned Provider</h2>
+
+                    <div class="Dashboardtable" id="tbleAssignedProviders">
+                        <div class="tableRow tableHead">
+                            <div class="tableCol categoryCol">Category Name</div>
+                            <div class="tableCol userCol">User Name</div>
+                            <div class="tableCol zipCol">Zip Code</div>
+                            <div class="tableCol requestdateCol">Request Date</div>
+                            <div class="tableCol servicedateCol">Service Date</div>
+                            <div class="tableCol providerbtnCol">Asigned Provider</div>
+                        </div>
+                        @foreach (var Queuelisting in Model.AssignedProvider)
+                        {
+                        <div class="tableRow">
+                            <div class="tableCol categoryCol"><span class="lg-hidden">Category Name:</span>@Queuelisting.ProviderCategory.CategoryName</div>
+                            <div class="tableCol userCol"><span class="lg-hidden">User Name:</span>@Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().FirstName @Queuelisting.AspNetUser.ConsumerProfiles.FirstOrDefault().LastName </div>
+                            <div class="tableCol zipCol"><span class="lg-hidden">Zip Code:</span>@Queuelisting.Zipcode</div>
+                            <div class="tableCol requestdateCol"><span class="lg-hidden">Request Date:</span>@Queuelisting.RequestDate</div>
+                            <div class="tableCol servicedateCol"><span class="lg-hidden">Service Date:</span>@Queuelisting.ServiceDate</div>
+                            <div class="tableCol providerbtnCol">
+                                <span class="tagBtn">@Queuelisting.AssignProviderName</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <hr />
+                    <div id="assignedproviderpager" class="text-center"></div>
+                    @Html.Hidden("hdnassignedProviderCount", (object)ViewBag.AssignedProvidersCount)
+                </div>
+
+                <!-- //Assigned Provider  -->
+
+            </div>
+            <!-- //Queue Content -->
+            <!-- Google Analytics Content -->
+            <div role="tabpanel" class="tab-pane analyticsContent" id="googleAnalytics">
+
+                <div class="serviceRequestContent contentBox">
+                    <h2 class="title">Google Analytics</h2>
+
+                    <div class="default-form">
+                        <div class="rowField clearfix">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>View Provider</label>
+                                        <select class="selectpicker">
+                                            <option>Select Provider</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Property</label>
+                                        <select class="selectpicker">
+                                            <option>Select Property</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Account</label>
+                                        <select class="selectpicker">
+                                            <option>Select Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rowField clearfix">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="text" placeholder="07/30/2016" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="text" placeholder="07/30/2016" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Dashboardtable">
+                        <div class="tableRow tableHead">
+                            <div class="tableCol">Users</div>
+                            <div class="tableCol">Sessions</div>
+                            <div class="tableCol">AdClicks</div>
+                            <div class="tableCol">CPC</div>
+                            <div class="tableCol">CTR</div>
+                            <div class="tableCol">CostPerTransaction</div>
+                            <div class="tableCol">Pageviews</div>
+                        </div>
+
+                        <div class="tableRow">
+                            <div class="tableCol"><span class="lg-hidden">Users:</span>Cornetto</div>
+                            <div class="tableCol"><span class="lg-hidden">Sessions:</span>0</div>
+                            <div class="tableCol"><span class="lg-hidden">AdClicks:</span>1</div>
+                            <div class="tableCol"><span class="lg-hidden">CPC:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CTR:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CostPerTransaction:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">Pageviews:</span>1</div>
+                        </div>
+                        <div class="tableRow">
+                            <div class="tableCol"><span class="lg-hidden">Users:</span>jinah hospital</div>
+                            <div class="tableCol"><span class="lg-hidden">Sessions:</span>0</div>
+                            <div class="tableCol"><span class="lg-hidden">AdClicks:</span>1</div>
+                            <div class="tableCol"><span class="lg-hidden">CPC:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CTR:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CostPerTransaction:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">Pageviews:</span>1</div>
+                        </div>
+                        <div class="tableRow">
+                            <div class="tableCol"><span class="lg-hidden">Users:</span>jinah hospital</div>
+                            <div class="tableCol"><span class="lg-hidden">Sessions:</span>0</div>
+                            <div class="tableCol"><span class="lg-hidden">AdClicks:</span>1</div>
+                            <div class="tableCol"><span class="lg-hidden">CPC:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CTR:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CostPerTransaction:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">Pageviews:</span>1</div>
+                        </div>
+
+                        <div class="tableRow">
+                            <div class="tableCol"><span class="lg-hidden">Users:</span>Cornetto</div>
+                            <div class="tableCol"><span class="lg-hidden">Sessions:</span>0</div>
+                            <div class="tableCol"><span class="lg-hidden">AdClicks:</span>1</div>
+                            <div class="tableCol"><span class="lg-hidden">CPC:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CTR:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">CostPerTransaction:</span>0.0</div>
+                            <div class="tableCol"><span class="lg-hidden">Pageviews:</span>1</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- //Google Analytics Content -->
+            <!-- Manage Markup Content -->
+            <div role="tabpanel" class="tab-pane ManageContent" id="manageMarkup">
+                <div class="serviceRequestContent contentBox">
+
+                    <h2 class="title">Manage Markup & analytics Provider</h2>
+
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <h3 class="title">Manage Markup</h3>
+                            <div class="Dashboardtable manageMarkupTable">
+                                <div class="tableRow tableHead">
+                                    <div class="tableCol">Mark Up</div>
+                                    <div class="tableCol">Is Default</div>
+                                    <div class="tableCol">IsActive</div>
+                                </div>
+                                @foreach (MarkupModel MarkUp in Model.MarkUpList)
+                                {
+                                <div class="tableRow">
+                                    <div class="tableCol"><span class="lg-hidden">Mark Up:</span>@MarkUp.Markup1</div>
+                                    <div class="tableCol"><span class="lg-hidden">Is Default:</span>@(MarkUp.IsDefault ? "Yes" : "No")</div>
+                                    <div class="tableCol"><span class="lg-hidden">IsActive:</span>@(MarkUp.IsActive ? "Yes" : "No")</div>
+                                </div>
+                                }
+
+                            </div>
+                            <hr />
+                            <div id="markupspager" class="text-center"></div>
+                            @Html.Hidden("hdnmarkupscount", (object)ViewBag.TotalMarkUpCount)
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <h3 class="title">Manage Provider Analytic</h3>
+
+                            <div class="Dashboardtable" id="tblanalytics">
+                                <div class="tableRow tableHead">
+                                    <div class="tableCol">Provider</div>
+                                    <div class="tableCol">ProfileID</div>
+                                    <div class="tableCol">ViewId</div>
+                                    <div class="tableCol">IsActive</div>
+                                </div>
+                                @foreach (AnalyticsModel analytics in Model.AnalyticsModelList)
+                                {
+                                <div class="tableRow">
+                                    <div class="tableCol"><span class="lg-hidden">Provider:</span>@analytics.Provider</div>
+                                    <div class="tableCol"><span class="lg-hidden">ProfileID:</span>@analytics.profileId</div>
+                                    <div class="tableCol"><span class="lg-hidden">ViewId:</span>@analytics.viewId</div>
+                                    <div class="tableCol"><span class="lg-hidden">IsActive:</span>@(analytics.isActive ? "Yes" : "No")</div>
+                                </div>
+                                }
+
+                            </div>
+                            <hr />
+                            <div id="analyticspager" class="text-center"></div>
+                            @Html.Hidden("hdnanalyticscount", (object)ViewBag.TotalMarkUpCount)
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!-- //Manage Markup Content -->
+
+        </div>
+        <!-- //Tab Content -->
+
+    </div>
+</div>
+
+<script src="~/assets/js/jquery.bootpag.min.js"></script>
+
+<script>
+    function LoadAdminMessageBody(id) {
+
+    }
+    function DefaultLoader() {
+        var html = "";
+        html = '<div class="col-xs-12 loader spanloaderInbox text-center" style=""><i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i></div>';
+        return html;
+    }
+    $(function () { 
+        $('#crossIcon').hide();
+        $("#spanCountInbox").empty();
+        $("#spanCountInbox").append($("#inboxcountfeild").val());
+        setInterval(function () {
+            if ($(".mailtable").is(':visible')) {
+                $(".btninbox").trigger("click");
+            }
+        }, 30000);
+        var count = $('#hdnServiceRequestCount').val();
+        var totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+
+
+        $('#servicelistingpager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetServiceRequest", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#servicerequesttable").html(result);
+                }
+            });
+
+        });
+
+
+
+
+        count = $('#hdnProviderListingRequestCount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#providerlistingpager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetProviderListingRequest", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#providerlistingtable").html(result);
+                }
+            });
+
+        });
+
+        count = $('#hdnUnassignedProviderCount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#providerunassignedproviderpager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetUnassignProviderList", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#tbleUnassignedProviders").html(result);
+                }
+            });
+
+        });
+
+
+        count = $('#hdnassignedProviderCount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#assignedproviderpager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetAssignProviderList", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#tbleAssignedProviders").html(result);
+                }
+            });
+
+        });
+
+
+        count = $('#hdnmarkupscount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#markupspager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetMarkUpsList", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#manageMarkupTable").html(result);
+                }
+            });
+
+        });
+
+        count = $('#hdnanalyticscount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#analyticspager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetAnalyticsList", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#tblanalytics").html(result);
+                }
+            });
+
+        });
+
+
+        count = $('#hdnappointmentCount').val();
+        totalPages = (count % 5) > 0 ? ((count / 5) + 1) : (count / 5);
+        $('#appointmentlistpager').bootpag({
+            total: totalPages,
+            page: 1,
+            maxVisible: 5,
+            leaps: true,
+            firstLastUse: true,
+            first: '←',
+            last: '→',
+            wrapClass: 'pagination',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first'
+        }).on("page", function (event, /* page number here */ num) {
+            $.ajax({
+                url: '@Url.Action("GetAppointmentList", "Admin")',
+                data: { pagenumber: num, pageSize: 5 },
+                success: function (result) {
+                    $("#appointmentListing").html(result);
+                }
+            });
+        });
+
+        $(".inboxcount").append($("#inboxcountfeild").val());
+        $("#ComposeModal").hide();
+        var submitformid;
+        $("#AdminInbox").hide();
+        $("#AdminQueue").hide();
+        $("#AdminAppointments").hide();
+        @*$.ajax({
+                                url: "@Url.Action("LoadAdminInbox", "Admin")",
+                                success: function (result) {
+                                    $(".mailtable").empty();
+                                    $(".mailtable").html("<td colspan='4'><b>Inbox</b></td>" + result);
+                                    $(".inboxcount").empty();
+                                    $(".inboxcount").append($("#inboxcountfeild").val());
+                                    $(".msgDetails").hide();
+                                    $(".mailtable").show();
+                                }
+                            });*@
+        @*$.ajax({
+                                url: "@Url.Action("LoadInboxLeftContent", "Admin")",
+                                async:false,
+                                success: function (result) {
+                                    $("#leftInboxMessage").empty();
+                                    $("#leftInboxMessage").html(result);
+                                }
+                            });*@
+
+            
+        setInterval(function () {
+            $.ajax({
+                url: '@Url.Action("SearchAdminMails", "Admin")',
+                data: { keyword: $('#txtsearchkey').val() },
+                success: function (result) {
+                    $('#leftInboxMessage').html(result);
+                   // $('#leftInboxMessage').mCustomScrollbar("update");
+                    $('#leftInboxMessage').mCustomScrollbar();
+                    //$('.openConversationMsg:first').trigger('click');
+                    var conversationid = $('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId=' + conversationid + ']').addClass('active');
+                }
+            });
+        }, 60000);
+
+        $(".btnsend").click(function () {
+            $.ajax({
+                url: "@Url.Action("LoadsendBox", "Admin")",
+                success: function (result) {
+                    $(".mailtable").empty();
+                    $(".mailtable").html(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $(".msgDetails").hide();
+                    $(".mailtable").show();
+                    $(".Sent").hide();
+                    $("Archived").hide();
+
+                }
+            });
+        });
+        $(".btnarchive").click(function () {
+            $.ajax({
+                url: "@Url.Action("LoadArchiveBox", "Admin")",
+                success: function (result) {
+
+                    $(".mailtable").empty();
+                    $(".mailtable").html(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $(".msgDetails").hide();
+                    $(".mailtable").show();
+                    $(".Sent").hide();
+                    $("Archived").hide();
+
+                }
+            });
+        });
+        @*$(".AdminInbox,.btninbox").click(function () {
+            $("#AdminQueue").hide();
+            $(".innerServiceRequest").hide();
+            $("#AdminInbox").show();
+            $(".mailtable").show();
+            $(".msgDetails").hide();
+            $("#AdminAppointments").hide();
+            $("#ComposeModal").hide();
+            $.ajax({
+                url: "@Url.Action("LoadAdminInbox", "Admin")",
+                success: function (result) {
+
+                    $(".mailtable").empty();
+                    $(".mailtable").html(result);
+                    $(".inboxcount").empty();
+                    $(".inboxcount").append($("#inboxcountfeild").val());
+                    $(".msgDetails").hide();
+                    $(".mailtable").show();
+                    $(".Sent").hide();
+                    $(".Archived").hide();
+
+                }
+            });
+        });*@
+        $(".Inboxbtn").click(function () {
+
+            $(".Inboxbtn").css({ "background-color": "white", "color": "black" });
+            $(this).css({ "background-color": "#4F81BC", "color": "White" });
+            var divname = $(this).children().first().text().trim();
+            $("." + divname).show();
+            $(".msgDetails").hide();
+        });
+        $(".AdminAppointment").click(function () {
+            $("#AdminInbox").hide();
+            $(".innerServiceRequest").hide();
+            $("#AdminQueue").hide();
+            $("#AdminAppointments").show();
+            $("#ComposeModal").hide();
+        });
+        $(".AdminQueue").click(function () {
+            $("#AdminInbox").hide();
+            $(".innerServiceRequest").hide();
+            $("#AdminAppointments").hide();
+            $("#ComposeModal").hide();
+            $("#AdminQueue").show();
+        });
+        $(".AdminServiceRequest").click(function () {
+            $(".innerServiceRequest").show();
+            $("#AdminInbox").hide();
+            $(".mailtable").hide();
+            $(".msgDetails").hide();
+            $("#AdminAppointments").hide();
+            $("#ComposeModal").hide();
+            $("#AdminQueue").hide();
+
+        });
+        $("#ReciptEmail").autocomplete({
+            source: '@Url.Action("GetAllUsers", "Admin")'
+        });
+        $(".btnsendcustomermsg").click(function () {
+            if ($('#ReciptEmail').val() != "" && $('#Subject').val() != "" && $('#MessageBody').val() != "") {
+                $.ajax({
+                    url: "@Url.Action("SendCustomerMessage", "Admin")",
+                    data: $("#customerMessagesend").serialize(),
+                    success: function (result) {
+                        if (result) {
+                            alert("Message sent Successfully.");
+                            $("#ComposeModal").hide();
+                            $('#spanReciptEmailError').html("");
+                            $('#spanSubjectError').html("");
+                            $('#spanMessageBodyError').html("");
+                        }
+                    }
+                });
+            }
+            else {
+                if ($('#ReciptEmail').val() == "")
+                    $('#spanReciptEmailError').html("Sender email is required.");
+                else
+                    $('#spanReciptEmailError').html("");
+
+                if ($('#Subject').val() == "")
+                    $('#spanSubjectError').html("Subject is required.");
+                else
+                    $('#spanSubjectError').html("");
+
+                if ($('#MessageBody').val() == "")
+                    $('#spanMessageBodyError').html("Message is required.");
+                else
+                    $('#spanMessageBodyError').html("");
+
+
+            }
+        });
+        var _listingId = "";
+        var _listingStatus = "";
+        $(document).on("click", ".button", function () {
+
+            _listingId = $(this).data('listingid');
+            _listingStatus = $(this).data('statusid');
+            _listingStatusMsg = $(this).data('status');
+            var statusMsg = "Are you sure you want to " + _listingStatusMsg + "!";
+            // $($(this).parent()).replaceWith("<span class='button' style='background:" + $(this).css('background-color') + "'>" + $(this).text() + 'ed' + "</span>");
+
+            if (confirm(statusMsg)) {
+                $.ajax({
+                    url: "@Url.Action("UpdateListingStatus","Admin")",
+                    data: { listingId: _listingId, listingStatus: _listingStatus },
+                    success: function (result) {
+                        if (result) {
+                            alert("Status Changed Successfully.");
+                            window.location.href = "@Url.Action("Dashboard","Admin")";
+
+                        }
+                    }
+                });
+            }
+
+        });
+        $(".btncompose").click(function () {
+
+            $("#ComposeModal").show();
+        });
+        $(".dismiss").click(function () {
+            $("#ComposeModal").hide();
+        });
+        $(".btnassign").click(function () {
+
+            submitformid = $(this).attr("name");
+            $.ajax({
+                url: "@Url.Action("AvailableProviderList","Admin")",
+                data: { catId: $(this).attr("id") },
+                success: function (result) {
+                    $(".modal-body").empty();
+                    $(".modal-body").html(result);
+                    $("#myModal").modal("show");
+                    $("select").selectpicker('refresh');
+                }
+            });
+        });
+
+        $(document).on("click", "#AssignedNewProvider", function () {
+            $("[name='ProviderListingId']").val($("[name='AvailableProviderList']").val());
+
+            $.ajax({
+                url: "@Url.Action("AssignProvider","Admin")",
+                data: $("#" + submitformid).serialize(),
+                success: function (result) {
+                    window.location.href = "@Url.Action("Dashboard","Admin")";
+                }
+            });
+        });
+
+        $(document).on("click", ".openConversationMsg", function () {
+            $('.openConversationMsg.active').removeClass('active');
+            $(this).addClass('active');
+            $(".msgDetails").find("#MessageHideDiv").html(DefaultLoader());
+            $('.spanloaderInbox').show();
+
+            //var URL = "";
+            var readmsg = parseInt($(this).children().next().first().children().find('span').attr('id'));
+            if (readmsg > 0) {
+                var RemainigUnread = parseInt($("#inboxcountfeild").val()) - readmsg;
+                $(".inboxcount").empty().append(RemainigUnread);
+            }
+
+            var MsgId = $(this).attr("data-detailId");
+            var senderid = $(this).attr("data-senderid");
+
+            $.ajax({
+                url: "@Url.Action("GetCustomMessageDetail","Consumer")",
+                data: { ConversationId: MsgId, MsgSenderId: senderid },
+                success: function (result) {
+                    $(".msgDetails").html(result);
+                    $(".msgDetails").show();
+                    //$('.openConversationMsg:first').trigger('click');
+                    $('.contentScroll').mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                    $('#MessageHideDiv').find('.contentScroll').mCustomScrollbar("scrollTo", "bottom");
+                    setTimeout(function () { $('.spanloaderInbox').hide(); }, 3000);
+                }
+            });
+        });
+        //$("#liinbox").click(function () {
+            $('.openConversationMsg:first').trigger('click');
+        //});
+
+
+        $('#crossIcon').click(function () {
+            $('.spanInboxMail').show();
+            $('#txtsearchkey').val("");
+            $('#btnsearchmails').show();
+            $(this).hide();
+            $.ajax({
+                url: '@Url.Action("SearchAdminMails", "Admin")',
+                data: { keyword: $('#txtsearchkey').val() },
+                success: function (result) {
+                    $('#leftInboxMessage').html(result);
+                    //$('#leftInboxMessage').mCustomScrollbar("update");
+                    $('#leftInboxMessage').mCustomScrollbar();
+                    $("#spanCountInbox").empty();
+                    $("#spanCountInbox").append($("#inboxcountfeild").val());
+                    $('.openConversationMsg:first').trigger('click');
+                    var conversationid = $('.delbtn').attr('id');
+                    $('.openConversationMsg[data-detailId=' + conversationid + ']').addClass('active');
+                    $('.spanInboxMail').hide();
+                }
+            });
+        });
+
+        $('#btnsearchmails').click(function () {
+            $(this).hide();
+            $('#crossIcon').show();
+            $.ajax({
+                url: '@Url.Action("SearchAdminMails", "Admin")',
+                data: { keyword: $('#txtsearchkey').val() },
+                success: function (result) {
+                    $('#leftInboxMessage').html(result);
+                    $('#leftInboxMessage').mCustomScrollbar();
+                    $("#spanCountInbox").empty();
+                    $("#spanCountInbox").append($("#inboxcountfeild").val());
+                    $('.openConversationMsg:first').trigger('click');
+                }
+            });
+        });
+        $('#txtsearchkey').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                if ($(this).val() != "") {
+                    $('#btnsearchmails').trigger('click');
+                }
+                return false;
+            }
+        });
+
+    })
+</script>
+<style>
+    .bodycontent {
+        padding: 3%;
+    }
+
+    .table-scroll {
+        max-height: 300px;
+        overflow: auto;
+        margin-top: 20px;
+    }
+</style>

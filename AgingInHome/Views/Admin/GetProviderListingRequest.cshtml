@@ -1,0 +1,59 @@
+﻿@using AgingInHome.BLL.Enums
+@using AgingInHome.Models
+@using AgingInHome.DAL
+@using Microsoft.AspNet.Identity
+@model  List<AgingInHome.Models.ProviderListingModel> 
+
+    <div class="tableRow tableHead">
+        <div class="tableCol reqCatCol">Category Name</div>
+        <div class="tableCol dateCol">Date</div>
+        <div class="tableCol StatusCol">Status</div>
+        <div class="tableCol actionCol">Action</div>
+    </div>
+@if(Model.Count>0)
+{ 
+    foreach (var listings in Model)
+    {
+        <div class="tableRow">
+            <div class="tableCol reqCatCol">@listings.CompanyName</div>
+            <div class="tableCol dateCol">@listings.CreatedDate.ToString("MMM dd,yyyy")@listings.CreatedDate.ToShortTimeString()</div>
+            @if (listings.IsApproved != (int)ListingStatus.Pending)
+            {
+                if (listings.IsApproved == (int)ListingStatus.Accepted)
+                {
+                    <div class="tableCol StatusCol"><span class="statusbtn blue">Suspend</span></div>
+                }
+                if (listings.IsApproved == (int)ListingStatus.Suspended)
+                {
+                    <div class="tableCol StatusCol"><span class="statusbtn blue">Suspend</span></div>
+                }
+                if (listings.IsApproved == (int)ListingStatus.Rejected)
+                {
+                    <div class="tableCol StatusCol"><span class="statusbtn red">Rejected</span></div>
+                }
+
+            }
+            else
+            {
+                <div class="tableCol StatusCol"><span class="statusbtn red">Pending</span></div>
+                <div class="tableCol actionCol">
+                    <div class="dropdown">
+                        <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="1" data-status="Accept"><i aria-hidden="true" class="fa fa-check-circle"></i> Accept</a></li>
+                            <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="2" data-status="Reject"><i aria-hidden="true" class="fa fa-trash-o"></i> Reject</a></li>
+                            <li><a href="javascript:void(0);" class="button" data-listingid="@listings.ProviderListingId" data-statusid="3" data-status="Suspend"><i aria-hidden="true" class="fa fa-ban"></i> Suspend</a></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            <div class="tableCol actionCol">
+                &nbsp;
+            </div>
+        </div>
+    }
+    }
+  

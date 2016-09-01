@@ -1,0 +1,92 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using System.Linq;
+@using AgingInHome.Models;
+
+
+@{
+    ViewBag.Title = "SearchListing";
+    var TotalListing = (IEnumerable<ProviderCategoryModel>)@ViewBag.Categorylist;
+
+}
+
+        @foreach (var category in TotalListing)
+        {
+            //if ((List<int>)ViewBag.selectedCat != null)
+            //{
+            //var status = false;
+            //foreach (var value in (List<int>)ViewBag.selectedCat)
+            //{
+            //    if (value == category.Id)
+            //    {
+            //        status = true;
+            //    }
+            //}
+
+                @*if (!status)
+                    {
+                        if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                        {
+                            <div class="checkbox">
+                                <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id" />
+                                <label for="@category.Id">
+                                    @category.CategoryName
+                                </label>
+                                @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                {
+                                    <span class="count">
+                                        @(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))
+
+                                    </span>
+                                }
+                            </div>
+                        }
+                    }*@
+                @*else
+                        {
+
+                            if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                            {
+
+                                <div class="checkbox">
+                                    <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id" checked="checked" />
+                                    <label for="@category.Id">
+                                        @category.CategoryName
+                                    </label>
+                                    @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                    {
+                                        <span class="count">
+                                            @(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))
+                                        </span>
+                                    }
+                                </div>
+                            }
+                        }
+                    }*@
+                @*else
+                    {
+                        if (@TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                        {
+                            <div class="checkbox">
+                                <input type="checkbox" name="selectedCategory" value="@category.Id" id="@category.Id" />
+                                <label for="@category.Id">
+                                    @category.CategoryName
+                                    @if (TotalListing.Count(m => m.ProviderCategory1.Id == category.Id) > 0)
+                                    {
+                                        <span class="count"> @(TotalListing.Count(m => m.ProviderCategory1.Id == category.Id))</span>
+                                    }
+                                </label>
+
+                            </div>
+                        }
+
+                    }*@
+                <div class="checkbox">
+                    <input type="checkbox" name="selectedCategory" value="@category.Id" id="#@category.Id" />
+                    <label for="#@category.Id">
+                        @category.CategoryName
+                    </label>
+
+                </div>
+           // }
+        }

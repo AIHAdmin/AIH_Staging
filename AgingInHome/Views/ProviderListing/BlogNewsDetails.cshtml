@@ -1,0 +1,268 @@
+﻿@model AgingInHome.Models.BlogNewsDetailViewModel
+@{
+    ViewBag.Title = "BlogNewsDetails";
+    Layout = "~/Views/Shared/_LayoutNew1.cshtml";
+}
+
+<div class="main-container inner-container">
+    <div class="container">
+
+
+        <!-- Row -->
+        <div class="row" style="margin-bottom:100px">
+            <!-- Left Content Section -->
+            <div class="col-md-9">
+                <div class="BlogContent">
+
+                    <h1 class="title">@Model.ItemTitle</h1>
+                    <div class="desc">
+                        @Model.CompanyName <span>.</span>
+                    @Model.CreatedDate.ToString("dd MMM yyyy") <span>.</span> <span id="noComment"></span>
+                </div>
+                <div class="socialLink">
+                    <ul>
+                        <li><a href="#" class="googleplus"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                    </ul>
+                </div>
+
+                    <!-- Blog Detail -->                  
+                    <div class="BlogDetail clearfix">
+                        <!-- Image -->
+                        <div class="imageSection">
+                            @if (Model.IsBlog)
+                            {
+                                <img src="/images/BlogImages/@Model.ItemImage" class="img-responsive" />
+                            }
+                            else
+                            {
+                                <img src="/images/ArticleImages/@Model.ItemImage" class="img-responsive" />
+                            }
+                        </div>
+                        <!-- //Image -->
+                        @Model.ItemDescription
+                    </div>
+                    <!-- Blog Detail -->
+                    <!-- Blog Reply Section -->
+                    <div class="blogReplySection">
+                        <h3 style="text-transform:uppercase">This post has <span id="commentCount"></span> comments</h3>
+
+                        <ul id="_commentSection"></ul>
+
+                    </div>
+                    <!-- //Blog Reply Section -->                  
+                    <!-- Blog Comment Section -->
+                    <div class="blogCommentSection">
+                        <h3>Leave a Reply</h3>
+                        <div class="reqMsg">Your email address will not be published. Required field are marked <span class="req">*</span></div>
+                        @Html.HiddenFor(m => m.IsBlog)
+                        @Html.HiddenFor(m => m.ItemID)
+                        <div class="commentForm">
+                            <div class="form-group">
+                                <label>Comment<span class="req">*</span></label>
+                                <textarea id="txtComment" class="form-control"></textarea>
+                                <span id="spanComment" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Name<span class="req">*</span></label>
+                                <input type="text" id="txtName" class="form-control" />
+                                <span id="spanName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email<span class="req">*</span></label>
+                                <input type="text" id="txtEmail" class="form-control" />
+                                <span id="spanEmail" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Website</label>
+                                <input type="text" id="txtWebsite" class="form-control" />
+                            </div>
+
+                            <div class="form-button">
+                                <input type="button" id="btnSubmitComment" value="Post Comment" class="btn-primary" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- //Blog Comment Section -->
+
+
+
+
+
+
+                </div>
+            </div>
+            <!-- //Left Content Section -->
+            <!-- Right Section -->
+            <div class="col-md-3 Blogsidebar hidden-sm hidden-xs">
+                <div class="sidebarRow">
+                    <h2><i aria-hidden="true" class="fa fa-folder-o"></i> Archives</h2>
+                    <ul>
+                        <li><a href="#">May 2016</a></li>
+                        <li><a href="#">June 2016</a></li>
+                        <li><a href="#">July 2016</a></li>
+                        <li><a href="#">August 2016</a></li>
+                        <li><a href="#">September 2016</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebarRow">
+                    <h2><i aria-hidden="true" class="fa fa-folder-o"></i> Categories</h2>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Hospitals</a></li>
+                        <li><a href="#">Travels</a></li>
+                        <li><a href="#">Services</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- //Right Section -->
+
+
+        </div>
+        <!-- //Row -->
+    </div>
+</div>
+
+
+
+
+<script>
+
+    function isValidEmailAddress(emailAddress) {
+        var pattern = new RegExp("^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+        return pattern.test(emailAddress);
+    }
+
+    function ConvertDate(date) {
+        date = date.substring(0, date.length - 1);
+        date = new Date(parseInt(date.slice(6).replace(')', '')))
+        var d = date.getDate();
+        var m = date.getMonth();
+        m += 1;  // JavaScript months are 0-11
+        var mont = "";
+        if (m == 1)
+            mont = "Jan";
+        else if (m == 2)
+            mont = "Feb";
+        else if (m == 3)
+            mont = "Mar";
+        else if (m == 4)
+            mont = "Apr";
+        else if (m == 5)
+            mont = "May";
+        else if (m == 6)
+            mont = "Jun";
+        else if (m == 7)
+            mont = "Jul";
+        else if (m == 8)
+            mont = "Aug";
+        else if (m == 9)
+            mont = "Sep";
+        else if (m == 10)
+            mont = "Oct";
+        else if (m == 11)
+            mont = "Nov";
+        else if (m == 12)
+            mont = "Dec";
+
+        var y = date.getFullYear();
+        return d + " " + mont + " " + y;
+    }
+
+    function GetAllHtmlComment(result) {
+        $('#_commentSection').empty();
+        for (i = 0; i < result.length; i++) {
+            var html = '<li>' +
+                         '<div class="img">' +
+                              '<img src="/assets/images/blogreplyUser.jpg" />' +
+                                   '</div>' +
+                                   '<div class="detail">' +
+                                       '<div class="reply"><a href="#">Reply</a></div>'+
+                                       '<h4>' + result[i].Name + '</h4>' +
+                                       '<div class="desc">' + ConvertDate(result[i].CreatedDate) + '</div>' +
+                                       '<div class="txt">' +
+                                           result[i].BlogCommentDescription +
+                                       '</div>' +
+                                   '</div>' +
+                               '</li>'
+            $('#_commentSection').prepend(html);
+        }
+        $('#noComment').html($('#_commentSection li').length + " " + "Comments");
+        $("#commentCount").html($('#_commentSection li').length);
+    }
+
+    function GetAllComment() {
+        var itemId = $('#ItemID').val();
+        var IsBlog = $('#IsBlog').val();
+        $.ajax({
+            url: '@Url.Action("GetBlogNewsComments", "ProviderListing")',
+            data: { BlogNewsId: itemId, IsBlog: IsBlog },
+            success: function (result) {
+                GetAllHtmlComment(result);
+
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        GetAllComment();
+
+        $('#btnSubmitComment').click(function () {
+            var flag = false;
+            if ($('#txtComment').val() == "") {
+                $('#spanComment').html("Comment is required.");
+                flag = false;
+            } else {
+                $('#spanComment').html("");
+                flag = true;
+            }
+
+            if ($('#txtName').val() == "") {
+                $('#spanName').html("Name is required.");
+                flag = false;
+            } else {
+                $('#spanName').html("");
+                flag = true;
+            }
+
+            if ($('#txtEmail').val() == "") {
+                $('#spanEmail').html("Email is required.");
+                flag = false;
+            } else if (!isValidEmailAddress($("#txtEmail").val())) {
+                $('#spanEmail').html('Email is not valid.');
+                flag = false;
+            }
+            else {
+                $('#spanEmail').html("");
+                flag = true;
+            }
+
+            if (flag) {
+                var comment = $('#txtComment').val();
+                var Name = $('#txtName').val();
+                var Email = $('#txtEmail').val();
+                var website = $('#txtWebsite').val();
+                var itemId = $('#ItemID').val();
+                var IsBlog = $('#IsBlog').val();
+                $.ajax({
+                    url: '@Url.Action("SaveBlogNewComment","ProviderListing")',
+                    data: { Name: Name, Website: website, Email: Email, BlogCommentDescription: comment, ListingBlogId: itemId, IsBlog: IsBlog },
+                    success: function (result) {
+                        $('input[type=text]').val("");
+                        $('textarea').val("");
+                        $(document).scrollTop(0);
+                        GetAllComment();
+
+                    }
+                });
+            }
+        });
+    });
+</script>

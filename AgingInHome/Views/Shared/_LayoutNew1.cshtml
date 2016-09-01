@@ -1,0 +1,289 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="Shortcut Icon" href="~/assets/images/favicon.png" type="image/x-icon" />
+    <title>Aging In Home</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="~/assets/js/jquery.mCustomScrollbar.min.js"></script>
+    <!-- Theme JavaScript -->
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/js/editor.js"></script>
+    <script src="~/assets/js/custom.js"></script>
+    <script src="~/assets/js/formstep.js"></script>
+    <script src="~/assets/js/jquery.bootpag.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/Custom/bootstrap-timepicker.js"></script>
+   
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-timepicker.css" rel="stylesheet" />
+
+    <!-- Theme CSS -->
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+
+
+
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    @RenderSection("GA", required: false)
+</head>
+<body>
+
+    @{
+        var userIdentity = (ClaimsIdentity)User.Identity;
+        var claims = userIdentity.Claims;
+        var roleClaimType = userIdentity.RoleClaimType;
+        var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+    }
+    <!-- Wrapper -->
+    <div class="wrapper">
+        <!-- Header -->
+        <nav class="navbar navbar-default navigation">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="search hidden-lg hidden-md hidden-sm">
+                        <a href="#" class="searchIcon"><i aria-hidden="true" class="fa fa-search"></i></a>
+                        <div class="searchForm">
+                            <form>
+                                <input type="search" placeholder="Search..." class="searchInput" />
+                                <a href="#" class="close">
+                                    <img src="~/assets/images/searchClose.png" />
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown userDropdown hidden-lg hidden-md hidden-sm">
+                        @*<label data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/assets/images/AvtarImg.jpg" class="img-circle img-avtar" /> <span class="hidden-xs userName">Leo Safro</span> <span class="arrow"><i aria-hidden="true" class="fa fa-angle-down"></i> <i aria-hidden="true" class="fa fa-angle-up"></i></span>
+                            </label>*@
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            @if (roles.Count > 0)
+                            {
+                                if (roles[0].Value == "Provider")
+                                {
+                                    <li><a href="@Url.Action("EditProviderListing", "ProviderListing")"><i aria-hidden="true" class="fa fa-user"></i> My Account</a></li>
+                                    <li><a href="@Url.Action("MyListing", "ProviderListing")"><i aria-hidden="true" class="fa fa-list"></i> My Listing</a></li>
+                                    <li><a href="@Url.Action("Dashboard", "ProviderListing")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                }
+                                else if (roles[0].Value == "Consumer")
+                                {
+                                    <li><a href="@Url.Action("Dashboard", "Consumer")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                }
+
+                                else if (roles[0].Value == "Admin")
+                                {
+                                    <li><a href="@Url.Action("Dashboard", "Admin")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                }
+                            }
+                            <li><a href="#" onclick="location.href='@Url.Action("LogOff", "Account")'"><i aria-hidden="true" class="fa fa-power-off"></i> Log out</a></li>
+                        </ul>
+                    </div>
+                    @{
+                        if (roles.Count > 0)
+                        {
+                            if (roles[0].Value == "Admin")
+                            {
+                                <a href="@Url.Action("Dashboard", "Admin")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                            }
+                            else if (roles[0].Value == "Consumer")
+                            {
+                                <a href="@Url.Action("Dashboard", "Consumer")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                            }
+                            else if (roles[0].Value == "Provider")
+                            {
+                                <a href="@Url.Action("Dashboard", "ProviderListing")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                            }
+                            else if (roles[0].Value == "SaleUser")
+                            {
+                                <a href="@Url.Action("Dashboard", "SaleDepartment")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Home")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Home")" class="navbar-brand logo"><img src="~/assets/images/logo.png" class="img-logo" /></a>
+                        }
+                    }
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-button navbar-right">
+                        <li class="search hidden-xs">
+                            <a href="#" class="searchIcon"><i aria-hidden="true" class="fa fa-search"></i></a>
+                            <div class="searchForm">
+                                <form>
+                                    <input type="search" placeholder="Search..." class="searchInput" />
+                                    <a href="#" class="close"><img src="~/assets/images/searchClose.png" /></a>
+                                </form>
+                            </div>
+
+                        </li>
+                        @if (User.Identity.GetUserName() == "")
+                        {
+                            <li><a href="#" class="btn btn-link" style="border:none" onclick="location.href='@Url.Action("ServiceRequest", "Consumer")'">Service Request</a></li>
+                            <li><a href="#" class="btn btn-link" style="border:none" onclick="location.href='@Url.Action("SearchListing", "ProviderListing")'">Search Listings</a></li>
+                            <li><a href="#" class="btn btn-secondary" onclick="location.href='@Url.Action("Register", "Account")'">Sign up</a></li>
+                            <li><a href="#" class="btn btn-primary" onclick="location.href='@Url.Action("Login", "Account")'">Sign in</a></li>
+
+                        }
+                        else
+                        {
+                            if (roles.Count > 0)
+                            {
+                                if (roles[0].Value == "Consumer")
+                                {
+                                    <li><a href="#" class="btn btn-link" style="border:none" onclick="location.href='@Url.Action("ServiceRequest", "Consumer")'">Service Request</a></li>
+                                }
+                                if (roles[0].Value == "Admin" || roles[0].Value == "Consumer")
+                                {
+                                    <li><a href="#" class="btn btn-link" style="border:none" onclick="location.href='@Url.Action("SearchListing", "ProviderListing")'">Search Listings</a></li>
+                                }
+
+                            }
+                            <li class="dropdown userDropdown">
+                                <label data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="~/assets/images/AvtarImg.jpg" class="img-circle img-avtar" /> <span class="hidden-xs userName">@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @id = "Welcome" })</span> <span class="arrow"><i aria-hidden="true" class="fa fa-angle-down"></i> <i aria-hidden="true" class="fa fa-angle-up"></i></span>
+                                </label>
+                                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                    @if (roles.Count > 0)
+                                    {
+                                        if (roles[0].Value == "Provider")
+                                        {
+                                            <li><a href="@Url.Action("EditProviderListing", "ProviderListing")"><i aria-hidden="true" class="fa fa-user"></i> My Account</a></li>
+                                            <li><a href="@Url.Action("MyListing", "ProviderListing")"><i aria-hidden="true" class="fa fa-list"></i> My Listing</a></li>
+                                            <li><a href="@Url.Action("Dashboard", "ProviderListing")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                        }
+                                        else if (roles[0].Value == "Consumer")
+                                        {
+                                            <li><a href="@Url.Action("Dashboard", "Consumer")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                        }
+                                        else if (roles[0].Value == "Admin")
+                                        {
+                                            <li><a href="@Url.Action("Dashboard", "Admin")"><i aria-hidden="true" class="fa fa-tachometer"></i> Dashboard</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li></li>
+                            <li><a href="#" class="btn btn-primary" onclick="location.href='@Url.Action("LogOff", "Account")'">Log out</a></li>
+
+                        }
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <!-- //Header -->
+
+
+
+        @RenderBody()
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 socialIcon">
+                    <ul>
+                        <li class="facebook"><a href="#"><i aria-hidden="true" class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="#"><i aria-hidden="true" class="fa fa-twitter"></i></a></li>
+                        <li class="google"><a href="#"><i aria-hidden="true" class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 copyrightTxt">Copyright Aging in Home © 2016 All Rights Reserved</div>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- //Footer -->
+    <script src="~/Scripts/jquery-cookie-plugin.js"></script>
+</body>
+
+</html>
+<script>
+    $(function () {
+
+        $(".phnMasking").mask("(000) 000-0000");
+        $(".zipMasking").mask("00000");
+        //Start---if image not exist then hide the image section
+
+        //$('#LogoImg').error(function () {
+        //    debugger;
+        //    $('.viewListingContent').addClass('noImage');
+        //});
+
+
+
+        //End---if image not exist then hide the image section
+
+        var timezone_cookie = "timezoneoffset";
+
+        if (!$.cookie(timezone_cookie)) { // if the timezone cookie not exists create one.
+
+            // check if the browser supports cookie
+            var test_cookie = 'test cookie';
+            $.cookie(test_cookie, true);
+
+            if ($.cookie(test_cookie)) { // browser supports cookie
+
+                // delete the test cookie.
+                $.cookie(test_cookie, null);
+
+                // create a new cookie
+                $.cookie(timezone_cookie, new Date().getTimezoneOffset());
+
+                location.reload(); // re-load the page
+            }
+        }
+        else { // if the current timezone and the one stored in cookie are different then
+            // store the new timezone in the cookie and refresh the page.
+
+            var storedOffset = parseInt($.cookie(timezone_cookie));
+            var currentOffset = new Date().getTimezoneOffset();
+
+            if (storedOffset !== currentOffset) { // user may have changed the timezone
+                $.cookie(timezone_cookie, new Date().getTimezoneOffset());
+                location.reload();
+            }
+        }
+    });
+</script>

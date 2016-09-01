@@ -1,0 +1,1363 @@
+@media (max-width:1036px) {
+    .bottomFooter h3 {
+        font-size: 21px;
+    }
+}
+
+
+@media (max-width:1024px) {
+    ul.nav-tabs li a {
+        font-size: 13px;
+    }
+
+    .MyListingContent ul.nav-tabs li a {
+        font-size: 16px;
+    }
+}
+
+
+
+@media (min-width:1000px) {
+    .nav-tabs .arrow-icon {
+        display: none;
+    }
+}
+
+/** Ipad View Css**/
+@media (max-width:1000px) {
+    .SidebarSection {
+        display: none;
+    }
+
+    .search-listing {
+        width: 100%;
+    }
+
+    .navbar {
+        border-radius: 0;
+    }
+
+    nav.navigation .navbar-button a.btn {
+        min-width: 102px;
+    }
+
+    nav.navigation .navbar-button {
+        padding-left: 0;
+    }
+
+    nav.navigation .navbar-nav > li {
+        padding: 20px 10px;
+    }
+
+    .mobileSidebarSection {
+        display: block;
+    }
+
+    .submitListing-section .accountSection .uploadBlock {
+        text-align: center;
+    }
+
+    .submitListing-section .accountSection .uploadImage {
+        margin: auto auto 20px;
+    }
+
+    .submitListing-section .accountSection .verticalContent {
+        position: relative;
+        top: auto;
+        transform: none;
+    }
+
+    .submitListing-section .accountSection .upload-detail {
+        height: auto;
+    }
+
+
+    /** Responsive Tab Css **/
+    .listingTab {
+        position: relative;
+        height: 48px;
+    }
+
+    .responsive-tabs.nav-tabs {
+        position: absolute;
+        z-index: 10;
+        overflow: visible;
+    }
+
+        .responsive-tabs.nav-tabs .arrow-icon {
+            display: block;
+            position: absolute;
+            right: 20px;
+            font-size: 23px;
+            color: #003e79;
+            top: 10px;
+        }
+
+            .responsive-tabs.nav-tabs.open .arrow-icon i.fa.fa-angle-down, .responsive-tabs.nav-tabs .arrow-icon i.fa.fa-angle-up {
+                display: none;
+            }
+
+        .responsive-tabs.nav-tabs.open .arrow-icon i.fa.fa-angle-up {
+            display: block;
+        }
+
+        .responsive-tabs.nav-tabs > li {
+            display: none;
+            float: none;
+            text-align: center;
+        }
+
+            .responsive-tabs.nav-tabs > li:last-of-type > a {
+                margin-right: 0;
+            }
+
+            .responsive-tabs.nav-tabs > li > a {
+                text-align: left;
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+
+            .responsive-tabs.nav-tabs > li.active {
+                display: block;
+            }
+
+        .responsive-tabs.nav-tabs.open li:first-child a:after {
+            content: "";
+            height: 1px;
+            background-color: #dfdfdf;
+            position: absolute;
+            top: 98%;
+            left: 10px;
+            right: 10px;
+        }
+
+        .responsive-tabs.nav-tabs > li.active:before, .responsive-tabs.nav-tabs > li.active:after {
+            display: none;
+        }
+
+        .responsive-tabs.nav-tabs > li.active a {
+            cursor: pointer;
+        }
+
+        .responsive-tabs.nav-tabs.open > li {
+            display: block;
+        }
+
+            .responsive-tabs.nav-tabs.open > li a {
+                border-radius: 0;
+            }
+
+            .responsive-tabs.nav-tabs.open > li:first-of-type a {
+                border-radius: 2px 2px 0 0;
+            }
+
+            .responsive-tabs.nav-tabs.open > li:last-of-type a {
+                border-radius: 0 0 2px 2px;
+            }
+
+
+    /** My Listing Page css **/
+    .ListingNav ul li a i.fa {
+        margin-right: 0;
+    }
+
+    .ListingNav ul li a .hidden-sm {
+        display: none;
+    }
+
+    .MyListingContent {
+        margin-left: 97px;
+    }
+
+        .MyListingContent ul.nav-tabs {
+            position: relative;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs > li.active {
+            display: inline-block;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs .arrow-icon {
+            display: none;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs > li.active:before, .MyListingContent .responsive-tabs.nav-tabs > li.active:after {
+            display: block;
+        }
+
+        .MyListingContent ul.nav-tabs li {
+            padding: 0 6px;
+            display: inline-block;
+            min-width: auto;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs.open > li {
+            display: inline-block;
+        }
+
+        .MyListingContent .blogContent .Blogitem .blogInfo .desc span {
+            display: block;
+            border-right: 0px;
+            margin-bottom: 5px;
+        }
+
+
+    .bottomFooter .button .btn {
+        padding: 11px 10px;
+    }
+
+    .dasboardContainer .tabDasboard li h3 {
+        margin-top: -8px;
+    }
+
+    .dasboardContainer .tabDasboard li .countValue {
+        font-size: 30px;
+    }
+
+    .dasboardContainer .tabDasboard li .icon {
+        width: 44px;
+        height: 44px;
+        padding: 8px;
+    }
+
+    .dasboardContainer .Dashboardtable .tableHead .tableCol {
+        font-size: 14px;
+    }
+
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.reqCatCol {
+        width: 35%;
+        padding: 0 15px;
+        line-height: 18px;
+    }
+
+    .dasboardContainer .Dashboardtable .tableHead .tableCol.ServiceReqCol {
+        padding-right: 10px;
+    }
+
+    .dasboardContainer .inboxContent .detailMail .title {
+        margin-bottom: 45px;
+    }
+
+        .dasboardContainer .inboxContent .detailMail .title .actionBtn {
+            top: 52px;
+            width: 100%;
+            height: 45px;
+            text-align: right;
+        }
+
+    /** AdminDashboard Page css **/
+    .AdmindasboardContainer .Dashboardtable .tableHead .tableCol, .AdmindasboardContainer .Dashboardtable .providerbtnCol .btn {
+        font-size: 13px;
+    }
+
+    .AdmindasboardContainer .queueContent .serviceRequestContent .zipCol, .dasboardContainer .Dashboardtable .tableRow .tableCol.providerbtnCol, .AdmindasboardContainer .Dashboardtable .tableRow .tableCol.reqCatCol {
+        width: auto;
+    }
+
+    .AdmindasboardContainer .tabDasboard li {
+        width: 33.33%;
+    }
+}
+
+@media (max-width:900px) {
+    .bottomFooter .text h2 {
+        font-size: 26px;
+    }
+
+    .bottomFooter h3 {
+        font-size: 18px;
+    }
+
+    .bottomFooter .button {
+        padding: 27px 0 27px 10%;
+    }
+
+    .BlogContent .BlogDetail .imageSection {
+        width: 300px;
+    }
+
+    .pricingTable .column .button a {
+        font-size: 13px;
+    }
+
+    .AdminpackageContent .pricingTable .column .button .editLink, .AdminpackageContent .pricingTable .column .button .editLink input {
+        height: 31px;
+    }
+}
+
+@media (max-width:800px) {
+    #banner .bannerContent {
+        width: 96%;
+    }
+
+        #banner .bannerContent h2 {
+            font-size: 36px;
+        }
+}
+
+@media (max-width:825px) {
+    .AdminpackageContent .pricingTable > li {
+        width: 50%;
+    }
+}
+
+/** Mobile View Css**/
+@media (max-width:767px) {
+    .main-container {
+        margin-top: 20px;
+    }
+
+    .mobileSidebarSection .SearchLocation label {
+        display: none;
+    }
+
+    .mobileSidebarSection .SearchLocation {
+        margin-right: 45px;
+    }
+
+    nav.navigation .navbar-nav > li > a {
+        padding: 0px 0;
+    }
+
+    .navbar-default .navbar-collapse.in {
+        background-color: #fff;
+        box-shadow: 0 7px 8px rgba(0,0,0,0.2);
+        position: absolute;
+        width: 100%;
+        padding-bottom: 8px;
+        z-index: 9;
+    }
+
+    nav.navigation.navbar-default .navbar-toggle span {
+        display: none;
+    }
+
+    nav.navigation.navbar-default .navbar-nav {
+        margin: 0;
+    }
+
+    nav.navigation .navbar-nav > li {
+        padding: 10px 5px;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+        nav.navigation .navbar-nav > li:last-child {
+            border-bottom: 0px;
+        }
+
+    nav.navigation .navbar-button li {
+        width: 50%;
+        padding: 10px 5px;
+    }
+
+    .mobileSidebarSection {
+        height: 57px;
+    }
+
+    .mobileSidebar {
+        padding: 0;
+        margin-top: -19px;
+    }
+
+        .mobileSidebar .mobileSidebarSection {
+            border-radius: 0;
+        }
+
+            .mobileSidebar .mobileSidebarSection .input-group .form-control, .mobileSidebarSection .input-group .input-group-btn .btn {
+                height: 36px;
+            }
+
+    .mobileSidebarSection .filterBlock i.fa {
+        font-size: 24px;
+    }
+
+
+    .search-listing .search-listing-item {
+        max-width: 300px;
+        margin: auto auto 20px;
+        padding: 0px 0 20px;
+    }
+
+        .search-listing .search-listing-item .image {
+            margin: 0 0 10px;
+            width: 100%;
+            max-width: none;
+            height: 201px;
+        }
+
+            .search-listing .search-listing-item .image .img {
+                overflow: hidden;
+                height: 195px;
+            }
+
+                .search-listing .search-listing-item .image .img img {
+                    width: 100%;
+                }
+
+        .search-listing .search-listing-item .detail {
+            margin-left: 0;
+            float: left;
+            width: 100%;
+        }
+
+            .search-listing .search-listing-item .detail h2 {
+                font-size: 15px;
+                line-height: 23px;
+                padding: 0;
+            }
+
+            .search-listing .search-listing-item .detail .detailRow {
+                font-size: 14px;
+                padding: 2px 0 2px 23px;
+            }
+
+        .search-listing .search-listing-item .detailRow i.fa {
+            top: 5px;
+        }
+
+        .search-listing .search-listing-item .weekDay.open {
+            padding: 2px 6px 2px 26px;
+        }
+
+        .search-listing .search-listing-item .detailRow.text {
+            padding: 2px 0;
+        }
+
+        .search-listing .search-listing-item .viewBtn {
+            position: relative;
+        }
+
+        .search-listing .search-listing-item .rating {
+            position: absolute;
+            background-color: rgba(255,255,255,0.2);
+            width: 100%;
+            top: -43px;
+            height: 30px;
+            padding: 7px 10px;
+        }
+
+        .search-listing .search-listing-item .detailRow.text {
+            display: none;
+        }
+
+            .search-listing .search-listing-item .detailRow.text.xs-show {
+                display: block;
+                margin-bottom: 6px;
+            }
+
+    .pagination li {
+        margin: 0 6px;
+    }
+
+    .submitListing-section .accountSection .uploadBlock {
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+
+    .submitListing-section .hourSection .hoursList {
+        margin-left: 0;
+        position: relative;
+        padding-bottom: 1px;
+        margin-bottom: 19px;
+    }
+
+    .submitListing-section .serviceSubList {
+        padding-top: 20px;
+    }
+
+    .submitListing-section .hourSection label.day {
+        padding: 0px 0 20px 15px;
+    }
+
+    .default-form .form-group, .default-form .input-group {
+        margin-bottom: 20px;
+    }
+
+    .submitListing-section .serviceSubList > .row {
+        position: relative;
+    }
+
+        .submitListing-section .serviceSubList > .row:after, .submitListing-section .hourSection .hoursList:after {
+            content: "";
+            background-color: #e5e5e5;
+            height: 1px;
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            bottom: 0px;
+            display: block;
+        }
+
+    .submitListing-section .CustomRowList .CustomRowListItem {
+        margin-bottom: 20px;
+    }
+
+    .submitListing-section .hourSection .hoursList:after, .submitListing-section .servicesAreas .CustomRowList:after {
+        bottom: 0px;
+    }
+
+    .submitListing-section .tab-content .form-button .col-sm-6 {
+        text-align: center;
+        display: inline-block;
+    }
+
+    .search-listing .search-listing-item .detail .detailRow.weekDay {
+        padding: 2px 0 6px 23px;
+    }
+
+        .search-listing .search-listing-item .detail .detailRow.weekDay .dropdown-menu, .search-listing .search-listing-item .detail .detailRow.weekDay.open .dropdown-menu {
+            /* border: 0 none;
+    box-shadow: none;
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    position: relative;*/
+        }
+
+    .search-listing .search-listing-item .weekDay.open i.fa-clock-o {
+        left: 0;
+    }
+
+    .search-listing .search-listing-item .detail .detailRow.weekDay .dropdown-menu li {
+        float: left;
+        font-size: 14px;
+        padding: 2px 0;
+        width: 50%;
+    }
+
+    .search-listing .search-listing-item .weekDay.open {
+        background-color: #fff;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+        padding: 5px 5px 5px 26px;
+    }
+
+    /** View Listing Page css **/
+    .viewListingContent .detailSection .detailItem label {
+        width: auto;
+    }
+
+    .viewListingContent h1.title {
+        font-size: 18px;
+    }
+
+    .viewListingContent .imageSection {
+        margin-bottom: 16px;
+    }
+
+        .viewListingContent .imageSection ul.socialLink {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+    .viewListingContent h2.SectionTitle, .viewListingContent .rowSection {
+        margin-bottom: 20px;
+    }
+
+    .viewListingContent .hoursTable .hoursTableItem {
+        width: 33.33%;
+    }
+
+    .hoursTable .hoursTableItem .hoursTime {
+        font-size: 13px;
+    }
+
+    .hoursTable .hoursTableItem:nth-child(3n), .hoursTable .hoursTableItem:nth-child(8n) {
+        border-right: 0px;
+    }
+
+    .hoursTable .hoursTableItem:nth-child(4n), .hoursTable .hoursTableItem:nth-child(5n), .hoursTable .hoursTableItem:nth-child(8n) {
+        border-top: 1px solid #c9c9c9;
+    }
+
+    .viewListingContent .providerItem {
+        margin: auto auto 20px;
+        max-width: 279px;
+    }
+
+    .viewListingContent .TeamMember, .viewListingContent .serviceItem {
+        margin-bottom: 20px;
+    }
+
+    /** My Listing Page css **/
+    .ListingNav {
+        padding: 10px;
+        float: none;
+        max-width: 100%;
+        width: 100%;
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+
+        .ListingNav ul {
+            display: table;
+            width: 100%;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+            .ListingNav ul li {
+                margin-bottom: 0px;
+                display: table-cell;
+            }
+
+                .ListingNav ul li a {
+                    border-radius: 0;
+                    font-size: 20px;
+                    text-align: center;
+                    padding: 8px 8px;
+                }
+
+                    .ListingNav ul li a.dbicon i.fa-search {
+                        left: 0;
+                        bottom: 6px;
+                        margin: auto;
+                        right: -12px;
+                    }
+
+    .MyListingContent {
+        margin-left: 0;
+    }
+
+        .MyListingContent ul.nav-tabs {
+            position: absolute;
+            border-bottom: 1px solid #e5e5e5;
+            height: auto;
+        }
+
+            .MyListingContent ul.nav-tabs.open {
+                background-color: #ffffff;
+                height: auto;
+            }
+
+        .MyListingContent .responsive-tabs.nav-tabs > li.active {
+            display: block;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs .arrow-icon {
+            display: block;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs > li.active:before, .MyListingContent .responsive-tabs.nav-tabs > li.active:after {
+            display: block;
+        }
+
+        .MyListingContent ul.nav-tabs li {
+            padding: 0;
+            display: none;
+            min-width: auto;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs.open > li {
+            display: block;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs > li a {
+            padding-left: 15px;
+            padding-right: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .MyListingContent .responsive-tabs.nav-tabs.open li a:after {
+            content: "";
+            height: 1px;
+            background-color: #dfdfdf;
+            position: absolute;
+            top: 98%;
+            left: 10px;
+            right: 10px;
+        }
+
+        .MyListingContent .tab-content {
+            padding-top: 55px;
+        }
+
+
+        .MyListingContent .blogContent .Blogitem .Blogrow {
+            position: relative;
+            padding-right: 0;
+        }
+
+        .MyListingContent .blogContent .Blogitem .image {
+            position: relative;
+            float: left;
+            margin-bottom: 15px;
+            width: auto;
+        }
+
+        .MyListingContent .blogContent .Blogitem .col {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .MyListingContent .blogContent .Blogitem .blogDetail {
+            width: 100%;
+        }
+
+        .MyListingContent .blogContent .Blogitem .image .customCheckbox {
+            position: absolute;
+            bottom: -23px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .MyListingContent .blogContent .Blogitem .image .img {
+            margin-left: 0;
+        }
+
+        .MyListingContent .blogContent .Blogitem .blogInfo {
+            padding-left: 0;
+            width: auto;
+            padding-right: 51px;
+            margin-left: 75px;
+            display: block !important;
+        }
+
+        .MyListingContent .blogContent .Blogitem .blogIcons {
+            position: absolute;
+            top: 0px;
+            right: 0;
+            width: 48px;
+        }
+
+            .MyListingContent .blogContent .Blogitem .blogIcons ul li {
+                display: inline-block;
+                padding: 0 2px;
+            }
+
+                .MyListingContent .blogContent .Blogitem .blogIcons ul li a {
+                    font-size: 20px;
+                    color: #003e79;
+                }
+
+        .MyListingContent .photoItem {
+            max-width: 250px;
+            margin: auto auto 30px;
+        }
+
+
+    .bottomFooter .text h2 {
+        font-size: 23px;
+        margin-bottom: 10px;
+    }
+
+    .bottomFooter h3 {
+        font-size: 17px;
+    }
+
+    .bottomFooter .button:before {
+        display: none;
+    }
+
+    .bottomFooter .button {
+        padding: 20px 0 0;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+
+        .bottomFooter .button .btn {
+            padding: 11px 20px;
+        }
+
+    .whychooseSection .whychooseItem {
+        margin: 20px 0 20px;
+    }
+
+    .whychooseSection {
+        padding: 30px 0 30px;
+    }
+
+    #banner .bannerContent h2 {
+        font-size: 30px;
+    }
+
+    .whychooseSection h1.title {
+        margin-bottom: 0px;
+    }
+
+
+    nav.navigation {
+        height: 60px;
+    }
+
+    .navigation .navbar-brand > img {
+        max-width: 144px;
+    }
+
+    nav.navigation .navbar-brand.logo {
+        padding: 7px 15px 7px;
+    }
+
+    nav.navigation.navbar-default .navbar-toggle {
+        margin: 17px 15px 14px;
+    }
+
+    nav.navigation .navbar-header .search {
+        float: right;
+        padding: 18px 10px 19px;
+        position: relative;
+    }
+
+        nav.navigation .navbar-header .search .searchIcon {
+            color: #003e79;
+            font-size: 22px;
+            padding: 0;
+        }
+
+    nav.navigation .search .searchForm {
+        right: 5px;
+        top: 12px;
+    }
+
+    /** Blog Pos item Section css **/
+    .viewListingContent .posItem .detail h4 {
+        font-size: 14px;
+        line-height: normal;
+    }
+
+    .viewListingContent .posItem .detail .text {
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    .posItem .detail .desc {
+        font-size: 13px;
+    }
+
+        .posItem .detail .desc span {
+            padding: 0 6px 0 0;
+            margin-right: 6px;
+        }
+
+    .dasboardContainer .tabDasboard li h3 {
+        font-size: 16px;
+        margin-top: 4px;
+    }
+
+    .dasboardContainer .inboxContent .detailMail .title {
+        height: auto;
+        min-height: 46px;
+    }
+
+        .dasboardContainer .inboxContent .detailMail .title h3 {
+            font-size: 14px;
+            padding: 0 0px 0 0;
+        }
+
+            .dasboardContainer .inboxContent .detailMail .title h3 span.fav {
+                margin-left: 2px;
+            }
+
+        .dasboardContainer .inboxContent .detailMail .title .actionBtn a {
+            font-size: 12px;
+        }
+
+
+    .AdmindasboardContainer .queueContent .Dashboardtable .tableRow .tableCol, .AdmindasboardContainer #appointment .Dashboardtable .tableRow .tableCol {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .AdmindasboardContainer .queueContent .Dashboardtable .providerbtnCol .btn {
+        font-size: 12px;
+        padding: 5px 5px;
+    }
+
+    .AdmindasboardContainer .queueContent .serviceRequestContent .tagBtn {
+        display: inline-block;
+        font-size: 12px;
+    }
+
+    .AdmindasboardContainer .ManageContent .Dashboardtable.manageMarkupTable {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #dddddd;
+        padding-bottom: 20px;
+    }
+
+    .PackageContent .title h2 {
+        font-size: 18px;
+    }
+
+        .PackageContent .title h2:before, .PackageContent .title h2:after {
+            width: 25px;
+            margin: 9px 5px 9px 5px;
+        }
+}
+
+@media (max-width:640px) {
+    .viewListingcontactBtn .contact-modal .contactForm .form-group .customCheckbox li {
+        width: 100%;
+    }
+
+    .MyListingContent .tab-content .topActionBlock {
+        height: auto;
+        padding-bottom: 13px;
+    }
+
+        .MyListingContent .tab-content .topActionBlock:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+        }
+
+    .MyListingContent .photoModal .uploadImageItem {
+        width: 50%;
+    }
+
+    .customModal .modal-body {
+        padding: 20px 20px 20px;
+    }
+
+    #banner .bannerContent h2, #banner .bannerContent h3 {
+        font-size: 24px;
+    }
+
+    #banner .bannerContent {
+        padding: 24px 10px 30px;
+    }
+
+    footer {
+        height: auto;
+        line-height: normal;
+    }
+
+        footer .socialIcon {
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        footer .copyrightTxt {
+            text-align: center;
+            float: left;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+    .BlogContent .BlogDetail .imageSection {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .BlogContent .socialLink {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        float: left;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+        .BlogContent .socialLink ul {
+            float: left;
+        }
+
+    .dasboardContainer .tabDasboard {
+        padding: 0 9px;
+    }
+
+        .dasboardContainer .tabDasboard li {
+            padding: 0 5px;
+        }
+
+            .dasboardContainer .tabDasboard li h3 {
+                font-size: 14px;
+                margin-top: 4px;
+                font-weight: 500;
+                height: 30px;
+                text-align: left;
+            }
+
+            .dasboardContainer .tabDasboard li.LightBlue h3 {
+                padding-top: 8px;
+            }
+
+            .dasboardContainer .tabDasboard li.green h3 {
+                margin: 0 -4px;
+                padding: 10px 0 0;
+            }
+
+            .dasboardContainer .tabDasboard li .icon {
+                width: 30px;
+                height: 30px;
+                padding: 5px;
+            }
+
+            .dasboardContainer .tabDasboard li a {
+                padding: 8px;
+            }
+
+            .dasboardContainer .tabDasboard li .countValue {
+                font-size: 18px;
+                padding: 8px 0 0;
+            }
+
+            .dasboardContainer .tabDasboard li.active a:after {
+                margin-left: -10px;
+            }
+
+    .dasboardContainer .Dashboardtable, .dasboardContainer .Dashboardtable .tableRow {
+        display: block;
+    }
+
+        .dasboardContainer .Dashboardtable .tableHead {
+            display: none !important;
+        }
+
+        .dasboardContainer .Dashboardtable .tableRow {
+            display: block;
+            border-bottom: 1px solid #e5e5e5;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+            .dasboardContainer .Dashboardtable .tableRow:last-child {
+                border-bottom: 0px;
+                margin-bottom: 0px;
+                padding-bottom: 6px;
+            }
+
+            .dasboardContainer .Dashboardtable .tableRow .tableCol {
+                border-bottom: 0px solid #e5e5e5;
+                color: #666666;
+                font-size: 13px;
+                display: inline-block;
+                padding: 5px 0;
+                vertical-align: middle;
+            }
+
+                .dasboardContainer .Dashboardtable .tableRow .tableCol.dateCol {
+                    width: 100%;
+                }
+
+                .dasboardContainer .Dashboardtable .tableRow .tableCol.reqCatCol {
+                    width: 100%;
+                    padding: 6px 0 8px;
+                    line-height: 18px;
+                }
+
+                .dasboardContainer .Dashboardtable .tableRow .tableCol.StatusCol {
+                    margin-right: 20px;
+                }
+
+                .dasboardContainer .Dashboardtable .tableRow .tableCol.actionCol {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    padding: 0;
+                }
+
+    .dasboardContainer .tab-content .serviceRequestContent .ActionBtn li {
+        margin-right: 10px;
+    }
+
+        .dasboardContainer .tab-content .serviceRequestContent .ActionBtn li i {
+            font-size: 20px;
+        }
+
+    .dasboardContainer .tab-content h2.title {
+        margin-bottom: 20px;
+    }
+
+    .dasboardContainer .Dashboardtable .tableCol .lg-hidden {
+        display: inline-block;
+        margin-right: 5px;
+        color: #000000;
+    }
+
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.providerCol,
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.appDateCol,
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.PhoneCol,
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.BestTimeCol {
+        width: 100%;
+        display: block;
+        padding: 6px 0;
+        font-size: 14px;
+    }
+
+    .dasboardContainer #appointment .Dashboardtable .tableRow .tableCol.StatusCol {
+        margin-right: 0;
+        position: absolute;
+        right: 0;
+        top: 28px;
+    }
+
+    .dasboardContainer .Dashboardtable .tableRow .tableCol.PhoneCol i.fa {
+        color: #003e79;
+    }
+
+
+    .dasboardContainer .inboxContent {
+        overflow: hidden;
+    }
+
+        .dasboardContainer .inboxContent .contentScroll {
+            padding-left: 5px;
+        }
+
+        .dasboardContainer .inboxContent .hamburgerIcon {
+            float: left;
+            font-size: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .dasboardContainer .inboxContent .Listmail .hamburgerIcon {
+            display: none;
+        }
+
+        .dasboardContainer .inboxContent .detailMail {
+            width: 100%;
+        }
+
+            .dasboardContainer .inboxContent .detailMail .title {
+                padding: 13px 10px;
+            }
+
+    .AdmindasboardContainer .tabDasboard li {
+        width: 33.33%;
+        margin-bottom: 20px;
+    }
+
+        .AdmindasboardContainer .tabDasboard li h3 span {
+            display: block;
+            font-size: 12px;
+        }
+
+        .AdmindasboardContainer .tabDasboard li h3 {
+            line-height: 17px;
+        }
+
+        .AdmindasboardContainer .tabDasboard li.green h3 {
+            margin: 4px -4px 0px;
+            padding: 10px 0 0;
+        }
+
+    .AdmindasboardContainer #appointment .Dashboardtable .tableRow .tableCol {
+        font-size: 13px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .AdmindasboardContainer .Dashboardtable .tableCol .lg-hidden {
+        font-weight: 600;
+    }
+
+    .AdmindasboardContainer #appointment .Dashboardtable .tableRow .tableCol.StatusCol {
+        position: relative;
+        top: 0;
+    }
+
+    .AdmindasboardContainer .queueContent .Dashboardtable .tableRow .tableCol, .AdmindasboardContainer .analyticsContent .Dashboardtable .tableRow .tableCol, .AdmindasboardContainer .ManageContent .Dashboardtable .tableRow .tableCol {
+        display: block;
+        line-height: normal;
+        font-size: 13px;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        text-align: left;
+    }
+
+    .AdmindasboardContainer .queueContent .Dashboardtable .providerbtnCol .btn, .AdmindasboardContainer .queueContent .serviceRequestContent .tagBtn {
+        font-size: 13px;
+        padding: 5px 8px;
+    }
+
+    .ManageContent .serviceRequestContent h3.title {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width:500px) {
+    #banner {
+        height: 306px;
+    }
+
+        #banner .bannerContent {
+            bottom: 12px;
+            padding: 9px 10px 15px;
+        }
+
+            #banner .bannerContent h2 {
+                font-size: 20px;
+                margin-bottom: 8px;
+                line-height: normal;
+            }
+
+            #banner .bannerContent h3 {
+                font-size: 18px;
+                margin-bottom: 6px;
+            }
+
+            #banner .bannerContent .bannerForm .form-group {
+                margin-bottom: 6px;
+            }
+
+            #banner .bannerContent .bannerForm .form-button .btn {
+                height: 32px;
+                border-radius: 3px;
+                color: #fff;
+                font-size: 13px;
+                font-weight: 700;
+                padding: 7px 5px;
+                text-transform: uppercase;
+                margin: 0 0px;
+            }
+
+                #banner .bannerContent .bannerForm .form-button .btn img {
+                    vertical-align: middle;
+                    margin-right: 3px;
+                    height: 18px;
+                    margin-top: -2px;
+                }
+
+            #banner .bannerContent .bannerForm .form-group input {
+                height: 41px;
+                padding: 6px 15px;
+            }
+
+    .viewListingContent h1.title {
+        font-size: 15px;
+        letter-spacing: -0.2px;
+        margin-right: -10px;
+    }
+
+    .AdminpackageContent .pricingTable > li {
+        width: 100%;
+    }
+}
+
+@media (max-width:480px) {
+    .col-xxs-12 {
+        width: 100%;
+    }
+
+    .submitListing-section .tab-content .form-button {
+        margin-bottom: 0;
+    }
+
+        .submitListing-section .tab-content .form-button .col-sm-6 {
+            text-align: center;
+            display: inline-block;
+            padding: 0 5px;
+            margin-bottom: 20px;
+        }
+
+    footer {
+        font-size: 11px;
+    }
+
+    .MyListingContent .photoModal .uploadImageItem {
+        width: 100%;
+        max-width: 229px;
+        margin: auto auto 30px;
+    }
+
+    nav.navigation {
+        z-index: 1;
+    }
+
+        nav.navigation .navbar-header .search {
+            position: static;
+        }
+
+            nav.navigation .navbar-header .search.active {
+                background-color: #003e79;
+            }
+
+                nav.navigation .navbar-header .search.active a {
+                    color: #fff;
+                }
+
+        nav.navigation .search .searchForm {
+            right: 0;
+            top: 59px;
+            width: 100%;
+            background-color: #003e79;
+            border: 0;
+            padding: 5px 15px;
+            height: 45px;
+        }
+
+            nav.navigation .search .searchForm form {
+                background-color: #fff;
+                position: relative;
+            }
+
+            nav.navigation .search .searchForm .searchInput {
+                width: 100%;
+            }
+}
+
+@media (max-width:420px) {
+    .viewListingContent .serviceItem {
+        width: 100%;
+    }
+
+    .MyListingContent .photoItem {
+        max-width: 250px;
+        margin: auto auto 30px;
+    }
+
+    .whychooseSection h1.title {
+        font-size: 27px;
+        margin-bottom: 0px;
+    }
+
+    .dasboardContainer .tabDasboard li.green h3 {
+        margin: 4px -6px 0;
+    }
+
+    .dasboardContainer .inboxContent .detailMail .title h3 {
+        font-size: 13px;
+    }
+}
+
+@media (max-width:380px) {
+    .dasboardContainer .inboxContent .detailMail .title .actionBtn {
+        padding-left: 24px;
+        height: 72px;
+    }
+
+    .dasboardContainer .inboxContent .detailMail .title {
+        margin-bottom: 79px;
+    }
+
+        .dasboardContainer .inboxContent .detailMail .title .actionBtn a {
+            margin-bottom: 5px;
+        }
+}
+
+@media (max-width:360px) {
+    .dasboardContainer .inboxContent .Listmail {
+        width: 100%;
+    }
+
+        .dasboardContainer .inboxContent .Listmail .hamburgerIcon {
+            display: inline-block;
+            position: absolute;
+            float: right;
+            right: 4px;
+            top: 12px;
+        }
+
+        .dasboardContainer .inboxContent .Listmail .search form {
+            margin-right: 34px;
+        }
+
+    .dasboardContainer .inboxContent .detailMail .hamburgerIcon.closeIcon {
+        display: none;
+    }
+}
